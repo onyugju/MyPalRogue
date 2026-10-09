@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 89cdc4ba9afc1c745ba69b02c8282eb3
+guid: 3d0c80e3eed6c574a8696d69a9dd9e3d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3148083582085705974
-    second: 029_Foxparks_0
+      213: -4737555809549618637
+    second: 029_Foxparks_018_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -115,13 +115,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 029_Foxparks_0
+      name: 029_Foxparks_018_0
       rect:
         serializedVersion: 2
-        x: 54
-        y: 34
-        width: 455
-        height: 525
+        x: 38
+        y: 37
+        width: 720
+        height: 884
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -130,8 +130,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a0fca8e49a2cf44d0800000000000000
-      internalID: -3148083582085705974
+      spriteID: 332f4348712d04eb0800000000000000
+      internalID: -4737555809549618637
       vertices: []
       indices: 
       edges: []
@@ -140,7 +140,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -150,7 +150,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      029_Foxparks_0: -3148083582085705974
+      029_Foxparks_018_0: -4737555809549618637
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
