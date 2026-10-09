@@ -48,11 +48,9 @@ namespace PalRogue
         [Header("스킬 / 성장")]
         public List<LearnsetEntry> learnset = new();
 
-        [Header("포획 / 진화")]
+        [Header("포획")]
         [Tooltip("false면 팰 스피어로 포획할 수 없다 (제로버스 등 보스)")]
         public bool canBeCaught = true;
         [Range(1, 255)] public int catchRate = 100;
-        public PalData evolvesInto;
-        public int evolveLevel;
     }
 }

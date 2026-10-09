@@ -28,7 +28,14 @@ MonoBehaviour:
   baseSpAttack: 91
   baseSpDefense: 56
   baseSpeed: 56
-  learnset: []
+  learnset:
+  - level: 1
+    skill: {fileID: 11400000, guid: a968e45aabe8c3b4b87edb40e815aa1f, type: 2}
+  - level: 1
+    skill: {fileID: 11400000, guid: 09b9207bc0d6237459e8521512cff787, type: 2}
+  - level: 10
+    skill: {fileID: 11400000, guid: 8142907b58dd21e418815f56a9ca4747, type: 2}
+  - level: 20
+    skill: {fileID: 11400000, guid: fd43ff69cbf5b3543b31346a44d5ae62, type: 2}
+  canBeCaught: 1
   catchRate: 120
-  evolvesInto: {fileID: 0}
-  evolveLevel: 0
