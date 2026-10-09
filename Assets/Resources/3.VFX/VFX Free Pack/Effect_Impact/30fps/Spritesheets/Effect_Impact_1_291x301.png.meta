@@ -1,0 +1,2160 @@
+fileFormatVersion: 2
+guid: c78d12b0147ebd44abcef91bba2edb90
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 253110922299354504
+    second: Effect_Impact_1_291x301_0
+  - first:
+      213: -2599911614803752944
+    second: Effect_Impact_1_291x301_1
+  - first:
+      213: -1874329009368652297
+    second: Effect_Impact_1_291x301_2
+  - first:
+      213: -7358891555617422307
+    second: Effect_Impact_1_291x301_3
+  - first:
+      213: -6312631883870618796
+    second: Effect_Impact_1_291x301_4
+  - first:
+      213: -6937681087554295578
+    second: Effect_Impact_1_291x301_5
+  - first:
+      213: 1098415259569831150
+    second: Effect_Impact_1_291x301_6
+  - first:
+      213: -1824972340066754836
+    second: Effect_Impact_1_291x301_7
+  - first:
+      213: 3463551526074854222
+    second: Effect_Impact_1_291x301_8
+  - first:
+      213: 128568617418879604
+    second: Effect_Impact_1_291x301_9
+  - first:
+      213: -3314799045297332836
+    second: Effect_Impact_1_291x301_10
+  - first:
+      213: -6832475021732933860
+    second: Effect_Impact_1_291x301_11
+  - first:
+      213: -9178750244890120107
+    second: Effect_Impact_1_291x301_12
+  - first:
+      213: 2411764665452241745
+    second: Effect_Impact_1_291x301_13
+  - first:
+      213: 6005453522036953502
+    second: Effect_Impact_1_291x301_14
+  - first:
+      213: -892827341256592334
+    second: Effect_Impact_1_291x301_15
+  - first:
+      213: -7247647562376555962
+    second: Effect_Impact_1_291x301_16
+  - first:
+      213: 7481913952223337819
+    second: Effect_Impact_1_291x301_17
+  - first:
+      213: -2621653906735777381
+    second: Effect_Impact_1_291x301_18
+  - first:
+      213: 2713982201913383547
+    second: Effect_Impact_1_291x301_19
+  - first:
+      213: -2622687401151179373
+    second: Effect_Impact_1_291x301_20
+  - first:
+      213: 748304061285401317
+    second: Effect_Impact_1_291x301_21
+  - first:
+      213: -3023561992354361168
+    second: Effect_Impact_1_291x301_22
+  - first:
+      213: 1145985396811601265
+    second: Effect_Impact_1_291x301_23
+  - first:
+      213: -4495851483477727053
+    second: Effect_Impact_1_291x301_24
+  - first:
+      213: 5131481609775217783
+    second: Effect_Impact_1_291x301_25
+  - first:
+      213: -2204903586752074187
+    second: Effect_Impact_1_291x301_26
+  - first:
+      213: 6413651103290320862
+    second: Effect_Impact_1_291x301_27
+  - first:
+      213: 2999982545879532843
+    second: Effect_Impact_1_291x301_28
+  - first:
+      213: 8994468171687521287
+    second: Effect_Impact_1_291x301_29
+  - first:
+      213: 5416049087587163277
+    second: Effect_Impact_1_291x301_30
+  - first:
+      213: -7916857294177663881
+    second: Effect_Impact_1_291x301_31
+  - first:
+      213: 5869185397345372367
+    second: Effect_Impact_1_291x301_32
+  - first:
+      213: -3682733465975570398
+    second: Effect_Impact_1_291x301_33
+  - first:
+      213: 5176442238319158695
+    second: Effect_Impact_1_291x301_34
+  - first:
+      213: -2521076977207414692
+    second: Effect_Impact_1_291x301_35
+  - first:
+      213: 6750442718839085692
+    second: Effect_Impact_1_291x301_36
+  - first:
+      213: 7038644948197409691
+    second: Effect_Impact_1_291x301_37
+  - first:
+      213: 8010590153024204993
+    second: Effect_Impact_1_291x301_38
+  - first:
+      213: -712336003188175257
+    second: Effect_Impact_1_291x301_39
+  - first:
+      213: 4404950474147666177
+    second: Effect_Impact_1_291x301_40
+  - first:
+      213: -5842980645400888088
+    second: Effect_Impact_1_291x301_41
+  - first:
+      213: 6163211326469392972
+    second: Effect_Impact_1_291x301_42
+  - first:
+      213: 1119006399030618452
+    second: Effect_Impact_1_291x301_43
+  - first:
+      213: -2772811358432701913
+    second: Effect_Impact_1_291x301_44
+  - first:
+      213: 2434372849475411837
+    second: Effect_Impact_1_291x301_45
+  - first:
+      213: 1792239066629766507
+    second: Effect_Impact_1_291x301_46
+  - first:
+      213: -1510977596023016141
+    second: Effect_Impact_1_291x301_47
+  - first:
+      213: -8336822095829410328
+    second: Effect_Impact_1_291x301_48
+  - first:
+      213: 4870264797705521276
+    second: Effect_Impact_1_291x301_49
+  - first:
+      213: 3941760775082495006
+    second: Effect_Impact_1_291x301_50
+  - first:
+      213: -4044161116725310137
+    second: Effect_Impact_1_291x301_51
+  - first:
+      213: 2601414844844936949
+    second: Effect_Impact_1_291x301_52
+  - first:
+      213: -287118726138154949
+    second: Effect_Impact_1_291x301_53
+  - first:
+      213: -212268940154533063
+    second: Effect_Impact_1_291x301_54
+  - first:
+      213: -4005477584086154176
+    second: Effect_Impact_1_291x301_55
+  - first:
+      213: 6772591511503792683
+    second: Effect_Impact_1_291x301_56
+  - first:
+      213: 3735998707917925090
+    second: Effect_Impact_1_291x301_57
+  - first:
+      213: 8430527720487130816
+    second: Effect_Impact_1_291x301_58
+  - first:
+      213: 8355610237423798120
+    second: Effect_Impact_1_291x301_59
+  - first:
+      213: -491896985589143492
+    second: Effect_Impact_1_291x301_60
+  - first:
+      213: -3100493063731695239
+    second: Effect_Impact_1_291x301_61
+  - first:
+      213: 5669924744884525895
+    second: Effect_Impact_1_291x301_62
+  - first:
+      213: -4846572403565884595
+    second: Effect_Impact_1_291x301_63
+  - first:
+      213: 7065831093834326276
+    second: Effect_Impact_1_291x301_64
+  - first:
+      213: -789782192569925427
+    second: Effect_Impact_1_291x301_65
+  - first:
+      213: 4903751967459552312
+    second: Effect_Impact_1_291x301_66
+  - first:
+      213: -2846005031074557390
+    second: Effect_Impact_1_291x301_67
+  - first:
+      213: -9090065241293450153
+    second: Effect_Impact_1_291x301_68
+  - first:
+      213: 4106063710819771014
+    second: Effect_Impact_1_291x301_69
+  - first:
+      213: 1086975503953109500
+    second: Effect_Impact_1_291x301_70
+  - first:
+      213: 4476499293820652900
+    second: Effect_Impact_1_291x301_71
+  - first:
+      213: 3396292558668481235
+    second: Effect_Impact_1_291x301_72
+  - first:
+      213: 4836373420228290034
+    second: Effect_Impact_1_291x301_73
+  - first:
+      213: 1895654795789061702
+    second: Effect_Impact_1_291x301_74
+  - first:
+      213: 8955904374265977795
+    second: Effect_Impact_1_291x301_75
+  - first:
+      213: -8276067639755150757
+    second: Effect_Impact_1_291x301_76
+  - first:
+      213: 2963175952020665031
+    second: Effect_Impact_1_291x301_77
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_0
+      rect:
+        serializedVersion: 2
+        x: 356
+        y: 1238
+        width: 192
+        height: 192
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 88dac64fa0b338300800000000000000
+      internalID: 253110922299354504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_1
+      rect:
+        serializedVersion: 2
+        x: 632
+        y: 1289
+        width: 198
+        height: 148
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 018c53849224bebd0800000000000000
+      internalID: -2599911614803752944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_2
+      rect:
+        serializedVersion: 2
+        x: 910
+        y: 1290
+        width: 217
+        height: 161
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f52f5452bb0df5e0800000000000000
+      internalID: -1874329009368652297
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_3
+      rect:
+        serializedVersion: 2
+        x: 1193
+        y: 1286
+        width: 230
+        height: 178
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d144dc68e17ffd990800000000000000
+      internalID: -7358891555617422307
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_4
+      rect:
+        serializedVersion: 2
+        x: 1541
+        y: 1293
+        width: 109
+        height: 111
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 45b36145fb60568a0800000000000000
+      internalID: -6312631883870618796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_5
+      rect:
+        serializedVersion: 2
+        x: 1571
+        y: 1361
+        width: 36
+        height: 99
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e8616beec768bf90800000000000000
+      internalID: -6937681087554295578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_6
+      rect:
+        serializedVersion: 2
+        x: 1624
+        y: 1344
+        width: 94
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eec3782ebda5e3f00800000000000000
+      internalID: 1098415259569831150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_7
+      rect:
+        serializedVersion: 2
+        x: 1644
+        y: 1384
+        width: 54
+        height: 91
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cee586963556ca6e0800000000000000
+      internalID: -1824972340066754836
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_8
+      rect:
+        serializedVersion: 2
+        x: 1513
+        y: 1337
+        width: 87
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4b24f423c1011030800000000000000
+      internalID: 3463551526074854222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_9
+      rect:
+        serializedVersion: 2
+        x: 1190
+        y: 1324
+        width: 114
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 472f382f974c8c100800000000000000
+      internalID: 128568617418879604
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_10
+      rect:
+        serializedVersion: 2
+        x: 1472
+        y: 1323
+        width: 104
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9d9f33b4d77ff1d0800000000000000
+      internalID: -3314799045297332836
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_11
+      rect:
+        serializedVersion: 2
+        x: 1635
+        y: 1300
+        width: 84
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1f01e0fa2c2e21a0800000000000000
+      internalID: -6832475021732933860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_12
+      rect:
+        serializedVersion: 2
+        x: 1475
+        y: 1282
+        width: 98
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5507b4b88478e9080800000000000000
+      internalID: -9178750244890120107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_13
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 1101
+        width: 49
+        height: 82
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 153ae166f2f487120800000000000000
+      internalID: 2411764665452241745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_14
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 1088
+        width: 30
+        height: 78
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e919128f828a75350800000000000000
+      internalID: 6005453522036953502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_15
+      rect:
+        serializedVersion: 2
+        x: 500
+        y: 1118
+        width: 43
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 234f4a6734a0c93f0800000000000000
+      internalID: -892827341256592334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_16
+      rect:
+        serializedVersion: 2
+        x: 695
+        y: 1098
+        width: 26
+        height: 69
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 642d15311fe2b6b90800000000000000
+      internalID: -7247647562376555962
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_17
+      rect:
+        serializedVersion: 2
+        x: 799
+        y: 1132
+        width: 38
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b5d9f42491915d760800000000000000
+      internalID: 7481913952223337819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_18
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 1107
+        width: 22
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b99bff479a30e9bd0800000000000000
+      internalID: -2621653906735777381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_19
+      rect:
+        serializedVersion: 2
+        x: 1097
+        y: 1145
+        width: 33
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b7a97cfee600aa520800000000000000
+      internalID: 2713982201913383547
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_20
+      rect:
+        serializedVersion: 2
+        x: 1395
+        y: 1156
+        width: 27
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 395dd7944b75a9bd0800000000000000
+      internalID: -2622687401151179373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_21
+      rect:
+        serializedVersion: 2
+        x: 1691
+        y: 1165
+        width: 22
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e206ec3492826a00800000000000000
+      internalID: 748304061285401317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_22
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 1075
+        width: 34
+        height: 89
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b0985133662a06d0800000000000000
+      internalID: -3023561992354361168
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_23
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 1056
+        width: 87
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1759dbe85ab57ef00800000000000000
+      internalID: 1145985396811601265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_24
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 1068
+        width: 79
+        height: 75
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b8a56455e68b91c0800000000000000
+      internalID: -4495851483477727053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_25
+      rect:
+        serializedVersion: 2
+        x: 787
+        y: 1080
+        width: 69
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 77cf91a165fa63740800000000000000
+      internalID: 5131481609775217783
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_26
+      rect:
+        serializedVersion: 2
+        x: 1089
+        y: 1091
+        width: 58
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53e68a3bedb9661e0800000000000000
+      internalID: -2204903586752074187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_27
+      rect:
+        serializedVersion: 2
+        x: 1279
+        y: 1113
+        width: 19
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed769ec82bdd10950800000000000000
+      internalID: 6413651103290320862
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_28
+      rect:
+        serializedVersion: 2
+        x: 1392
+        y: 1104
+        width: 44
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b25858b1b3412a920800000000000000
+      internalID: 2999982545879532843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_29
+      rect:
+        serializedVersion: 2
+        x: 1572
+        y: 1118
+        width: 15
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 70cedfcb525c2dc70800000000000000
+      internalID: 8994468171687521287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_30
+      rect:
+        serializedVersion: 2
+        x: 1607
+        y: 992
+        width: 134
+        height: 149
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d8c16bf13fba92b40800000000000000
+      internalID: 5416049087587163277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_31
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 1069
+        width: 14
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 774841b7c3ca12290800000000000000
+      internalID: -7916857294177663881
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_32
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 1034
+        width: 35
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc84ea9c509837150800000000000000
+      internalID: 5869185397345372367
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_33
+      rect:
+        serializedVersion: 2
+        x: 442
+        y: 1074
+        width: 14
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2204516bc6d44ecc0800000000000000
+      internalID: -3682733465975570398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_34
+      rect:
+        serializedVersion: 2
+        x: 455
+        y: 1044
+        width: 29
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a5675f2aca66d740800000000000000
+      internalID: 5176442238319158695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_35
+      rect:
+        serializedVersion: 2
+        x: 733
+        y: 1078
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c50f222b8d5530dd0800000000000000
+      internalID: -2521076977207414692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_36
+      rect:
+        serializedVersion: 2
+        x: 740
+        y: 1080
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7a960d23e36ead50800000000000000
+      internalID: 6750442718839085692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_37
+      rect:
+        serializedVersion: 2
+        x: 751
+        y: 1054
+        width: 23
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b93876db94a4ea160800000000000000
+      internalID: 7038644948197409691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_38
+      rect:
+        serializedVersion: 2
+        x: 997
+        y: 1064
+        width: 67
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c0ff306d455b2f60800000000000000
+      internalID: 8010590153024204993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_39
+      rect:
+        serializedVersion: 2
+        x: 1287
+        y: 1065
+        width: 66
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76e4f31ed264d16f0800000000000000
+      internalID: -712336003188175257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_40
+      rect:
+        serializedVersion: 2
+        x: 750
+        y: 1071
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10992c82e17812d30800000000000000
+      internalID: 4404950474147666177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_41
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 1055
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ecb5697f0099eea0800000000000000
+      internalID: -5842980645400888088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_42
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 1058
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4a4fdd1c00288550800000000000000
+      internalID: 6163211326469392972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_43
+      rect:
+        serializedVersion: 2
+        x: 629
+        y: 1048
+        width: 47
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 459eb932462878f00800000000000000
+      internalID: 1119006399030618452
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_44
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 1061
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 722537fa2cef489d0800000000000000
+      internalID: -2772811358432701913
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_45
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 1052
+        width: 33
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d7f56df6531a8c120800000000000000
+      internalID: 2434372849475411837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_46
+      rect:
+        serializedVersion: 2
+        x: 1206
+        y: 1056
+        width: 18
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6d7b077fef4fd810800000000000000
+      internalID: 1792239066629766507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_47
+      rect:
+        serializedVersion: 2
+        x: 1459
+        y: 976
+        width: 90
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3357975c1ede70be0800000000000000
+      internalID: -1510977596023016141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_48
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 1041
+        width: 73
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8edd5766978ad4c80800000000000000
+      internalID: -8336822095829410328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_49
+      rect:
+        serializedVersion: 2
+        x: 341
+        y: 1045
+        width: 60
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c78c35d9708a69340800000000000000
+      internalID: 4870264797705521276
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_50
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 1022
+        width: 93
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1c4c546a82f3b630800000000000000
+      internalID: 3941760775082495006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_51
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 992
+        width: 66
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74d042724e040e7c0800000000000000
+      internalID: -4044161116725310137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_52
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 998
+        width: 72
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5fe096cb4051a1420800000000000000
+      internalID: 2601414844844936949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_53
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 1022
+        width: 83
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b303c203a03f30cf0800000000000000
+      internalID: -287118726138154949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_54
+      rect:
+        serializedVersion: 2
+        x: 377
+        y: 992
+        width: 54
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93b8d39068edd0df0800000000000000
+      internalID: -212268940154533063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_55
+      rect:
+        serializedVersion: 2
+        x: 584
+        y: 1022
+        width: 73
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04441c4fb5fa968c0800000000000000
+      internalID: -4005477584086154176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_56
+      rect:
+        serializedVersion: 2
+        x: 874
+        y: 1022
+        width: 62
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b2a6204d8141dfd50800000000000000
+      internalID: 6772591511503792683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_57
+      rect:
+        serializedVersion: 2
+        x: 1167
+        y: 1022
+        width: 51
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ea24cad70fe8d330800000000000000
+      internalID: 3735998707917925090
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_58
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 979
+        width: 89
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c618b08b404ff470800000000000000
+      internalID: 8430527720487130816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_59
+      rect:
+        serializedVersion: 2
+        x: 298
+        y: 977
+        width: 79
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8674343bd3715f370800000000000000
+      internalID: 8355610237423798120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_60
+      rect:
+        serializedVersion: 2
+        x: 506
+        y: 996
+        width: 58
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c38afdb3c4e6c29f0800000000000000
+      internalID: -491896985589143492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_61
+      rect:
+        serializedVersion: 2
+        x: 585
+        y: 976
+        width: 69
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 971b5b35cf5d8f4d0800000000000000
+      internalID: -3100493063731695239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_62
+      rect:
+        serializedVersion: 2
+        x: 669
+        y: 993
+        width: 41
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74b1a02d38e9fae40800000000000000
+      internalID: 5669924744884525895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_63
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 832
+        width: 229
+        height: 166
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4b8e33c3148dbcb0800000000000000
+      internalID: -4846572403565884595
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_64
+      rect:
+        serializedVersion: 2
+        x: 814
+        y: 995
+        width: 45
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 401a7e681ffde0260800000000000000
+      internalID: 7065831093834326276
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_65
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 993
+        width: 30
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc0c0f1c7412a05f0800000000000000
+      internalID: -789782192569925427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_66
+      rect:
+        serializedVersion: 2
+        x: 1122
+        y: 994
+        width: 32
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83cac07ee60ad0440800000000000000
+      internalID: 4903751967459552312
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_67
+      rect:
+        serializedVersion: 2
+        x: 1253
+        y: 994
+        width: 17
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23293d5c085f088d0800000000000000
+      internalID: -2846005031074557390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_68
+      rect:
+        serializedVersion: 2
+        x: 1429
+        y: 993
+        width: 19
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 754149303d999d180800000000000000
+      internalID: -9090065241293450153
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_69
+      rect:
+        serializedVersion: 2
+        x: 1166
+        y: 975
+        width: 48
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 682e88ca03babf830800000000000000
+      internalID: 4106063710819771014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_70
+      rect:
+        serializedVersion: 2
+        x: 241
+        y: 873
+        width: 16
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf12da83676b51f00800000000000000
+      internalID: 1086975503953109500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_71
+      rect:
+        serializedVersion: 2
+        x: 535
+        y: 878
+        width: 11
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 46d8775e368bf1e30800000000000000
+      internalID: 4476499293820652900
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_72
+      rect:
+        serializedVersion: 2
+        x: 119
+        y: 823
+        width: 11
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d2ccb8761e022f20800000000000000
+      internalID: 3396292558668481235
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_73
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 815
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f529d160004e1340800000000000000
+      internalID: 4836373420228290034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_74
+      rect:
+        serializedVersion: 2
+        x: 411
+        y: 829
+        width: 8
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 64ec5cf3ef7be4a10800000000000000
+      internalID: 1895654795789061702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_75
+      rect:
+        serializedVersion: 2
+        x: 539
+        y: 681
+        width: 74
+        height: 151
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3cb9d76f393c94c70800000000000000
+      internalID: 8955904374265977795
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_76
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 677
+        width: 31
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b5ae9438450852d80800000000000000
+      internalID: -8276067639755150757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Impact_1_291x301_77
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 679
+        width: 21
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c2fb2b24d05f1920800000000000000
+      internalID: 2963175952020665031
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Effect_Impact_1_291x301_0: 253110922299354504
+      Effect_Impact_1_291x301_1: -2599911614803752944
+      Effect_Impact_1_291x301_10: -3314799045297332836
+      Effect_Impact_1_291x301_11: -6832475021732933860
+      Effect_Impact_1_291x301_12: -9178750244890120107
+      Effect_Impact_1_291x301_13: 2411764665452241745
+      Effect_Impact_1_291x301_14: 6005453522036953502
+      Effect_Impact_1_291x301_15: -892827341256592334
+      Effect_Impact_1_291x301_16: -7247647562376555962
+      Effect_Impact_1_291x301_17: 7481913952223337819
+      Effect_Impact_1_291x301_18: -2621653906735777381
+      Effect_Impact_1_291x301_19: 2713982201913383547
+      Effect_Impact_1_291x301_2: -1874329009368652297
+      Effect_Impact_1_291x301_20: -2622687401151179373
+      Effect_Impact_1_291x301_21: 748304061285401317
+      Effect_Impact_1_291x301_22: -3023561992354361168
+      Effect_Impact_1_291x301_23: 1145985396811601265
+      Effect_Impact_1_291x301_24: -4495851483477727053
+      Effect_Impact_1_291x301_25: 5131481609775217783
+      Effect_Impact_1_291x301_26: -2204903586752074187
+      Effect_Impact_1_291x301_27: 6413651103290320862
+      Effect_Impact_1_291x301_28: 2999982545879532843
+      Effect_Impact_1_291x301_29: 8994468171687521287
+      Effect_Impact_1_291x301_3: -7358891555617422307
+      Effect_Impact_1_291x301_30: 5416049087587163277
+      Effect_Impact_1_291x301_31: -7916857294177663881
+      Effect_Impact_1_291x301_32: 5869185397345372367
+      Effect_Impact_1_291x301_33: -3682733465975570398
+      Effect_Impact_1_291x301_34: 5176442238319158695
+      Effect_Impact_1_291x301_35: -2521076977207414692
+      Effect_Impact_1_291x301_36: 6750442718839085692
+      Effect_Impact_1_291x301_37: 7038644948197409691
+      Effect_Impact_1_291x301_38: 8010590153024204993
+      Effect_Impact_1_291x301_39: -712336003188175257
+      Effect_Impact_1_291x301_4: -6312631883870618796
+      Effect_Impact_1_291x301_40: 4404950474147666177
+      Effect_Impact_1_291x301_41: -5842980645400888088
+      Effect_Impact_1_291x301_42: 6163211326469392972
+      Effect_Impact_1_291x301_43: 1119006399030618452
+      Effect_Impact_1_291x301_44: -2772811358432701913
+      Effect_Impact_1_291x301_45: 2434372849475411837
+      Effect_Impact_1_291x301_46: 1792239066629766507
+      Effect_Impact_1_291x301_47: -1510977596023016141
+      Effect_Impact_1_291x301_48: -8336822095829410328
+      Effect_Impact_1_291x301_49: 4870264797705521276
+      Effect_Impact_1_291x301_5: -6937681087554295578
+      Effect_Impact_1_291x301_50: 3941760775082495006
+      Effect_Impact_1_291x301_51: -4044161116725310137
+      Effect_Impact_1_291x301_52: 2601414844844936949
+      Effect_Impact_1_291x301_53: -287118726138154949
+      Effect_Impact_1_291x301_54: -212268940154533063
+      Effect_Impact_1_291x301_55: -4005477584086154176
+      Effect_Impact_1_291x301_56: 6772591511503792683
+      Effect_Impact_1_291x301_57: 3735998707917925090
+      Effect_Impact_1_291x301_58: 8430527720487130816
+      Effect_Impact_1_291x301_59: 8355610237423798120
+      Effect_Impact_1_291x301_6: 1098415259569831150
+      Effect_Impact_1_291x301_60: -491896985589143492
+      Effect_Impact_1_291x301_61: -3100493063731695239
+      Effect_Impact_1_291x301_62: 5669924744884525895
+      Effect_Impact_1_291x301_63: -4846572403565884595
+      Effect_Impact_1_291x301_64: 7065831093834326276
+      Effect_Impact_1_291x301_65: -789782192569925427
+      Effect_Impact_1_291x301_66: 4903751967459552312
+      Effect_Impact_1_291x301_67: -2846005031074557390
+      Effect_Impact_1_291x301_68: -9090065241293450153
+      Effect_Impact_1_291x301_69: 4106063710819771014
+      Effect_Impact_1_291x301_7: -1824972340066754836
+      Effect_Impact_1_291x301_70: 1086975503953109500
+      Effect_Impact_1_291x301_71: 4476499293820652900
+      Effect_Impact_1_291x301_72: 3396292558668481235
+      Effect_Impact_1_291x301_73: 4836373420228290034
+      Effect_Impact_1_291x301_74: 1895654795789061702
+      Effect_Impact_1_291x301_75: 8955904374265977795
+      Effect_Impact_1_291x301_76: -8276067639755150757
+      Effect_Impact_1_291x301_77: 2963175952020665031
+      Effect_Impact_1_291x301_8: 3463551526074854222
+      Effect_Impact_1_291x301_9: 128568617418879604
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

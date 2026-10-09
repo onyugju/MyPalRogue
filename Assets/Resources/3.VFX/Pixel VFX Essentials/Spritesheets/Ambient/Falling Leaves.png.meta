@@ -1,0 +1,2628 @@
+fileFormatVersion: 2
+guid: 31e80838d1e121347be00e63d08636f4
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7446416781914626668
+    second: Falling Leaves_0
+  - first:
+      213: -4446023432963158225
+    second: Falling Leaves_1
+  - first:
+      213: -8263109293832962099
+    second: Falling Leaves_2
+  - first:
+      213: 6851902370162006943
+    second: Falling Leaves_3
+  - first:
+      213: 3827161768325311650
+    second: Falling Leaves_4
+  - first:
+      213: -6939820479509383046
+    second: Falling Leaves_5
+  - first:
+      213: 4032205895226431375
+    second: Falling Leaves_6
+  - first:
+      213: 4746400248112231122
+    second: Falling Leaves_7
+  - first:
+      213: -5579423500805800431
+    second: Falling Leaves_8
+  - first:
+      213: -2996362824936638090
+    second: Falling Leaves_9
+  - first:
+      213: 7530709717603006742
+    second: Falling Leaves_10
+  - first:
+      213: -8582094173393726977
+    second: Falling Leaves_11
+  - first:
+      213: 5908232296005943464
+    second: Falling Leaves_12
+  - first:
+      213: 8370413502952726674
+    second: Falling Leaves_13
+  - first:
+      213: 5848999277372160147
+    second: Falling Leaves_14
+  - first:
+      213: -1011916279000647093
+    second: Falling Leaves_15
+  - first:
+      213: -867982728923692432
+    second: Falling Leaves_16
+  - first:
+      213: -5772185608638884331
+    second: Falling Leaves_17
+  - first:
+      213: -721804388476199129
+    second: Falling Leaves_18
+  - first:
+      213: -1710586144563988278
+    second: Falling Leaves_19
+  - first:
+      213: -1369041562558870609
+    second: Falling Leaves_20
+  - first:
+      213: -7670415688605920125
+    second: Falling Leaves_21
+  - first:
+      213: -5120915429441770655
+    second: Falling Leaves_22
+  - first:
+      213: -3933604982921215445
+    second: Falling Leaves_23
+  - first:
+      213: 6755712491181036911
+    second: Falling Leaves_24
+  - first:
+      213: 8197871182227597635
+    second: Falling Leaves_25
+  - first:
+      213: 9196738900318719694
+    second: Falling Leaves_26
+  - first:
+      213: 5311575441740284114
+    second: Falling Leaves_27
+  - first:
+      213: -7426137517791721983
+    second: Falling Leaves_28
+  - first:
+      213: -2409076090954876569
+    second: Falling Leaves_29
+  - first:
+      213: -6577559043688971760
+    second: Falling Leaves_30
+  - first:
+      213: 1537383331002867187
+    second: Falling Leaves_31
+  - first:
+      213: 2322316625211532483
+    second: Falling Leaves_32
+  - first:
+      213: 5600264558166035047
+    second: Falling Leaves_33
+  - first:
+      213: 2517986713651607153
+    second: Falling Leaves_34
+  - first:
+      213: 8464012114211086503
+    second: Falling Leaves_35
+  - first:
+      213: 6770986232208428508
+    second: Falling Leaves_36
+  - first:
+      213: 7093076480003521716
+    second: Falling Leaves_37
+  - first:
+      213: 1605967369009144542
+    second: Falling Leaves_38
+  - first:
+      213: 8251553412688510294
+    second: Falling Leaves_39
+  - first:
+      213: -7400841268397208244
+    second: Falling Leaves_40
+  - first:
+      213: 1228037749779334024
+    second: Falling Leaves_41
+  - first:
+      213: -5538504091493032865
+    second: Falling Leaves_42
+  - first:
+      213: 3764694701754852832
+    second: Falling Leaves_43
+  - first:
+      213: -6919386307205168094
+    second: Falling Leaves_44
+  - first:
+      213: 807215223068164410
+    second: Falling Leaves_45
+  - first:
+      213: -8387275927365966861
+    second: Falling Leaves_46
+  - first:
+      213: 8165578654402519573
+    second: Falling Leaves_47
+  - first:
+      213: 3333618398531228931
+    second: Falling Leaves_48
+  - first:
+      213: -100143051545913084
+    second: Falling Leaves_49
+  - first:
+      213: -9174479671876709536
+    second: Falling Leaves_50
+  - first:
+      213: -6598681309239389797
+    second: Falling Leaves_51
+  - first:
+      213: -595822938356597799
+    second: Falling Leaves_52
+  - first:
+      213: 1247868842192311153
+    second: Falling Leaves_53
+  - first:
+      213: -7404257261620256034
+    second: Falling Leaves_54
+  - first:
+      213: 148257833567839652
+    second: Falling Leaves_55
+  - first:
+      213: 7791468386528779317
+    second: Falling Leaves_56
+  - first:
+      213: -4871916889854756479
+    second: Falling Leaves_57
+  - first:
+      213: -3118035369119309173
+    second: Falling Leaves_58
+  - first:
+      213: 2697694661633773506
+    second: Falling Leaves_59
+  - first:
+      213: 1747995875370523848
+    second: Falling Leaves_60
+  - first:
+      213: 5529546364413741764
+    second: Falling Leaves_61
+  - first:
+      213: -3712002751985867012
+    second: Falling Leaves_62
+  - first:
+      213: 2837770540808810195
+    second: Falling Leaves_63
+  - first:
+      213: 1121877233328369805
+    second: Falling Leaves_64
+  - first:
+      213: 9049832319329911478
+    second: Falling Leaves_65
+  - first:
+      213: 2840001675867150363
+    second: Falling Leaves_66
+  - first:
+      213: -1120484712288133895
+    second: Falling Leaves_67
+  - first:
+      213: 2905176803179098093
+    second: Falling Leaves_68
+  - first:
+      213: 840806650284328234
+    second: Falling Leaves_69
+  - first:
+      213: -4049070379862847127
+    second: Falling Leaves_70
+  - first:
+      213: -2935626627156854594
+    second: Falling Leaves_71
+  - first:
+      213: 1341191832371150022
+    second: Falling Leaves_72
+  - first:
+      213: -2974477348537557325
+    second: Falling Leaves_73
+  - first:
+      213: 4929833049151054363
+    second: Falling Leaves_74
+  - first:
+      213: 8653418953551210665
+    second: Falling Leaves_75
+  - first:
+      213: 977733648453811594
+    second: Falling Leaves_76
+  - first:
+      213: -2391206428700433904
+    second: Falling Leaves_77
+  - first:
+      213: -8520244185602091571
+    second: Falling Leaves_78
+  - first:
+      213: 2906529743807323734
+    second: Falling Leaves_79
+  - first:
+      213: -1218314895546306276
+    second: Falling Leaves_80
+  - first:
+      213: 1365538522328902104
+    second: Falling Leaves_81
+  - first:
+      213: 1491762287661374402
+    second: Falling Leaves_82
+  - first:
+      213: -7781415522422277792
+    second: Falling Leaves_83
+  - first:
+      213: 5816855811518716253
+    second: Falling Leaves_84
+  - first:
+      213: -1673133849653714127
+    second: Falling Leaves_85
+  - first:
+      213: -4840188941451802519
+    second: Falling Leaves_86
+  - first:
+      213: 4621165022828104776
+    second: Falling Leaves_87
+  - first:
+      213: -8017087827152183195
+    second: Falling Leaves_88
+  - first:
+      213: -3493413898462998722
+    second: Falling Leaves_89
+  - first:
+      213: -2347993311153028934
+    second: Falling Leaves_90
+  - first:
+      213: 6017463226945714016
+    second: Falling Leaves_91
+  - first:
+      213: 1985725701051182114
+    second: Falling Leaves_92
+  - first:
+      213: -5602925578219513410
+    second: Falling Leaves_93
+  - first:
+      213: -2340030355794539321
+    second: Falling Leaves_94
+  - first:
+      213: -8718259132714483231
+    second: Falling Leaves_95
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Falling Leaves_0
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 14
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6a578f3c9cf65760800000000000000
+      internalID: 7446416781914626668
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_1
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 23
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f2f0b276e3d8c42c0800000000000000
+      internalID: -4446023432963158225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_2
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 17
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dcf7bd880e9835d80800000000000000
+      internalID: -8263109293832962099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_3
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 12
+        width: 12
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9bd92917e8d61f50800000000000000
+      internalID: 6851902370162006943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_4
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 22
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ac6cf2e95fcc1530800000000000000
+      internalID: 3827161768325311650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_5
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 20
+        width: 13
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a78bcd9ea0ec0bf90800000000000000
+      internalID: -6939820479509383046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_6
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 20
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f87153ee5e545f730800000000000000
+      internalID: 4032205895226431375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_7
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 18
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d23e8ec0e99ed140800000000000000
+      internalID: 4746400248112231122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_8
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 17
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11ef00713e7e192b0800000000000000
+      internalID: -5579423500805800431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_9
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 16
+        width: 17
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6793779d2e7ca66d0800000000000000
+      internalID: -2996362824936638090
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_10
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 15
+        width: 17
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6193f48b694728860800000000000000
+      internalID: 7530709717603006742
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_11
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 14
+        width: 18
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff1dae5b1d646e880800000000000000
+      internalID: -8582094173393726977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_12
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 25
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a0cce558f14ef150800000000000000
+      internalID: 5908232296005943464
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_13
+      rect:
+        serializedVersion: 2
+        x: 293
+        y: 19
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29061aa8bbea92470800000000000000
+      internalID: 8370413502952726674
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_14
+      rect:
+        serializedVersion: 2
+        x: 299
+        y: 13
+        width: 11
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 398b84b7ad1db2150800000000000000
+      internalID: 5848999277372160147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_15
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 24
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4a3bbf6183f4f1f0800000000000000
+      internalID: -1011916279000647093
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_16
+      rect:
+        serializedVersion: 2
+        x: 326
+        y: 12
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 072445b8e4e44f3f0800000000000000
+      internalID: -867982728923692432
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_17
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 25
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 516157375c315efa0800000000000000
+      internalID: -5772185608638884331
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_18
+      rect:
+        serializedVersion: 2
+        x: 337
+        y: 22
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72fde83abb2abf5f0800000000000000
+      internalID: -721804388476199129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_19
+      rect:
+        serializedVersion: 2
+        x: 358
+        y: 17
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac8fe8fe6f6c248e0800000000000000
+      internalID: -1710586144563988278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_20
+      rect:
+        serializedVersion: 2
+        x: 361
+        y: 24
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fabceecc3ff200de0800000000000000
+      internalID: -1369041562558870609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_21
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 11
+        width: 14
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3849f0122953d8590800000000000000
+      internalID: -7670415688605920125
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_22
+      rect:
+        serializedVersion: 2
+        x: 390
+        y: 16
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 16b6e477c8adee8b0800000000000000
+      internalID: -5120915429441770655
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_23
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 23
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b224642fb170969c0800000000000000
+      internalID: -3933604982921215445
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_24
+      rect:
+        serializedVersion: 2
+        x: 402
+        y: 19
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f65d389a7bc11cd50800000000000000
+      internalID: 6755712491181036911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_25
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 22
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3496613f760b4c170800000000000000
+      internalID: 8197871182227597635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_26
+      rect:
+        serializedVersion: 2
+        x: 433
+        y: 18
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ece838dad4161af70800000000000000
+      internalID: 9196738900318719694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_27
+      rect:
+        serializedVersion: 2
+        x: 454
+        y: 8
+        width: 20
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d04e9ae8b186b940800000000000000
+      internalID: 5311575441740284114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_28
+      rect:
+        serializedVersion: 2
+        x: 485
+        y: 19
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 106c2ded54f01f890800000000000000
+      internalID: -7426137517791721983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_29
+      rect:
+        serializedVersion: 2
+        x: 494
+        y: 7
+        width: 12
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7697fb12f0e319ed0800000000000000
+      internalID: -2409076090954876569
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_30
+      rect:
+        serializedVersion: 2
+        x: 517
+        y: 18
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 012c2cf26e0d7b4a0800000000000000
+      internalID: -6577559043688971760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_31
+      rect:
+        serializedVersion: 2
+        x: 530
+        y: 15
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3fd58008ef1e55510800000000000000
+      internalID: 1537383331002867187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_32
+      rect:
+        serializedVersion: 2
+        x: 545
+        y: 17
+        width: 17
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c4a7bd9aa68a3020800000000000000
+      internalID: 2322316625211532483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_33
+      rect:
+        serializedVersion: 2
+        x: 559
+        y: 5
+        width: 12
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76a42b5b1f228bd40800000000000000
+      internalID: 5600264558166035047
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_34
+      rect:
+        serializedVersion: 2
+        x: 577
+        y: 16
+        width: 17
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1767b50439fa1f220800000000000000
+      internalID: 2517986713651607153
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_35
+      rect:
+        serializedVersion: 2
+        x: 591
+        y: 25
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a0a7227c26367570800000000000000
+      internalID: 8464012114211086503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_36
+      rect:
+        serializedVersion: 2
+        x: 591
+        y: 7
+        width: 12
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cdd08dd9a1067fd50800000000000000
+      internalID: 6770986232208428508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_37
+      rect:
+        serializedVersion: 2
+        x: 609
+        y: 15
+        width: 18
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4bcb9435a7baf6260800000000000000
+      internalID: 7093076480003521716
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_38
+      rect:
+        serializedVersion: 2
+        x: 623
+        y: 23
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed2a8a630da894610800000000000000
+      internalID: 1605967369009144542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_39
+      rect:
+        serializedVersion: 2
+        x: 641
+        y: 7
+        width: 18
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 65df5783c18638270800000000000000
+      internalID: 8251553412688510294
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_40
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 22
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4d0226e31eea4990800000000000000
+      internalID: -7400841268397208244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_41
+      rect:
+        serializedVersion: 2
+        x: 673
+        y: 17
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8830e56b3ddda0110800000000000000
+      internalID: 1228037749779334024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_42
+      rect:
+        serializedVersion: 2
+        x: 687
+        y: 21
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5c928f7fd74323b0800000000000000
+      internalID: -5538504091493032865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_43
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 16
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e5a4e192e1ee3430800000000000000
+      internalID: 3764694701754852832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_44
+      rect:
+        serializedVersion: 2
+        x: 712
+        y: 25
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 224855760d669ff90800000000000000
+      internalID: -6919386307205168094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_45
+      rect:
+        serializedVersion: 2
+        x: 719
+        y: 20
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a310444f7fdc33b00800000000000000
+      internalID: 807215223068164410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_46
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 4
+        width: 10
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f3aa245bf86a9b80800000000000000
+      internalID: -8387275927365966861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_47
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 7
+        width: 10
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 512ac29e586f15170800000000000000
+      internalID: 8165578654402519573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_48
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 3
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 305192d6544634e20800000000000000
+      internalID: 3333618398531228931
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_49
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 6
+        width: 14
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 409d1e9dc683c9ef0800000000000000
+      internalID: -100143051545913084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_50
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 5
+        width: 28
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0631fbec853bda080800000000000000
+      internalID: -9174479671876709536
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_51
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 11
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b91d6c08f46cc64a0800000000000000
+      internalID: -6598681309239389797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_52
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 8
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9dbb932c1363bb7f0800000000000000
+      internalID: -595822938356597799
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_53
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 10
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1739629b912515110800000000000000
+      internalID: 1247868842192311153
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_54
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 4
+        width: 15
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed2a48fff3bce3990800000000000000
+      internalID: -7404257261620256034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_55
+      rect:
+        serializedVersion: 2
+        x: 164
+        y: 9
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4a5eaf0d6b7be0200800000000000000
+      internalID: 148257833567839652
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_56
+      rect:
+        serializedVersion: 2
+        x: 178
+        y: 11
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53cdbb1773bd02c60800000000000000
+      internalID: 7791468386528779317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_57
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 6
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1893bf4b669736cb0800000000000000
+      internalID: -4871916889854756479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_58
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 8
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b822a821a538ab4d0800000000000000
+      internalID: -3118035369119309173
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_59
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 1
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2cf06237003207520800000000000000
+      internalID: 2697694661633773506
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_60
+      rect:
+        serializedVersion: 2
+        x: 229
+        y: 7
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ccde44ccf0224810800000000000000
+      internalID: 1747995875370523848
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_61
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 9
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ca0fe32f15ecbc40800000000000000
+      internalID: 5529546364413741764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_62
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 6
+        width: 15
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf62c920a215c7cc0800000000000000
+      internalID: -3712002751985867012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_63
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 3
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3de2afe8549c16720800000000000000
+      internalID: 2837770540808810195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_64
+      rect:
+        serializedVersion: 2
+        x: 293
+        y: 4
+        width: 15
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d80b2265665b19f00800000000000000
+      internalID: 1121877233328369805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_65
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 6
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b2428edb86779d70800000000000000
+      internalID: 9049832319329911478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_66
+      rect:
+        serializedVersion: 2
+        x: 397
+        y: 10
+        width: 10
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b18539b2a76b96720800000000000000
+      internalID: 2840001675867150363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_67
+      rect:
+        serializedVersion: 2
+        x: 422
+        y: 15
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9fc5fcb371d3370f0800000000000000
+      internalID: -1120484712288133895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_68
+      rect:
+        serializedVersion: 2
+        x: 429
+        y: 8
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: defe13309e2415820800000000000000
+      internalID: 2905176803179098093
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_69
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 14
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a25cbf291352bab00800000000000000
+      internalID: 840806650284328234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_70
+      rect:
+        serializedVersion: 2
+        x: 518
+        y: 12
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96118b141ffcec7c0800000000000000
+      internalID: -4049070379862847127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_71
+      rect:
+        serializedVersion: 2
+        x: 526
+        y: 6
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb8332fd22f8247d0800000000000000
+      internalID: -2935626627156854594
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_72
+      rect:
+        serializedVersion: 2
+        x: 551
+        y: 11
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6cc33289ddedc9210800000000000000
+      internalID: 1341191832371150022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_73
+      rect:
+        serializedVersion: 2
+        x: 583
+        y: 10
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3be19f76c9888b6d0800000000000000
+      internalID: -2974477348537557325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_74
+      rect:
+        serializedVersion: 2
+        x: 615
+        y: 9
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b1221a0f9094a6440800000000000000
+      internalID: 4929833049151054363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_75
+      rect:
+        serializedVersion: 2
+        x: 623
+        y: 6
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a86d03c0be171870800000000000000
+      internalID: 8653418953551210665
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_76
+      rect:
+        serializedVersion: 2
+        x: 656
+        y: 5
+        width: 11
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8d3901b29b919d00800000000000000
+      internalID: 977733648453811594
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_77
+      rect:
+        serializedVersion: 2
+        x: 681
+        y: 6
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0122ea81c6ab0ded0800000000000000
+      internalID: -2391206428700433904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_78
+      rect:
+        serializedVersion: 2
+        x: 683
+        y: 12
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc5999d2e0302c980800000000000000
+      internalID: -8520244185602091571
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_79
+      rect:
+        serializedVersion: 2
+        x: 687
+        y: 4
+        width: 14
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 65e1ebc0761165820800000000000000
+      internalID: 2906529743807323734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_80
+      rect:
+        serializedVersion: 2
+        x: 714
+        y: 5
+        width: 10
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c113562be0da71fe0800000000000000
+      internalID: -1218314895546306276
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_81
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 4
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d9a6861d0e53f210800000000000000
+      internalID: 1365538522328902104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_82
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 5
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2cb516d95edc3b410800000000000000
+      internalID: 1491762287661374402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_83
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 2
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0693f406fcbd20490800000000000000
+      internalID: -7781415522422277792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_84
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 0
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d595d33aa8f99b050800000000000000
+      internalID: 5816855811518716253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_85
+      rect:
+        serializedVersion: 2
+        x: 248
+        y: 4
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13365bdd0a5d7c8e0800000000000000
+      internalID: -1673133849653714127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_86
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 0
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 968cdfa5dc134dcb0800000000000000
+      internalID: -4840188941451802519
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_87
+      rect:
+        serializedVersion: 2
+        x: 325
+        y: 3
+        width: 16
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84c0122ba1da12040800000000000000
+      internalID: 4621165022828104776
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_88
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 5
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5606c79f8159db090800000000000000
+      internalID: -8017087827152183195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_89
+      rect:
+        serializedVersion: 2
+        x: 357
+        y: 2
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3f43b87196e48fc0800000000000000
+      internalID: -3493413898462998722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_90
+      rect:
+        serializedVersion: 2
+        x: 372
+        y: 5
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab00bb116804a6fd0800000000000000
+      internalID: -2347993311153028934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_91
+      rect:
+        serializedVersion: 2
+        x: 390
+        y: 5
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 067331b4ce2528350800000000000000
+      internalID: 6017463226945714016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_92
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 4
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22ce4881107be8b10800000000000000
+      internalID: 1985725701051182114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_93
+      rect:
+        serializedVersion: 2
+        x: 422
+        y: 4
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb996474fd86e32b0800000000000000
+      internalID: -5602925578219513410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_94
+      rect:
+        serializedVersion: 2
+        x: 437
+        y: 3
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7cc4c371aca868fd0800000000000000
+      internalID: -2340030355794539321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Falling Leaves_95
+      rect:
+        serializedVersion: 2
+        x: 455
+        y: 3
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e18fb69285820780800000000000000
+      internalID: -8718259132714483231
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Falling Leaves_0: 7446416781914626668
+      Falling Leaves_1: -4446023432963158225
+      Falling Leaves_10: 7530709717603006742
+      Falling Leaves_11: -8582094173393726977
+      Falling Leaves_12: 5908232296005943464
+      Falling Leaves_13: 8370413502952726674
+      Falling Leaves_14: 5848999277372160147
+      Falling Leaves_15: -1011916279000647093
+      Falling Leaves_16: -867982728923692432
+      Falling Leaves_17: -5772185608638884331
+      Falling Leaves_18: -721804388476199129
+      Falling Leaves_19: -1710586144563988278
+      Falling Leaves_2: -8263109293832962099
+      Falling Leaves_20: -1369041562558870609
+      Falling Leaves_21: -7670415688605920125
+      Falling Leaves_22: -5120915429441770655
+      Falling Leaves_23: -3933604982921215445
+      Falling Leaves_24: 6755712491181036911
+      Falling Leaves_25: 8197871182227597635
+      Falling Leaves_26: 9196738900318719694
+      Falling Leaves_27: 5311575441740284114
+      Falling Leaves_28: -7426137517791721983
+      Falling Leaves_29: -2409076090954876569
+      Falling Leaves_3: 6851902370162006943
+      Falling Leaves_30: -6577559043688971760
+      Falling Leaves_31: 1537383331002867187
+      Falling Leaves_32: 2322316625211532483
+      Falling Leaves_33: 5600264558166035047
+      Falling Leaves_34: 2517986713651607153
+      Falling Leaves_35: 8464012114211086503
+      Falling Leaves_36: 6770986232208428508
+      Falling Leaves_37: 7093076480003521716
+      Falling Leaves_38: 1605967369009144542
+      Falling Leaves_39: 8251553412688510294
+      Falling Leaves_4: 3827161768325311650
+      Falling Leaves_40: -7400841268397208244
+      Falling Leaves_41: 1228037749779334024
+      Falling Leaves_42: -5538504091493032865
+      Falling Leaves_43: 3764694701754852832
+      Falling Leaves_44: -6919386307205168094
+      Falling Leaves_45: 807215223068164410
+      Falling Leaves_46: -8387275927365966861
+      Falling Leaves_47: 8165578654402519573
+      Falling Leaves_48: 3333618398531228931
+      Falling Leaves_49: -100143051545913084
+      Falling Leaves_5: -6939820479509383046
+      Falling Leaves_50: -9174479671876709536
+      Falling Leaves_51: -6598681309239389797
+      Falling Leaves_52: -595822938356597799
+      Falling Leaves_53: 1247868842192311153
+      Falling Leaves_54: -7404257261620256034
+      Falling Leaves_55: 148257833567839652
+      Falling Leaves_56: 7791468386528779317
+      Falling Leaves_57: -4871916889854756479
+      Falling Leaves_58: -3118035369119309173
+      Falling Leaves_59: 2697694661633773506
+      Falling Leaves_6: 4032205895226431375
+      Falling Leaves_60: 1747995875370523848
+      Falling Leaves_61: 5529546364413741764
+      Falling Leaves_62: -3712002751985867012
+      Falling Leaves_63: 2837770540808810195
+      Falling Leaves_64: 1121877233328369805
+      Falling Leaves_65: 9049832319329911478
+      Falling Leaves_66: 2840001675867150363
+      Falling Leaves_67: -1120484712288133895
+      Falling Leaves_68: 2905176803179098093
+      Falling Leaves_69: 840806650284328234
+      Falling Leaves_7: 4746400248112231122
+      Falling Leaves_70: -4049070379862847127
+      Falling Leaves_71: -2935626627156854594
+      Falling Leaves_72: 1341191832371150022
+      Falling Leaves_73: -2974477348537557325
+      Falling Leaves_74: 4929833049151054363
+      Falling Leaves_75: 8653418953551210665
+      Falling Leaves_76: 977733648453811594
+      Falling Leaves_77: -2391206428700433904
+      Falling Leaves_78: -8520244185602091571
+      Falling Leaves_79: 2906529743807323734
+      Falling Leaves_8: -5579423500805800431
+      Falling Leaves_80: -1218314895546306276
+      Falling Leaves_81: 1365538522328902104
+      Falling Leaves_82: 1491762287661374402
+      Falling Leaves_83: -7781415522422277792
+      Falling Leaves_84: 5816855811518716253
+      Falling Leaves_85: -1673133849653714127
+      Falling Leaves_86: -4840188941451802519
+      Falling Leaves_87: 4621165022828104776
+      Falling Leaves_88: -8017087827152183195
+      Falling Leaves_89: -3493413898462998722
+      Falling Leaves_9: -2996362824936638090
+      Falling Leaves_90: -2347993311153028934
+      Falling Leaves_91: 6017463226945714016
+      Falling Leaves_92: 1985725701051182114
+      Falling Leaves_93: -5602925578219513410
+      Falling Leaves_94: -2340030355794539321
+      Falling Leaves_95: -8718259132714483231
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,1380 @@
+fileFormatVersion: 2
+guid: 587683e0e8616464b9a8579e30125777
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5006224303270199620
+    second: Stars Twinkle_0
+  - first:
+      213: -8242313239415393414
+    second: Stars Twinkle_1
+  - first:
+      213: -4202483538298985119
+    second: Stars Twinkle_2
+  - first:
+      213: 5540105643495789066
+    second: Stars Twinkle_3
+  - first:
+      213: -6748711987634261868
+    second: Stars Twinkle_4
+  - first:
+      213: 8088077717540397045
+    second: Stars Twinkle_5
+  - first:
+      213: 7223988903369557151
+    second: Stars Twinkle_6
+  - first:
+      213: 6575025020047583017
+    second: Stars Twinkle_7
+  - first:
+      213: 6992101137919893245
+    second: Stars Twinkle_8
+  - first:
+      213: 570083981892083360
+    second: Stars Twinkle_9
+  - first:
+      213: 8463758566128531134
+    second: Stars Twinkle_10
+  - first:
+      213: -2710816853233606612
+    second: Stars Twinkle_11
+  - first:
+      213: -2355860722296332184
+    second: Stars Twinkle_12
+  - first:
+      213: -4713957076863766735
+    second: Stars Twinkle_13
+  - first:
+      213: -6866660948303668900
+    second: Stars Twinkle_14
+  - first:
+      213: 6964737025934059173
+    second: Stars Twinkle_15
+  - first:
+      213: -1634919339333553156
+    second: Stars Twinkle_16
+  - first:
+      213: 6741189068846075064
+    second: Stars Twinkle_17
+  - first:
+      213: -3805150137584949430
+    second: Stars Twinkle_18
+  - first:
+      213: 5753418807092715545
+    second: Stars Twinkle_19
+  - first:
+      213: -7180876682804113926
+    second: Stars Twinkle_20
+  - first:
+      213: -4918354209924013917
+    second: Stars Twinkle_21
+  - first:
+      213: -8409256439816992031
+    second: Stars Twinkle_22
+  - first:
+      213: -8231447505322773065
+    second: Stars Twinkle_23
+  - first:
+      213: -6215243957730444747
+    second: Stars Twinkle_24
+  - first:
+      213: 2308847542789226925
+    second: Stars Twinkle_25
+  - first:
+      213: -7156653009386299468
+    second: Stars Twinkle_26
+  - first:
+      213: 8994785972590404070
+    second: Stars Twinkle_27
+  - first:
+      213: 7761857011771121895
+    second: Stars Twinkle_28
+  - first:
+      213: -5946760308499255595
+    second: Stars Twinkle_29
+  - first:
+      213: -686948995538922049
+    second: Stars Twinkle_30
+  - first:
+      213: -6098223170886677376
+    second: Stars Twinkle_31
+  - first:
+      213: -6168784905097937796
+    second: Stars Twinkle_32
+  - first:
+      213: -2123863185159862656
+    second: Stars Twinkle_33
+  - first:
+      213: 4112920412959261961
+    second: Stars Twinkle_34
+  - first:
+      213: 3353506668644048193
+    second: Stars Twinkle_35
+  - first:
+      213: -1059132099011190663
+    second: Stars Twinkle_36
+  - first:
+      213: -4074099912923183713
+    second: Stars Twinkle_37
+  - first:
+      213: -3535323083520013363
+    second: Stars Twinkle_38
+  - first:
+      213: 4306760635251294754
+    second: Stars Twinkle_39
+  - first:
+      213: 7836631156532212575
+    second: Stars Twinkle_40
+  - first:
+      213: -3537911616965602338
+    second: Stars Twinkle_41
+  - first:
+      213: 5862325050598826912
+    second: Stars Twinkle_42
+  - first:
+      213: -7605455796957996454
+    second: Stars Twinkle_43
+  - first:
+      213: 7377004586547228274
+    second: Stars Twinkle_44
+  - first:
+      213: 5416666777963045428
+    second: Stars Twinkle_45
+  - first:
+      213: 2858231632557252206
+    second: Stars Twinkle_46
+  - first:
+      213: -4318377376177019264
+    second: Stars Twinkle_47
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Stars Twinkle_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1
+        width: 23
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 441095eca7ea97540800000000000000
+      internalID: 5006224303270199620
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stars Twinkle_1
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 0
+        width: 9
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a73752547cb6d9d80800000000000000
+      internalID: -8242313239415393414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stars Twinkle_2
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 26
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1652345dc77cda5c0800000000000000
+      internalID: -4202483538298985119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stars Twinkle_3
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 4
+        width: 7
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a0214b2eab862ec40800000000000000
+      internalID: 5540105643495789066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stars Twinkle_4
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 1
+        width: 32
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 490b3a51432c752a0800000000000000
+      internalID: -6748711987634261868
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stars Twinkle_5
+      rect:
+        serializedVersion: 2
+        x: 85
+        y: 8
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ff5fb5e4df9e3070800000000000000
+      internalID: 8088077717540397045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stars Twinkle_6
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 14
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f94c4be12a3c04460800000000000000
+      internalID: 7223988903369557151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stars Twinkle_7
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 1
+        width: 10
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 927ed357b6e2f3b50800000000000000
+      internalID: 6575025020047583017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stars Twinkle_8
+      rect:
+        serializedVersion: 2
+        x: 121
+        y: 13
+        width: 21
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dfed15f60fee80160800000000000000
+      internalID: 6992101137919893245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stars Twinkle_9
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 0
+        width: 24
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0ae51d07c5859e700800000000000000
+      internalID: 570083981892083360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stars Twinkle_10
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 13
+        width: 20
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb6b2cea29f457570800000000000000
+      internalID: 8463758566128531134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stars Twinkle_11
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 0
+        width: 24
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c206edb3f6e316ad0800000000000000
+      internalID: -2710816853233606612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stars Twinkle_12
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 13
+        width: 20
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8606b3ba72d4e4fd0800000000000000
+      internalID: -2355860722296332184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stars Twinkle_13
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 0
+        width: 24
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13fa813a309a49eb0800000000000000
+      internalID: -4713957076863766735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stars Twinkle_14
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 13
+        width: 20
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c591057af38b4b0a0800000000000000
+      internalID: -6866660948303668900
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stars Twinkle_15
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 0
+        width: 24
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a66fc0ac67b7a060800000000000000
+      internalID: 6964737025934059173
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stars Twinkle_16
+      rect:
+        serializedVersion: 2
+        x: 248
+        y: 13
+        width: 21
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf37b96e5899f49e0800000000000000
+      internalID: -1634919339333553156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stars Twinkle_17
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 0
+        width: 25
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8bc0154edb38d8d50800000000000000
+      internalID: 6741189068846075064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stars Twinkle_18
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 14
+        width: 22
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4768344c14613bc0800000000000000
+      internalID: -3805150137584949430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stars Twinkle_19
+      rect:
+        serializedVersion: 2
+        x: 293
+        y: 0
+        width: 25
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91020d01cef38df40800000000000000
+      internalID: 5753418807092715545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stars Twinkle_20
+      rect:
+        serializedVersion: 2
+        x: 322
+        y: 4
+        width: 12
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: afd4391f3b6685c90800000000000000
+      internalID: -7180876682804113926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stars Twinkle_21
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 1
+        width: 10
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a0aee597ee7ebbb0800000000000000
+      internalID: -4918354209924013917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stars Twinkle_22
+      rect:
+        serializedVersion: 2
+        x: 354
+        y: 4
+        width: 12
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1eaca8772d15c4b80800000000000000
+      internalID: -8409256439816992031
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stars Twinkle_23
+      rect:
+        serializedVersion: 2
+        x: 372
+        y: 1
+        width: 10
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b5f5f12b1604cd80800000000000000
+      internalID: -8231447505322773065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stars Twinkle_24
+      rect:
+        serializedVersion: 2
+        x: 386
+        y: 1
+        width: 19
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53a751bdc840fb9a0800000000000000
+      internalID: -6215243957730444747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stars Twinkle_25
+      rect:
+        serializedVersion: 2
+        x: 403
+        y: 7
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da14c7c7b9caa0020800000000000000
+      internalID: 2308847542789226925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stars Twinkle_26
+      rect:
+        serializedVersion: 2
+        x: 417
+        y: 1
+        width: 20
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4bf9cca61067eac90800000000000000
+      internalID: -7156653009386299468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stars Twinkle_27
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 7
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e1eae68f26e3dc70800000000000000
+      internalID: 8994785972590404070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stars Twinkle_28
+      rect:
+        serializedVersion: 2
+        x: 444
+        y: 1
+        width: 25
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e02efff3d7a7bb60800000000000000
+      internalID: 7761857011771121895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stars Twinkle_29
+      rect:
+        serializedVersion: 2
+        x: 467
+        y: 7
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5de6287b10dd87da0800000000000000
+      internalID: -5946760308499255595
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stars Twinkle_30
+      rect:
+        serializedVersion: 2
+        x: 470
+        y: 5
+        width: 30
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb5571637877776f0800000000000000
+      internalID: -686948995538922049
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stars Twinkle_31
+      rect:
+        serializedVersion: 2
+        x: 498
+        y: 1
+        width: 10
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 08c4e3af552ce5ba0800000000000000
+      internalID: -6098223170886677376
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stars Twinkle_32
+      rect:
+        serializedVersion: 2
+        x: 502
+        y: 14
+        width: 28
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7c78dbffc2146aa0800000000000000
+      internalID: -6168784905097937796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stars Twinkle_33
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 0
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 08644019fa58682e0800000000000000
+      internalID: -2123863185159862656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stars Twinkle_34
+      rect:
+        serializedVersion: 2
+        x: 534
+        y: 14
+        width: 29
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 905c3eb0357041930800000000000000
+      internalID: 4112920412959261961
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stars Twinkle_35
+      rect:
+        serializedVersion: 2
+        x: 556
+        y: 0
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14d9e682c8c0a8e20800000000000000
+      internalID: 3353506668644048193
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stars Twinkle_36
+      rect:
+        serializedVersion: 2
+        x: 566
+        y: 13
+        width: 29
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 970693ca7f43d41f0800000000000000
+      internalID: -1059132099011190663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stars Twinkle_37
+      rect:
+        serializedVersion: 2
+        x: 586
+        y: 0
+        width: 18
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9583c6f6b3e577c0800000000000000
+      internalID: -4074099912923183713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stars Twinkle_38
+      rect:
+        serializedVersion: 2
+        x: 598
+        y: 13
+        width: 29
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dcb0d80f26200fec0800000000000000
+      internalID: -3535323083520013363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stars Twinkle_39
+      rect:
+        serializedVersion: 2
+        x: 613
+        y: 0
+        width: 24
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2220ac4caffa4cb30800000000000000
+      internalID: 4306760635251294754
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stars Twinkle_40
+      rect:
+        serializedVersion: 2
+        x: 630
+        y: 0
+        width: 35
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f537cd0448e41cc60800000000000000
+      internalID: 7836631156532212575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stars Twinkle_41
+      rect:
+        serializedVersion: 2
+        x: 660
+        y: 7
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed399080120d6eec0800000000000000
+      internalID: -3537911616965602338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stars Twinkle_42
+      rect:
+        serializedVersion: 2
+        x: 665
+        y: 0
+        width: 30
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a321d6d2992b5150800000000000000
+      internalID: 5862325050598826912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stars Twinkle_43
+      rect:
+        serializedVersion: 2
+        x: 692
+        y: 7
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a5a12638f3ef37690800000000000000
+      internalID: -7605455796957996454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stars Twinkle_44
+      rect:
+        serializedVersion: 2
+        x: 697
+        y: 0
+        width: 35
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27e239f1692606660800000000000000
+      internalID: 7377004586547228274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stars Twinkle_45
+      rect:
+        serializedVersion: 2
+        x: 725
+        y: 8
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 432a52f5cbddb2b40800000000000000
+      internalID: 5416666777963045428
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stars Twinkle_46
+      rect:
+        serializedVersion: 2
+        x: 731
+        y: 0
+        width: 35
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6e1c58b68a7aa720800000000000000
+      internalID: 2858231632557252206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stars Twinkle_47
+      rect:
+        serializedVersion: 2
+        x: 757
+        y: 4
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 086a2e6f7aa0214c0800000000000000
+      internalID: -4318377376177019264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Stars Twinkle_0: 5006224303270199620
+      Stars Twinkle_1: -8242313239415393414
+      Stars Twinkle_10: 8463758566128531134
+      Stars Twinkle_11: -2710816853233606612
+      Stars Twinkle_12: -2355860722296332184
+      Stars Twinkle_13: -4713957076863766735
+      Stars Twinkle_14: -6866660948303668900
+      Stars Twinkle_15: 6964737025934059173
+      Stars Twinkle_16: -1634919339333553156
+      Stars Twinkle_17: 6741189068846075064
+      Stars Twinkle_18: -3805150137584949430
+      Stars Twinkle_19: 5753418807092715545
+      Stars Twinkle_2: -4202483538298985119
+      Stars Twinkle_20: -7180876682804113926
+      Stars Twinkle_21: -4918354209924013917
+      Stars Twinkle_22: -8409256439816992031
+      Stars Twinkle_23: -8231447505322773065
+      Stars Twinkle_24: -6215243957730444747
+      Stars Twinkle_25: 2308847542789226925
+      Stars Twinkle_26: -7156653009386299468
+      Stars Twinkle_27: 8994785972590404070
+      Stars Twinkle_28: 7761857011771121895
+      Stars Twinkle_29: -5946760308499255595
+      Stars Twinkle_3: 5540105643495789066
+      Stars Twinkle_30: -686948995538922049
+      Stars Twinkle_31: -6098223170886677376
+      Stars Twinkle_32: -6168784905097937796
+      Stars Twinkle_33: -2123863185159862656
+      Stars Twinkle_34: 4112920412959261961
+      Stars Twinkle_35: 3353506668644048193
+      Stars Twinkle_36: -1059132099011190663
+      Stars Twinkle_37: -4074099912923183713
+      Stars Twinkle_38: -3535323083520013363
+      Stars Twinkle_39: 4306760635251294754
+      Stars Twinkle_4: -6748711987634261868
+      Stars Twinkle_40: 7836631156532212575
+      Stars Twinkle_41: -3537911616965602338
+      Stars Twinkle_42: 5862325050598826912
+      Stars Twinkle_43: -7605455796957996454
+      Stars Twinkle_44: 7377004586547228274
+      Stars Twinkle_45: 5416666777963045428
+      Stars Twinkle_46: 2858231632557252206
+      Stars Twinkle_47: -4318377376177019264
+      Stars Twinkle_5: 8088077717540397045
+      Stars Twinkle_6: 7223988903369557151
+      Stars Twinkle_7: 6575025020047583017
+      Stars Twinkle_8: 6992101137919893245
+      Stars Twinkle_9: 570083981892083360
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,2056 @@
+fileFormatVersion: 2
+guid: d797ae877c29b7547b7d771ac1a14f4c
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7406510087588877058
+    second: Sparkles Ambient_0
+  - first:
+      213: -3823575348299797491
+    second: Sparkles Ambient_1
+  - first:
+      213: -942626561148441602
+    second: Sparkles Ambient_2
+  - first:
+      213: 6406382292616156894
+    second: Sparkles Ambient_3
+  - first:
+      213: -4124859116649597729
+    second: Sparkles Ambient_4
+  - first:
+      213: -3713942180170492341
+    second: Sparkles Ambient_5
+  - first:
+      213: -3500733868411776898
+    second: Sparkles Ambient_6
+  - first:
+      213: 3191955629668646671
+    second: Sparkles Ambient_7
+  - first:
+      213: 138673036600522003
+    second: Sparkles Ambient_8
+  - first:
+      213: 355988856765033267
+    second: Sparkles Ambient_9
+  - first:
+      213: -6145652929621720550
+    second: Sparkles Ambient_10
+  - first:
+      213: 344387447198854809
+    second: Sparkles Ambient_11
+  - first:
+      213: -7293083720047130048
+    second: Sparkles Ambient_12
+  - first:
+      213: -6806827849846610660
+    second: Sparkles Ambient_13
+  - first:
+      213: 2890241188352623801
+    second: Sparkles Ambient_14
+  - first:
+      213: -6787312878277207879
+    second: Sparkles Ambient_15
+  - first:
+      213: -3558179448000836992
+    second: Sparkles Ambient_16
+  - first:
+      213: -8809844435987633856
+    second: Sparkles Ambient_17
+  - first:
+      213: -7875005955150658131
+    second: Sparkles Ambient_18
+  - first:
+      213: 1602559180045522886
+    second: Sparkles Ambient_19
+  - first:
+      213: -5756477395568835908
+    second: Sparkles Ambient_20
+  - first:
+      213: -5021460981679569383
+    second: Sparkles Ambient_21
+  - first:
+      213: -2091403778009390445
+    second: Sparkles Ambient_22
+  - first:
+      213: -4176127764050477268
+    second: Sparkles Ambient_23
+  - first:
+      213: 5268254535876012967
+    second: Sparkles Ambient_24
+  - first:
+      213: 8133741212291465128
+    second: Sparkles Ambient_25
+  - first:
+      213: -235781935803127586
+    second: Sparkles Ambient_26
+  - first:
+      213: 1707332368340239589
+    second: Sparkles Ambient_27
+  - first:
+      213: -7693299546658519361
+    second: Sparkles Ambient_28
+  - first:
+      213: 8780984625881878188
+    second: Sparkles Ambient_29
+  - first:
+      213: 2458183499316417185
+    second: Sparkles Ambient_30
+  - first:
+      213: 3768341258992160516
+    second: Sparkles Ambient_31
+  - first:
+      213: -5836780210286268148
+    second: Sparkles Ambient_32
+  - first:
+      213: -4936202160888642653
+    second: Sparkles Ambient_33
+  - first:
+      213: -774650305148444977
+    second: Sparkles Ambient_34
+  - first:
+      213: -3683348020382271013
+    second: Sparkles Ambient_35
+  - first:
+      213: -3953037101570752967
+    second: Sparkles Ambient_36
+  - first:
+      213: -27581434839091404
+    second: Sparkles Ambient_37
+  - first:
+      213: 2319862850666044981
+    second: Sparkles Ambient_38
+  - first:
+      213: 5601061478158709935
+    second: Sparkles Ambient_39
+  - first:
+      213: 1517098507904769151
+    second: Sparkles Ambient_40
+  - first:
+      213: -9188811796566538901
+    second: Sparkles Ambient_41
+  - first:
+      213: 3280737687831946235
+    second: Sparkles Ambient_42
+  - first:
+      213: -6643364155566210669
+    second: Sparkles Ambient_43
+  - first:
+      213: 2020523400424190972
+    second: Sparkles Ambient_44
+  - first:
+      213: -8033171770550930653
+    second: Sparkles Ambient_45
+  - first:
+      213: 5870737423178346264
+    second: Sparkles Ambient_46
+  - first:
+      213: 3722585412651360874
+    second: Sparkles Ambient_47
+  - first:
+      213: 7451317262733916806
+    second: Sparkles Ambient_48
+  - first:
+      213: -1161434892197177750
+    second: Sparkles Ambient_49
+  - first:
+      213: 2282379721290506273
+    second: Sparkles Ambient_50
+  - first:
+      213: -7468780809286898406
+    second: Sparkles Ambient_51
+  - first:
+      213: 3253877626050958112
+    second: Sparkles Ambient_52
+  - first:
+      213: 9153655455295886919
+    second: Sparkles Ambient_53
+  - first:
+      213: 947569351016244274
+    second: Sparkles Ambient_54
+  - first:
+      213: -6718045102975890630
+    second: Sparkles Ambient_55
+  - first:
+      213: -155989121928326036
+    second: Sparkles Ambient_56
+  - first:
+      213: 2684906695960294922
+    second: Sparkles Ambient_57
+  - first:
+      213: 1304851202796368938
+    second: Sparkles Ambient_58
+  - first:
+      213: -1374491537929358526
+    second: Sparkles Ambient_59
+  - first:
+      213: 3305218476436084788
+    second: Sparkles Ambient_60
+  - first:
+      213: -333373158097909205
+    second: Sparkles Ambient_61
+  - first:
+      213: 5297867253072392548
+    second: Sparkles Ambient_62
+  - first:
+      213: 8689528069255876408
+    second: Sparkles Ambient_63
+  - first:
+      213: 5520330181645281254
+    second: Sparkles Ambient_64
+  - first:
+      213: 3235464107398202001
+    second: Sparkles Ambient_65
+  - first:
+      213: 6961918922331524521
+    second: Sparkles Ambient_66
+  - first:
+      213: -4187708199253005007
+    second: Sparkles Ambient_67
+  - first:
+      213: 7659227454685911332
+    second: Sparkles Ambient_68
+  - first:
+      213: 5313657413214004993
+    second: Sparkles Ambient_69
+  - first:
+      213: -7342098864372481586
+    second: Sparkles Ambient_70
+  - first:
+      213: 7876665110448125186
+    second: Sparkles Ambient_71
+  - first:
+      213: -883423066953578478
+    second: Sparkles Ambient_72
+  - first:
+      213: -8634772896053318048
+    second: Sparkles Ambient_73
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Sparkles Ambient_0
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 3
+        width: 21
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 203151ceea539c660800000000000000
+      internalID: 7406510087588877058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_1
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 15
+        width: 7
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d0c66a89a7eefeac0800000000000000
+      internalID: -3823575348299797491
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_2
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 15
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: efb26ea032e1be2f0800000000000000
+      internalID: -942626561148441602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_3
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 20
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed61dbea0ca08e850800000000000000
+      internalID: 6406382292616156894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_4
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 17
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd4b193ec7e81c6c0800000000000000
+      internalID: -4124859116649597729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_5
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 20
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b461992b34d657cc0800000000000000
+      internalID: -3713942180170492341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_6
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 19
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7013282815ea6fc0800000000000000
+      internalID: -3500733868411776898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_7
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 8
+        width: 10
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f0f3535cbba1c4c20800000000000000
+      internalID: 3191955629668646671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_8
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 21
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 315bf7e546aace100800000000000000
+      internalID: 138673036600522003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_9
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 19
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33b2a77aaf9b0f400800000000000000
+      internalID: 355988856765033267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_10
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 8
+        width: 10
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a120f09b83146baa0800000000000000
+      internalID: -6145652929621720550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_11
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 16
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 99e246ffe8287c400800000000000000
+      internalID: 344387447198854809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_12
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 22
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04a086d3ff2c9ca90800000000000000
+      internalID: -7293083720047130048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_13
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 19
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1528aa722a4981a0800000000000000
+      internalID: -6806827849846610660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_14
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 19
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b406f23c033c1820800000000000000
+      internalID: 2890241188352623801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_15
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 17
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b85aded5ee9ec1a0800000000000000
+      internalID: -6787312878277207879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_16
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 22
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 08a80d2e4aece9ec0800000000000000
+      internalID: -3558179448000836992
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_17
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 20
+        width: 13
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 049618a79252db580800000000000000
+      internalID: -8809844435987633856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_18
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 18
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da5c82faecb56b290800000000000000
+      internalID: -7875005955150658131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_19
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 22
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c79722651f6d3610800000000000000
+      internalID: 1602559180045522886
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_20
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 20
+        width: 13
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cb2cd8fce42ec10b0800000000000000
+      internalID: -5756477395568835908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_21
+      rect:
+        serializedVersion: 2
+        x: 289
+        y: 18
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 916418d87df205ab0800000000000000
+      internalID: -5021460981679569383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_22
+      rect:
+        serializedVersion: 2
+        x: 310
+        y: 20
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 39227d93857d9f2e0800000000000000
+      internalID: -2091403778009390445
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_23
+      rect:
+        serializedVersion: 2
+        x: 321
+        y: 18
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c2fff17bce96b06c0800000000000000
+      internalID: -4176127764050477268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_24
+      rect:
+        serializedVersion: 2
+        x: 342
+        y: 20
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7abea3586999c1940800000000000000
+      internalID: 5268254535876012967
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_25
+      rect:
+        serializedVersion: 2
+        x: 354
+        y: 13
+        width: 26
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8af7695c98ad0e070800000000000000
+      internalID: 8133741212291465128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_26
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 20
+        width: 14
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed8200024955abcf0800000000000000
+      internalID: -235781935803127586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_27
+      rect:
+        serializedVersion: 2
+        x: 430
+        y: 21
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e442704eb9a1b710800000000000000
+      internalID: 1707332368340239589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_28
+      rect:
+        serializedVersion: 2
+        x: 463
+        y: 22
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb6cebab2d8eb3590800000000000000
+      internalID: -7693299546658519361
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_29
+      rect:
+        serializedVersion: 2
+        x: 487
+        y: 19
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cae0bdb5ef25cd970800000000000000
+      internalID: 8780984625881878188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_30
+      rect:
+        serializedVersion: 2
+        x: 495
+        y: 22
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a25b7d5ed83d1220800000000000000
+      internalID: 2458183499316417185
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_31
+      rect:
+        serializedVersion: 2
+        x: 515
+        y: 20
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 40f0da6d866db4430800000000000000
+      internalID: 3768341258992160516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_32
+      rect:
+        serializedVersion: 2
+        x: 527
+        y: 22
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c017bd5c2579ffea0800000000000000
+      internalID: -5836780210286268148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_33
+      rect:
+        serializedVersion: 2
+        x: 547
+        y: 20
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a387bca9461f7bb0800000000000000
+      internalID: -4936202160888642653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_34
+      rect:
+        serializedVersion: 2
+        x: 559
+        y: 22
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fce9a78d6a3ef35f0800000000000000
+      internalID: -774650305148444977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_35
+      rect:
+        serializedVersion: 2
+        x: 580
+        y: 24
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd9f9fc9d7e12ecc0800000000000000
+      internalID: -3683348020382271013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_36
+      rect:
+        serializedVersion: 2
+        x: 584
+        y: 20
+        width: 13
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93e7fe043bdf329c0800000000000000
+      internalID: -3953037101570752967
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_37
+      rect:
+        serializedVersion: 2
+        x: 612
+        y: 21
+        width: 17
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4373506c4d20e9ff0800000000000000
+      internalID: -27581434839091404
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_38
+      rect:
+        serializedVersion: 2
+        x: 644
+        y: 22
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53e1395b8fec13020800000000000000
+      internalID: 2319862850666044981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_39
+      rect:
+        serializedVersion: 2
+        x: 676
+        y: 24
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa436ca1db7fabd40800000000000000
+      internalID: 5601061478158709935
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_40
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 21
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f7c50f41e01dd0510800000000000000
+      internalID: 1517098507904769151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_41
+      rect:
+        serializedVersion: 2
+        x: 709
+        y: 14
+        width: 22
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b658bbdfa58ca7080800000000000000
+      internalID: -9188811796566538901
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_42
+      rect:
+        serializedVersion: 2
+        x: 723
+        y: 22
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf3a5748b85878d20800000000000000
+      internalID: 3280737687831946235
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_43
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 8
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 391c9e1af770ec3a0800000000000000
+      internalID: -6643364155566210669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_44
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 6
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf3f5a6d3575a0c10800000000000000
+      internalID: 2020523400424190972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_45
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 7
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 323bd9416d0748090800000000000000
+      internalID: -8033171770550930653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_46
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 7
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81f2326f49c097150800000000000000
+      internalID: 5870737423178346264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_47
+      rect:
+        serializedVersion: 2
+        x: 273
+        y: 4
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a62a22fa5b749a330800000000000000
+      internalID: 3722585412651360874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_48
+      rect:
+        serializedVersion: 2
+        x: 297
+        y: 12
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 68abdf95295686760800000000000000
+      internalID: 7451317262733916806
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_49
+      rect:
+        serializedVersion: 2
+        x: 330
+        y: 13
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a66d7dc7e11c1efe0800000000000000
+      internalID: -1161434892197177750
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_50
+      rect:
+        serializedVersion: 2
+        x: 331
+        y: 3
+        width: 14
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 12063129344acaf10800000000000000
+      internalID: 2282379721290506273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_51
+      rect:
+        serializedVersion: 2
+        x: 370
+        y: 6
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a1d233ddc6f895890800000000000000
+      internalID: -7468780809286898406
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_52
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 13
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 023db5b0678182d20800000000000000
+      internalID: 3253877626050958112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_53
+      rect:
+        serializedVersion: 2
+        x: 421
+        y: 6
+        width: 11
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7465a317321580f70800000000000000
+      internalID: 9153655455295886919
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_54
+      rect:
+        serializedVersion: 2
+        x: 454
+        y: 1
+        width: 10
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 234ee57ed41762d00800000000000000
+      internalID: 947569351016244274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_55
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 8
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3bc1149295b4c2a0800000000000000
+      internalID: -6718045102975890630
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_56
+      rect:
+        serializedVersion: 2
+        x: 518
+        y: 3
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6413a658b0d5ddf0800000000000000
+      internalID: -155989121928326036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_57
+      rect:
+        serializedVersion: 2
+        x: 550
+        y: 3
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a06f7cb2a64b24520800000000000000
+      internalID: 2684906695960294922
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_58
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 1
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a243b6b6143cb1210800000000000000
+      internalID: 1304851202796368938
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_59
+      rect:
+        serializedVersion: 2
+        x: 609
+        y: 0
+        width: 12
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 243b0f68a33dcece0800000000000000
+      internalID: -1374491537929358526
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_60
+      rect:
+        serializedVersion: 2
+        x: 660
+        y: 6
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 438d70941be7edd20800000000000000
+      internalID: 3305218476436084788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_61
+      rect:
+        serializedVersion: 2
+        x: 692
+        y: 6
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b2a8ce501ee9f5bf0800000000000000
+      internalID: -333373158097909205
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_62
+      rect:
+        serializedVersion: 2
+        x: 725
+        y: 7
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 461fd86823ec58940800000000000000
+      internalID: 5297867253072392548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_63
+      rect:
+        serializedVersion: 2
+        x: 241
+        y: 3
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83f48c96db7679870800000000000000
+      internalID: 8689528069255876408
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_64
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 4
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e7a5df5d072c9c40800000000000000
+      internalID: 5520330181645281254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_65
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 3
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1920ff4a67da6ec20800000000000000
+      internalID: 3235464107398202001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_66
+      rect:
+        serializedVersion: 2
+        x: 396
+        y: 4
+        width: 12
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ad04a0cf54bd9060800000000000000
+      internalID: 6961918922331524521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_67
+      rect:
+        serializedVersion: 2
+        x: 428
+        y: 4
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13da888849542e5c0800000000000000
+      internalID: -4187708199253005007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_68
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 4
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 429197a2aca0b4a60800000000000000
+      internalID: 7659227454685911332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_69
+      rect:
+        serializedVersion: 2
+        x: 487
+        y: 2
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 107edbca347edb940800000000000000
+      internalID: 5313657413214004993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_70
+      rect:
+        serializedVersion: 2
+        x: 492
+        y: 4
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec18743abff9b1a90800000000000000
+      internalID: -7342098864372481586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_71
+      rect:
+        serializedVersion: 2
+        x: 641
+        y: 1
+        width: 11
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20539f28f298f4d60800000000000000
+      internalID: 7876665110448125186
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_72
+      rect:
+        serializedVersion: 2
+        x: 673
+        y: 2
+        width: 11
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 21888d3b6637db3f0800000000000000
+      internalID: -883423066953578478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sparkles Ambient_73
+      rect:
+        serializedVersion: 2
+        x: 706
+        y: 2
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 06e229ecccf1b2880800000000000000
+      internalID: -8634772896053318048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Sparkles Ambient_0: 7406510087588877058
+      Sparkles Ambient_1: -3823575348299797491
+      Sparkles Ambient_10: -6145652929621720550
+      Sparkles Ambient_11: 344387447198854809
+      Sparkles Ambient_12: -7293083720047130048
+      Sparkles Ambient_13: -6806827849846610660
+      Sparkles Ambient_14: 2890241188352623801
+      Sparkles Ambient_15: -6787312878277207879
+      Sparkles Ambient_16: -3558179448000836992
+      Sparkles Ambient_17: -8809844435987633856
+      Sparkles Ambient_18: -7875005955150658131
+      Sparkles Ambient_19: 1602559180045522886
+      Sparkles Ambient_2: -942626561148441602
+      Sparkles Ambient_20: -5756477395568835908
+      Sparkles Ambient_21: -5021460981679569383
+      Sparkles Ambient_22: -2091403778009390445
+      Sparkles Ambient_23: -4176127764050477268
+      Sparkles Ambient_24: 5268254535876012967
+      Sparkles Ambient_25: 8133741212291465128
+      Sparkles Ambient_26: -235781935803127586
+      Sparkles Ambient_27: 1707332368340239589
+      Sparkles Ambient_28: -7693299546658519361
+      Sparkles Ambient_29: 8780984625881878188
+      Sparkles Ambient_3: 6406382292616156894
+      Sparkles Ambient_30: 2458183499316417185
+      Sparkles Ambient_31: 3768341258992160516
+      Sparkles Ambient_32: -5836780210286268148
+      Sparkles Ambient_33: -4936202160888642653
+      Sparkles Ambient_34: -774650305148444977
+      Sparkles Ambient_35: -3683348020382271013
+      Sparkles Ambient_36: -3953037101570752967
+      Sparkles Ambient_37: -27581434839091404
+      Sparkles Ambient_38: 2319862850666044981
+      Sparkles Ambient_39: 5601061478158709935
+      Sparkles Ambient_4: -4124859116649597729
+      Sparkles Ambient_40: 1517098507904769151
+      Sparkles Ambient_41: -9188811796566538901
+      Sparkles Ambient_42: 3280737687831946235
+      Sparkles Ambient_43: -6643364155566210669
+      Sparkles Ambient_44: 2020523400424190972
+      Sparkles Ambient_45: -8033171770550930653
+      Sparkles Ambient_46: 5870737423178346264
+      Sparkles Ambient_47: 3722585412651360874
+      Sparkles Ambient_48: 7451317262733916806
+      Sparkles Ambient_49: -1161434892197177750
+      Sparkles Ambient_5: -3713942180170492341
+      Sparkles Ambient_50: 2282379721290506273
+      Sparkles Ambient_51: -7468780809286898406
+      Sparkles Ambient_52: 3253877626050958112
+      Sparkles Ambient_53: 9153655455295886919
+      Sparkles Ambient_54: 947569351016244274
+      Sparkles Ambient_55: -6718045102975890630
+      Sparkles Ambient_56: -155989121928326036
+      Sparkles Ambient_57: 2684906695960294922
+      Sparkles Ambient_58: 1304851202796368938
+      Sparkles Ambient_59: -1374491537929358526
+      Sparkles Ambient_6: -3500733868411776898
+      Sparkles Ambient_60: 3305218476436084788
+      Sparkles Ambient_61: -333373158097909205
+      Sparkles Ambient_62: 5297867253072392548
+      Sparkles Ambient_63: 8689528069255876408
+      Sparkles Ambient_64: 5520330181645281254
+      Sparkles Ambient_65: 3235464107398202001
+      Sparkles Ambient_66: 6961918922331524521
+      Sparkles Ambient_67: -4187708199253005007
+      Sparkles Ambient_68: 7659227454685911332
+      Sparkles Ambient_69: 5313657413214004993
+      Sparkles Ambient_7: 3191955629668646671
+      Sparkles Ambient_70: -7342098864372481586
+      Sparkles Ambient_71: 7876665110448125186
+      Sparkles Ambient_72: -883423066953578478
+      Sparkles Ambient_73: -8634772896053318048
+      Sparkles Ambient_8: 138673036600522003
+      Sparkles Ambient_9: 355988856765033267
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

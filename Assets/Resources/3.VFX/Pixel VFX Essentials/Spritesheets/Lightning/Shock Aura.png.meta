@@ -1,0 +1,1432 @@
+fileFormatVersion: 2
+guid: 004d3f1136ce002458259c65c24df2cf
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8431453721358251382
+    second: Shock Aura_0
+  - first:
+      213: 8113461014018558511
+    second: Shock Aura_1
+  - first:
+      213: 491784704822954918
+    second: Shock Aura_2
+  - first:
+      213: 3848852613394854267
+    second: Shock Aura_3
+  - first:
+      213: -6441609415542526364
+    second: Shock Aura_4
+  - first:
+      213: 3327080785893328910
+    second: Shock Aura_5
+  - first:
+      213: -5319358549249978943
+    second: Shock Aura_6
+  - first:
+      213: -5878101446874361786
+    second: Shock Aura_7
+  - first:
+      213: -678666232358700472
+    second: Shock Aura_8
+  - first:
+      213: 6713420332333863108
+    second: Shock Aura_9
+  - first:
+      213: -3043935581310609763
+    second: Shock Aura_10
+  - first:
+      213: -8562983232098932033
+    second: Shock Aura_11
+  - first:
+      213: 6615299337032233380
+    second: Shock Aura_12
+  - first:
+      213: -2412914121194394855
+    second: Shock Aura_13
+  - first:
+      213: 3444558057879383492
+    second: Shock Aura_14
+  - first:
+      213: -3779625183248608131
+    second: Shock Aura_15
+  - first:
+      213: -6672005897361387603
+    second: Shock Aura_16
+  - first:
+      213: 5654218747630703101
+    second: Shock Aura_17
+  - first:
+      213: -1998893584038860478
+    second: Shock Aura_18
+  - first:
+      213: -8554398005036350286
+    second: Shock Aura_19
+  - first:
+      213: 8228557038641143377
+    second: Shock Aura_20
+  - first:
+      213: 7614234337566007913
+    second: Shock Aura_21
+  - first:
+      213: -4122475299611102876
+    second: Shock Aura_22
+  - first:
+      213: -3782702882802549582
+    second: Shock Aura_23
+  - first:
+      213: -2907446438206330150
+    second: Shock Aura_24
+  - first:
+      213: 5255359389665304004
+    second: Shock Aura_25
+  - first:
+      213: -1592325528796214567
+    second: Shock Aura_26
+  - first:
+      213: 3956720071287395640
+    second: Shock Aura_27
+  - first:
+      213: 6390377578434264891
+    second: Shock Aura_28
+  - first:
+      213: 4067103229374039883
+    second: Shock Aura_29
+  - first:
+      213: 3114242866393696189
+    second: Shock Aura_30
+  - first:
+      213: -7164897292673024771
+    second: Shock Aura_31
+  - first:
+      213: 255554686544830119
+    second: Shock Aura_32
+  - first:
+      213: 5022849884962674539
+    second: Shock Aura_33
+  - first:
+      213: -6201664947686133586
+    second: Shock Aura_34
+  - first:
+      213: -8963660066914126055
+    second: Shock Aura_35
+  - first:
+      213: -7927750667572488175
+    second: Shock Aura_36
+  - first:
+      213: -6322279939604309372
+    second: Shock Aura_37
+  - first:
+      213: -8897201205495164138
+    second: Shock Aura_38
+  - first:
+      213: 3120681161737469333
+    second: Shock Aura_39
+  - first:
+      213: -9215560316194048563
+    second: Shock Aura_40
+  - first:
+      213: 1970458460998308267
+    second: Shock Aura_41
+  - first:
+      213: 571359847933839634
+    second: Shock Aura_42
+  - first:
+      213: -1931774426475929546
+    second: Shock Aura_43
+  - first:
+      213: 7613920761631065154
+    second: Shock Aura_44
+  - first:
+      213: -1297992355881846245
+    second: Shock Aura_45
+  - first:
+      213: 5252915673042448697
+    second: Shock Aura_46
+  - first:
+      213: -1953870284384793184
+    second: Shock Aura_47
+  - first:
+      213: 5529806601403578242
+    second: Shock Aura_48
+  - first:
+      213: -566596304564039588
+    second: Shock Aura_49
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Shock Aura_0
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 16
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67534b1ec7a820570800000000000000
+      internalID: 8431453721358251382
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shock Aura_1
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 14
+        width: 18
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f2a8e872ecdc89070800000000000000
+      internalID: 8113461014018558511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shock Aura_2
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 9
+        width: 25
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ab41fc559b23d600800000000000000
+      internalID: 491784704822954918
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shock Aura_3
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 9
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b71fb3e4f0fd96530800000000000000
+      internalID: 3848852613394854267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shock Aura_4
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 13
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 46ea6cc9d5eca96a0800000000000000
+      internalID: -6441609415542526364
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shock Aura_5
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 6
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e08033ed85a2c2e20800000000000000
+      internalID: 3327080785893328910
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shock Aura_6
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 16
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1cd84072597dd26b0800000000000000
+      internalID: -5319358549249978943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shock Aura_7
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 14
+        width: 18
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6401859a0e9cc6ea0800000000000000
+      internalID: -5878101446874361786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shock Aura_8
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 9
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84af43b48a4e496f0800000000000000
+      internalID: -678666232358700472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shock Aura_9
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 2
+        width: 26
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c015a8193cda2d50800000000000000
+      internalID: 6713420332333863108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shock Aura_10
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 3
+        width: 12
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d961fcc57b4c1c5d0800000000000000
+      internalID: -3043935581310609763
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shock Aura_11
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 6
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fbaed197e1c2a2980800000000000000
+      internalID: -8562983232098932033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shock Aura_12
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 16
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4a1feaa92b34ecb50800000000000000
+      internalID: 6615299337032233380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shock Aura_13
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 14
+        width: 18
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91b2fa4146b938ed0800000000000000
+      internalID: -2412914121194394855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shock Aura_14
+      rect:
+        serializedVersion: 2
+        x: 226
+        y: 9
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4cd2c18bd478dcf20800000000000000
+      internalID: 3444558057879383492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shock Aura_15
+      rect:
+        serializedVersion: 2
+        x: 229
+        y: 19
+        width: 22
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d749850dbe21c8bc0800000000000000
+      internalID: -3779625183248608131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shock Aura_16
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 2
+        width: 25
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: daf86747cf54863a0800000000000000
+      internalID: -6672005897361387603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shock Aura_17
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 16
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df1d1ee5ef1d77e40800000000000000
+      internalID: 5654218747630703101
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shock Aura_18
+      rect:
+        serializedVersion: 2
+        x: 268
+        y: 14
+        width: 18
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2496e8b30e08244e0800000000000000
+      internalID: -1998893584038860478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shock Aura_19
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 9
+        width: 25
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b48f7a665ca84980800000000000000
+      internalID: -8554398005036350286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shock Aura_20
+      rect:
+        serializedVersion: 2
+        x: 312
+        y: 9
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15ede36a705b13270800000000000000
+      internalID: 8228557038641143377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shock Aura_21
+      rect:
+        serializedVersion: 2
+        x: 322
+        y: 13
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 962243fb9c13ba960800000000000000
+      internalID: 7614234337566007913
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shock Aura_22
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 6
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 461bb5b8e860ac6c0800000000000000
+      internalID: -4122475299611102876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shock Aura_23
+      rect:
+        serializedVersion: 2
+        x: 355
+        y: 16
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2bc35bb05c3218bc0800000000000000
+      internalID: -3782702882802549582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shock Aura_24
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 14
+        width: 18
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: adaac376edca6a7d0800000000000000
+      internalID: -2907446438206330150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shock Aura_25
+      rect:
+        serializedVersion: 2
+        x: 386
+        y: 9
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4cd93045589cee840800000000000000
+      internalID: 5255359389665304004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shock Aura_26
+      rect:
+        serializedVersion: 2
+        x: 389
+        y: 2
+        width: 26
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9dac0593e5ce6e9e0800000000000000
+      internalID: -1592325528796214567
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shock Aura_27
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 3
+        width: 12
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8355eb4f0f719e630800000000000000
+      internalID: 3956720071287395640
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shock Aura_28
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 6
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b3ff137cc8e2fa850800000000000000
+      internalID: 6390377578434264891
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shock Aura_29
+      rect:
+        serializedVersion: 2
+        x: 451
+        y: 16
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b470fa3b6d0417830800000000000000
+      internalID: 4067103229374039883
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shock Aura_30
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 14
+        width: 18
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db7c0b31363083b20800000000000000
+      internalID: 3114242866393696189
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shock Aura_31
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 9
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dfcf012afdb219c90800000000000000
+      internalID: -7164897292673024771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shock Aura_32
+      rect:
+        serializedVersion: 2
+        x: 485
+        y: 19
+        width: 22
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7aed03822a9eb8300800000000000000
+      internalID: 255554686544830119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shock Aura_33
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 2
+        width: 25
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b67df41bb5fb4b540800000000000000
+      internalID: 5022849884962674539
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shock Aura_34
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 1
+        width: 27
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea03d2186924fe9a0800000000000000
+      internalID: -6201664947686133586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shock Aura_35
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 2
+        width: 22
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 917ba3029aeaa9380800000000000000
+      internalID: -8963660066914126055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shock Aura_36
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 3
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 118d97755c8faf190800000000000000
+      internalID: -7927750667572488175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shock Aura_37
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 1
+        width: 12
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48a9e4d44efb248a0800000000000000
+      internalID: -6322279939604309372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shock Aura_38
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 1
+        width: 27
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 613984b94aac68480800000000000000
+      internalID: -8897201205495164138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shock Aura_39
+      rect:
+        serializedVersion: 2
+        x: 173
+        y: 1
+        width: 12
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 59d7d968bf2ee4b20800000000000000
+      internalID: 3120681161737469333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shock Aura_40
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 1
+        width: 18
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc53113f7b0cb1080800000000000000
+      internalID: -9215560316194048563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shock Aura_41
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 3
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba19774c789785b10800000000000000
+      internalID: 1970458460998308267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shock Aura_42
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 1
+        width: 27
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 219840721c0ede700800000000000000
+      internalID: 571359847933839634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shock Aura_43
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 2
+        width: 22
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 630e7b3e465f035e0800000000000000
+      internalID: -1931774426475929546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shock Aura_44
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 3
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 244cdf8a7941aa960800000000000000
+      internalID: 7613920761631065154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shock Aura_45
+      rect:
+        serializedVersion: 2
+        x: 333
+        y: 1
+        width: 12
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b1a7d7254da9cfde0800000000000000
+      internalID: -1297992355881846245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shock Aura_46
+      rect:
+        serializedVersion: 2
+        x: 355
+        y: 1
+        width: 27
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 931f6c639fa16e840800000000000000
+      internalID: 5252915673042448697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shock Aura_47
+      rect:
+        serializedVersion: 2
+        x: 429
+        y: 1
+        width: 12
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0ad8d02145572e4e0800000000000000
+      internalID: -1953870284384793184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shock Aura_48
+      rect:
+        serializedVersion: 2
+        x: 451
+        y: 1
+        width: 18
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 28735494ec1ddbc40800000000000000
+      internalID: 5529806601403578242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shock Aura_49
+      rect:
+        serializedVersion: 2
+        x: 468
+        y: 3
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c505967b9ab0328f0800000000000000
+      internalID: -566596304564039588
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Shock Aura_0: 8431453721358251382
+      Shock Aura_1: 8113461014018558511
+      Shock Aura_10: -3043935581310609763
+      Shock Aura_11: -8562983232098932033
+      Shock Aura_12: 6615299337032233380
+      Shock Aura_13: -2412914121194394855
+      Shock Aura_14: 3444558057879383492
+      Shock Aura_15: -3779625183248608131
+      Shock Aura_16: -6672005897361387603
+      Shock Aura_17: 5654218747630703101
+      Shock Aura_18: -1998893584038860478
+      Shock Aura_19: -8554398005036350286
+      Shock Aura_2: 491784704822954918
+      Shock Aura_20: 8228557038641143377
+      Shock Aura_21: 7614234337566007913
+      Shock Aura_22: -4122475299611102876
+      Shock Aura_23: -3782702882802549582
+      Shock Aura_24: -2907446438206330150
+      Shock Aura_25: 5255359389665304004
+      Shock Aura_26: -1592325528796214567
+      Shock Aura_27: 3956720071287395640
+      Shock Aura_28: 6390377578434264891
+      Shock Aura_29: 4067103229374039883
+      Shock Aura_3: 3848852613394854267
+      Shock Aura_30: 3114242866393696189
+      Shock Aura_31: -7164897292673024771
+      Shock Aura_32: 255554686544830119
+      Shock Aura_33: 5022849884962674539
+      Shock Aura_34: -6201664947686133586
+      Shock Aura_35: -8963660066914126055
+      Shock Aura_36: -7927750667572488175
+      Shock Aura_37: -6322279939604309372
+      Shock Aura_38: -8897201205495164138
+      Shock Aura_39: 3120681161737469333
+      Shock Aura_4: -6441609415542526364
+      Shock Aura_40: -9215560316194048563
+      Shock Aura_41: 1970458460998308267
+      Shock Aura_42: 571359847933839634
+      Shock Aura_43: -1931774426475929546
+      Shock Aura_44: 7613920761631065154
+      Shock Aura_45: -1297992355881846245
+      Shock Aura_46: 5252915673042448697
+      Shock Aura_47: -1953870284384793184
+      Shock Aura_48: 5529806601403578242
+      Shock Aura_49: -566596304564039588
+      Shock Aura_5: 3327080785893328910
+      Shock Aura_6: -5319358549249978943
+      Shock Aura_7: -5878101446874361786
+      Shock Aura_8: -678666232358700472
+      Shock Aura_9: 6713420332333863108
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

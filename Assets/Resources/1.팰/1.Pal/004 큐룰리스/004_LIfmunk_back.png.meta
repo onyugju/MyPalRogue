@@ -1,0 +1,756 @@
+fileFormatVersion: 2
+guid: 17bd04591e7f4f14196e43c51208ddee
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1432794333324887193
+    second: 004_LIfmunk_back_0
+  - first:
+      213: 8919818675799915426
+    second: 004_LIfmunk_back_1
+  - first:
+      213: 134723784913781660
+    second: 004_LIfmunk_back_2
+  - first:
+      213: 8868785879023115717
+    second: 004_LIfmunk_back_3
+  - first:
+      213: -6026391474267319741
+    second: 004_LIfmunk_back_4
+  - first:
+      213: 2755142461204249623
+    second: 004_LIfmunk_back_5
+  - first:
+      213: -8566154809731935260
+    second: 004_LIfmunk_back_6
+  - first:
+      213: 2008336021179989250
+    second: 004_LIfmunk_back_7
+  - first:
+      213: -7749278169976107370
+    second: 004_LIfmunk_back_8
+  - first:
+      213: 5959525976146000784
+    second: 004_LIfmunk_back_9
+  - first:
+      213: 158317535714036828
+    second: 004_LIfmunk_back_10
+  - first:
+      213: -8514579977071017484
+    second: 004_LIfmunk_back_11
+  - first:
+      213: -1894673923500372381
+    second: 004_LIfmunk_back_12
+  - first:
+      213: 6374912382064958129
+    second: 004_LIfmunk_back_13
+  - first:
+      213: 2310533316616884931
+    second: 004_LIfmunk_back_14
+  - first:
+      213: -4937570355780943657
+    second: 004_LIfmunk_back_15
+  - first:
+      213: -6215861304462066591
+    second: 004_LIfmunk_back_16
+  - first:
+      213: 8338645259606636354
+    second: 004_LIfmunk_back_17
+  - first:
+      213: 1940736459292750776
+    second: 004_LIfmunk_back_18
+  - first:
+      213: 2229377315139589573
+    second: 004_LIfmunk_back_19
+  - first:
+      213: 8880752401899354798
+    second: 004_LIfmunk_back_20
+  - first:
+      213: -381849774774459378
+    second: 004_LIfmunk_back_21
+  - first:
+      213: 138865563697524972
+    second: 004_LIfmunk_back_22
+  - first:
+      213: 2435100155448031403
+    second: 004_LIfmunk_back_23
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: 004_LIfmunk_back_0
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 0
+        width: 1347
+        height: 1092
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76b3af52521bd1ce0800000000000000
+      internalID: -1432794333324887193
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 004_LIfmunk_back_1
+      rect:
+        serializedVersion: 2
+        x: 777
+        y: 1065
+        width: 87
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2abf2ff83df89cb70800000000000000
+      internalID: 8919818675799915426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 004_LIfmunk_back_2
+      rect:
+        serializedVersion: 2
+        x: 886
+        y: 1046
+        width: 34
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c93059e8192aed100800000000000000
+      internalID: 134723784913781660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 004_LIfmunk_back_3
+      rect:
+        serializedVersion: 2
+        x: 858
+        y: 1048
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5cd5c24a4c1441b70800000000000000
+      internalID: 8868785879023115717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 004_LIfmunk_back_4
+      rect:
+        serializedVersion: 2
+        x: 894
+        y: 1036
+        width: 10
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3429ad222e4fd5ca0800000000000000
+      internalID: -6026391474267319741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 004_LIfmunk_back_5
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 992
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 71cbca9987b3c3620800000000000000
+      internalID: 2755142461204249623
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 004_LIfmunk_back_6
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 986
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4e39ce20697ee1980800000000000000
+      internalID: -8566154809731935260
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 004_LIfmunk_back_7
+      rect:
+        serializedVersion: 2
+        x: 509
+        y: 988
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20dfd0c78fa0fdb10800000000000000
+      internalID: 2008336021179989250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 004_LIfmunk_back_8
+      rect:
+        serializedVersion: 2
+        x: 858
+        y: 986
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 69e82e4df88057490800000000000000
+      internalID: -7749278169976107370
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 004_LIfmunk_back_9
+      rect:
+        serializedVersion: 2
+        x: 880
+        y: 992
+        width: 14
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09b35e5ec4d74b250800000000000000
+      internalID: 5959525976146000784
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 004_LIfmunk_back_10
+      rect:
+        serializedVersion: 2
+        x: 885
+        y: 983
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c5c43fdb5f4723200800000000000000
+      internalID: 158317535714036828
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 004_LIfmunk_back_11
+      rect:
+        serializedVersion: 2
+        x: 904
+        y: 986
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f1470f7f9226d980800000000000000
+      internalID: -8514579977071017484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 004_LIfmunk_back_12
+      rect:
+        serializedVersion: 2
+        x: 882
+        y: 984
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36e8090ea14c4b5e0800000000000000
+      internalID: -1894673923500372381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 004_LIfmunk_back_13
+      rect:
+        serializedVersion: 2
+        x: 1217
+        y: 965
+        width: 24
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ba9837290d387850800000000000000
+      internalID: 6374912382064958129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 004_LIfmunk_back_14
+      rect:
+        serializedVersion: 2
+        x: 1233
+        y: 954
+        width: 14
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c297aa4fc9a01020800000000000000
+      internalID: 2310533316616884931
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 004_LIfmunk_back_15
+      rect:
+        serializedVersion: 2
+        x: 1308
+        y: 878
+        width: 21
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d08d2afbe93a7bb0800000000000000
+      internalID: -4937570355780943657
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 004_LIfmunk_back_16
+      rect:
+        serializedVersion: 2
+        x: 1310
+        y: 891
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 16c317e9313dcb9a0800000000000000
+      internalID: -6215861304462066591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 004_LIfmunk_back_17
+      rect:
+        serializedVersion: 2
+        x: 1320
+        y: 750
+        width: 65
+        height: 117
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24739defea1d8b370800000000000000
+      internalID: 8338645259606636354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 004_LIfmunk_back_18
+      rect:
+        serializedVersion: 2
+        x: 1364
+        y: 671
+        width: 33
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b33bcaf681eeea10800000000000000
+      internalID: 1940736459292750776
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 004_LIfmunk_back_19
+      rect:
+        serializedVersion: 2
+        x: 1332
+        y: 573
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c5953b3bd650fe10800000000000000
+      internalID: 2229377315139589573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 004_LIfmunk_back_20
+      rect:
+        serializedVersion: 2
+        x: 1372
+        y: 501
+        width: 9
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eaa786dd145ce3b70800000000000000
+      internalID: 8880752401899354798
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 004_LIfmunk_back_21
+      rect:
+        serializedVersion: 2
+        x: 1346
+        y: 451
+        width: 25
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e04610927a563baf0800000000000000
+      internalID: -381849774774459378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 004_LIfmunk_back_22
+      rect:
+        serializedVersion: 2
+        x: 1404
+        y: 480
+        width: 8
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce0b9b39e795de100800000000000000
+      internalID: 138865563697524972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 004_LIfmunk_back_23
+      rect:
+        serializedVersion: 2
+        x: 1290
+        y: 97
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba87afd80b63bc120800000000000000
+      internalID: 2435100155448031403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      004_LIfmunk_back_0: -1432794333324887193
+      004_LIfmunk_back_1: 8919818675799915426
+      004_LIfmunk_back_10: 158317535714036828
+      004_LIfmunk_back_11: -8514579977071017484
+      004_LIfmunk_back_12: -1894673923500372381
+      004_LIfmunk_back_13: 6374912382064958129
+      004_LIfmunk_back_14: 2310533316616884931
+      004_LIfmunk_back_15: -4937570355780943657
+      004_LIfmunk_back_16: -6215861304462066591
+      004_LIfmunk_back_17: 8338645259606636354
+      004_LIfmunk_back_18: 1940736459292750776
+      004_LIfmunk_back_19: 2229377315139589573
+      004_LIfmunk_back_2: 134723784913781660
+      004_LIfmunk_back_20: 8880752401899354798
+      004_LIfmunk_back_21: -381849774774459378
+      004_LIfmunk_back_22: 138865563697524972
+      004_LIfmunk_back_23: 2435100155448031403
+      004_LIfmunk_back_3: 8868785879023115717
+      004_LIfmunk_back_4: -6026391474267319741
+      004_LIfmunk_back_5: 2755142461204249623
+      004_LIfmunk_back_6: -8566154809731935260
+      004_LIfmunk_back_7: 2008336021179989250
+      004_LIfmunk_back_8: -7749278169976107370
+      004_LIfmunk_back_9: 5959525976146000784
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

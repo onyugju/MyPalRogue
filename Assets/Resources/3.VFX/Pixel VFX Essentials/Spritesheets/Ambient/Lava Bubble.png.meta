@@ -1,0 +1,990 @@
+fileFormatVersion: 2
+guid: c0d2889d0f7713a4c81b0d022a54e152
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 6201658248183396961
+    second: Lava Bubble_0
+  - first:
+      213: 7358482371223572345
+    second: Lava Bubble_1
+  - first:
+      213: -8518445105583639575
+    second: Lava Bubble_2
+  - first:
+      213: 1426941487623088037
+    second: Lava Bubble_3
+  - first:
+      213: -2581184647559946005
+    second: Lava Bubble_4
+  - first:
+      213: -6072614077149662027
+    second: Lava Bubble_5
+  - first:
+      213: -5201350488866054370
+    second: Lava Bubble_6
+  - first:
+      213: 7418723240170458097
+    second: Lava Bubble_7
+  - first:
+      213: -169837139245467903
+    second: Lava Bubble_8
+  - first:
+      213: 3688540900090548392
+    second: Lava Bubble_9
+  - first:
+      213: 1360329225482087307
+    second: Lava Bubble_10
+  - first:
+      213: 2025890953534081337
+    second: Lava Bubble_11
+  - first:
+      213: 5500975433489328775
+    second: Lava Bubble_12
+  - first:
+      213: 7624904396723709082
+    second: Lava Bubble_13
+  - first:
+      213: -3180864493567413795
+    second: Lava Bubble_14
+  - first:
+      213: 3641532824292767839
+    second: Lava Bubble_15
+  - first:
+      213: 3813662733963375544
+    second: Lava Bubble_16
+  - first:
+      213: 3532847639307713794
+    second: Lava Bubble_17
+  - first:
+      213: 3663930976854028530
+    second: Lava Bubble_18
+  - first:
+      213: -4925157870570567037
+    second: Lava Bubble_19
+  - first:
+      213: 4391309904977964247
+    second: Lava Bubble_20
+  - first:
+      213: 4990098896571296599
+    second: Lava Bubble_21
+  - first:
+      213: -1647080602667197401
+    second: Lava Bubble_22
+  - first:
+      213: 953748890830815291
+    second: Lava Bubble_23
+  - first:
+      213: 8248800460042930862
+    second: Lava Bubble_24
+  - first:
+      213: 6240080178144866980
+    second: Lava Bubble_25
+  - first:
+      213: -6293958554158354099
+    second: Lava Bubble_26
+  - first:
+      213: 8157803272178701683
+    second: Lava Bubble_27
+  - first:
+      213: 2297281023196068198
+    second: Lava Bubble_28
+  - first:
+      213: -4197725223874325791
+    second: Lava Bubble_29
+  - first:
+      213: 8449391459057631994
+    second: Lava Bubble_30
+  - first:
+      213: 5248334822629031750
+    second: Lava Bubble_31
+  - first:
+      213: -6100932958047609877
+    second: Lava Bubble_32
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Lava Bubble_0
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 5
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 16ab755a157b01650800000000000000
+      internalID: 6201658248183396961
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lava Bubble_1
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 5
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 97f41cecab49e1660800000000000000
+      internalID: 7358482371223572345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lava Bubble_2
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 4
+        width: 21
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e3b5032f4768c980800000000000000
+      internalID: -8518445105583639575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lava Bubble_3
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 3
+        width: 22
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a7aa0509b38dc310800000000000000
+      internalID: 1426941487623088037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lava Bubble_4
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 3
+        width: 22
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be06f7e1d3acd2cd0800000000000000
+      internalID: -2581184647559946005
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lava Bubble_5
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 3
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b43571cbadb9bba0800000000000000
+      internalID: -6072614077149662027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lava Bubble_6
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 3
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1f95dec94711d7b0800000000000000
+      internalID: -5201350488866054370
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lava Bubble_7
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 2
+        width: 25
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1fb8b491b7994f660800000000000000
+      internalID: 7418723240170458097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lava Bubble_8
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 1
+        width: 16
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 107fa9d850e94adf0800000000000000
+      internalID: -169837139245467903
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lava Bubble_9
+      rect:
+        serializedVersion: 2
+        x: 236
+        y: 1
+        width: 16
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a09569e764503330800000000000000
+      internalID: 3688540900090548392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lava Bubble_10
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 3
+        width: 11
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8b2176293cd0e210800000000000000
+      internalID: 1360329225482087307
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lava Bubble_11
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 6
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 939831fa6196d1c10800000000000000
+      internalID: 2025890953534081337
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lava Bubble_12
+      rect:
+        serializedVersion: 2
+        x: 299
+        y: 0
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78a2847e204675c40800000000000000
+      internalID: 5500975433489328775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lava Bubble_13
+      rect:
+        serializedVersion: 2
+        x: 331
+        y: 7
+        width: 15
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a94e70d762a11d960800000000000000
+      internalID: 7624904396723709082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lava Bubble_14
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 4
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd1f246989c4bd3d0800000000000000
+      internalID: -3180864493567413795
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lava Bubble_15
+      rect:
+        serializedVersion: 2
+        x: 389
+        y: 5
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5835ed5fc2598230800000000000000
+      internalID: 3641532824292767839
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lava Bubble_16
+      rect:
+        serializedVersion: 2
+        x: 395
+        y: 9
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b338070d0adce430800000000000000
+      internalID: 3813662733963375544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lava Bubble_17
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 6
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20d738ac532370130800000000000000
+      internalID: 3532847639307713794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lava Bubble_18
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 9
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f03fe4afc5e8d230800000000000000
+      internalID: 3663930976854028530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lava Bubble_19
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 4
+        width: 22
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 38a0ce5e20356abb0800000000000000
+      internalID: -4925157870570567037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lava Bubble_20
+      rect:
+        serializedVersion: 2
+        x: 451
+        y: 3
+        width: 23
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7dcadd8a71111fc30800000000000000
+      internalID: 4391309904977964247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lava Bubble_21
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 2
+        width: 23
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75b633cf184604540800000000000000
+      internalID: 4990098896571296599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lava Bubble_22
+      rect:
+        serializedVersion: 2
+        x: 515
+        y: 3
+        width: 13
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72cd5912be46429e0800000000000000
+      internalID: -1647080602667197401
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lava Bubble_23
+      rect:
+        serializedVersion: 2
+        x: 531
+        y: 3
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b30c4e220956c3d00800000000000000
+      internalID: 953748890830815291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lava Bubble_24
+      rect:
+        serializedVersion: 2
+        x: 546
+        y: 2
+        width: 25
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eaa00fb7050a97270800000000000000
+      internalID: 8248800460042930862
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lava Bubble_25
+      rect:
+        serializedVersion: 2
+        x: 589
+        y: 1
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4a2f7445cd7399650800000000000000
+      internalID: 6240080178144866980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lava Bubble_26
+      rect:
+        serializedVersion: 2
+        x: 621
+        y: 1
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d413c54ba0e57a8a0800000000000000
+      internalID: -6293958554158354099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lava Bubble_27
+      rect:
+        serializedVersion: 2
+        x: 654
+        y: 3
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3751bb9aad6563170800000000000000
+      internalID: 8157803272178701683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lava Bubble_28
+      rect:
+        serializedVersion: 2
+        x: 685
+        y: 0
+        width: 16
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 669f8d84be491ef10800000000000000
+      internalID: 2297281023196068198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lava Bubble_29
+      rect:
+        serializedVersion: 2
+        x: 716
+        y: 6
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e2164e362faeb5c0800000000000000
+      internalID: -4197725223874325791
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lava Bubble_30
+      rect:
+        serializedVersion: 2
+        x: 748
+        y: 2
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af28955e3c4424570800000000000000
+      internalID: 8449391459057631994
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lava Bubble_31
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 1
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 64fbd1dd6b4d5d840800000000000000
+      internalID: 5248334822629031750
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lava Bubble_32
+      rect:
+        serializedVersion: 2
+        x: 659
+        y: 1
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: beb591d7cc1255ba0800000000000000
+      internalID: -6100932958047609877
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Lava Bubble_0: 6201658248183396961
+      Lava Bubble_1: 7358482371223572345
+      Lava Bubble_10: 1360329225482087307
+      Lava Bubble_11: 2025890953534081337
+      Lava Bubble_12: 5500975433489328775
+      Lava Bubble_13: 7624904396723709082
+      Lava Bubble_14: -3180864493567413795
+      Lava Bubble_15: 3641532824292767839
+      Lava Bubble_16: 3813662733963375544
+      Lava Bubble_17: 3532847639307713794
+      Lava Bubble_18: 3663930976854028530
+      Lava Bubble_19: -4925157870570567037
+      Lava Bubble_2: -8518445105583639575
+      Lava Bubble_20: 4391309904977964247
+      Lava Bubble_21: 4990098896571296599
+      Lava Bubble_22: -1647080602667197401
+      Lava Bubble_23: 953748890830815291
+      Lava Bubble_24: 8248800460042930862
+      Lava Bubble_25: 6240080178144866980
+      Lava Bubble_26: -6293958554158354099
+      Lava Bubble_27: 8157803272178701683
+      Lava Bubble_28: 2297281023196068198
+      Lava Bubble_29: -4197725223874325791
+      Lava Bubble_3: 1426941487623088037
+      Lava Bubble_30: 8449391459057631994
+      Lava Bubble_31: 5248334822629031750
+      Lava Bubble_32: -6100932958047609877
+      Lava Bubble_4: -2581184647559946005
+      Lava Bubble_5: -6072614077149662027
+      Lava Bubble_6: -5201350488866054370
+      Lava Bubble_7: 7418723240170458097
+      Lava Bubble_8: -169837139245467903
+      Lava Bubble_9: 3688540900090548392
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

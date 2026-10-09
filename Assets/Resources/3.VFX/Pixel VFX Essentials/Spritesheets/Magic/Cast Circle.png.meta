@@ -1,0 +1,3096 @@
+fileFormatVersion: 2
+guid: ce75ea22deb859d4db925668de004073
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1259785395537613881
+    second: Cast Circle_0
+  - first:
+      213: 982370446793557956
+    second: Cast Circle_1
+  - first:
+      213: 4263949716031938818
+    second: Cast Circle_2
+  - first:
+      213: 8068553547855103912
+    second: Cast Circle_3
+  - first:
+      213: 3912533959768674639
+    second: Cast Circle_4
+  - first:
+      213: -7716750832899458689
+    second: Cast Circle_5
+  - first:
+      213: -4422629608744514911
+    second: Cast Circle_6
+  - first:
+      213: -7021944794164560088
+    second: Cast Circle_7
+  - first:
+      213: 2878468622894618112
+    second: Cast Circle_8
+  - first:
+      213: 4926005434314482848
+    second: Cast Circle_9
+  - first:
+      213: 6801846317111111400
+    second: Cast Circle_10
+  - first:
+      213: 5339449978862965748
+    second: Cast Circle_11
+  - first:
+      213: -2726497655309905234
+    second: Cast Circle_12
+  - first:
+      213: 7284245321030590908
+    second: Cast Circle_13
+  - first:
+      213: 6246811254704282244
+    second: Cast Circle_14
+  - first:
+      213: 7126728348933186113
+    second: Cast Circle_15
+  - first:
+      213: -5990921822650564139
+    second: Cast Circle_16
+  - first:
+      213: -3148264827171458026
+    second: Cast Circle_17
+  - first:
+      213: -3667493027614492568
+    second: Cast Circle_18
+  - first:
+      213: -9054377639719753247
+    second: Cast Circle_19
+  - first:
+      213: -3672768276862612592
+    second: Cast Circle_20
+  - first:
+      213: -5384286333518029042
+    second: Cast Circle_21
+  - first:
+      213: -1989539768731229246
+    second: Cast Circle_22
+  - first:
+      213: -8062052324692496056
+    second: Cast Circle_23
+  - first:
+      213: -8949753066336183255
+    second: Cast Circle_24
+  - first:
+      213: -6894661412767319917
+    second: Cast Circle_25
+  - first:
+      213: -6280119411441161143
+    second: Cast Circle_26
+  - first:
+      213: 8067088143482064945
+    second: Cast Circle_27
+  - first:
+      213: 5859245696687108622
+    second: Cast Circle_28
+  - first:
+      213: 1239536444868187463
+    second: Cast Circle_29
+  - first:
+      213: -1931718838963453674
+    second: Cast Circle_30
+  - first:
+      213: -5415738959527206120
+    second: Cast Circle_31
+  - first:
+      213: -2527638417649636238
+    second: Cast Circle_32
+  - first:
+      213: -1530342537923632431
+    second: Cast Circle_33
+  - first:
+      213: 3678783772641065314
+    second: Cast Circle_34
+  - first:
+      213: -7557293080182767372
+    second: Cast Circle_35
+  - first:
+      213: 6540177143883728870
+    second: Cast Circle_36
+  - first:
+      213: 4967203117833909950
+    second: Cast Circle_37
+  - first:
+      213: 8086881339383410497
+    second: Cast Circle_38
+  - first:
+      213: -2242433438018750628
+    second: Cast Circle_39
+  - first:
+      213: -6474993747168931315
+    second: Cast Circle_40
+  - first:
+      213: 8924807388952903189
+    second: Cast Circle_41
+  - first:
+      213: 2627077285709345383
+    second: Cast Circle_42
+  - first:
+      213: -2303457739018476902
+    second: Cast Circle_43
+  - first:
+      213: -4443143395598153723
+    second: Cast Circle_44
+  - first:
+      213: 7311242931167647124
+    second: Cast Circle_45
+  - first:
+      213: 6939398957641302295
+    second: Cast Circle_46
+  - first:
+      213: -4911719183490574894
+    second: Cast Circle_47
+  - first:
+      213: -3387829588191303439
+    second: Cast Circle_48
+  - first:
+      213: -3604938839392843346
+    second: Cast Circle_49
+  - first:
+      213: 105386533942752179
+    second: Cast Circle_50
+  - first:
+      213: 4307393558546750696
+    second: Cast Circle_51
+  - first:
+      213: 149910584317748322
+    second: Cast Circle_52
+  - first:
+      213: 6757634152614504263
+    second: Cast Circle_53
+  - first:
+      213: 9025139111791785274
+    second: Cast Circle_54
+  - first:
+      213: 6393433568061582426
+    second: Cast Circle_55
+  - first:
+      213: -4375875970491652502
+    second: Cast Circle_56
+  - first:
+      213: 923493778272283497
+    second: Cast Circle_57
+  - first:
+      213: 3639434595825381095
+    second: Cast Circle_58
+  - first:
+      213: -8880083643734480015
+    second: Cast Circle_59
+  - first:
+      213: 7470340581175484100
+    second: Cast Circle_60
+  - first:
+      213: 8464035161686698437
+    second: Cast Circle_61
+  - first:
+      213: -7231163513364610471
+    second: Cast Circle_62
+  - first:
+      213: 3271041696059046175
+    second: Cast Circle_63
+  - first:
+      213: 5481435518173499017
+    second: Cast Circle_64
+  - first:
+      213: 9181077888052737410
+    second: Cast Circle_65
+  - first:
+      213: 5288624206905686575
+    second: Cast Circle_66
+  - first:
+      213: -54309227843452568
+    second: Cast Circle_67
+  - first:
+      213: -8052063378162301719
+    second: Cast Circle_68
+  - first:
+      213: -157896957510173710
+    second: Cast Circle_69
+  - first:
+      213: -5561775485237642042
+    second: Cast Circle_70
+  - first:
+      213: -3531356438735735686
+    second: Cast Circle_71
+  - first:
+      213: -7937513417627792303
+    second: Cast Circle_72
+  - first:
+      213: -2078953807448370849
+    second: Cast Circle_73
+  - first:
+      213: 3250304598415599914
+    second: Cast Circle_74
+  - first:
+      213: -6334903868611551431
+    second: Cast Circle_75
+  - first:
+      213: 3148507646095170770
+    second: Cast Circle_76
+  - first:
+      213: -5329979525502669255
+    second: Cast Circle_77
+  - first:
+      213: -8691160346076911565
+    second: Cast Circle_78
+  - first:
+      213: -125327534969847119
+    second: Cast Circle_79
+  - first:
+      213: -2596788918016384610
+    second: Cast Circle_80
+  - first:
+      213: -3557041828101884867
+    second: Cast Circle_81
+  - first:
+      213: 3174499179010565791
+    second: Cast Circle_82
+  - first:
+      213: 5395867854891634613
+    second: Cast Circle_83
+  - first:
+      213: 376721898768575317
+    second: Cast Circle_84
+  - first:
+      213: -8650430205247158894
+    second: Cast Circle_85
+  - first:
+      213: 5305639843440965045
+    second: Cast Circle_86
+  - first:
+      213: 6586573552630456346
+    second: Cast Circle_87
+  - first:
+      213: -7904921469352165521
+    second: Cast Circle_88
+  - first:
+      213: 6141920676242327667
+    second: Cast Circle_89
+  - first:
+      213: 4285294761476400490
+    second: Cast Circle_90
+  - first:
+      213: -3873521955551067170
+    second: Cast Circle_91
+  - first:
+      213: -3551768057482504683
+    second: Cast Circle_92
+  - first:
+      213: 3406442048671325197
+    second: Cast Circle_93
+  - first:
+      213: 516273522045395252
+    second: Cast Circle_94
+  - first:
+      213: 1135644608138356834
+    second: Cast Circle_95
+  - first:
+      213: -5636991801172625526
+    second: Cast Circle_96
+  - first:
+      213: -58777836833481254
+    second: Cast Circle_97
+  - first:
+      213: -4803053648847332979
+    second: Cast Circle_98
+  - first:
+      213: 7011207389089970618
+    second: Cast Circle_99
+  - first:
+      213: -1076524110758816100
+    second: Cast Circle_100
+  - first:
+      213: 1841798930151869783
+    second: Cast Circle_101
+  - first:
+      213: -3428137934201298841
+    second: Cast Circle_102
+  - first:
+      213: -9005126866911349944
+    second: Cast Circle_103
+  - first:
+      213: -7546137232972911787
+    second: Cast Circle_104
+  - first:
+      213: -3956814203841122687
+    second: Cast Circle_105
+  - first:
+      213: -9194915614892851946
+    second: Cast Circle_106
+  - first:
+      213: 8687634948549334768
+    second: Cast Circle_107
+  - first:
+      213: 777457537450510321
+    second: Cast Circle_108
+  - first:
+      213: 2310241967489434458
+    second: Cast Circle_109
+  - first:
+      213: 3444948949900763384
+    second: Cast Circle_110
+  - first:
+      213: 7984196525773453546
+    second: Cast Circle_111
+  - first:
+      213: -956957249414090063
+    second: Cast Circle_112
+  - first:
+      213: 3635695575272583338
+    second: Cast Circle_113
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Cast Circle_0
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 18
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7cb61cd7bd7548ee0800000000000000
+      internalID: -1259785395537613881
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_1
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 10
+        width: 8
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c7c8fe67b412ad00800000000000000
+      internalID: 982370446793557956
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_2
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 14
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2012634eca79c2b30800000000000000
+      internalID: 4263949716031938818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_3
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 14
+        width: 12
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a70f17e3b249ff60800000000000000
+      internalID: 8068553547855103912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_4
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 20
+        width: 17
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f411aab28ec1c4630800000000000000
+      internalID: 3912533959768674639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_5
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 16
+        width: 13
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f79f3d8a00898e490800000000000000
+      internalID: -7716750832899458689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_6
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 11
+        width: 11
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1aa88ad8dc9af92c0800000000000000
+      internalID: -4422629608744514911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_7
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 21
+        width: 18
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 82ffa6fd96a0d8e90800000000000000
+      internalID: -7021944794164560088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_8
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 6
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 006ddb436ff52f720800000000000000
+      internalID: 2878468622894618112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_9
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 9
+        width: 10
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a465f9e7dfac5440800000000000000
+      internalID: 4926005434314482848
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_10
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 6
+        width: 8
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8eee43c0033056e50800000000000000
+      internalID: 6801846317111111400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_11
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 23
+        width: 18
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f318165779891a40800000000000000
+      internalID: 5339449978862965748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_12
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 6
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea2515ef3d8892ad0800000000000000
+      internalID: -2726497655309905234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_13
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 7
+        width: 8
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cb164d0a686d61560800000000000000
+      internalID: 7284245321030590908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_14
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 8
+        width: 9
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48a9f873db121b650800000000000000
+      internalID: 6246811254704282244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_15
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 16
+        width: 13
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1426ed0aca937e260800000000000000
+      internalID: 7126728348933186113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_16
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 22
+        width: 18
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d107c3f758fbdca0800000000000000
+      internalID: -5990921822650564139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_17
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 5
+        width: 9
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 614b695e1dd1f44d0800000000000000
+      internalID: -3148264827171458026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_18
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 11
+        width: 11
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 868f0d8c5827a1dc0800000000000000
+      internalID: -3667493027614492568
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_19
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 14
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e9a3424283685280800000000000000
+      internalID: -9054377639719753247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_20
+      rect:
+        serializedVersion: 2
+        x: 172
+        y: 20
+        width: 17
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09bc74b16b4b70dc0800000000000000
+      internalID: -3672768276862612592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_21
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 9
+        width: 7
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e0fdaa95b1c2745b0800000000000000
+      internalID: -5384286333518029042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_22
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 13
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c323421f1cb364e0800000000000000
+      internalID: -1989539768731229246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_23
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 12
+        width: 10
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84177121026dd1090800000000000000
+      internalID: -8062052324692496056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_24
+      rect:
+        serializedVersion: 2
+        x: 206
+        y: 18
+        width: 16
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92c919501071cc380800000000000000
+      internalID: -8949753066336183255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_25
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 11
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 398396d79fd3150a0800000000000000
+      internalID: -6894661412767319917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_26
+      rect:
+        serializedVersion: 2
+        x: 226
+        y: 15
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 94ca3063ba888d8a0800000000000000
+      internalID: -6280119411441161143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_27
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 10
+        width: 8
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 130930cdced04ff60800000000000000
+      internalID: 8067088143482064945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_28
+      rect:
+        serializedVersion: 2
+        x: 239
+        y: 13
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e0275c2eae8305150800000000000000
+      internalID: 5859245696687108622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_29
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 16
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 745d48a44d7b33110800000000000000
+      internalID: 1239536444868187463
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_30
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 18
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61147ad53f72135e0800000000000000
+      internalID: -1931718838963453674
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_31
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 10
+        width: 8
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81323213c1e67d4b0800000000000000
+      internalID: -5415738959527206120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_32
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 14
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27cec5b40460cecd0800000000000000
+      internalID: -2527638417649636238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_33
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 14
+        width: 12
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d26462e19123cae0800000000000000
+      internalID: -1530342537923632431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_34
+      rect:
+        serializedVersion: 2
+        x: 292
+        y: 20
+        width: 17
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 269fdb5a95aad0330800000000000000
+      internalID: 3678783772641065314
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_35
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 16
+        width: 13
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f0403cdbf91f1790800000000000000
+      internalID: -7557293080182767372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_36
+      rect:
+        serializedVersion: 2
+        x: 309
+        y: 11
+        width: 11
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e78155067063ca50800000000000000
+      internalID: 6540177143883728870
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_37
+      rect:
+        serializedVersion: 2
+        x: 325
+        y: 21
+        width: 18
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb6f3b51bec0fe440800000000000000
+      internalID: 4967203117833909950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_38
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 6
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14feea66bbf5a3070800000000000000
+      internalID: 8086881339383410497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_39
+      rect:
+        serializedVersion: 2
+        x: 342
+        y: 9
+        width: 10
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c573f664ba641e0e0800000000000000
+      internalID: -2242433438018750628
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_40
+      rect:
+        serializedVersion: 2
+        x: 353
+        y: 6
+        width: 8
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d02de113e733426a0800000000000000
+      internalID: -6474993747168931315
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_41
+      rect:
+        serializedVersion: 2
+        x: 359
+        y: 23
+        width: 18
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 51eb15bd8094bdb70800000000000000
+      internalID: 8924807388952903189
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_42
+      rect:
+        serializedVersion: 2
+        x: 359
+        y: 6
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 762f33c5fd0457420800000000000000
+      internalID: 2627077285709345383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_43
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 7
+        width: 8
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a92edaef3697800e0800000000000000
+      internalID: -2303457739018476902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_44
+      rect:
+        serializedVersion: 2
+        x: 385
+        y: 8
+        width: 9
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 508cf3b5f98c652c0800000000000000
+      internalID: -4443143395598153723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_45
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 16
+        width: 13
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 49555d295b0c67560800000000000000
+      internalID: 7311242931167647124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_46
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 22
+        width: 18
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7110de0e592bd4060800000000000000
+      internalID: 6939398957641302295
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_47
+      rect:
+        serializedVersion: 2
+        x: 407
+        y: 5
+        width: 9
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d5929f0d6116dbb0800000000000000
+      internalID: -4911719183490574894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_48
+      rect:
+        serializedVersion: 2
+        x: 417
+        y: 11
+        width: 11
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f8ac4460f20cf0d0800000000000000
+      internalID: -3387829588191303439
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_49
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 14
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea90bf0b93fa8fdc0800000000000000
+      internalID: -3604938839392843346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_50
+      rect:
+        serializedVersion: 2
+        x: 428
+        y: 20
+        width: 17
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b374c78e78667100800000000000000
+      internalID: 105386533942752179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_51
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 9
+        width: 7
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ec1cf4be9fe6cb30800000000000000
+      internalID: 4307393558546750696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_52
+      rect:
+        serializedVersion: 2
+        x: 449
+        y: 13
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 264a456d1e6941200800000000000000
+      internalID: 149910584317748322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_53
+      rect:
+        serializedVersion: 2
+        x: 455
+        y: 12
+        width: 10
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 747a2a45570f7cd50800000000000000
+      internalID: 6757634152614504263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_54
+      rect:
+        serializedVersion: 2
+        x: 462
+        y: 18
+        width: 16
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3575d6743cbf3d70800000000000000
+      internalID: 9025139111791785274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_55
+      rect:
+        serializedVersion: 2
+        x: 465
+        y: 11
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a5c6e5fc4f90ab850800000000000000
+      internalID: 6393433568061582426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_56
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 15
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a666dad3df3c543c0800000000000000
+      internalID: -4375875970491652502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_57
+      rect:
+        serializedVersion: 2
+        x: 487
+        y: 10
+        width: 8
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96be33ec2b8e0dc00800000000000000
+      internalID: 923493778272283497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_58
+      rect:
+        serializedVersion: 2
+        x: 495
+        y: 13
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ee607b7b7ed18230800000000000000
+      internalID: 3639434595825381095
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_59
+      rect:
+        serializedVersion: 2
+        x: 496
+        y: 16
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 17b237789fa93c480800000000000000
+      internalID: -8880083643734480015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_60
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 1
+        width: 12
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ce5624dd2bfba760800000000000000
+      internalID: 7470340581175484100
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_61
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 6
+        width: 14
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c960ca922b467570800000000000000
+      internalID: 8464035161686698437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_62
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 11
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9520321d81fb5ab90800000000000000
+      internalID: -7231163513364610471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_63
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 1
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f1937138713156d20800000000000000
+      internalID: 3271041696059046175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_64
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 3
+        width: 11
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 98ec0f7df88f11c40800000000000000
+      internalID: 5481435518173499017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_65
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 8
+        width: 7
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 285b39c12bdb96f70800000000000000
+      internalID: 9181077888052737410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_66
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 10
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f2a352322b7f46940800000000000000
+      internalID: 5288624206905686575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_67
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 0
+        width: 17
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8618d568b0e0f3ff0800000000000000
+      internalID: -54309227843452568
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_68
+      rect:
+        serializedVersion: 2
+        x: 45
+        y: 6
+        width: 13
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e444bbe403514090800000000000000
+      internalID: -8052063378162301719
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_69
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 4
+        width: 10
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2fbbd70cd890fcdf0800000000000000
+      internalID: -157896957510173710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_70
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 6
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6cc3fe9e9aa90d2b0800000000000000
+      internalID: -5561775485237642042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_71
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 8
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a743ed5670a1efec0800000000000000
+      internalID: -3531356438735735686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_72
+      rect:
+        serializedVersion: 2
+        x: 164
+        y: 0
+        width: 17
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15c0666f99948d190800000000000000
+      internalID: -7937513417627792303
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_73
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 6
+        width: 13
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f511892e6821623e0800000000000000
+      internalID: -2078953807448370849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_74
+      rect:
+        serializedVersion: 2
+        x: 172
+        y: 11
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a296168bfc66b1d20800000000000000
+      internalID: 3250304598415599914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_75
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 3
+        width: 11
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93f1929ce76e518a0800000000000000
+      internalID: -6334903868611551431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_76
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 0
+        width: 16
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2dc9a1ac50fb1bb20800000000000000
+      internalID: 3148507646095170770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_77
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 6
+        width: 14
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93eee4a6cdb1806b0800000000000000
+      internalID: -5329979525502669255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_78
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 11
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 338ef1686bbc26780800000000000000
+      internalID: -8691160346076911565
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_79
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 2
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b20c8d554fb24ef0800000000000000
+      internalID: -125327534969847119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_80
+      rect:
+        serializedVersion: 2
+        x: 226
+        y: 1
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9166f8cc3a56fbd0800000000000000
+      internalID: -2596788918016384610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_81
+      rect:
+        serializedVersion: 2
+        x: 235
+        y: 6
+        width: 14
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d34f7c8ad49d2aec0800000000000000
+      internalID: -3557041828101884867
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_82
+      rect:
+        serializedVersion: 2
+        x: 236
+        y: 11
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f96a1b02f261e0c20800000000000000
+      internalID: 3174499179010565791
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_83
+      rect:
+        serializedVersion: 2
+        x: 241
+        y: 1
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5bfc3c9b939f1ea40800000000000000
+      internalID: 5395867854891634613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_84
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 1
+        width: 12
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55b263b22926a3500800000000000000
+      internalID: 376721898768575317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_85
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 6
+        width: 14
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2950fed6f8f73f780800000000000000
+      internalID: -8650430205247158894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_86
+      rect:
+        serializedVersion: 2
+        x: 268
+        y: 11
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b5357eb35b61a940800000000000000
+      internalID: 5305639843440965045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_87
+      rect:
+        serializedVersion: 2
+        x: 271
+        y: 1
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a10658bbfb5386b50800000000000000
+      internalID: 6586573552630456346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_88
+      rect:
+        serializedVersion: 2
+        x: 289
+        y: 3
+        width: 11
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6fb7e14ec31c4290800000000000000
+      internalID: -7904921469352165521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_89
+      rect:
+        serializedVersion: 2
+        x: 295
+        y: 8
+        width: 7
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3780d02505c7c3550800000000000000
+      internalID: 6141920676242327667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_90
+      rect:
+        serializedVersion: 2
+        x: 299
+        y: 10
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a65a4af81ec687b30800000000000000
+      internalID: 4285294761476400490
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_91
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 0
+        width: 17
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed3c3b1ed4c7e3ac0800000000000000
+      internalID: -3873521955551067170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_92
+      rect:
+        serializedVersion: 2
+        x: 301
+        y: 6
+        width: 13
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5161d2115c595bec0800000000000000
+      internalID: -3551768057482504683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_93
+      rect:
+        serializedVersion: 2
+        x: 321
+        y: 4
+        width: 10
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d0c1203cefc164f20800000000000000
+      internalID: 3406442048671325197
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_94
+      rect:
+        serializedVersion: 2
+        x: 391
+        y: 6
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 431a470780c2a2700800000000000000
+      internalID: 516273522045395252
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_95
+      rect:
+        serializedVersion: 2
+        x: 395
+        y: 8
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 268ac2311ce92cf00800000000000000
+      internalID: 1135644608138356834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_96
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 0
+        width: 17
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a87f059a2d165c1b0800000000000000
+      internalID: -5636991801172625526
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_97
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 6
+        width: 13
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: adddfda6edd2f2ff0800000000000000
+      internalID: -58777836833481254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_98
+      rect:
+        serializedVersion: 2
+        x: 428
+        y: 11
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d899f4f6720285db0800000000000000
+      internalID: -4803053648847332979
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_99
+      rect:
+        serializedVersion: 2
+        x: 437
+        y: 3
+        width: 11
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab93d4139ffcc4160800000000000000
+      internalID: 7011207389089970618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_100
+      rect:
+        serializedVersion: 2
+        x: 451
+        y: 0
+        width: 16
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c96d312660b6f01f0800000000000000
+      internalID: -1076524110758816100
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_101
+      rect:
+        serializedVersion: 2
+        x: 457
+        y: 6
+        width: 14
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75d85636e526f8910800000000000000
+      internalID: 1841798930151869783
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_102
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 11
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 760e3ee36becc60d0800000000000000
+      internalID: -3428137934201298841
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_103
+      rect:
+        serializedVersion: 2
+        x: 467
+        y: 2
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8433c6463dc570380800000000000000
+      internalID: -9005126866911349944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_104
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 1
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55bec42fa2cb64790800000000000000
+      internalID: -7546137232972911787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_105
+      rect:
+        serializedVersion: 2
+        x: 491
+        y: 6
+        width: 14
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18e64d912729619c0800000000000000
+      internalID: -3956814203841122687
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_106
+      rect:
+        serializedVersion: 2
+        x: 492
+        y: 11
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61d7e9a07f8156080800000000000000
+      internalID: -9194915614892851946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_107
+      rect:
+        serializedVersion: 2
+        x: 497
+        y: 1
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f65d86e4fda09870800000000000000
+      internalID: 8687634948549334768
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_108
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 0
+        width: 18
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f700bbd2851aca00800000000000000
+      internalID: 777457537450510321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_109
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 0
+        width: 18
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a53486944d0af0020800000000000000
+      internalID: 2310241967489434458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_110
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 0
+        width: 18
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f0a03c51daeecf20800000000000000
+      internalID: 3444948949900763384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_111
+      rect:
+        serializedVersion: 2
+        x: 330
+        y: 0
+        width: 18
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae872a720709dce60800000000000000
+      internalID: 7984196525773453546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_112
+      rect:
+        serializedVersion: 2
+        x: 360
+        y: 0
+        width: 18
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b2307ba37438b2f0800000000000000
+      internalID: -956957249414090063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cast Circle_113
+      rect:
+        serializedVersion: 2
+        x: 390
+        y: 0
+        width: 18
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa0f49becd5947230800000000000000
+      internalID: 3635695575272583338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Cast Circle_0: -1259785395537613881
+      Cast Circle_1: 982370446793557956
+      Cast Circle_10: 6801846317111111400
+      Cast Circle_100: -1076524110758816100
+      Cast Circle_101: 1841798930151869783
+      Cast Circle_102: -3428137934201298841
+      Cast Circle_103: -9005126866911349944
+      Cast Circle_104: -7546137232972911787
+      Cast Circle_105: -3956814203841122687
+      Cast Circle_106: -9194915614892851946
+      Cast Circle_107: 8687634948549334768
+      Cast Circle_108: 777457537450510321
+      Cast Circle_109: 2310241967489434458
+      Cast Circle_11: 5339449978862965748
+      Cast Circle_110: 3444948949900763384
+      Cast Circle_111: 7984196525773453546
+      Cast Circle_112: -956957249414090063
+      Cast Circle_113: 3635695575272583338
+      Cast Circle_12: -2726497655309905234
+      Cast Circle_13: 7284245321030590908
+      Cast Circle_14: 6246811254704282244
+      Cast Circle_15: 7126728348933186113
+      Cast Circle_16: -5990921822650564139
+      Cast Circle_17: -3148264827171458026
+      Cast Circle_18: -3667493027614492568
+      Cast Circle_19: -9054377639719753247
+      Cast Circle_2: 4263949716031938818
+      Cast Circle_20: -3672768276862612592
+      Cast Circle_21: -5384286333518029042
+      Cast Circle_22: -1989539768731229246
+      Cast Circle_23: -8062052324692496056
+      Cast Circle_24: -8949753066336183255
+      Cast Circle_25: -6894661412767319917
+      Cast Circle_26: -6280119411441161143
+      Cast Circle_27: 8067088143482064945
+      Cast Circle_28: 5859245696687108622
+      Cast Circle_29: 1239536444868187463
+      Cast Circle_3: 8068553547855103912
+      Cast Circle_30: -1931718838963453674
+      Cast Circle_31: -5415738959527206120
+      Cast Circle_32: -2527638417649636238
+      Cast Circle_33: -1530342537923632431
+      Cast Circle_34: 3678783772641065314
+      Cast Circle_35: -7557293080182767372
+      Cast Circle_36: 6540177143883728870
+      Cast Circle_37: 4967203117833909950
+      Cast Circle_38: 8086881339383410497
+      Cast Circle_39: -2242433438018750628
+      Cast Circle_4: 3912533959768674639
+      Cast Circle_40: -6474993747168931315
+      Cast Circle_41: 8924807388952903189
+      Cast Circle_42: 2627077285709345383
+      Cast Circle_43: -2303457739018476902
+      Cast Circle_44: -4443143395598153723
+      Cast Circle_45: 7311242931167647124
+      Cast Circle_46: 6939398957641302295
+      Cast Circle_47: -4911719183490574894
+      Cast Circle_48: -3387829588191303439
+      Cast Circle_49: -3604938839392843346
+      Cast Circle_5: -7716750832899458689
+      Cast Circle_50: 105386533942752179
+      Cast Circle_51: 4307393558546750696
+      Cast Circle_52: 149910584317748322
+      Cast Circle_53: 6757634152614504263
+      Cast Circle_54: 9025139111791785274
+      Cast Circle_55: 6393433568061582426
+      Cast Circle_56: -4375875970491652502
+      Cast Circle_57: 923493778272283497
+      Cast Circle_58: 3639434595825381095
+      Cast Circle_59: -8880083643734480015
+      Cast Circle_6: -4422629608744514911
+      Cast Circle_60: 7470340581175484100
+      Cast Circle_61: 8464035161686698437
+      Cast Circle_62: -7231163513364610471
+      Cast Circle_63: 3271041696059046175
+      Cast Circle_64: 5481435518173499017
+      Cast Circle_65: 9181077888052737410
+      Cast Circle_66: 5288624206905686575
+      Cast Circle_67: -54309227843452568
+      Cast Circle_68: -8052063378162301719
+      Cast Circle_69: -157896957510173710
+      Cast Circle_7: -7021944794164560088
+      Cast Circle_70: -5561775485237642042
+      Cast Circle_71: -3531356438735735686
+      Cast Circle_72: -7937513417627792303
+      Cast Circle_73: -2078953807448370849
+      Cast Circle_74: 3250304598415599914
+      Cast Circle_75: -6334903868611551431
+      Cast Circle_76: 3148507646095170770
+      Cast Circle_77: -5329979525502669255
+      Cast Circle_78: -8691160346076911565
+      Cast Circle_79: -125327534969847119
+      Cast Circle_8: 2878468622894618112
+      Cast Circle_80: -2596788918016384610
+      Cast Circle_81: -3557041828101884867
+      Cast Circle_82: 3174499179010565791
+      Cast Circle_83: 5395867854891634613
+      Cast Circle_84: 376721898768575317
+      Cast Circle_85: -8650430205247158894
+      Cast Circle_86: 5305639843440965045
+      Cast Circle_87: 6586573552630456346
+      Cast Circle_88: -7904921469352165521
+      Cast Circle_89: 6141920676242327667
+      Cast Circle_9: 4926005434314482848
+      Cast Circle_90: 4285294761476400490
+      Cast Circle_91: -3873521955551067170
+      Cast Circle_92: -3551768057482504683
+      Cast Circle_93: 3406442048671325197
+      Cast Circle_94: 516273522045395252
+      Cast Circle_95: 1135644608138356834
+      Cast Circle_96: -5636991801172625526
+      Cast Circle_97: -58777836833481254
+      Cast Circle_98: -4803053648847332979
+      Cast Circle_99: 7011207389089970618
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

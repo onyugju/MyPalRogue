@@ -1,0 +1,1406 @@
+fileFormatVersion: 2
+guid: 75676c59e45120b4d864df9d20859a32
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3442185228642498184
+    second: Water Drip_0
+  - first:
+      213: 2223099923548704604
+    second: Water Drip_1
+  - first:
+      213: 4510512422794246262
+    second: Water Drip_2
+  - first:
+      213: -8183612562340805844
+    second: Water Drip_3
+  - first:
+      213: 1285853925765048222
+    second: Water Drip_4
+  - first:
+      213: 4025648879754790122
+    second: Water Drip_5
+  - first:
+      213: 3671721545079850821
+    second: Water Drip_6
+  - first:
+      213: 7863613441961374751
+    second: Water Drip_7
+  - first:
+      213: 7202873283866551387
+    second: Water Drip_8
+  - first:
+      213: 6206063130709578501
+    second: Water Drip_9
+  - first:
+      213: -4096939772667021769
+    second: Water Drip_10
+  - first:
+      213: -2393486809872092891
+    second: Water Drip_11
+  - first:
+      213: -1694898436931594272
+    second: Water Drip_12
+  - first:
+      213: 2622133501164869968
+    second: Water Drip_13
+  - first:
+      213: 481307280119639847
+    second: Water Drip_14
+  - first:
+      213: 8099655229550724023
+    second: Water Drip_15
+  - first:
+      213: -7317346501673771162
+    second: Water Drip_16
+  - first:
+      213: 6458092397549192050
+    second: Water Drip_17
+  - first:
+      213: 1415842410860532638
+    second: Water Drip_18
+  - first:
+      213: -1827403461684826423
+    second: Water Drip_19
+  - first:
+      213: 6909989895142055503
+    second: Water Drip_20
+  - first:
+      213: 3515726179186094071
+    second: Water Drip_21
+  - first:
+      213: 9046416453339881383
+    second: Water Drip_22
+  - first:
+      213: 6800058233562236503
+    second: Water Drip_23
+  - first:
+      213: 8339820973744745957
+    second: Water Drip_24
+  - first:
+      213: -7237224157565949551
+    second: Water Drip_25
+  - first:
+      213: 6106441093340240630
+    second: Water Drip_26
+  - first:
+      213: -2306164470140881249
+    second: Water Drip_27
+  - first:
+      213: 4800528694938679351
+    second: Water Drip_28
+  - first:
+      213: -8839428735569446875
+    second: Water Drip_29
+  - first:
+      213: 1227498809014689071
+    second: Water Drip_30
+  - first:
+      213: 426111149737044524
+    second: Water Drip_31
+  - first:
+      213: -6834982359346150066
+    second: Water Drip_32
+  - first:
+      213: 4537704459714104581
+    second: Water Drip_33
+  - first:
+      213: -2531455255300876817
+    second: Water Drip_34
+  - first:
+      213: 578503433802120489
+    second: Water Drip_35
+  - first:
+      213: 7445833206369823912
+    second: Water Drip_36
+  - first:
+      213: 6435863201954944677
+    second: Water Drip_37
+  - first:
+      213: -136932378130250420
+    second: Water Drip_38
+  - first:
+      213: 8162015457602493625
+    second: Water Drip_39
+  - first:
+      213: 3577821881188222210
+    second: Water Drip_40
+  - first:
+      213: 1460740280181474636
+    second: Water Drip_41
+  - first:
+      213: 6668892844967410314
+    second: Water Drip_42
+  - first:
+      213: 5806501216874687764
+    second: Water Drip_43
+  - first:
+      213: 5467620963709203646
+    second: Water Drip_44
+  - first:
+      213: -7993860491283070943
+    second: Water Drip_45
+  - first:
+      213: 4770358955994102943
+    second: Water Drip_46
+  - first:
+      213: 3637895245168293162
+    second: Water Drip_47
+  - first:
+      213: -9071412868921579590
+    second: Water Drip_48
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Water Drip_0
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 19
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 879caa3a5c6ea30d0800000000000000
+      internalID: -3442185228642498184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water Drip_1
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 16
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c5f815b1a990ade10800000000000000
+      internalID: 2223099923548704604
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water Drip_2
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 14
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67833ab962f889e30800000000000000
+      internalID: 4510512422794246262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water Drip_3
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 23
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c238042bbb7fd6e80800000000000000
+      internalID: -8183612562340805844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water Drip_4
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 21
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e97644e255548d110800000000000000
+      internalID: 1285853925765048222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water Drip_5
+      rect:
+        serializedVersion: 2
+        x: 172
+        y: 19
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae4cb3cc35afdd730800000000000000
+      internalID: 4025648879754790122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water Drip_6
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 16
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 54702a8aa4394f230800000000000000
+      internalID: 3671721545079850821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water Drip_7
+      rect:
+        serializedVersion: 2
+        x: 236
+        y: 23
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f14381323ca212d60800000000000000
+      internalID: 7863613441961374751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water Drip_8
+      rect:
+        serializedVersion: 2
+        x: 236
+        y: 14
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b546407d61fb5f360800000000000000
+      internalID: 7202873283866551387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water Drip_9
+      rect:
+        serializedVersion: 2
+        x: 268
+        y: 21
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 503d797498d502650800000000000000
+      internalID: 6206063130709578501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water Drip_10
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 19
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7363308bbfeb427c0800000000000000
+      internalID: -4096939772667021769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water Drip_11
+      rect:
+        serializedVersion: 2
+        x: 332
+        y: 16
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 521bdfa7d60a8ced0800000000000000
+      internalID: -2393486809872092891
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water Drip_12
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 23
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e7d3500ad28a78e0800000000000000
+      internalID: -1694898436931594272
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water Drip_13
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 14
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0595592d680b36420800000000000000
+      internalID: 2622133501164869968
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water Drip_14
+      rect:
+        serializedVersion: 2
+        x: 396
+        y: 21
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72f2753db62fda600800000000000000
+      internalID: 481307280119639847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water Drip_15
+      rect:
+        serializedVersion: 2
+        x: 428
+        y: 19
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b381887481c76070800000000000000
+      internalID: 8099655229550724023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water Drip_16
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 16
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 66f994d2020937a90800000000000000
+      internalID: -7317346501673771162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water Drip_17
+      rect:
+        serializedVersion: 2
+        x: 492
+        y: 23
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2730292b1d0cf9950800000000000000
+      internalID: 6458092397549192050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water Drip_18
+      rect:
+        serializedVersion: 2
+        x: 492
+        y: 14
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e935645db2516a310800000000000000
+      internalID: 1415842410860532638
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water Drip_19
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 21
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9cee4fccb32c3a6e0800000000000000
+      internalID: -1827403461684826423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water Drip_20
+      rect:
+        serializedVersion: 2
+        x: 556
+        y: 19
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4e1b7de23735ef50800000000000000
+      internalID: 6909989895142055503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water Drip_21
+      rect:
+        serializedVersion: 2
+        x: 588
+        y: 16
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ffade5355e5ac030800000000000000
+      internalID: 3515726179186094071
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water Drip_22
+      rect:
+        serializedVersion: 2
+        x: 620
+        y: 23
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7af929795d35b8d70800000000000000
+      internalID: 9046416453339881383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water Drip_23
+      rect:
+        serializedVersion: 2
+        x: 620
+        y: 14
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75682776fe8ae5e50800000000000000
+      internalID: 6800058233562236503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water Drip_24
+      rect:
+        serializedVersion: 2
+        x: 652
+        y: 21
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ed68664dfefcb370800000000000000
+      internalID: 8339820973744745957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water Drip_25
+      rect:
+        serializedVersion: 2
+        x: 684
+        y: 19
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 199e76029f6309b90800000000000000
+      internalID: -7237224157565949551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water Drip_26
+      rect:
+        serializedVersion: 2
+        x: 716
+        y: 16
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6fa946232df6eb450800000000000000
+      internalID: 6106441093340240630
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water Drip_27
+      rect:
+        serializedVersion: 2
+        x: 748
+        y: 23
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9630ab02abdeffd0800000000000000
+      internalID: -2306164470140881249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water Drip_28
+      rect:
+        serializedVersion: 2
+        x: 748
+        y: 14
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 738b3ebe967ee9240800000000000000
+      internalID: 4800528694938679351
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water Drip_29
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 3
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 528b007f56a045580800000000000000
+      internalID: -8839428735569446875
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water Drip_30
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 2
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f2d1989c9a3f80110800000000000000
+      internalID: 1227498809014689071
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water Drip_31
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 1
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c2ae8e245d9d9e500800000000000000
+      internalID: 426111149737044524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water Drip_32
+      rect:
+        serializedVersion: 2
+        x: 107
+        y: 1
+        width: 11
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e458c19e1c34521a0800000000000000
+      internalID: -6834982359346150066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water Drip_33
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 1
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50d07f01a2a29fe30800000000000000
+      internalID: 4537704459714104581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water Drip_34
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 0
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe5def68bd67edcd0800000000000000
+      internalID: -2531455255300876817
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water Drip_35
+      rect:
+        serializedVersion: 2
+        x: 268
+        y: 10
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92d7e19dec1470800800000000000000
+      internalID: 578503433802120489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water Drip_36
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 6
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ac2b7af9d9e45760800000000000000
+      internalID: 7445833206369823912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water Drip_37
+      rect:
+        serializedVersion: 2
+        x: 332
+        y: 2
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a65887cb77c05950800000000000000
+      internalID: 6435863201954944677
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water Drip_38
+      rect:
+        serializedVersion: 2
+        x: 396
+        y: 10
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c450c434ab4891ef0800000000000000
+      internalID: -136932378130250420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water Drip_39
+      rect:
+        serializedVersion: 2
+        x: 397
+        y: 3
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9bcd4a180dd454170800000000000000
+      internalID: 8162015457602493625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water Drip_40
+      rect:
+        serializedVersion: 2
+        x: 428
+        y: 2
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20508d97b0af6a130800000000000000
+      internalID: 3577821881188222210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water Drip_41
+      rect:
+        serializedVersion: 2
+        x: 459
+        y: 1
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c454255ab87954410800000000000000
+      internalID: 1460740280181474636
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water Drip_42
+      rect:
+        serializedVersion: 2
+        x: 491
+        y: 1
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8a3d6d85baac8c50800000000000000
+      internalID: 6668892844967410314
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water Drip_43
+      rect:
+        serializedVersion: 2
+        x: 523
+        y: 1
+        width: 11
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 41d60b3b716d49050800000000000000
+      internalID: 5806501216874687764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water Drip_44
+      rect:
+        serializedVersion: 2
+        x: 554
+        y: 0
+        width: 13
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb4bd5c3c44e0eb40800000000000000
+      internalID: 5467620963709203646
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water Drip_45
+      rect:
+        serializedVersion: 2
+        x: 588
+        y: 2
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1200b098c3a101190800000000000000
+      internalID: -7993860491283070943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water Drip_46
+      rect:
+        serializedVersion: 2
+        x: 652
+        y: 10
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9cb12f2238b33240800000000000000
+      internalID: 4770358955994102943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water Drip_47
+      rect:
+        serializedVersion: 2
+        x: 684
+        y: 6
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a25b65a73766c7230800000000000000
+      internalID: 3637895245168293162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water Drip_48
+      rect:
+        serializedVersion: 2
+        x: 716
+        y: 2
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab7a501ee0edb1280800000000000000
+      internalID: -9071412868921579590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Water Drip_0: -3442185228642498184
+      Water Drip_1: 2223099923548704604
+      Water Drip_10: -4096939772667021769
+      Water Drip_11: -2393486809872092891
+      Water Drip_12: -1694898436931594272
+      Water Drip_13: 2622133501164869968
+      Water Drip_14: 481307280119639847
+      Water Drip_15: 8099655229550724023
+      Water Drip_16: -7317346501673771162
+      Water Drip_17: 6458092397549192050
+      Water Drip_18: 1415842410860532638
+      Water Drip_19: -1827403461684826423
+      Water Drip_2: 4510512422794246262
+      Water Drip_20: 6909989895142055503
+      Water Drip_21: 3515726179186094071
+      Water Drip_22: 9046416453339881383
+      Water Drip_23: 6800058233562236503
+      Water Drip_24: 8339820973744745957
+      Water Drip_25: -7237224157565949551
+      Water Drip_26: 6106441093340240630
+      Water Drip_27: -2306164470140881249
+      Water Drip_28: 4800528694938679351
+      Water Drip_29: -8839428735569446875
+      Water Drip_3: -8183612562340805844
+      Water Drip_30: 1227498809014689071
+      Water Drip_31: 426111149737044524
+      Water Drip_32: -6834982359346150066
+      Water Drip_33: 4537704459714104581
+      Water Drip_34: -2531455255300876817
+      Water Drip_35: 578503433802120489
+      Water Drip_36: 7445833206369823912
+      Water Drip_37: 6435863201954944677
+      Water Drip_38: -136932378130250420
+      Water Drip_39: 8162015457602493625
+      Water Drip_4: 1285853925765048222
+      Water Drip_40: 3577821881188222210
+      Water Drip_41: 1460740280181474636
+      Water Drip_42: 6668892844967410314
+      Water Drip_43: 5806501216874687764
+      Water Drip_44: 5467620963709203646
+      Water Drip_45: -7993860491283070943
+      Water Drip_46: 4770358955994102943
+      Water Drip_47: 3637895245168293162
+      Water Drip_48: -9071412868921579590
+      Water Drip_5: 4025648879754790122
+      Water Drip_6: 3671721545079850821
+      Water Drip_7: 7863613441961374751
+      Water Drip_8: 7202873283866551387
+      Water Drip_9: 6206063130709578501
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,990 @@
+fileFormatVersion: 2
+guid: e211a86fc2d214443939258142d4e3a6
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1977096136247793439
+    second: Static Loop_0
+  - first:
+      213: -983805413643770829
+    second: Static Loop_1
+  - first:
+      213: 659598216770541198
+    second: Static Loop_2
+  - first:
+      213: 1619578889173903416
+    second: Static Loop_3
+  - first:
+      213: 1997623087156623766
+    second: Static Loop_4
+  - first:
+      213: -1080348324195623320
+    second: Static Loop_5
+  - first:
+      213: 6464738624995425284
+    second: Static Loop_6
+  - first:
+      213: -7161174272263083518
+    second: Static Loop_7
+  - first:
+      213: 7117615244570066669
+    second: Static Loop_8
+  - first:
+      213: -1992552637145830022
+    second: Static Loop_9
+  - first:
+      213: -5864669192761496005
+    second: Static Loop_10
+  - first:
+      213: -3059457421622980267
+    second: Static Loop_11
+  - first:
+      213: 8838109671413760501
+    second: Static Loop_12
+  - first:
+      213: 8568077449995658596
+    second: Static Loop_13
+  - first:
+      213: -2626656841429215306
+    second: Static Loop_14
+  - first:
+      213: -6779758583005964522
+    second: Static Loop_15
+  - first:
+      213: -5671150180745801993
+    second: Static Loop_16
+  - first:
+      213: 6135298599106727957
+    second: Static Loop_17
+  - first:
+      213: -4490627518405454011
+    second: Static Loop_18
+  - first:
+      213: 5380880193920957912
+    second: Static Loop_19
+  - first:
+      213: 3727970504174072443
+    second: Static Loop_20
+  - first:
+      213: 4673245668796606573
+    second: Static Loop_21
+  - first:
+      213: 1458080549614010016
+    second: Static Loop_22
+  - first:
+      213: 1479923034545080422
+    second: Static Loop_23
+  - first:
+      213: 8908509633058828187
+    second: Static Loop_24
+  - first:
+      213: -5007167730977396296
+    second: Static Loop_25
+  - first:
+      213: 8486652683257618610
+    second: Static Loop_26
+  - first:
+      213: -9017678187064758694
+    second: Static Loop_27
+  - first:
+      213: -6429881767431427682
+    second: Static Loop_28
+  - first:
+      213: -2454013948467777181
+    second: Static Loop_29
+  - first:
+      213: 1621895673101104177
+    second: Static Loop_30
+  - first:
+      213: 5167285987930318724
+    second: Static Loop_31
+  - first:
+      213: 7623133733829526504
+    second: Static Loop_32
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Static Loop_0
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 11
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e827280a81ff84e0800000000000000
+      internalID: -1977096136247793439
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Static Loop_1
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 14
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33428af4032d852f0800000000000000
+      internalID: -983805413643770829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Static Loop_2
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 19
+        width: 11
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e86d61d551d572900800000000000000
+      internalID: 659598216770541198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Static Loop_3
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 9
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 838aee63b66e97610800000000000000
+      internalID: 1619578889173903416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Static Loop_4
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 10
+        width: 12
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 699f6192d9bf8bb10800000000000000
+      internalID: 1997623087156623766
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Static Loop_5
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 15
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 86e91ae4ce4d101f0800000000000000
+      internalID: -1080348324195623320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Static Loop_6
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 5
+        width: 14
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 40c799c178d57b950800000000000000
+      internalID: 6464738624995425284
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Static Loop_7
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 11
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20aa71fd0f56e9c90800000000000000
+      internalID: -7161174272263083518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Static Loop_8
+      rect:
+        serializedVersion: 2
+        x: 239
+        y: 14
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: deef08caa59d6c260800000000000000
+      internalID: 7117615244570066669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Static Loop_9
+      rect:
+        serializedVersion: 2
+        x: 269
+        y: 19
+        width: 11
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7da7aafee70954e0800000000000000
+      internalID: -1992552637145830022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Static Loop_10
+      rect:
+        serializedVersion: 2
+        x: 293
+        y: 9
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b3e264801728c9ea0800000000000000
+      internalID: -5864669192761496005
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Static Loop_11
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 10
+        width: 12
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 551daba4faf9a85d0800000000000000
+      internalID: -3059457421622980267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Static Loop_12
+      rect:
+        serializedVersion: 2
+        x: 335
+        y: 15
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f1cf8a7be547aa70800000000000000
+      internalID: 8838109671413760501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Static Loop_13
+      rect:
+        serializedVersion: 2
+        x: 366
+        y: 5
+        width: 14
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 465a60f8b0de7e670800000000000000
+      internalID: 8568077449995658596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Static Loop_14
+      rect:
+        serializedVersion: 2
+        x: 390
+        y: 11
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b713c3f48d3c8bd0800000000000000
+      internalID: -2626656841429215306
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Static Loop_15
+      rect:
+        serializedVersion: 2
+        x: 431
+        y: 14
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 617160d4d7579e1a0800000000000000
+      internalID: -6779758583005964522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Static Loop_16
+      rect:
+        serializedVersion: 2
+        x: 461
+        y: 19
+        width: 11
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7fe01c825f60c41b0800000000000000
+      internalID: -5671150180745801993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Static Loop_17
+      rect:
+        serializedVersion: 2
+        x: 485
+        y: 9
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 51055b6d195f42550800000000000000
+      internalID: 6135298599106727957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Static Loop_18
+      rect:
+        serializedVersion: 2
+        x: 495
+        y: 10
+        width: 12
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 54759da70161ea1c0800000000000000
+      internalID: -4490627518405454011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Static Loop_19
+      rect:
+        serializedVersion: 2
+        x: 527
+        y: 15
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ddf799f60abcaa40800000000000000
+      internalID: 5380880193920957912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Static Loop_20
+      rect:
+        serializedVersion: 2
+        x: 558
+        y: 5
+        width: 14
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b72fd620c696cb330800000000000000
+      internalID: 3727970504174072443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Static Loop_21
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 5
+        width: 17
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d6821c40d24bad040800000000000000
+      internalID: 4673245668796606573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Static Loop_22
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 4
+        width: 12
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0ae36add8842c3410800000000000000
+      internalID: 1458080549614010016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Static Loop_23
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 5
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6684af0b82eb98410800000000000000
+      internalID: 1479923034545080422
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Static Loop_24
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 5
+        width: 18
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9fed9cdf4261ab70800000000000000
+      internalID: 8908509633058828187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Static Loop_25
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 5
+        width: 17
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b92b405a77f28ab0800000000000000
+      internalID: -5007167730977396296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Static Loop_26
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 4
+        width: 12
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b0afa5b6a5a6c570800000000000000
+      internalID: 8486652683257618610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Static Loop_27
+      rect:
+        serializedVersion: 2
+        x: 271
+        y: 5
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a5e67317775cad280800000000000000
+      internalID: -9017678187064758694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Static Loop_28
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 5
+        width: 18
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e992d78799874c6a0800000000000000
+      internalID: -6429881767431427682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Static Loop_29
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 5
+        width: 17
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36179b7d05791fdd0800000000000000
+      internalID: -2454013948467777181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Static Loop_30
+      rect:
+        serializedVersion: 2
+        x: 425
+        y: 4
+        width: 12
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1343fe18581228610800000000000000
+      internalID: 1621895673101104177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Static Loop_31
+      rect:
+        serializedVersion: 2
+        x: 463
+        y: 5
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 487a0738a33e5b740800000000000000
+      internalID: 5167285987930318724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Static Loop_32
+      rect:
+        serializedVersion: 2
+        x: 521
+        y: 5
+        width: 18
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e3c438edbfcac960800000000000000
+      internalID: 7623133733829526504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Static Loop_0: -1977096136247793439
+      Static Loop_1: -983805413643770829
+      Static Loop_10: -5864669192761496005
+      Static Loop_11: -3059457421622980267
+      Static Loop_12: 8838109671413760501
+      Static Loop_13: 8568077449995658596
+      Static Loop_14: -2626656841429215306
+      Static Loop_15: -6779758583005964522
+      Static Loop_16: -5671150180745801993
+      Static Loop_17: 6135298599106727957
+      Static Loop_18: -4490627518405454011
+      Static Loop_19: 5380880193920957912
+      Static Loop_2: 659598216770541198
+      Static Loop_20: 3727970504174072443
+      Static Loop_21: 4673245668796606573
+      Static Loop_22: 1458080549614010016
+      Static Loop_23: 1479923034545080422
+      Static Loop_24: 8908509633058828187
+      Static Loop_25: -5007167730977396296
+      Static Loop_26: 8486652683257618610
+      Static Loop_27: -9017678187064758694
+      Static Loop_28: -6429881767431427682
+      Static Loop_29: -2454013948467777181
+      Static Loop_3: 1619578889173903416
+      Static Loop_30: 1621895673101104177
+      Static Loop_31: 5167285987930318724
+      Static Loop_32: 7623133733829526504
+      Static Loop_4: 1997623087156623766
+      Static Loop_5: -1080348324195623320
+      Static Loop_6: 6464738624995425284
+      Static Loop_7: -7161174272263083518
+      Static Loop_8: 7117615244570066669
+      Static Loop_9: -1992552637145830022
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,912 @@
+fileFormatVersion: 2
+guid: 3228d84dc13f3c6489394245e579b091
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4556806852170172485
+    second: Wind Gust_0
+  - first:
+      213: -2552399937398514025
+    second: Wind Gust_1
+  - first:
+      213: 277094453632285377
+    second: Wind Gust_2
+  - first:
+      213: 5331687075497055156
+    second: Wind Gust_3
+  - first:
+      213: 3124616955710033253
+    second: Wind Gust_4
+  - first:
+      213: 131323568124916371
+    second: Wind Gust_5
+  - first:
+      213: -1731383108406687192
+    second: Wind Gust_6
+  - first:
+      213: 2765131278160118389
+    second: Wind Gust_7
+  - first:
+      213: -1977500487458171687
+    second: Wind Gust_8
+  - first:
+      213: -5681284187697056564
+    second: Wind Gust_9
+  - first:
+      213: 8412133748310333070
+    second: Wind Gust_10
+  - first:
+      213: 58888008749397455
+    second: Wind Gust_11
+  - first:
+      213: -6201337547121518628
+    second: Wind Gust_12
+  - first:
+      213: 4949999142232780070
+    second: Wind Gust_13
+  - first:
+      213: -6832624353800782100
+    second: Wind Gust_14
+  - first:
+      213: 3845933183301180102
+    second: Wind Gust_15
+  - first:
+      213: 7075121442713374291
+    second: Wind Gust_16
+  - first:
+      213: 7877110816141796576
+    second: Wind Gust_17
+  - first:
+      213: 78798537308296735
+    second: Wind Gust_18
+  - first:
+      213: 4444746247728354026
+    second: Wind Gust_19
+  - first:
+      213: -2902169524123054088
+    second: Wind Gust_20
+  - first:
+      213: 8897069566059688005
+    second: Wind Gust_21
+  - first:
+      213: -5056448940673658967
+    second: Wind Gust_22
+  - first:
+      213: 8579478085576098077
+    second: Wind Gust_23
+  - first:
+      213: -6429317002615797143
+    second: Wind Gust_24
+  - first:
+      213: -6472582074761880918
+    second: Wind Gust_25
+  - first:
+      213: -1438494055816664451
+    second: Wind Gust_26
+  - first:
+      213: 3543376418019159262
+    second: Wind Gust_27
+  - first:
+      213: -8160300026348433321
+    second: Wind Gust_28
+  - first:
+      213: -335056582289116767
+    second: Wind Gust_29
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Wind Gust_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 13
+        width: 18
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5484ba560b70d3f30800000000000000
+      internalID: 4556806852170172485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wind Gust_1
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 4
+        width: 18
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79ed1a6b7cd049cd0800000000000000
+      internalID: -2552399937398514025
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wind Gust_2
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 13
+        width: 19
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1cabbfdffef68d300800000000000000
+      internalID: 277094453632285377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wind Gust_3
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 5
+        width: 15
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b31b8c8525fdf940800000000000000
+      internalID: 5331687075497055156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wind Gust_4
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 13
+        width: 19
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 56d4248f09edc5b20800000000000000
+      internalID: 3124616955710033253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wind Gust_5
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 13
+        width: 19
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 392f8b4e61e82d100800000000000000
+      internalID: 131323568124916371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wind Gust_6
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 4
+        width: 29
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 82ace457c34e8f7e0800000000000000
+      internalID: -1731383108406687192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wind Gust_7
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 4
+        width: 19
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5724e084f38bf5620800000000000000
+      internalID: 2765131278160118389
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wind Gust_8
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 14
+        width: 15
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d4d4eda8c18e84e0800000000000000
+      internalID: -1977500487458171687
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wind Gust_9
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 4
+        width: 19
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc4f54cc1260821b0800000000000000
+      internalID: -5681284187697056564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wind Gust_10
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 15
+        width: 13
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e86dc1f1317edb470800000000000000
+      internalID: 8412133748310333070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wind Gust_11
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 4
+        width: 19
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc5b90bf45631d000800000000000000
+      internalID: 58888008749397455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wind Gust_12
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 15
+        width: 12
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd797836b5c60f9a0800000000000000
+      internalID: -6201337547121518628
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wind Gust_13
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 13
+        width: 19
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62de54f5efde1b440800000000000000
+      internalID: 4949999142232780070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wind Gust_14
+      rect:
+        serializedVersion: 2
+        x: 266
+        y: 4
+        width: 18
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cee750cd954ad21a0800000000000000
+      internalID: -6832624353800782100
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wind Gust_15
+      rect:
+        serializedVersion: 2
+        x: 289
+        y: 13
+        width: 19
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6cadd848adf7f5530800000000000000
+      internalID: 3845933183301180102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wind Gust_16
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 5
+        width: 15
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 35e0eaf6771ef2260800000000000000
+      internalID: 7075121442713374291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wind Gust_17
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 13
+        width: 19
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e4e4847d8e115d60800000000000000
+      internalID: 7877110816141796576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wind Gust_18
+      rect:
+        serializedVersion: 2
+        x: 359
+        y: 13
+        width: 19
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f16d4192ad2f71100800000000000000
+      internalID: 78798537308296735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wind Gust_19
+      rect:
+        serializedVersion: 2
+        x: 383
+        y: 4
+        width: 29
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae2599cb929eead30800000000000000
+      internalID: 4444746247728354026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wind Gust_20
+      rect:
+        serializedVersion: 2
+        x: 417
+        y: 4
+        width: 19
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ff4ea4b13c69b7d0800000000000000
+      internalID: -2902169524123054088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wind Gust_21
+      rect:
+        serializedVersion: 2
+        x: 431
+        y: 14
+        width: 15
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5403de2b1adb87b70800000000000000
+      internalID: 8897069566059688005
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wind Gust_22
+      rect:
+        serializedVersion: 2
+        x: 452
+        y: 4
+        width: 19
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9af0f3a8a72e3d9b0800000000000000
+      internalID: -5056448940673658967
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wind Gust_23
+      rect:
+        serializedVersion: 2
+        x: 466
+        y: 15
+        width: 13
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d110301ecdd601770800000000000000
+      internalID: 8579478085576098077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wind Gust_24
+      rect:
+        serializedVersion: 2
+        x: 487
+        y: 4
+        width: 19
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96ac4b6004a76c6a0800000000000000
+      internalID: -6429317002615797143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wind Gust_25
+      rect:
+        serializedVersion: 2
+        x: 499
+        y: 15
+        width: 12
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aaad14e65e4cc26a0800000000000000
+      internalID: -6472582074761880918
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wind Gust_26
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 6
+        width: 13
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d7a69871741790ce0800000000000000
+      internalID: -1438494055816664451
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wind Gust_27
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 6
+        width: 13
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: edc278d141a9c2130800000000000000
+      internalID: 3543376418019159262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wind Gust_28
+      rect:
+        serializedVersion: 2
+        x: 338
+        y: 6
+        width: 13
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75014e47c5ac0ce80800000000000000
+      internalID: -8160300026348433321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wind Gust_29
+      rect:
+        serializedVersion: 2
+        x: 371
+        y: 6
+        width: 13
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a1300940d3a95bf0800000000000000
+      internalID: -335056582289116767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Wind Gust_0: 4556806852170172485
+      Wind Gust_1: -2552399937398514025
+      Wind Gust_10: 8412133748310333070
+      Wind Gust_11: 58888008749397455
+      Wind Gust_12: -6201337547121518628
+      Wind Gust_13: 4949999142232780070
+      Wind Gust_14: -6832624353800782100
+      Wind Gust_15: 3845933183301180102
+      Wind Gust_16: 7075121442713374291
+      Wind Gust_17: 7877110816141796576
+      Wind Gust_18: 78798537308296735
+      Wind Gust_19: 4444746247728354026
+      Wind Gust_2: 277094453632285377
+      Wind Gust_20: -2902169524123054088
+      Wind Gust_21: 8897069566059688005
+      Wind Gust_22: -5056448940673658967
+      Wind Gust_23: 8579478085576098077
+      Wind Gust_24: -6429317002615797143
+      Wind Gust_25: -6472582074761880918
+      Wind Gust_26: -1438494055816664451
+      Wind Gust_27: 3543376418019159262
+      Wind Gust_28: -8160300026348433321
+      Wind Gust_29: -335056582289116767
+      Wind Gust_3: 5331687075497055156
+      Wind Gust_4: 3124616955710033253
+      Wind Gust_5: 131323568124916371
+      Wind Gust_6: -1731383108406687192
+      Wind Gust_7: 2765131278160118389
+      Wind Gust_8: -1977500487458171687
+      Wind Gust_9: -5681284187697056564
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
