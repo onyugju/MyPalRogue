@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4627a231d918ef54b8d936bce8e4f4c3, type: 3}
+  m_Name: 063_Elphidran
+  m_EditorClassIdentifier: Assembly-CSharp::PalRogue.PalData
+  palId: 063
+  palName: "\uC2E4\uD53C\uC544"
+  englishName: Elphidran
+  frontSprite: {fileID: -8033175728029183470, guid: e4317c18cc7085c4dbba21259f674b6a, type: 3}
+  backSprite: {fileID: -195763125868217647, guid: 8e33381d8b89b1e48b813d3bdbd60937, type: 3}
+  frontScale: 0.6833713
+  backScale: 0.3164557
+  primaryType: 7
+  hasSecondaryType: 0
+  secondaryType: 0
+  baseHP: 56
+  baseAttack: 70
+  baseDefense: 49
+  baseSpAttack: 70
+  baseSpDefense: 49
+  baseSpeed: 126
+  learnset: []
+  catchRate: 100
+  evolvesInto: {fileID: 0}
+  evolveLevel: 0

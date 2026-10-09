@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4627a231d918ef54b8d936bce8e4f4c3, type: 3}
+  m_Name: 005_Fuack
+  m_EditorClassIdentifier: Assembly-CSharp::PalRogue.PalData
+  palId: 005
+  palName: "\uCCAD\uBD80\uB9AC"
+  englishName: Fuack
+  frontSprite: {fileID: 8169316656848313439, guid: f0a3424a6153f6449a4d1ab32828b694, type: 3}
+  backSprite: {fileID: 3717900433586860938, guid: 6e70e42961f2822489d3d7c748ac2eb8, type: 3}
+  frontScale: 0.3194888
+  backScale: 0.3421728
+  primaryType: 2
+  hasSecondaryType: 0
+  secondaryType: 0
+  baseHP: 40
+  baseAttack: 50
+  baseDefense: 35
+  baseSpAttack: 50
+  baseSpDefense: 35
+  baseSpeed: 90
+  learnset: []
+  catchRate: 190
+  evolvesInto: {fileID: 0}
+  evolveLevel: 0

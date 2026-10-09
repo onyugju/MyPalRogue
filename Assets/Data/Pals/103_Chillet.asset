@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4627a231d918ef54b8d936bce8e4f4c3, type: 3}
+  m_Name: 103_Chillet
+  m_EditorClassIdentifier: Assembly-CSharp::PalRogue.PalData
+  palId: 103
+  palName: "\uBCA0\uBE44\uB1FD"
+  englishName: Chillet
+  frontSprite: {fileID: 1412658327375998167, guid: f75547d0c03d001498504120e3b17cc8, type: 3}
+  backSprite: {fileID: -5596582977250002136, guid: c87e72bdac048f84c913a32d45924185, type: 3}
+  frontScale: 0.5504587
+  backScale: 11.428572
+  primaryType: 6
+  hasSecondaryType: 1
+  secondaryType: 7
+  baseHP: 70
+  baseAttack: 70
+  baseDefense: 70
+  baseSpAttack: 70
+  baseSpDefense: 70
+  baseSpeed: 70
+  learnset: []
+  catchRate: 100
+  evolvesInto: {fileID: 0}
+  evolveLevel: 0

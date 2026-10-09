@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4627a231d918ef54b8d936bce8e4f4c3, type: 3}
+  m_Name: 004_Lifmunk
+  m_EditorClassIdentifier: Assembly-CSharp::PalRogue.PalData
+  palId: 004
+  palName: "\uD050\uB8F0\uB9AC\uC2A4"
+  englishName: Lifmunk
+  frontSprite: {fileID: 705531119397648709, guid: 008a6af1f7de2334089831c2b45a3614, type: 3}
+  backSprite: {fileID: -1432794333324887193, guid: 17bd04591e7f4f14196e43c51208ddee, type: 3}
+  frontScale: 0.75376886
+  backScale: 0.29695618
+  primaryType: 3
+  hasSecondaryType: 0
+  secondaryType: 0
+  baseHP: 50
+  baseAttack: 50
+  baseDefense: 50
+  baseSpAttack: 50
+  baseSpDefense: 50
+  baseSpeed: 50
+  learnset: []
+  catchRate: 190
+  evolvesInto: {fileID: 0}
+  evolveLevel: 0
