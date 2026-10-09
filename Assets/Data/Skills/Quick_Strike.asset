@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Quick_Strike
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uAE30\uC2B5"
-  description: "(\uC784\uC2DC \uB370\uC774\uD130)"
+  description: 
   type: 0
   category: 0
   power: 35
   accuracy: 100
-  maxPP: 20
+  maxPP: 25
   priority: 1

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Annihilate
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uC18C\uBA78"
-  description: "(\uC784\uC2DC \uB370\uC774\uD130)"
+  description: 
   type: 9
   category: 1
-  power: 110
+  power: 130
   accuracy: 80
   maxPP: 5
   priority: 0

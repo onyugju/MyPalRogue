@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b2e8e825aa565d49bd676a104973c3b, type: 3}
   m_Name: Dragon_Meteor
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
-  skillName: "\uB4DC\uB798\uACE4 \uBA54\uD14C\uC624"
-  description: "(\uC784\uC2DC \uB370\uC774\uD130)"
+  skillName: "\uC6A9\uC758 \uC6B4\uC11D"
+  description: 
   type: 7
   category: 1
-  power: 90
-  accuracy: 85
+  power: 120
+  accuracy: 80
   maxPP: 5
   priority: 0

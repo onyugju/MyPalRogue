@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Void_Pulse
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uACF5\uD5C8\uC758 \uD30C\uB3D9"
-  description: "(\uC784\uC2DC \uB370\uC774\uD130)"
+  description: 
   type: 9
   category: 1
-  power: 50
+  power: 85
   accuracy: 100
-  maxPP: 20
+  maxPP: 15
   priority: 0

@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b2e8e825aa565d49bd676a104973c3b, type: 3}
   m_Name: Dark_Laser
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
-  skillName: "\uC554\uD751 \uAD11\uC120"
-  description: "(\uC784\uC2DC \uB370\uC774\uD130)"
+  skillName: "\uC5B4\uB460\uC758 \uB808\uC774\uC800"
+  description: 
   type: 8
   category: 1
-  power: 80
+  power: 100
   accuracy: 90
   maxPP: 10
   priority: 0

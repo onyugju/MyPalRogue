@@ -30,12 +30,20 @@ MonoBehaviour:
   baseSpeed: 50
   learnset:
   - level: 1
-    skill: {fileID: 11400000, guid: 1b3020b1bd388ef4c9f3d357b6274dec, type: 2}
+    skill: {fileID: 11400000, guid: a69689769d8d44a4083b43fedc00c4a5, type: 2}
   - level: 1
-    skill: {fileID: 11400000, guid: 09b9207bc0d6237459e8521512cff787, type: 2}
-  - level: 10
-    skill: {fileID: 11400000, guid: 72f7cfeb6eeb57d459e1303a355452ea, type: 2}
-  - level: 20
-    skill: {fileID: 11400000, guid: fd43ff69cbf5b3543b31346a44d5ae62, type: 2}
+    skill: {fileID: 11400000, guid: d407d0d68ab1438448a66fe2ce0f5610, type: 2}
+  - level: 1
+    skill: {fileID: 11400000, guid: 30ebf53389775024982a1af258337e5a, type: 2}
+  - level: 6
+    skill: {fileID: 11400000, guid: f0c58f160081aea4f82ca47d05c8c225, type: 2}
+  - level: 12
+    skill: {fileID: 11400000, guid: 258d6f49a4c95df4b935e42499e0c983, type: 2}
+  - level: 12
+    skill: {fileID: 11400000, guid: c98f48158ebbe1a45bda5138515ccb71, type: 2}
+  - level: 28
+    skill: {fileID: 11400000, guid: 88e5913e1e2bc314eb1c84668a6e3dc2, type: 2}
+  - level: 40
+    skill: {fileID: 11400000, guid: baae0ac51ee3c6248ac17e7f9d5d6efb, type: 2}
   canBeCaught: 1
   catchRate: 190
