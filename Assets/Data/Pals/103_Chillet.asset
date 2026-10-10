@@ -16,9 +16,11 @@ MonoBehaviour:
   palName: "\uBCA0\uBE44\uB1FD"
   englishName: Chillet
   frontSprite: {fileID: 1412658327375998167, guid: f75547d0c03d001498504120e3b17cc8, type: 3}
-  backSprite: {fileID: -5596582977250002136, guid: c87e72bdac048f84c913a32d45924185, type: 3}
+  backSprite: {fileID: 8134672896922152734, guid: c87e72bdac048f84c913a32d45924185, type: 3}
   frontScale: 0.5504587
-  backScale: 11.428572
+  backScale: 0.33670032
+  frontAnimator: {fileID: 0}
+  backAnimator: {fileID: 0}
   primaryType: 6
   hasSecondaryType: 1
   secondaryType: 7

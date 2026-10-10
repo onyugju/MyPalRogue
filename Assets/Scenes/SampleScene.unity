@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 513817767}
   - component: {fileID: 513817766}
   - component: {fileID: 513817765}
+  - component: {fileID: 513817768}
   m_Layer: 0
   m_Name: GameObject (1)
   m_TagString: Untagged
@@ -234,6 +235,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &513817768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 513817764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 188ef160da6a7cc46ab1b800f8f610cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PalRogue.BattleTest
+  playerPal: {fileID: 11400000, guid: 38f4248988346a644804251f3c8245b9, type: 2}
+  enemyPal: {fileID: 11400000, guid: 38f4248988346a644804251f3c8245b9, type: 2}
+  playerLevel: 10
+  enemyLevel: 10
+  seed: -1
+  maxTurns: 100
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

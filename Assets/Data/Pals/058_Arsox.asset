@@ -19,6 +19,8 @@ MonoBehaviour:
   backSprite: {fileID: 0}
   frontScale: 0.39011702
   backScale: 1
+  frontAnimator: {fileID: 0}
+  backAnimator: {fileID: 0}
   primaryType: 1
   hasSecondaryType: 0
   secondaryType: 0

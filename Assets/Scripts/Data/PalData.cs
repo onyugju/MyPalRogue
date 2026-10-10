@@ -26,6 +26,14 @@ namespace PalRogue
         public float frontScale = 1f;
         public float backScale = 1f;
 
+        [Header("애니메이션 (선택)")]
+        [Tooltip("있으면 정지 이미지 대신 이 애니메이터로 재생한다. 없으면 위 스프라이트를 그대로 사용")]
+        public RuntimeAnimatorController frontAnimator;
+        public RuntimeAnimatorController backAnimator;
+
+        public bool HasBackVisual => backSprite != null;
+        public RuntimeAnimatorController BackOrFrontAnimator => HasBackVisual ? backAnimator : frontAnimator;
+
         public Sprite BackOrFront => backSprite != null ? backSprite : frontSprite;
         public float BackOrFrontScale => backSprite != null ? backScale : frontScale;
 

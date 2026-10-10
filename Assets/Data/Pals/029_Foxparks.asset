@@ -15,10 +15,12 @@ MonoBehaviour:
   palId: 029
   palName: "\uD30C\uC774\uD638"
   englishName: Foxparks
-  frontSprite: {fileID: -3148083582085705974, guid: 89cdc4ba9afc1c745ba69b02c8282eb3, type: 3}
-  backSprite: {fileID: 2254558806715596179, guid: 58464fce9ff1b0c459f2135e17edbf34, type: 3}
-  frontScale: 0.5714286
-  backScale: 0.31397176
+  frontSprite: {fileID: 21300000, guid: 6d28a0dc48cfa4246aa99a36d792f84a, type: 3}
+  backSprite: {fileID: 21300000, guid: 9e8bb66e5202d054f865c4c1c4e6f78c, type: 3}
+  frontScale: 0.31578946
+  backScale: 0.390625
+  frontAnimator: {fileID: 9100000, guid: a0cfd3591a4460649a7cc6e327547c65, type: 2}
+  backAnimator: {fileID: 9100000, guid: eca5b238a81f1af4181e26fc0ae55f5d, type: 2}
   primaryType: 1
   hasSecondaryType: 0
   secondaryType: 0

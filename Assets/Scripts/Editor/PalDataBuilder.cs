@@ -91,6 +91,35 @@ namespace PalRogue.EditorTools
             Debug.Log($"[PalRogue] {n}개 텍스처를 Point / 무압축으로 변경했습니다.");
         }
 
+        // ───────── 7. 이미 만든 PalData의 스프라이트 재연결 ─────────
+        [MenuItem("PalRogue/7. 팰 스프라이트·배율 재연결")]
+        static void RelinkSprites()
+        {
+            int ok = 0, fail = 0;
+            foreach (var r in Rows)
+            {
+                var pal = AssetDatabase.LoadAssetAtPath<PalData>($"{OutDir}/{r.id}_{r.eng}.asset");
+                if (pal == null) continue;
+
+                string dir = $"{PalRoot}/{r.id} {r.kor}";
+                LoadVisual(dir, r.front, "Frames", out var front, out var frontAnim);
+                Sprite back = null; RuntimeAnimatorController backAnim = null;
+                if (r.back != null) LoadVisual(dir, r.back, "Frames_back", out back, out backAnim);
+                if (front == null) { Debug.LogWarning($"[PalRogue] 앞모습 없음: {dir}/{r.front}.png"); fail++; continue; }
+
+                pal.frontSprite = front;
+                pal.backSprite = back;
+                pal.frontAnimator = frontAnim;
+                pal.backAnimator = backAnim;
+                pal.frontScale = FitScale(front, FrontBox);
+                pal.backScale = FitScale(back, BackBox);
+                EditorUtility.SetDirty(pal);
+                ok++;
+            }
+            AssetDatabase.SaveAssets();
+            Debug.Log($"[PalRogue] 스프라이트 재연결 {ok}개 / 실패 {fail}개");
+        }
+
         // ───────── 3. 제로버스 설정 보정 (이미 만든 에셋용) ─────────
         [MenuItem("PalRogue/3. 제로버스 설정 적용 (고유속성·포획불가)")]
         static void ApplyZerobusFix()
@@ -120,8 +149,9 @@ namespace PalRogue.EditorTools
                 if (AssetDatabase.LoadAssetAtPath<PalData>(assetPath) != null) { skipped++; continue; }
 
                 string dir = $"{PalRoot}/{r.id} {r.kor}";
-                var front = LoadSprite($"{dir}/{r.front}.png");
-                var back = r.back != null ? LoadSprite($"{dir}/{r.back}.png") : null;
+                LoadVisual(dir, r.front, "Frames", out var front, out var frontAnim);
+                Sprite back = null; RuntimeAnimatorController backAnim = null;
+                if (r.back != null) LoadVisual(dir, r.back, "Frames_back", out back, out backAnim);
                 if (front == null) { Debug.LogWarning($"[PalRogue] 앞모습 스프라이트 없음: {dir}/{r.front}.png"); missing++; }
 
                 var pal = ScriptableObject.CreateInstance<PalData>();
@@ -130,6 +160,8 @@ namespace PalRogue.EditorTools
                 pal.englishName = r.eng.Replace('_', ' ');
                 pal.frontSprite = front;
                 pal.backSprite = back;
+                pal.frontAnimator = frontAnim;
+                pal.backAnimator = backAnim;
                 pal.frontScale = FitScale(front, FrontBox);
                 pal.backScale = FitScale(back, BackBox);
                 pal.primaryType = r.t1;
@@ -153,8 +185,32 @@ namespace PalRogue.EditorTools
         }
 
         // 이미지가 Multiple(자동 슬라이스)이라 서브 스프라이트를 꺼내야 한다
+        // (자동 슬라이스가 본체 말고 작은 조각을 먼저 만드는 경우가 있어서 "가장 큰 스프라이트"를 고른다)
         static Sprite LoadSprite(string path) =>
-            AssetDatabase.LoadAllAssetsAtPath(path).OfType<Sprite>().FirstOrDefault();
+            AssetDatabase.LoadAllAssetsAtPath(path).OfType<Sprite>()
+                .OrderByDescending(s => s.rect.width * s.rect.height).FirstOrDefault();
+
+        /// <summary>
+        /// 정지 이미지({dir}/{name}.png) 또는 애니메이션 폴더({dir}/{name}/{name}.controller + Frames 폴더) 중 있는 쪽을 연결한다.
+        /// 애니메이션이면 첫 프레임을 대표 스프라이트(정지 화면·크기 배율 계산용)로 쓴다.
+        /// </summary>
+        static void LoadVisual(string dir, string name, string framesFolder,
+                               out Sprite sprite, out RuntimeAnimatorController animator)
+        {
+            sprite = null;
+            animator = AssetDatabase.LoadAssetAtPath<RuntimeAnimatorController>($"{dir}/{name}/{name}.controller");
+            string frames = $"{dir}/{name}/{framesFolder}";
+            if (animator != null && AssetDatabase.IsValidFolder(frames))
+            {
+                var first = AssetDatabase.FindAssets("t:Texture2D", new[] { frames })
+                    .Select(AssetDatabase.GUIDToAssetPath)
+                    .Where(p => p.EndsWith(".png"))
+                    .OrderBy(p => Path.GetFileName(p), System.StringComparer.Ordinal)
+                    .FirstOrDefault();
+                if (first != null) sprite = LoadSprite(first);
+            }
+            if (sprite == null) sprite = LoadSprite($"{dir}/{name}.png");
+        }
 
         static float FitScale(Sprite s, float box)
         {
