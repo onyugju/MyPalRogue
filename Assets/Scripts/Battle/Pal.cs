@@ -36,6 +36,9 @@ namespace PalRogue
         public List<SkillInstance> Skills { get; } = new();
         public List<BattleEffect> Effects { get; } = new();
 
+        /// <summary>HP가 바뀔 때마다 (팰, 이전 HP, 이후 HP). 화면의 HP바 연출에 쓴다.</summary>
+        public event Action<Pal, int, int> HpChanged;
+
         readonly Dictionary<StatType, int> rawStats = new();
         readonly Dictionary<StatType, int> stages = new();
 
@@ -99,7 +102,9 @@ namespace PalRogue
         public int TakeDamage(int amount)
         {
             int dealt = Mathf.Clamp(amount, 0, CurrentHP);
+            int before = CurrentHP;
             CurrentHP -= dealt;
+            if (dealt > 0) HpChanged?.Invoke(this, before, CurrentHP);
             return dealt;
         }
 
@@ -107,12 +112,19 @@ namespace PalRogue
         {
             if (IsFainted) return 0;
             int healed = Mathf.Clamp(amount, 0, MaxHP - CurrentHP);
+            int before = CurrentHP;
             CurrentHP += healed;
+            if (healed > 0) HpChanged?.Invoke(this, before, CurrentHP);
             return healed;
         }
 
         /// <summary>기절한 상태에서도 HP를 되살린다 (부활 효과용)</summary>
-        public void Revive(int hp) => CurrentHP = Mathf.Clamp(hp, 1, MaxHP);
+        public void Revive(int hp)
+        {
+            int before = CurrentHP;
+            CurrentHP = Mathf.Clamp(hp, 1, MaxHP);
+            if (CurrentHP != before) HpChanged?.Invoke(this, before, CurrentHP);
+        }
 
         // ───────── 스킬 ─────────
         /// <summary>현재 레벨까지 배운 스킬 중 최근에 배운 4개를 장착 (포켓몬 방식)</summary>

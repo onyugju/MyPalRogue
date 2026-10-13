@@ -18,15 +18,15 @@ namespace PalRogue.EditorTools
     public static class BattleUIBuilder
     {
         // ───────── 에셋 경로 ─────────
-        const string Core = "Assets/palrogue_assets_core";
-        const string UiDir = Core + "/images/ui";
-        const string ArenaDir = Core + "/images/arenas";
-        const string FontPath = Core + "/fonts/pokemon-emerald-pro SDF.asset";
-        const string PalDir = "Assets/Data/Pals";
+        const string Core      = "Assets/palrogue_assets_core";
+        const string UiDir     = Core + "/images/ui";
+        const string ArenaDir  = Core + "/images/arenas";
+        const string FontPath  = Core + "/fonts/pokemon-emerald-pro KR SDF.asset";   // 메뉴 11이 만드는 한글 폰트
+        const string PalDir    = "Assets/Data/Pals";
 
         // ───────── 미리보기에 쓸 팰 / 배경 ─────────
         const string PlayerPalAsset = "029_Foxparks";   // 내 팰 (뒷모습)
-        const string EnemyPalAsset = "004_Lifmunk";    // 적 팰 (앞모습)
+        const string EnemyPalAsset  = "004_Lifmunk";    // 적 팰 (앞모습)
         const int PlayerLevel = 10, EnemyLevel = 8;
         const string Biome = "plains";
 
@@ -36,7 +36,7 @@ namespace PalRogue.EditorTools
 
         // 팰이 서는 위치 = 발 끝 좌표 (화면 픽셀, 왼쪽 위가 원점)
         static readonly Vector2 PlayerFeet = new Vector2(104f, 140f);
-        static readonly Vector2 EnemyFeet = new Vector2(236f, 82f);
+        static readonly Vector2 EnemyFeet  = new Vector2(236f, 82f);
         const float EnemyBaseOffsetX = 20f;   // 적 발판을 오른쪽으로 민 정도 (스크린샷 기준)
 
         // ───────── 글자 ─────────

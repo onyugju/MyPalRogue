@@ -7,6 +7,18 @@ namespace PalRogue
 {
     public enum BattleState { Ongoing, WaitingPlayerSwitch, PlayerWon, PlayerLost }
 
+    public enum BattleEventType { Message, HpChanged, Fainted, SentOut }
+
+    /// <summary>화면이 순서대로 재생하는 전투 진행 기록 한 줄</summary>
+    public class BattleEvent
+    {
+        public BattleEventType Type;
+        public string Text;           // Message
+        public Pal Pal;               // HpChanged / Fainted / SentOut
+        public bool IsPlayerSide;     // 어느 쪽 팰인지
+        public int From, To;          // HpChanged
+    }
+
     /// <summary>한 턴에 고를 수 있는 행동: 스킬 사용 또는 교체</summary>
     public readonly struct BattleAction
     {
@@ -40,6 +52,24 @@ namespace PalRogue
         /// <summary>어느 쪽이든 팰이 쓰러질 때 호출 (경험치 지급 등에 사용)</summary>
         public event Action<Pal> PalFainted;
 
+        // ───────── 화면용 진행 기록 ─────────
+        readonly Queue<BattleEvent> events = new Queue<BattleEvent>();
+
+        /// <summary>UI가 일어난 일을 오래된 순서대로 하나씩 꺼내 쓰는 창구. 비었으면 false.</summary>
+        public bool TryDequeueEvent(out BattleEvent e) => events.TryDequeue(out e);
+
+        void Emit(BattleEvent e) => events.Enqueue(e);
+        bool IsPlayerPal(Pal p) => PlayerParty.Contains(p);
+
+        void OnHpChanged(Pal p, int from, int to) =>
+            Emit(new BattleEvent { Type = BattleEventType.HpChanged, Pal = p, IsPlayerSide = IsPlayerPal(p), From = from, To = to });
+
+        /// <summary>팰의 HP 이벤트 구독을 끊는다. 전투가 끝나거나 화면이 사라질 때 호출 (여러 번 불러도 안전).</summary>
+        public void Detach()
+        {
+            foreach (var p in PlayerParty.Concat(EnemyParty)) p.HpChanged -= OnHpChanged;
+        }
+
         readonly System.Random rng;
 
         // 발버둥: PP가 모두 바닥났을 때 쓰는 기술 (반동 데미지는 아직 없음)
@@ -69,7 +99,12 @@ namespace PalRogue
             PlayerParty = new List<Pal>(player);
             EnemyParty = new List<Pal>(enemy);
             this.rng = rng ?? new System.Random();
-            if (log != null) Ctx.Log = log;
+            // 로그는 바깥으로 내보내면서 동시에 화면용 메시지 이벤트로도 쌓는다 (효과 쪽에서 ctx.Log를 써도 포함됨)
+            Ctx.Log = msg =>
+            {
+                log?.Invoke(msg);
+                Emit(new BattleEvent { Type = BattleEventType.Message, Text = msg });
+            };
 
             PlayerIndex = FirstAlive(PlayerParty);
             EnemyIndex = FirstAlive(EnemyParty);
@@ -81,6 +116,7 @@ namespace PalRogue
                 return;
             }
 
+            foreach (var p0 in PlayerParty.Concat(EnemyParty)) p0.HpChanged += OnHpChanged;
             foreach (var p in PlayerParty.Concat(EnemyParty))
             {
                 p.ResetBattleState();
@@ -167,6 +203,7 @@ namespace PalRogue
             if (partyIndex < 0 || partyIndex >= PlayerParty.Count || PlayerParty[partyIndex].IsFainted) return false;
             PlayerIndex = partyIndex;
             State = BattleState.Ongoing;
+            Emit(new BattleEvent { Type = BattleEventType.SentOut, Pal = Player, IsPlayerSide = true });
             Log($"가라, {Player.Data.palName}!");
             return true;
         }
@@ -186,6 +223,7 @@ namespace PalRogue
                 Log($"{Player.Data.palName}, 돌아와!");
                 Player.ResetBattleState();
                 PlayerIndex = en.Action.Index;
+                Emit(new BattleEvent { Type = BattleEventType.SentOut, Pal = Player, IsPlayerSide = true });
                 Log($"가라, {Player.Data.palName}!");
                 return;
             }
@@ -225,18 +263,21 @@ namespace PalRogue
         {
             if (Enemy.IsFainted)
             {
+                Emit(new BattleEvent { Type = BattleEventType.Fainted, Pal = Enemy, IsPlayerSide = false });
                 Log($"{Enemy.Data.palName}(은)는 쓰러졌다!");
                 PalFainted?.Invoke(Enemy);
                 int next = FirstAlive(EnemyParty);
-                if (next < 0) { State = BattleState.PlayerWon; Log("전투에서 승리했다!"); return; }
+                if (next < 0) { State = BattleState.PlayerWon; Log("전투에서 승리했다!"); Detach(); return; }
                 EnemyIndex = next;
+                Emit(new BattleEvent { Type = BattleEventType.SentOut, Pal = Enemy, IsPlayerSide = false });
                 Log($"상대는 {Enemy.Data.palName}(을)를 내보냈다!");
             }
             if (Player.IsFainted)
             {
+                Emit(new BattleEvent { Type = BattleEventType.Fainted, Pal = Player, IsPlayerSide = true });
                 Log($"{Player.Data.palName}(은)는 쓰러졌다!");
                 PalFainted?.Invoke(Player);
-                if (FirstAlive(PlayerParty) < 0) { State = BattleState.PlayerLost; Log("눈앞이 깜깜해졌다..."); return; }
+                if (FirstAlive(PlayerParty) < 0) { State = BattleState.PlayerLost; Log("눈앞이 깜깜해졌다..."); Detach(); return; }
                 State = BattleState.WaitingPlayerSwitch;
             }
         }
