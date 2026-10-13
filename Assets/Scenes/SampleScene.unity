@@ -1627,8 +1627,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5946c0f921f5baf46bc11f0cd7335080, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.BattleScreen
-  playerPal: {fileID: 11400000, guid: 38f4248988346a644804251f3c8245b9, type: 2}
-  enemyPal: {fileID: 11400000, guid: c6ba11ff0f0be9a489d67d1b19b0ee9a, type: 2}
+  playerPal: {fileID: 11400000, guid: c6ba11ff0f0be9a489d67d1b19b0ee9a, type: 2}
+  enemyPal: {fileID: 11400000, guid: 38f4248988346a644804251f3c8245b9, type: 2}
   playerLevel: 10
   enemyLevel: 8
   seed: -1
