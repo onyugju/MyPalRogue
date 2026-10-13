@@ -1,0 +1,249 @@
+#if UNITY_EDITOR
+using System.Collections.Generic;
+using TMPro;
+using UnityEditor;
+using UnityEditor.SceneManagement;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+
+namespace PalRogue.EditorTools
+{
+    /// <summary>
+    /// 메뉴 PalRogue/10: 메뉴 9로 만든 전투 화면에 "움직이는 부분"을 붙인다.
+    ///  - 커맨드 4개에 클릭/선택 영역 추가
+    ///  - 스킬 선택 창(SkillPanel) + 스킬 정보 창(SkillInfoPanel) + 다시 시작 버튼 생성
+    ///  - 팰 오브젝트에 PalView, BattleCanvas에 BattleScreen을 붙이고 참조를 전부 연결
+    /// 이미 손으로 옮겨 둔 위치·크기는 건드리지 않는다(새로 만드는 것은 스킬 창류뿐). 다시 실행해도 안전하다.
+    /// </summary>
+    public static class BattleScreenWiring
+    {
+        const string UiDir = "Assets/palrogue_assets_core/images/ui";
+        const string PalDir = "Assets/Data/Pals";
+        const string DefaultPlayerPal = "029_Foxparks";
+        const string DefaultEnemyPal = "004_Lifmunk";
+
+        [MenuItem("PalRogue/10. 전투 화면 연결 (스크립트 붙이기)", false, 1010)]
+        static void Wire()
+        {
+            var canvasGo = GameObject.Find("BattleCanvas");
+            var field = GameObject.Find("BattleField");
+            if (canvasGo == null || field == null)
+            {
+                EditorUtility.DisplayDialog("먼저 실행하세요", "메뉴 'PalRogue > 9. 전투 화면 레이아웃 생성'을 먼저 실행해 주세요.", "확인");
+                return;
+            }
+
+            // ───── 필요한 기존 오브젝트 찾기 ─────
+            var root = canvasGo.transform;
+            var missing = new List<string>();
+            Transform Need(Transform parent, string path)
+            {
+                var t = parent.Find(path);
+                if (t == null) missing.Add($"{parent.name}/{path}");
+                return t;
+            }
+            var enemyInfoT = Need(root, "EnemyInfo");
+            var playerInfoT = Need(root, "PlayerInfo");
+            var msgTextT = Need(root, "MessagePanel/Text");
+            var cmdT = Need(root, "CommandBox");
+            var fightT = Need(root, "CommandBox/Fight");
+            var sphereT = Need(root, "CommandBox/Sphere");
+            var palsT = Need(root, "CommandBox/Pals");
+            var runT = Need(root, "CommandBox/Run");
+            var cursorT = Need(root, "CommandBox/Cursor");
+            var playerPalT = Need(field.transform, "PlayerPal");
+            var enemyPalT = Need(field.transform, "EnemyPal");
+            if (missing.Count > 0)
+            {
+                Debug.LogError("[PalRogue] 다음 오브젝트를 찾을 수 없습니다 (이름을 바꾸거나 지우지 않았는지 확인, 또는 9번을 다시 실행): " + string.Join(", ", missing));
+                return;
+            }
+
+            var fightLabel = fightT.GetComponent<TextMeshProUGUI>();
+            var font = fightLabel != null ? fightLabel.font : null;
+            float menuSize = fightLabel != null ? fightLabel.fontSize : 11f;
+            var windowSprite = AssetDatabase.LoadAssetAtPath<Sprite>($"{UiDir}/windows/window_1.png");
+            var cursorSprite = cursorT.GetComponent<Image>().sprite;
+
+            // ───── 커맨드 4개에 클릭 영역 ─────
+            var fightBtn = AddHit(fightT);
+            var sphereBtn = AddHit(sphereT);
+            var palsBtn = AddHit(palsT);
+            var runBtn = AddHit(runT);
+
+            // ───── 스킬 창 / 정보 창 / 다시 시작 버튼 (이미 있으면 지우고 새로) ─────
+            DestroyChild(root, "SkillPanel");
+            DestroyChild(root, "SkillInfoPanel");
+            DestroyChild(root, "RestartButton");
+
+            var skillPanel = Make(root, "SkillPanel", new Vector2(0, 0), new Vector2(0, 0), new Vector2(210, 48));
+            AddWindow(skillPanel, windowSprite);
+            var skillButtons = new Button[4];
+            var skillTexts = new TMP_Text[4];
+            Vector2[] slots = { new Vector2(14, 10), new Vector2(112, 10), new Vector2(14, 27), new Vector2(112, 27) };
+            for (int i = 0; i < 4; i++)
+            {
+                var label = Label(skillPanel, $"Skill{i + 1}", font, menuSize, TextAlignmentOptions.MidlineLeft, slots[i], new Vector2(92, 12));
+                skillTexts[i] = label;
+                skillButtons[i] = AddHit(label.transform);
+            }
+            var skillCursorRt = MakeTopLeft(skillPanel, "Cursor", new Vector2(7, 11), new Vector2(6, 10));
+            var skillCursor = skillCursorRt.gameObject.AddComponent<Image>();
+            skillCursor.sprite = cursorSprite;
+            skillCursor.raycastTarget = false;
+
+            var infoPanel = Make(root, "SkillInfoPanel", new Vector2(1, 0), new Vector2(0, 0), new Vector2(110, 48));
+            AddWindow(infoPanel, windowSprite);
+            var ppText = Label(infoPanel, "PP", font, menuSize, TextAlignmentOptions.MidlineLeft, new Vector2(12, 9), new Vector2(86, 12));
+            var typeIconRt = MakeTopLeft(infoPanel, "TypeIcon", new Vector2(12, 26), new Vector2(12, 12));
+            var typeIcon = typeIconRt.gameObject.AddComponent<Image>();
+            typeIcon.preserveAspect = true;
+            typeIcon.raycastTarget = false;
+            var typeText = Label(infoPanel, "TypeName", font, menuSize, TextAlignmentOptions.MidlineLeft, new Vector2(28, 26), new Vector2(78, 12));
+
+            var restart = new GameObject("RestartButton", typeof(RectTransform), typeof(Image), typeof(Button), typeof(MenuEntry));
+            restart.transform.SetParent(root, false);
+            var rrt = (RectTransform)restart.transform;
+            rrt.anchorMin = Vector2.zero; rrt.anchorMax = Vector2.one; rrt.offsetMin = rrt.offsetMax = Vector2.zero;
+            var rimg = restart.GetComponent<Image>();
+            rimg.color = new Color(1, 1, 1, 0);
+            rimg.canvasRenderer.cullTransparentMesh = false;
+            var restartBtn = restart.GetComponent<Button>();
+            restartBtn.targetGraphic = rimg;
+            restartBtn.transition = Selectable.Transition.None;
+
+            skillPanel.gameObject.SetActive(false);
+            infoPanel.gameObject.SetActive(false);
+            restart.SetActive(false);
+
+            // ───── 팰 오브젝트에 PalView ─────
+            var playerView = SetupPalView(playerPalT, true);
+            var enemyView = SetupPalView(enemyPalT, false);
+
+            // ───── BattleScreen 붙이고 연결 ─────
+            var screen = canvasGo.GetComponent<BattleScreen>();
+            if (screen == null) screen = canvasGo.AddComponent<BattleScreen>();
+            screen.playerView = playerView;
+            screen.enemyView = enemyView;
+            screen.playerInfo = playerInfoT.GetComponent<PalInfoBox>();
+            screen.enemyInfo = enemyInfoT.GetComponent<PalInfoBox>();
+            screen.messageText = msgTextT.GetComponent<TMP_Text>();
+            screen.commandBox = cmdT.gameObject;
+            screen.commandCursor = cursorT.GetComponent<Image>();
+            screen.fightButton = fightBtn; screen.sphereButton = sphereBtn;
+            screen.palsButton = palsBtn; screen.runButton = runBtn;
+            screen.skillPanel = skillPanel.gameObject;
+            screen.skillInfoPanel = infoPanel.gameObject;
+            screen.skillCursor = skillCursor;
+            screen.skillButtons = skillButtons;
+            screen.skillTexts = skillTexts;
+            screen.ppText = ppText;
+            screen.typeText = typeText;
+            screen.skillTypeIcon = typeIcon;
+            screen.restartButton = restartBtn;
+
+            // 전투에 쓸 팰: 비어 있을 때만 기본값을 넣는다 (직접 바꿔 둔 값은 유지)
+            if (screen.playerPal == null) screen.playerPal = AssetDatabase.LoadAssetAtPath<PalData>($"{PalDir}/{DefaultPlayerPal}.asset");
+            if (screen.enemyPal == null) screen.enemyPal = AssetDatabase.LoadAssetAtPath<PalData>($"{PalDir}/{DefaultEnemyPal}.asset");
+            EditorUtility.SetDirty(screen);
+
+            if (Object.FindFirstObjectByType<EventSystem>() == null)
+                Debug.LogWarning("[PalRogue] 씬에 EventSystem이 없습니다. 상단 메뉴 GameObject > UI > Event System 으로 만들어 주세요. (버튼 입력에 필요)");
+
+            EditorSceneManager.MarkSceneDirty(UnityEngine.SceneManagement.SceneManager.GetActiveScene());
+            Debug.Log("[PalRogue] 전투 화면 연결 완료. Play를 누르면 전투가 시작됩니다. (BattleCanvas의 BattleScreen에서 팰/레벨을 바꿀 수 있어요)");
+        }
+
+        // ═════════════════ 도우미 ═════════════════
+        static PalView SetupPalView(Transform pal, bool back)
+        {
+            var sr = pal.GetComponent<SpriteRenderer>();
+            var view = pal.GetComponent<PalView>();
+            if (view == null) view = pal.gameObject.AddComponent<PalView>();
+
+            float tune = 1f;
+            if (sr != null && sr.sprite != null)
+            {
+                // 지금 씬에 놓인 스프라이트가 어느 PalData의 것인지 찾아서, 직접 조절해 둔 크기 배율을 계산한다
+                foreach (var guid in AssetDatabase.FindAssets("t:PalData", new[] { PalDir }))
+                {
+                    var d = AssetDatabase.LoadAssetAtPath<PalData>(AssetDatabase.GUIDToAssetPath(guid));
+                    if (d == null) continue;
+                    bool match = back ? d.BackOrFront == sr.sprite : d.frontSprite == sr.sprite;
+                    if (!match) continue;
+                    float dataScale = back ? d.BackOrFrontScale : d.frontScale;
+                    if (dataScale > 0f) tune = pal.localScale.x / dataScale;
+                    break;
+                }
+                view.feetWorldY = pal.position.y - sr.sprite.bounds.size.y * pal.localScale.y / 2f;
+            }
+            view.scaleTune = tune;
+            EditorUtility.SetDirty(view);
+            return view;
+        }
+
+        static Button AddHit(Transform label)
+        {
+            DestroyChild(label, "Hit");
+            var go = new GameObject("Hit", typeof(RectTransform), typeof(Image), typeof(Button), typeof(MenuEntry));
+            go.transform.SetParent(label, false);
+            var rt = (RectTransform)go.transform;
+            rt.anchorMin = Vector2.zero; rt.anchorMax = Vector2.one;
+            rt.offsetMin = new Vector2(-9f, -2f); rt.offsetMax = new Vector2(2f, 2f);    // 라벨보다 살짝 넓게(커서 자리까지)
+
+            var img = go.GetComponent<Image>();
+            img.color = new Color(1, 1, 1, 0);                  // 안 보이지만 클릭은 받는다
+            img.canvasRenderer.cullTransparentMesh = false;
+            var btn = go.GetComponent<Button>();
+            btn.targetGraphic = img;
+            btn.transition = Selectable.Transition.None;        // 선택 표시는 ▶ 커서가 대신한다
+            return btn;
+        }
+
+        static void DestroyChild(Transform parent, string name)
+        {
+            var t = parent.Find(name);
+            if (t != null) Object.DestroyImmediate(t.gameObject);
+        }
+
+        static RectTransform Make(Transform parent, string name, Vector2 anchor, Vector2 pos, Vector2 size)
+        {
+            var go = new GameObject(name, typeof(RectTransform));
+            go.transform.SetParent(parent, false);
+            var rt = (RectTransform)go.transform;
+            rt.anchorMin = rt.anchorMax = anchor;
+            rt.pivot = anchor;
+            rt.anchoredPosition = pos;
+            rt.sizeDelta = size;
+            return rt;
+        }
+
+        static RectTransform MakeTopLeft(Transform parent, string name, Vector2 pos, Vector2 size) =>
+            Make(parent, name, new Vector2(0, 1), new Vector2(pos.x, -pos.y), size);
+
+        static void AddWindow(RectTransform rt, Sprite window)
+        {
+            var img = rt.gameObject.AddComponent<Image>();
+            img.sprite = window;
+            img.type = Image.Type.Sliced;
+            img.raycastTarget = false;
+        }
+
+        static TextMeshProUGUI Label(Transform parent, string name, TMP_FontAsset font, float size,
+                                     TextAlignmentOptions align, Vector2 pos, Vector2 sz)
+        {
+            var rt = MakeTopLeft(parent, name, pos, sz);
+            var t = rt.gameObject.AddComponent<TextMeshProUGUI>();
+            if (font != null) t.font = font;
+            t.fontSize = size;
+            t.alignment = align;
+            t.color = Color.white;
+            t.textWrappingMode = TextWrappingModes.NoWrap;
+            t.raycastTarget = false;
+            t.text = "";
+            return t;
+        }
+    }
+}
+#endif

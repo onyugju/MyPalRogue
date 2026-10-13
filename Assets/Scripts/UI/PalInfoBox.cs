@@ -49,6 +49,25 @@ namespace PalRogue
             SetBar(hpFill, px, HpBarWidth, uvY, 2f / 6f);
         }
 
+        /// <summary>HP바를 from → to 로 부드럽게 줄이거나 늘린다 (코루틴으로 실행)</summary>
+        public System.Collections.IEnumerator AnimateHp(Pal pal, int from, int to)
+        {
+            int max = Mathf.Max(1, pal.MaxHP);
+            float duration = Mathf.Clamp(Mathf.Abs(to - from) / (float)max * 1.2f, 0.25f, 1.0f);
+            for (float t = 0f; t < duration; t += Time.unscaledDeltaTime)
+            {
+                ShowHp(Mathf.RoundToInt(Mathf.Lerp(from, to, t / duration)), max);
+                yield return null;
+            }
+            ShowHp(to, max);
+        }
+
+        void ShowHp(int hp, int max)
+        {
+            if (hpText != null) hpText.text = $"{hp}/{max}";
+            SetHp((float)hp / max);
+        }
+
         /// <summary>경험치 비율(0~1). 내 정보창만 사용</summary>
         public void SetExp(float ratio)
         {
