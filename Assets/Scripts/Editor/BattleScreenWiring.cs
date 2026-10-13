@@ -126,8 +126,8 @@ namespace PalRogue.EditorTools
             if (screen == null) screen = canvasGo.AddComponent<BattleScreen>();
             screen.playerView = playerView;
             screen.enemyView = enemyView;
-            screen.playerInfo = playerInfoT.GetComponent<PalInfoBox>();
-            screen.enemyInfo = enemyInfoT.GetComponent<PalInfoBox>();
+            screen.playerInfo = EnsureInfoBox(playerInfoT);
+            screen.enemyInfo = EnsureInfoBox(enemyInfoT);
             screen.messageText = msgTextT.GetComponent<TMP_Text>();
             screen.commandBox = cmdT.gameObject;
             screen.commandCursor = cursorT.GetComponent<Image>();
@@ -156,6 +156,38 @@ namespace PalRogue.EditorTools
         }
 
         // ═════════════════ 도우미 ═════════════════
+        /// <summary>
+        /// 정보창에 PalInfoBox가 제대로 붙어 있게 만든다.
+        /// 스크립트 파일을 지웠다가 다시 넣으면 파일 고유 번호(GUID)가 바뀌어서 기존 컴포넌트가
+        /// 'Missing(Mono Script)' 상태가 된다. 그럴 때 깨진 컴포넌트를 지우고 새로 붙인 뒤,
+        /// 하위 오브젝트 이름(Name, Level, HpFill ...)으로 참조 칸을 다시 연결한다.
+        /// </summary>
+        static PalInfoBox EnsureInfoBox(Transform box)
+        {
+            var info = box.GetComponent<PalInfoBox>();
+            if (info == null)
+            {
+                int removed = GameObjectUtility.RemoveMonoBehavioursWithMissingScript(box.gameObject);
+                info = box.gameObject.AddComponent<PalInfoBox>();
+                Debug.Log($"[PalRogue] {box.name}: 깨진 컴포넌트 {removed}개를 지우고 PalInfoBox를 새로 붙였습니다.");
+            }
+            if (info.nameText == null) info.nameText = FindComp<TMP_Text>(box, "Name");
+            if (info.levelText == null) info.levelText = FindComp<TMP_Text>(box, "Level");
+            if (info.hpText == null) info.hpText = FindComp<TMP_Text>(box, "HpText");      // 적 정보창엔 없음
+            if (info.hpFill == null) info.hpFill = FindComp<RawImage>(box, "HpFill");
+            if (info.expFill == null) info.expFill = FindComp<RawImage>(box, "ExpFill");   // 적 정보창엔 없음
+            if (info.typeIcon1 == null) info.typeIcon1 = FindComp<Image>(box, "Type1");
+            if (info.typeIcon2 == null) info.typeIcon2 = FindComp<Image>(box, "Type2");
+            EditorUtility.SetDirty(info);
+            return info;
+        }
+
+        static T FindComp<T>(Transform parent, string childName) where T : Component
+        {
+            var t = parent.Find(childName);
+            return t != null ? t.GetComponent<T>() : null;
+        }
+
         static PalView SetupPalView(Transform pal, bool back)
         {
             var sr = pal.GetComponent<SpriteRenderer>();

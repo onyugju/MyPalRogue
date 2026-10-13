@@ -67,6 +67,15 @@ namespace PalRogue
                 return;
             }
 
+            var missing = MissingReferences();
+            if (missing.Count > 0)
+            {
+                Debug.LogError("[BattleScreen] 연결되지 않은 칸이 있습니다: " + string.Join(", ", missing) +
+                               "\n→ 메뉴 'PalRogue > 10. 전투 화면 연결'을 다시 실행해 주세요.");
+                enabled = false;
+                return;
+            }
+
             messageText.textWrappingMode = TextWrappingModes.Normal;
 
             Bind(fightButton, OnFight);
@@ -92,6 +101,25 @@ namespace PalRogue
             var es = EventSystem.current;
             if (es != null && es.currentSelectedGameObject == null && lastEntry != null && lastEntry.gameObject.activeInHierarchy)
                 es.SetSelectedGameObject(lastEntry.gameObject);
+        }
+
+        /// <summary>Inspector에서 비어 있는 참조 칸의 이름 목록</summary>
+        List<string> MissingReferences()
+        {
+            var list = new List<string>();
+            void Check(UnityEngine.Object o, string label) { if (o == null) list.Add(label); }
+
+            Check(playerView, "playerView"); Check(enemyView, "enemyView");
+            Check(playerInfo, "playerInfo"); Check(enemyInfo, "enemyInfo");
+            Check(messageText, "messageText"); Check(commandBox, "commandBox"); Check(commandCursor, "commandCursor");
+            Check(fightButton, "fightButton"); Check(sphereButton, "sphereButton");
+            Check(palsButton, "palsButton"); Check(runButton, "runButton");
+            Check(skillPanel, "skillPanel"); Check(skillInfoPanel, "skillInfoPanel"); Check(skillCursor, "skillCursor");
+            Check(ppText, "ppText"); Check(typeText, "typeText"); Check(skillTypeIcon, "skillTypeIcon");
+            Check(restartButton, "restartButton");
+            if (skillButtons == null || skillButtons.Length < 4 || skillButtons.Any(b => b == null)) list.Add("skillButtons");
+            if (skillTexts == null || skillTexts.Length < 4 || skillTexts.Any(t => t == null)) list.Add("skillTexts");
+            return list;
         }
 
         // ───────── 전투 시작 ─────────
