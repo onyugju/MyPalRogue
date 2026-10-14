@@ -18,24 +18,23 @@ namespace PalRogue.EditorTools
     public static class SkillDataBuilder
     {
         const string SkillDir = "Assets/Data/Skills";
-        const string PalDir = "Assets/Data/Pals";
-        const string AllPals = "*";   // 모든 팰이 배우는 스킬
+        const string PalDir   = "Assets/Data/Pals";
+        const string AllPals  = "*";   // 모든 팰이 배우는 스킬
 
-        const SkillCategory Phys = SkillCategory.Physical;
-        const SkillCategory Spec = SkillCategory.Special;
+        const SkillCategory Atk = SkillCategory.Attack;
 
         // ───── 원작 쿨타임 구간 → 위력 / 명중 / PP / 습득 레벨 ─────
         struct Band { public int power, acc, pp, level; }
         static Band GetBand(int cd) => cd switch
         {
-            <= 2 => new Band { power = 40, acc = 100, pp = 25, level = 1 },
-            <= 4 => new Band { power = 55, acc = 100, pp = 20, level = 6 },
-            <= 8 => new Band { power = 70, acc = 100, pp = 15, level = 12 },
-            <= 12 => new Band { power = 80, acc = 95, pp = 15, level = 16 },
-            <= 16 => new Band { power = 90, acc = 90, pp = 10, level = 20 },
-            <= 20 => new Band { power = 100, acc = 90, pp = 10, level = 28 },
-            <= 24 => new Band { power = 110, acc = 85, pp = 5, level = 34 },
-            _ => new Band { power = 120, acc = 80, pp = 5, level = 40 },
+            <= 2  => new Band { power = 40,  acc = 100, pp = 25, level = 1  },
+            <= 4  => new Band { power = 55,  acc = 100, pp = 20, level = 6  },
+            <= 8  => new Band { power = 70,  acc = 100, pp = 15, level = 12 },
+            <= 12 => new Band { power = 80,  acc = 95,  pp = 15, level = 16 },
+            <= 16 => new Band { power = 90,  acc = 90,  pp = 10, level = 20 },
+            <= 20 => new Band { power = 100, acc = 90,  pp = 10, level = 28 },
+            <= 24 => new Band { power = 110, acc = 85,  pp = 5,  level = 34 },
+            _     => new Band { power = 120, acc = 80,  pp = 5,  level = 40 },
         };
 
         struct Row
@@ -46,98 +45,96 @@ namespace PalRogue.EditorTools
             // power: 0이면 쿨타임 구간 값 사용, 아니면 이 값으로 덮어씀
             public Row(PalType type, int cd, string kor, string eng, SkillCategory cat,
                        string owner = null, int power = 0, int priority = 0)
-            {
-                this.type = type; this.cd = cd; this.kor = kor; this.eng = eng; this.cat = cat;
-                this.owner = owner; this.power = power; this.priority = priority;
-            }
+            { this.type=type; this.cd=cd; this.kor=kor; this.eng=eng; this.cat=cat;
+              this.owner=owner; this.power=power; this.priority=priority; }
         }
 
         // 속성별 공용 스킬은 "쿨타임 낮은 순" 5개 (Void만 3개). 순서가 학습 규칙에 쓰이므로 바꾸지 말 것.
         static readonly Row[] Rows =
         {
             // ── 무 ──
-            new(PalType.Neutral, 2,  "공기 대포",   "Air_Cannon",  Spec),
-            new(PalType.Neutral, 4,  "파워 샷",     "Power_Shot",  Spec),
-            new(PalType.Neutral, 8,  "파워 폭탄",   "Power_Bomb",  Spec),
-            new(PalType.Neutral, 20, "팰 블래스트", "Pal_Blast",   Spec),
-            new(PalType.Neutral, 30, "신성 폭발",   "Holy_Burst",  Spec),
+            new(PalType.Neutral, 2,  "공기 대포",   "Air_Cannon",  Atk),
+            new(PalType.Neutral, 4,  "파워 샷",     "Power_Shot",  Atk),
+            new(PalType.Neutral, 8,  "파워 폭탄",   "Power_Bomb",  Atk),
+            new(PalType.Neutral, 20, "팰 블래스트", "Pal_Blast",   Atk),
+            new(PalType.Neutral, 30, "신성 폭발",   "Holy_Burst",  Atk),
             // ── 화염 ──
-            new(PalType.Fire, 2,  "파이어 샷",   "Fire_Shot",    Spec),
-            new(PalType.Fire, 4,  "스피릿 파이어", "Spirit_Fire", Spec),
-            new(PalType.Fire, 8,  "파이어 브레스", "Fire_Breath", Spec),
-            new(PalType.Fire, 16, "플레임 판넬", "Flame_Panel",   Spec),
-            new(PalType.Fire, 30, "화염구",      "Fireball",      Spec),
+            new(PalType.Fire, 2,  "파이어 샷",   "Fire_Shot",    Atk),
+            new(PalType.Fire, 4,  "스피릿 파이어", "Spirit_Fire", Atk),
+            new(PalType.Fire, 8,  "파이어 브레스", "Fire_Breath", Atk),
+            new(PalType.Fire, 16, "플레임 판넬", "Flame_Panel",   Atk),
+            new(PalType.Fire, 30, "화염구",      "Fireball",      Atk),
             // ── 물 ──
-            new(PalType.Water, 2,  "워터 제트",     "Water_Jet",     Spec),
-            new(PalType.Water, 4,  "버블 샷",       "Bubble_Shot",   Spec),
-            new(PalType.Water, 8,  "라인 스플래시", "Line_Splash",   Spec),
-            new(PalType.Water, 20, "하이드로 스트림", "Hydro_Stream", Spec),
-            new(PalType.Water, 30, "물기둥 분출",   "Water_Geyser",  Spec),
+            new(PalType.Water, 2,  "워터 제트",     "Water_Jet",     Atk),
+            new(PalType.Water, 4,  "버블 샷",       "Bubble_Shot",   Atk),
+            new(PalType.Water, 8,  "라인 스플래시", "Line_Splash",   Atk),
+            new(PalType.Water, 20, "하이드로 스트림", "Hydro_Stream", Atk),
+            new(PalType.Water, 30, "물기둥 분출",   "Water_Geyser",  Atk),
             // ── 풀 ──
-            new(PalType.Grass, 2,  "바람의 칼날",   "Wind_Blade",       Spec),
-            new(PalType.Grass, 4,  "씨앗 기관총",   "Seed_Machine_Gun", Spec),
-            new(PalType.Grass, 8,  "멀티 커터",     "Multi_Cutter",     Spec),
-            new(PalType.Grass, 20, "리플렉트 리프", "Reflect_Leaf",     Spec),
-            new(PalType.Grass, 30, "윈드 블래스트", "Wind_Blast",       Spec),
+            new(PalType.Grass, 2,  "바람의 칼날",   "Wind_Blade",       Atk),
+            new(PalType.Grass, 4,  "씨앗 기관총",   "Seed_Machine_Gun", Atk),
+            new(PalType.Grass, 8,  "멀티 커터",     "Multi_Cutter",     Atk),
+            new(PalType.Grass, 20, "리플렉트 리프", "Reflect_Leaf",     Atk),
+            new(PalType.Grass, 30, "윈드 블래스트", "Wind_Blast",       Atk),
             // ── 번개 ──
-            new(PalType.Electric, 2,  "번개 창",   "Lightning_Spear", Spec),
-            new(PalType.Electric, 4,  "전기 파장", "Electric_Wave",   Spec),
-            new(PalType.Electric, 8,  "라인 썬더", "Line_Thunder",    Spec),
-            new(PalType.Electric, 16, "번개 일격", "Thunder_Strike",  Spec),
-            new(PalType.Electric, 30, "번개 폭풍", "Thunderstorm",    Spec),
+            new(PalType.Electric, 2,  "번개 창",   "Lightning_Spear", Atk),
+            new(PalType.Electric, 4,  "전기 파장", "Electric_Wave",   Atk),
+            new(PalType.Electric, 8,  "라인 썬더", "Line_Thunder",    Atk),
+            new(PalType.Electric, 16, "번개 일격", "Thunder_Strike",  Atk),
+            new(PalType.Electric, 30, "번개 폭풍", "Thunderstorm",    Atk),
             // ── 땅 ──
-            new(PalType.Ground, 2,  "머드 슛",    "Mud_Shot",    Spec),
-            new(PalType.Ground, 4,  "바위 폭발",  "Rock_Burst",  Phys),
-            new(PalType.Ground, 8,  "바위 대포",  "Rock_Cannon", Phys),
-            new(PalType.Ground, 20, "바위 창",    "Rock_Spear",  Phys),
-            new(PalType.Ground, 30, "스톤 비트",  "Stone_Beat",  Phys),
+            new(PalType.Ground, 2,  "머드 슛",    "Mud_Shot",    Atk),
+            new(PalType.Ground, 4,  "바위 폭발",  "Rock_Burst",  Atk),
+            new(PalType.Ground, 8,  "바위 대포",  "Rock_Cannon", Atk),
+            new(PalType.Ground, 20, "바위 창",    "Rock_Spear",  Atk),
+            new(PalType.Ground, 30, "스톤 비트",  "Stone_Beat",  Atk),
             // ── 얼음 ──
-            new(PalType.Ice, 2,  "얼음 미사일",   "Ice_Missile",  Spec),
-            new(PalType.Ice, 4,  "얼음 칼날",     "Ice_Blade",    Spec),
-            new(PalType.Ice, 8,  "서리 낀 입김",  "Frost_Breath", Spec),
-            new(PalType.Ice, 16, "아이시클 라인", "Icicle_Line",  Phys),
-            new(PalType.Ice, 30, "다이아몬드 폴", "Diamond_Fall", Spec),
+            new(PalType.Ice, 2,  "얼음 미사일",   "Ice_Missile",  Atk),
+            new(PalType.Ice, 4,  "얼음 칼날",     "Ice_Blade",    Atk),
+            new(PalType.Ice, 8,  "서리 낀 입김",  "Frost_Breath", Atk),
+            new(PalType.Ice, 16, "아이시클 라인", "Icicle_Line",  Atk),
+            new(PalType.Ice, 30, "다이아몬드 폴", "Diamond_Fall", Atk),
             // ── 용 ──
-            new(PalType.Dragon, 2,  "용 대포",    "Dragon_Cannon", Spec),
-            new(PalType.Dragon, 4,  "용의 파장",  "Dragon_Wave",   Spec),
-            new(PalType.Dragon, 8,  "용의 숨결",  "Dragon_Breath", Spec),
-            new(PalType.Dragon, 16, "빔 슬라이서", "Beam_Slicer",  Spec),
-            new(PalType.Dragon, 30, "용의 운석",  "Dragon_Meteor", Spec),
+            new(PalType.Dragon, 2,  "용 대포",    "Dragon_Cannon", Atk),
+            new(PalType.Dragon, 4,  "용의 파장",  "Dragon_Wave",   Atk),
+            new(PalType.Dragon, 8,  "용의 숨결",  "Dragon_Breath", Atk),
+            new(PalType.Dragon, 16, "빔 슬라이서", "Beam_Slicer",  Atk),
+            new(PalType.Dragon, 30, "용의 운석",  "Dragon_Meteor", Atk),
             // ── 어둠 ──
-            new(PalType.Dark, 2,  "다크 샷",      "Dark_Shot",    Spec),
-            new(PalType.Dark, 4,  "그림자 폭발",  "Shadow_Burst", Spec),
-            new(PalType.Dark, 8,  "어둠 화살",    "Dark_Arrow",   Spec),
-            new(PalType.Dark, 20, "어둠의 레이저", "Dark_Laser",  Spec),
-            new(PalType.Dark, 30, "다크 위스프",  "Dark_Wisp",    Spec),
+            new(PalType.Dark, 2,  "다크 샷",      "Dark_Shot",    Atk),
+            new(PalType.Dark, 4,  "그림자 폭발",  "Shadow_Burst", Atk),
+            new(PalType.Dark, 8,  "어둠 화살",    "Dark_Arrow",   Atk),
+            new(PalType.Dark, 20, "어둠의 레이저", "Dark_Laser",  Atk),
+            new(PalType.Dark, 30, "다크 위스프",  "Dark_Wisp",    Atk),
             // ── Void (제로버스 전용 고유속성, 원작에 없는 오리지널) ──
-            new(PalType.Void, 2,  "공허의 탄환", "Void_Shot",  Spec, power: 50),
-            new(PalType.Void, 8,  "공허의 파동", "Void_Pulse", Spec, power: 85),
-            new(PalType.Void, 30, "소멸",        "Annihilate", Spec, power: 130),
+            new(PalType.Void, 2,  "공허의 탄환", "Void_Shot",  Atk, power: 50),
+            new(PalType.Void, 8,  "공허의 파동", "Void_Pulse", Atk, power: 85),
+            new(PalType.Void, 30, "소멸",        "Annihilate", Atk, power: 130),
 
             // ── 팰 전용 스킬 (owner = PalData 에셋 이름) ──
-            new(PalType.Neutral,  2,  "데굴데굴 솜사탕", "Rolling_Fluff",     Phys, "001_Lamball"),
-            new(PalType.Neutral,  2,  "냥냥 펀치",       "Meow_Punch",        Phys, "002_Cattiva"),
-            new(PalType.Ground,   4,  "파이팅 슬래시",   "Fighting_Slash",    Phys, "013_Pupperai"),
-            new(PalType.Fire,     4,  "불타는 뿔",       "Burning_Horn",      Phys, "058_Arsox"),
-            new(PalType.Dragon,   8,  "신비의 허리케인", "Mystic_Hurricane",  Spec, "063_Elphidran"),
-            new(PalType.Dragon,   4,  "로켓 태클",       "Rocket_Tackle",     Phys, "103_Chillet"),
-            new(PalType.Ground,   16, "스핀 레그 슬래시", "Spin_Leg_Slash",   Phys, "139_Anubis"),
-            new(PalType.Ground,   20, "포스 드라이브",   "Force_Drive",       Phys, "139_Anubis"),
-            new(PalType.Ground,   24, "그라운드 스매셔", "Ground_Smasher",    Phys, "139_Anubis"),
-            new(PalType.Ground,   16, "서머솔트 스크래치", "Somersault_Scratch", Phys, "140_Sekhmet"),
-            new(PalType.Ground,   20, "롤링 스크래치",   "Rolling_Scratch",   Phys, "140_Sekhmet"),
-            new(PalType.Ground,   30, "작열 미사일",     "Blazing_Missile",   Spec, "184_Aegidron"),
-            new(PalType.Electric, 8,  "전기 할퀴기",     "Electric_Claw",     Phys, "185_Grizzbolt"),
-            new(PalType.Electric, 24, "뇌격의 중전차",   "Thunder_Tank",      Spec, "185_Grizzbolt"),
-            new(PalType.Neutral,  30, "창기병 돌격",     "Lancer_Charge",     Phys, "198_Paladius"),
-            new(PalType.Ice,      30, "크리스탈 윙",     "Crystal_Wing",      Phys, "200_Frostallion"),
-            new(PalType.Water,    30, "타라소닉 레이저", "Tarasonic_Laser",   Spec, "201_Neptilius"),
-            new(PalType.Dragon,   30, "유성 광선",       "Meteor_Beam",       Spec, "202_Jetragon"),
-            new(PalType.Dark,     30, "악몽의 빛줄기",   "Nightmare_Ray",     Spec, "000_Bellanoir_Libero"),
-            new(PalType.Dark,     20, "화염 왈츠",       "Flame_Waltz",       Spec, "000_Bellanoir_Libero"),
+            new(PalType.Neutral,  2,  "데굴데굴 솜사탕", "Rolling_Fluff",     Atk, "001_Lamball"),
+            new(PalType.Neutral,  2,  "냥냥 펀치",       "Meow_Punch",        Atk, "002_Cattiva"),
+            new(PalType.Ground,   4,  "파이팅 슬래시",   "Fighting_Slash",    Atk, "013_Pupperai"),
+            new(PalType.Fire,     4,  "불타는 뿔",       "Burning_Horn",      Atk, "058_Arsox"),
+            new(PalType.Dragon,   8,  "신비의 허리케인", "Mystic_Hurricane",  Atk, "063_Elphidran"),
+            new(PalType.Dragon,   4,  "로켓 태클",       "Rocket_Tackle",     Atk, "103_Chillet"),
+            new(PalType.Ground,   16, "스핀 레그 슬래시", "Spin_Leg_Slash",   Atk, "139_Anubis"),
+            new(PalType.Ground,   20, "포스 드라이브",   "Force_Drive",       Atk, "139_Anubis"),
+            new(PalType.Ground,   24, "그라운드 스매셔", "Ground_Smasher",    Atk, "139_Anubis"),
+            new(PalType.Ground,   16, "서머솔트 스크래치", "Somersault_Scratch", Atk, "140_Sekhmet"),
+            new(PalType.Ground,   20, "롤링 스크래치",   "Rolling_Scratch",   Atk, "140_Sekhmet"),
+            new(PalType.Ground,   30, "작열 미사일",     "Blazing_Missile",   Atk, "184_Aegidron"),
+            new(PalType.Electric, 8,  "전기 할퀴기",     "Electric_Claw",     Atk, "185_Grizzbolt"),
+            new(PalType.Electric, 24, "뇌격의 중전차",   "Thunder_Tank",      Atk, "185_Grizzbolt"),
+            new(PalType.Neutral,  30, "창기병 돌격",     "Lancer_Charge",     Atk, "198_Paladius"),
+            new(PalType.Ice,      30, "크리스탈 윙",     "Crystal_Wing",      Atk, "200_Frostallion"),
+            new(PalType.Water,    30, "타라소닉 레이저", "Tarasonic_Laser",   Atk, "201_Neptilius"),
+            new(PalType.Dragon,   30, "유성 광선",       "Meteor_Beam",       Atk, "202_Jetragon"),
+            new(PalType.Dark,     30, "악몽의 빛줄기",   "Nightmare_Ray",     Atk, "000_Bellanoir_Libero"),
+            new(PalType.Dark,     20, "화염 왈츠",       "Flame_Waltz",       Atk, "000_Bellanoir_Libero"),
 
             // ── 오리지널: 선제기 (전원 Lv1) ──
-            new(PalType.Neutral,  2,  "기습",            "Quick_Strike",      Phys, AllPals, power: 35, priority: 1),
+            new(PalType.Neutral,  2,  "기습",            "Quick_Strike",      Atk, AllPals, power: 35, priority: 1),
         };
 
         // ───────── 6. 초기화 ─────────
@@ -259,6 +256,25 @@ namespace PalRogue.EditorTools
             }
             AssetDatabase.SaveAssets();
             Debug.Log($"[PalRogue] 학습 스킬 연결 {filled}마리 / 건너뜀 {skipped}마리");
+        }
+
+        // ───────── 12. 스킬 종류 통합 (이미 만든 스킬 에셋용) ─────────
+        /// <summary>예전 '물리/특수' 값을 가진 스킬 에셋을 전부 '공격'으로 바꾼다 (변화 스킬은 그대로)</summary>
+        [MenuItem("PalRogue/12. 스킬 종류 통합 적용 (물리·특수→공격)", false, 1012)]
+        static void MergeCategories()
+        {
+            int changed = 0;
+            foreach (var guid in AssetDatabase.FindAssets("t:SkillData", new[] { SkillDir }))
+            {
+                var sk = AssetDatabase.LoadAssetAtPath<SkillData>(AssetDatabase.GUIDToAssetPath(guid));
+                if (sk == null) continue;
+                if (sk.category == SkillCategory.Attack || sk.category == SkillCategory.Status) continue;
+                sk.category = SkillCategory.Attack;      // 예전 값(물리=0은 그대로 공격, 특수=1은 여기서 정리)
+                EditorUtility.SetDirty(sk);
+                changed++;
+            }
+            AssetDatabase.SaveAssets();
+            Debug.Log($"[PalRogue] 스킬 종류 통합: {changed}개를 '공격'으로 정리했습니다.");
         }
 
         static void EnsureFolder(string path)

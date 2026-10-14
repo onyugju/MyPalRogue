@@ -21,13 +21,13 @@ namespace PalRogue.EditorTools
         enum Tier { Early = 300, Mid = 420, Late = 520, Boss = 620 }   // 능력치 총합
         enum Role { Balanced, Attacker, Tank, Fast }
 
-        // HP, 공격, 방어, 특공, 특방, 속도 (합계 6.0)
+        // HP, 공격, 방어, 속도 (합계 4.0)
         static readonly float[][] Weights =
         {
-            new[] { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f },  // Balanced
-            new[] { 0.9f, 1.4f, 0.8f, 1.3f, 0.8f, 0.8f },  // Attacker
-            new[] { 1.4f, 0.8f, 1.4f, 0.8f, 1.2f, 0.4f },  // Tank
-            new[] { 0.8f, 1.0f, 0.7f, 1.0f, 0.7f, 1.8f },  // Fast
+            new[] { 1.0f, 1.0f, 1.0f, 1.0f },  // Balanced
+            new[] { 0.9f, 1.5f, 0.8f, 0.8f },  // Attacker
+            new[] { 1.4f, 0.7f, 1.5f, 0.4f },  // Tank
+            new[] { 0.7f, 1.1f, 0.6f, 1.6f },  // Fast
         };
 
         struct Row
@@ -50,7 +50,7 @@ namespace PalRogue.EditorTools
             new("002","까부냥","Cattiva","002_Cattiva","002_Cattiva_back",PalType.Neutral,null,Tier.Early,Role.Attacker,200),
             new("004","큐룰리스","Lifmunk","004_Lifmunk","004_LIfmunk_back",PalType.Grass,null,Tier.Early,Role.Balanced,190),
             new("005","청부리","Fuack","005_Fuack","005_Fuack_back",PalType.Water,null,Tier.Early,Role.Fast,190),
-            new("013","솔바둑","Pupperai","013_Pupperai","013_Pupperai_back",PalType.Ground,null,Tier.Early,Role.Balanced,170),
+            new("013","솔바둑","Pupperai","013_Pupperai","013_Pupperai_back",PalType.Ground,null,Tier.Early,Role.Balanced,170),  
             new("015","찌릿도치","Jolthog","015_Jolthog","015_Jolthog_back",PalType.Electric,null,Tier.Early,Role.Fast,190),
             new("029","파이호","Foxparks","029_Foxparks","029_Foxparks_back",PalType.Fire,null,Tier.Early,Role.Attacker,190),
             new("040","밀카우","Mozzarina","040_Mozzarina","040_Mozzarina_back",PalType.Neutral,null,Tier.Mid,Role.Tank,150),
@@ -59,10 +59,10 @@ namespace PalRogue.EditorTools
             new("079","캐티메이지","Katress","079_Katress","079_Katress_back",PalType.Dark,null,Tier.Mid,Role.Attacker,120),
             new("103","베비뇽","Chillet","103_Chillet","103_Chillet_back",PalType.Ice,PalType.Dragon,Tier.Mid,Role.Balanced,100),
             new("139","아누비스","Anubis","139_Anubis","139_Anubis_back",PalType.Ground,null,Tier.Late,Role.Attacker,70),
-            new("140","세크메트","Sekhmet","140_Sekhmet","140_Sekhmet_back",PalType.Ground,null,Tier.Mid,Role.Balanced,100),
+            new("140","세크메트","Sekhmet","140_Sekhmet","140_Sekhmet_back",PalType.Ground,null,Tier.Mid,Role.Balanced,100),  
             new("172","뇌운조","Dynamoff","172_Dynamoff","172_Dynamoff_back",PalType.Electric,null,Tier.Mid,Role.Tank,100),
             new("174","센코","Flaracle","174_Flaracle","174_Flaracle_back",PalType.Fire,null,Tier.Mid,Role.Attacker,100),
-            new("184","셀가드라","Aegidron","184_Aegidron",null,PalType.Ground,null,Tier.Late,Role.Tank,60),
+            new("184","셀가드라","Aegidron","184_Aegidron",null,PalType.Ground,null,Tier.Late,Role.Tank,60),   
             new("185","일렉판다","Grizzbolt","185_Grizzbolt","185_Grizzbolt_back",PalType.Electric,null,Tier.Late,Role.Attacker,70),
             new("186","릴린","Lyleen","186_Lyleen",null,PalType.Grass,null,Tier.Late,Role.Balanced,60),
             new("198","팔라디우스","Paladius","198_Paladius","198_Paladius_back",PalType.Neutral,null,Tier.Late,Role.Attacker,50),
@@ -108,11 +108,11 @@ namespace PalRogue.EditorTools
                 if (front == null) { Debug.LogWarning($"[PalRogue] 앞모습 없음: {dir}/{r.front}.png"); fail++; continue; }
 
                 pal.frontSprite = front;
-                pal.backSprite = back;
+                pal.backSprite  = back;
                 pal.frontAnimator = frontAnim;
-                pal.backAnimator = backAnim;
-                pal.frontScale = FitScale(front, FrontBox);
-                pal.backScale = FitScale(back, BackBox);
+                pal.backAnimator  = backAnim;
+                pal.frontScale  = FitScale(front, FrontBox);
+                pal.backScale   = FitScale(back, BackBox);
                 EditorUtility.SetDirty(pal);
                 ok++;
             }
@@ -173,8 +173,7 @@ namespace PalRogue.EditorTools
                 float total = (int)r.tier;
                 var w = Weights[(int)r.role];
                 int S(int i) => Mathf.Max(1, Mathf.RoundToInt(total / 6f * w[i]));
-                pal.baseHP = S(0); pal.baseAttack = S(1); pal.baseDefense = S(2);
-                pal.baseSpAttack = S(3); pal.baseSpDefense = S(4); pal.baseSpeed = S(5);
+                pal.baseHP = S(0); pal.baseAttack = S(1); pal.baseDefense = S(2); pal.baseSpeed = S(3);
 
                 AssetDatabase.CreateAsset(pal, assetPath);
                 created++;

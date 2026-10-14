@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace PalRogue
 {
-    public enum StatType { Attack, Defense, SpAttack, SpDefense, Speed }
+    public enum StatType { Attack, Defense, Speed }
 
     /// <summary>팰이 실제로 들고 있는 스킬 (남은 PP 포함)</summary>
     public class SkillInstance
@@ -65,8 +65,6 @@ namespace PalRogue
             MaxHP = CalcHP(Data.baseHP, Level);
             rawStats[StatType.Attack]    = CalcOther(Data.baseAttack, Level);
             rawStats[StatType.Defense]   = CalcOther(Data.baseDefense, Level);
-            rawStats[StatType.SpAttack]  = CalcOther(Data.baseSpAttack, Level);
-            rawStats[StatType.SpDefense] = CalcOther(Data.baseSpDefense, Level);
             rawStats[StatType.Speed]     = CalcOther(Data.baseSpeed, Level);
 
             // 레벨업으로 최대 HP가 늘면 늘어난 만큼 현재 HP도 회복 (포켓몬과 동일)

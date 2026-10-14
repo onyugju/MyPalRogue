@@ -23,9 +23,8 @@ namespace PalRogue
             var info = new DamageInfo { Attacker = attacker, Defender = defender, Skill = skill };
             if (skill.category == SkillCategory.Status || skill.power <= 0) return info;   // 데미지 없음
 
-            bool physical = skill.category == SkillCategory.Physical;
-            int atk = attacker.GetStat(physical ? StatType.Attack : StatType.SpAttack);
-            int def = defender.GetStat(physical ? StatType.Defense : StatType.SpDefense);
+            int atk = attacker.GetStat(StatType.Attack);
+            int def = defender.GetStat(StatType.Defense);
 
             int levelFactor = (2 * attacker.Level) / 5 + 2;
             info.BaseDamage = (levelFactor * skill.power * atk / def) / 50 + 2;

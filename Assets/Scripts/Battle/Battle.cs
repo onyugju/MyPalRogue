@@ -84,7 +84,7 @@ namespace PalRogue
                     struggle.name = "Struggle";
                     struggle.skillName = "발버둥";
                     struggle.type = PalType.Neutral;
-                    struggle.category = SkillCategory.Physical;
+                    struggle.category = SkillCategory.Attack;
                     struggle.power = 50;
                     struggle.accuracy = 100;
                     struggle.maxPP = 1;

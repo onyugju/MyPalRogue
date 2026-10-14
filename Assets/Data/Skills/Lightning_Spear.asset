@@ -15,7 +15,7 @@ MonoBehaviour:
   skillName: "\uBC88\uAC1C \uCC3D"
   description: 
   type: 4
-  category: 1
+  category: 0
   power: 40
   accuracy: 100
   maxPP: 25

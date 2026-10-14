@@ -42,9 +42,16 @@ namespace PalRogue
         public Image skillCursor;
         public Button[] skillButtons;      // 4개
         public TMP_Text[] skillTexts;      // 4개
-        public TMP_Text ppText;
-        public TMP_Text typeText;
-        public Image skillTypeIcon;
+        [Tooltip("스킬 속성 뱃지 (Skill_type 폴더 이미지)")]
+        public RawImage typeBadge;
+        [Tooltip("뱃지 이미지가 없는 속성(Void 등)일 때 대신 보여줄 글자")]
+        public TMP_Text typeFallbackText;
+        public Image categoryBadge;
+        public TMP_Text categoryText;
+        public TMP_Text ppValueText, powerValueText, accuracyValueText;
+        [Header("스킬 종류 아이콘 (비워두면 글자 뱃지로 표시)")]
+        public Sprite attackIcon;
+        public Sprite statusIcon;
 
         [Header("끝난 뒤 다시 시작")]
         public Button restartButton;
@@ -52,6 +59,10 @@ namespace PalRogue
         const float CharsPerSecond = 45f;
         const float LineHoldSeconds = 0.55f;
         static readonly Color Dim = new Color(0.55f, 0.55f, 0.55f);
+        static readonly Color AttackColor = new Color(0.85f, 0.33f, 0.18f);
+        static readonly Color StatusColor = new Color(0.4f, 0.5f, 0.75f);
+        // Skill_type 이미지(1024x572)에서 뱃지가 실제로 그려진 부분만 잘라 쓰는 영역 (투명 여백 제외)
+        static readonly Rect BadgeUv = new Rect(255f / 1024f, 129f / 572f, 514f / 1024f, 310f / 572f);
 
         enum Mode { Busy, Command, Skill, Ended }
         Mode mode = Mode.Busy;
@@ -115,7 +126,9 @@ namespace PalRogue
             Check(fightButton, "fightButton"); Check(sphereButton, "sphereButton");
             Check(palsButton, "palsButton"); Check(runButton, "runButton");
             Check(skillPanel, "skillPanel"); Check(skillInfoPanel, "skillInfoPanel"); Check(skillCursor, "skillCursor");
-            Check(ppText, "ppText"); Check(typeText, "typeText"); Check(skillTypeIcon, "skillTypeIcon");
+            Check(typeBadge, "typeBadge"); Check(typeFallbackText, "typeFallbackText");
+            Check(categoryBadge, "categoryBadge"); Check(categoryText, "categoryText");
+            Check(ppValueText, "ppValueText"); Check(powerValueText, "powerValueText"); Check(accuracyValueText, "accuracyValueText");
             Check(restartButton, "restartButton");
             if (skillButtons == null || skillButtons.Length < 4 || skillButtons.Any(b => b == null)) list.Add("skillButtons");
             if (skillTexts == null || skillTexts.Length < 4 || skillTexts.Any(t => t == null)) list.Add("skillTexts");
@@ -204,16 +217,35 @@ namespace PalRogue
             var pal = battle.Player;
             if (index < 0 || index >= pal.Skills.Count)
             {
-                ppText.text = "";
-                typeText.text = "";
-                skillTypeIcon.enabled = false;
+                typeBadge.enabled = false;
+                typeFallbackText.text = "";
+                categoryBadge.gameObject.SetActive(false);
+                categoryText.text = "";
+                ppValueText.text = powerValueText.text = accuracyValueText.text = "";
                 return;
             }
+
             var inst = pal.Skills[index];
-            ppText.text = $"PP {inst.PP}/{inst.MaxPP}";
-            typeText.text = PalTypeNames.Korean(inst.Data.type);
-            skillTypeIcon.sprite = Resources.Load<Sprite>($"1.팰/2.Elements/ui_type/{inst.Data.type}");
-            skillTypeIcon.enabled = skillTypeIcon.sprite != null;
+            var data = inst.Data;
+
+            // 속성 뱃지: 이미지가 있으면 그림으로, 없으면(Void 등) 글자로
+            var tex = Resources.Load<Texture2D>($"1.팰/2.Elements/Skill_type/{data.type}_sk");
+            typeBadge.texture = tex;
+            typeBadge.uvRect = BadgeUv;
+            typeBadge.enabled = tex != null;
+            typeFallbackText.text = tex != null ? "" : PalTypeNames.Korean(data.type);
+
+            // 스킬 종류 뱃지: 아이콘 이미지를 넣어 두면 그걸 쓰고, 없으면 색깔 글자 뱃지
+            bool isAttack = data.category != SkillCategory.Status;
+            var icon = isAttack ? attackIcon : statusIcon;
+            categoryBadge.gameObject.SetActive(true);
+            categoryBadge.sprite = icon;
+            categoryBadge.color = icon != null ? Color.white : (isAttack ? AttackColor : StatusColor);
+            categoryText.text = icon != null ? "" : (isAttack ? "공격" : "변화");
+
+            ppValueText.text = $"{inst.PP}/{inst.MaxPP}";
+            powerValueText.text = data.power > 0 ? data.power.ToString() : "-";
+            accuracyValueText.text = data.accuracy > 0 ? data.accuracy.ToString() : "-";
         }
 
         void OnSkill(int index)

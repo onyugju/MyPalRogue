@@ -49,8 +49,6 @@ namespace PalRogue
         [Min(1)] public int baseHP = 50;
         [Min(1)] public int baseAttack = 50;
         [Min(1)] public int baseDefense = 50;
-        [Min(1)] public int baseSpAttack = 50;
-        [Min(1)] public int baseSpDefense = 50;
         [Min(1)] public int baseSpeed = 50;
 
         [Header("스킬 / 성장")]

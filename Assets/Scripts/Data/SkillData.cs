@@ -4,9 +4,8 @@ namespace PalRogue
 {
     public enum SkillCategory
     {
-        Physical, // 물리
-        Special,  // 특수
-        Status    // 변화 (버프/디버프/상태이상)
+        Attack = 0,  // 공격 (물리/특수 구분 없음. 공격력·방어력으로 계산)
+        Status = 2   // 변화 (버프/디버프/상태이상). 예전 값 1(특수)은 더 이상 쓰지 않는다
     }
 
     [CreateAssetMenu(fileName = "NewSkill", menuName = "PalRogue/Skill Data")]

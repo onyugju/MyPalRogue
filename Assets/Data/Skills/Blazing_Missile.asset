@@ -15,7 +15,7 @@ MonoBehaviour:
   skillName: "\uC791\uC5F4 \uBBF8\uC0AC\uC77C"
   description: 
   type: 5
-  category: 1
+  category: 0
   power: 120
   accuracy: 80
   maxPP: 5

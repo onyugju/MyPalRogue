@@ -22,6 +22,7 @@ namespace PalRogue.EditorTools
         const string PalDir = "Assets/Data/Pals";
         const string DefaultPlayerPal = "029_Foxparks";
         const string DefaultEnemyPal = "004_Lifmunk";
+        const float InfoFont = 8f;     // 스킬 정보창의 작은 글자 크기
 
         [MenuItem("PalRogue/10. 전투 화면 연결 (스크립트 붙이기)", false, 1010)]
         static void Wire()
@@ -77,30 +78,48 @@ namespace PalRogue.EditorTools
             DestroyChild(root, "SkillInfoPanel");
             DestroyChild(root, "RestartButton");
 
-            var skillPanel = Make(root, "SkillPanel", new Vector2(0, 0), new Vector2(0, 0), new Vector2(210, 48));
+            // 스킬 선택 창 (포켓로그 스크린샷 기준): 1열 x17 / 2열 x130, 1행 y10 / 2행 y26, 커서는 글자 왼쪽 7px
+            var skillPanel = Make(root, "SkillPanel", new Vector2(0, 0), new Vector2(0, 0), new Vector2(242, 48));
             AddWindow(skillPanel, windowSprite);
             var skillButtons = new Button[4];
             var skillTexts = new TMP_Text[4];
-            Vector2[] slots = { new Vector2(14, 10), new Vector2(112, 10), new Vector2(14, 27), new Vector2(112, 27) };
+            Vector2[] slots = { new Vector2(17, 10), new Vector2(130, 10), new Vector2(17, 26), new Vector2(130, 26) };
             for (int i = 0; i < 4; i++)
             {
-                var label = Label(skillPanel, $"Skill{i + 1}", font, menuSize, TextAlignmentOptions.MidlineLeft, slots[i], new Vector2(92, 12));
+                var label = Label(skillPanel, $"Skill{i + 1}", font, menuSize, TextAlignmentOptions.MidlineLeft, slots[i], new Vector2(100, 12));
                 skillTexts[i] = label;
                 skillButtons[i] = AddHit(label.transform);
             }
-            var skillCursorRt = MakeTopLeft(skillPanel, "Cursor", new Vector2(7, 11), new Vector2(6, 10));
+            var skillCursorRt = MakeTopLeft(skillPanel, "Cursor", new Vector2(10, 11), new Vector2(6, 10));
             var skillCursor = skillCursorRt.gameObject.AddComponent<Image>();
             skillCursor.sprite = cursorSprite;
             skillCursor.raycastTarget = false;
 
-            var infoPanel = Make(root, "SkillInfoPanel", new Vector2(1, 0), new Vector2(0, 0), new Vector2(110, 48));
+            // 스킬 정보 창: 위쪽에 속성 뱃지 + 종류 뱃지, 아래에 PP / 위력 / 명중률
+            var infoPanel = Make(root, "SkillInfoPanel", new Vector2(1, 0), new Vector2(0, 0), new Vector2(78, 48));
             AddWindow(infoPanel, windowSprite);
-            var ppText = Label(infoPanel, "PP", font, menuSize, TextAlignmentOptions.MidlineLeft, new Vector2(12, 9), new Vector2(86, 12));
-            var typeIconRt = MakeTopLeft(infoPanel, "TypeIcon", new Vector2(12, 26), new Vector2(12, 12));
-            var typeIcon = typeIconRt.gameObject.AddComponent<Image>();
-            typeIcon.preserveAspect = true;
-            typeIcon.raycastTarget = false;
-            var typeText = Label(infoPanel, "TypeName", font, menuSize, TextAlignmentOptions.MidlineLeft, new Vector2(28, 26), new Vector2(78, 12));
+
+            var typeBadgeRt = MakeTopLeft(infoPanel, "TypeBadge", new Vector2(8, 3), new Vector2(25, 15));
+            var typeBadge = typeBadgeRt.gameObject.AddComponent<RawImage>();
+            typeBadge.raycastTarget = false;
+            typeBadge.enabled = false;
+            var typeFallback = Label(infoPanel, "TypeFallback", font, InfoFont, TextAlignmentOptions.Midline, new Vector2(8, 3), new Vector2(25, 15));
+
+            var catRt = MakeTopLeft(infoPanel, "CategoryBadge", new Vector2(40, 3), new Vector2(26, 15));
+            var catBadge = catRt.gameObject.AddComponent<Image>();
+            catBadge.raycastTarget = false;
+            var catText = Label(infoPanel, "CategoryText", font, InfoFont, TextAlignmentOptions.Midline, new Vector2(40, 3), new Vector2(26, 15));
+
+            string[] rowIds = { "Pp", "Power", "Accuracy" };
+            string[] rowTitles = { "PP", "위력", "명중률" };
+            float[] rowY = { 18.5f, 26.5f, 34.5f };
+            var values = new TextMeshProUGUI[3];
+            for (int i = 0; i < 3; i++)
+            {
+                var title = Label(infoPanel, rowIds[i] + "Label", font, InfoFont, TextAlignmentOptions.MidlineLeft, new Vector2(8, rowY[i]), new Vector2(30, 8));
+                title.text = rowTitles[i];
+                values[i] = Label(infoPanel, rowIds[i] + "Value", font, InfoFont, TextAlignmentOptions.MidlineRight, new Vector2(34, rowY[i]), new Vector2(32, 8));
+            }
 
             var restart = new GameObject("RestartButton", typeof(RectTransform), typeof(Image), typeof(Button), typeof(MenuEntry));
             restart.transform.SetParent(root, false);
@@ -138,9 +157,13 @@ namespace PalRogue.EditorTools
             screen.skillCursor = skillCursor;
             screen.skillButtons = skillButtons;
             screen.skillTexts = skillTexts;
-            screen.ppText = ppText;
-            screen.typeText = typeText;
-            screen.skillTypeIcon = typeIcon;
+            screen.typeBadge = typeBadge;
+            screen.typeFallbackText = typeFallback;
+            screen.categoryBadge = catBadge;
+            screen.categoryText = catText;
+            screen.ppValueText = values[0];
+            screen.powerValueText = values[1];
+            screen.accuracyValueText = values[2];
             screen.restartButton = restartBtn;
 
             // 전투에 쓸 팰: 비어 있을 때만 기본값을 넣는다 (직접 바꿔 둔 값은 유지)
