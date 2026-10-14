@@ -1,15 +1,27 @@
 fileFormatVersion: 2
-guid: 5f3ac4bd8a245c74bb259df36d9b5398
+guid: 225077f7a0b891247a60fd9cc842641d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6166706317122578038
-    second: Double_Grass_type_1_0
+      213: 3622563090275102224
+    second: Double_Dark_Type1_0
+  - first:
+      213: 6922495320743553253
+    second: Double_Dark_Type1_1
+  - first:
+      213: -5005047166161122021
+    second: Double_Dark_Type1_2
+  - first:
+      213: -2275348728952790014
+    second: Double_Dark_Type1_3
+  - first:
+      213: 8326620157436542686
+    second: Double_Dark_Type1_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -37,7 +49,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 2
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -77,7 +89,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -115,13 +127,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Double_Grass_type_1_0
+      name: Double_Dark_Type1_0
       rect:
         serializedVersion: 2
-        x: 7
-        y: 7
-        width: 1093
-        height: 506
+        x: 0
+        y: 23
+        width: 1627
+        height: 840
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -130,8 +142,96 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 676af3a09ba849550800000000000000
-      internalID: 6166706317122578038
+      spriteID: 01ee94cffede54230800000000000000
+      internalID: 3622563090275102224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Double_Dark_Type1_1
+      rect:
+        serializedVersion: 2
+        x: 886
+        y: 818
+        width: 55
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e8293831d4a11060800000000000000
+      internalID: 6922495320743553253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Double_Dark_Type1_2
+      rect:
+        serializedVersion: 2
+        x: 598
+        y: 790
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b1d04e8ce108a8ab0800000000000000
+      internalID: -5005047166161122021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Double_Dark_Type1_3
+      rect:
+        serializedVersion: 2
+        x: 634
+        y: 786
+        width: 9
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 204e1a6e2665c60e0800000000000000
+      internalID: -2275348728952790014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Double_Dark_Type1_4
+      rect:
+        serializedVersion: 2
+        x: 1230
+        y: 129
+        width: 13
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: edebc97bae81e8370800000000000000
+      internalID: 8326620157436542686
       vertices: []
       indices: 
       edges: []
@@ -150,7 +250,11 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Double_Grass_type_1_0: 6166706317122578038
+      Double_Dark_Type1_0: 3622563090275102224
+      Double_Dark_Type1_1: 6922495320743553253
+      Double_Dark_Type1_2: -5005047166161122021
+      Double_Dark_Type1_3: -2275348728952790014
+      Double_Dark_Type1_4: 8326620157436542686
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
