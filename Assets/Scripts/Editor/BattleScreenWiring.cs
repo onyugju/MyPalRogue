@@ -24,6 +24,16 @@ namespace PalRogue.EditorTools
         const string DefaultEnemyPal = "004_Lifmunk";
         const float InfoFont = 8f;     // 스킬 정보창의 작은 글자 크기
 
+        // ───── 스킬 정보창 배치 (정보창 왼쪽 위 기준 픽셀, 포켓로그 스크린샷에서 잰 값) ─────
+        static readonly Vector2 TypeBadgePos = new Vector2(13, 6), TypeBadgeSize = new Vector2(18, 11);
+        static readonly Vector2 CategoryPos = new Vector2(41, 6), CategorySize = new Vector2(26, 11);
+        static readonly float[] InfoRowY = { 17.5f, 25.5f, 33.5f };   // PP / 위력 / 명중률 줄의 위쪽
+        const float InfoLabelX = 9f, InfoValueRight = 67f;             // 라벨 왼쪽 끝, 값 오른쪽 끝
+
+        // ───── 상태이상 뱃지: 포켓로그처럼 이름 바로 아래 (이름 위치 + 11.5px) ─────
+        const float StatusBelowName = 11.5f;
+        static readonly Vector2 StatusBadgeSize = new Vector2(19, 8);   // 뱃지 그림 비율 565:242
+
         [MenuItem("PalRogue/10. 전투 화면 연결 (스크립트 붙이기)", false, 1010)]
         static void Wire()
         {
@@ -99,27 +109,29 @@ namespace PalRogue.EditorTools
             var infoPanel = Make(root, "SkillInfoPanel", new Vector2(1, 0), new Vector2(0, 0), new Vector2(78, 48));
             AddWindow(infoPanel, windowSprite);
 
-            // 위쪽 줄: 속성 뱃지(22x13) + 종류 아이콘(30x13). 두 그림의 원본 비율에 맞춘 크기
-            var typeBadgeRt = MakeTopLeft(infoPanel, "TypeBadge", new Vector2(11, 4), new Vector2(22, 13));
+            // 위쪽 줄 (포켓로그 스킬 정보창 기준): 속성 뱃지와 종류 아이콘을 위에서 6px, 높이 11px로.
+            // 두 그림은 같은 높이로 그려져 있어서 같은 배율로 줄이면 속성 18x11, 종류 26x11이 된다.
+            // 속성 뱃지는 포켓로그 뱃지 자리(x10~35)의 가운데, 종류 아이콘은 x41에 둔다.
+            var typeBadgeRt = MakeTopLeft(infoPanel, "TypeBadge", TypeBadgePos, TypeBadgeSize);
             var typeBadge = typeBadgeRt.gameObject.AddComponent<RawImage>();
             typeBadge.raycastTarget = false;
             typeBadge.enabled = false;
-            var typeFallback = Label(infoPanel, "TypeFallback", font, InfoFont, TextAlignmentOptions.Midline, new Vector2(11, 4), new Vector2(22, 13));
+            var typeFallback = Label(infoPanel, "TypeFallback", font, InfoFont, TextAlignmentOptions.Midline, TypeBadgePos, TypeBadgeSize);
 
-            var catRt = MakeTopLeft(infoPanel, "CategoryBadge", new Vector2(37, 4), new Vector2(30, 13));
+            var catRt = MakeTopLeft(infoPanel, "CategoryBadge", CategoryPos, CategorySize);
             var catBadge = catRt.gameObject.AddComponent<RawImage>();
             catBadge.raycastTarget = false;
-            var catText = Label(infoPanel, "CategoryText", font, InfoFont, TextAlignmentOptions.Midline, new Vector2(37, 4), new Vector2(30, 13));
+            var catText = Label(infoPanel, "CategoryText", font, InfoFont, TextAlignmentOptions.Midline, CategoryPos, CategorySize);
 
             string[] rowIds = { "Pp", "Power", "Accuracy" };
             string[] rowTitles = { "PP", "위력", "명중률" };
-            float[] rowY = { 18.5f, 26.5f, 34.5f };
+            float[] rowY = InfoRowY;
             var values = new TextMeshProUGUI[3];
             for (int i = 0; i < 3; i++)
             {
-                var title = Label(infoPanel, rowIds[i] + "Label", font, InfoFont, TextAlignmentOptions.MidlineLeft, new Vector2(8, rowY[i]), new Vector2(30, 8));
+                var title = Label(infoPanel, rowIds[i] + "Label", font, InfoFont, TextAlignmentOptions.MidlineLeft, new Vector2(InfoLabelX, rowY[i]), new Vector2(30, 8));
                 title.text = rowTitles[i];
-                values[i] = Label(infoPanel, rowIds[i] + "Value", font, InfoFont, TextAlignmentOptions.MidlineRight, new Vector2(34, rowY[i]), new Vector2(32, 8));
+                values[i] = Label(infoPanel, rowIds[i] + "Value", font, InfoFont, TextAlignmentOptions.MidlineRight, new Vector2(InfoValueRight - 32, rowY[i]), new Vector2(32, 8));
             }
 
             var restart = new GameObject("RestartButton", typeof(RectTransform), typeof(Image), typeof(Button), typeof(MenuEntry));
@@ -202,25 +214,44 @@ namespace PalRogue.EditorTools
             if (info.expFill == null) info.expFill = FindComp<RawImage>(box, "ExpFill");   // 적 정보창엔 없음
             if (info.typeIcon1 == null) info.typeIcon1 = FindComp<Image>(box, "Type1");
             if (info.typeIcon2 == null) info.typeIcon2 = FindComp<Image>(box, "Type2");
-            if (info.statusBadge == null) info.statusBadge = EnsureStatusBadge(box);
+            info.statusBadge = EnsureStatusBadge(box);                                   // 위치는 매번 이름 기준으로 다시 맞춤
             EditorUtility.SetDirty(info);
             return info;
         }
 
         /// <summary>
-        /// 정보창의 HP 줄 왼쪽(흰 띠 위)에 상태이상 뱃지 자리를 만든다. 이미 있으면 그대로 쓴다(손으로 옮긴 위치 유지).
-        /// 크기 19x8 = 뱃지 그림의 비율(565:242). 위치가 어긋나면 씬에서 StatusBadge를 직접 옮기면 된다.
+        /// 정보창의 상태이상 뱃지를 포켓로그와 같은 자리, 즉 이름 바로 아래(이름 위쪽 + 11.5px, 왼쪽 끝 맞춤)에 둔다.
+        /// 이름(Name)을 씬에서 옮겨 두었으면 그 위치를 따라간다. 메뉴 10을 실행할 때마다 다시 맞춘다.
         /// </summary>
         static RawImage EnsureStatusBadge(Transform box)
         {
-            var existing = FindComp<RawImage>(box, "StatusBadge");
-            if (existing != null) return existing;
+            var raw = FindComp<RawImage>(box, "StatusBadge");
+            if (raw == null)
+            {
+                var created = MakeTopLeft(box, "StatusBadge", Vector2.zero, StatusBadgeSize);
+                raw = created.gameObject.AddComponent<RawImage>();
+                raw.raycastTarget = false;
+                raw.enabled = false;
+            }
 
-            bool isPlayer = box.name == "PlayerInfo";
-            var rt = MakeTopLeft(box, "StatusBadge", isPlayer ? new Vector2(16, 16) : new Vector2(8, 16), new Vector2(19, 8));
-            var raw = rt.gameObject.AddComponent<RawImage>();
-            raw.raycastTarget = false;
-            raw.enabled = false;
+            var rt = raw.rectTransform;
+            rt.anchorMin = rt.anchorMax = rt.pivot = new Vector2(0, 1);
+            rt.sizeDelta = StatusBadgeSize;
+
+            var name = box.Find("Name") as RectTransform;
+            if (name != null)
+            {
+                // Name도 왼쪽 위 기준이라 anchoredPosition.y가 "위에서부터의 거리"의 음수다
+                float left = Mathf.Round(name.anchoredPosition.x);
+                float top = Mathf.Floor(-name.anchoredPosition.y + StatusBelowName);
+                rt.anchoredPosition = new Vector2(left, -top);
+            }
+            else
+            {
+                rt.anchoredPosition = box.name == "PlayerInfo" ? new Vector2(20, -16) : new Vector2(6, -15);
+            }
+            rt.SetAsLastSibling();      // 흰 HP 띠보다 위에 그려지게
+            EditorUtility.SetDirty(rt);
             return raw;
         }
 
