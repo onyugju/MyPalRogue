@@ -8,6 +8,14 @@ using UnityEngine.UI;
 
 namespace PalRogue
 {
+    /// <summary>테스트용 파티 한 마리 (어떤 팰을 몇 레벨로)</summary>
+    [System.Serializable]
+    public class PartyMember
+    {
+        public PalData pal;
+        [Range(1, GameConfig.MaxLevel)] public int level = 10;
+    }
+
     /// <summary>
     /// 전투 화면 전체를 움직이는 컨트롤러. Battle(전투 로직)이 쌓아 둔 진행 기록을 순서대로 재생한다.
     /// 흐름: 등장 메시지 → 커맨드 선택 → (싸운다) 스킬 선택 → 턴 재생(메시지·HP바·쓰러짐) → 다시 커맨드
@@ -17,6 +25,8 @@ namespace PalRogue
     public class BattleScreen : MonoBehaviour
     {
         [Header("전투 설정 (테스트용)")]
+        [Tooltip("내 파티 (최대 6마리, 1번이 먼저 나간다). 비어 있으면 아래 playerPal 한 마리로 싸운다")]
+        public List<PartyMember> playerParty = new List<PartyMember>();
         public PalData playerPal;
         public PalData enemyPal;
         [Range(1, GameConfig.MaxLevel)] public int playerLevel = 10;
@@ -52,6 +62,9 @@ namespace PalRogue
         public TMP_Text categoryText;
         public TMP_Text ppValueText, powerValueText, accuracyValueText;
 
+        [Header("파티 화면 (메뉴 14로 생성)")]
+        public PartyScreen partyScreen;
+
         [Header("끝난 뒤 다시 시작")]
         public Button restartButton;
 
@@ -74,9 +87,10 @@ namespace PalRogue
 
         void Start()
         {
-            if (playerPal == null || enemyPal == null)
+            bool hasPlayer = playerPal != null || playerParty.Any(m => m != null && m.pal != null);
+            if (!hasPlayer || enemyPal == null)
             {
-                Debug.LogWarning("[BattleScreen] playerPal / enemyPal 에 PalData 에셋을 넣어주세요.");
+                Debug.LogWarning("[BattleScreen] 내 파티(playerParty 또는 playerPal)와 enemyPal 에 PalData 에셋을 넣어주세요.");
                 enabled = false;
                 return;
             }
@@ -94,7 +108,7 @@ namespace PalRogue
 
             Bind(fightButton, OnFight);
             Bind(sphereButton, () => StartCoroutine(Unavailable("팰 스피어는 아직 쓸 수 없어요!")));
-            Bind(palsButton, () => StartCoroutine(Unavailable("교체할 수 있는 팰이 없어요!")));
+            Bind(palsButton, OnPals);
             Bind(runButton, () => StartCoroutine(Unavailable("도망칠 수 없어요!")));
             for (int i = 0; i < skillButtons.Length; i++)
             {
@@ -143,8 +157,7 @@ namespace PalRogue
         {
             battle?.Detach();
             var rng = seed >= 0 ? new System.Random(seed) : new System.Random();
-            battle = new Battle(new List<Pal> { new Pal(playerPal, playerLevel) },
-                                new List<Pal> { new Pal(enemyPal, enemyLevel) }, rng);
+            battle = new Battle(BuildPlayerParty(), new List<Pal> { new Pal(enemyPal, enemyLevel) }, rng);
 
             playerView.Show(battle.Player.Data, true);
             enemyView.Show(battle.Enemy.Data, false);
@@ -174,6 +187,44 @@ namespace PalRogue
             messageText.text = $"{PalName(battle.Player)}은(는)\n무엇을 할까?";
             messageText.maxVisibleCharacters = 9999;
             Select(fightButton);
+        }
+
+        // ───────── 파티 / 교체 ─────────
+        List<Pal> BuildPlayerParty()
+        {
+            var list = playerParty.Where(m => m != null && m.pal != null).Take(6)
+                                  .Select(m => new Pal(m.pal, m.level)).ToList();
+            if (list.Count == 0) list.Add(new Pal(playerPal, playerLevel));
+            return list;
+        }
+
+        void OnPals()
+        {
+            if (mode != Mode.Command) return;
+            if (partyScreen == null)
+            {
+                StartCoroutine(Unavailable("파티 화면이 아직 없어요! (메뉴 14 실행)"));
+                return;
+            }
+            StartCoroutine(SwitchFromMenu());
+        }
+
+        IEnumerator SwitchFromMenu()
+        {
+            mode = Mode.Busy;
+            HidePanels();
+            yield return partyScreen.Choose(battle.PlayerParty, true, "어느 팰로 교체할까?", SwitchError);
+            if (partyScreen.Result < 0) { ShowCommand(); yield break; }       // 취소
+            yield return RunTurn(BattleAction.SwitchTo(partyScreen.Result));  // 교체는 한 턴을 쓴다
+        }
+
+        /// <summary>그 칸으로 교체할 수 없으면 이유를, 괜찮으면 null</summary>
+        string SwitchError(int index)
+        {
+            var pal = battle.PlayerParty[index];
+            if (pal.IsFainted) return $"{PalName(pal)}은(는) 싸울 수 있는 기력이 없다!";
+            if (index == battle.PlayerIndex) return $"{PalName(pal)}은(는) 이미 싸우고 있다!";
+            return null;
         }
 
         void OnFight()
@@ -268,10 +319,16 @@ namespace PalRogue
             battle.ExecuteTurn(action);
             yield return PlayEvents();
 
-            // 내 팰이 쓰러졌는데 교체할 팰이 남은 경우: 팰 선택 화면이 생기기 전까지는 첫 번째 생존 팰을 자동으로 내보낸다
+            // 내 팰이 쓰러졌는데 교체할 팰이 남은 경우: 파티 화면에서 다음 팰을 고른다 (취소 불가)
             while (battle.State == BattleState.WaitingPlayerSwitch)
             {
-                int next = battle.PlayerParty.ToList().FindIndex(p => !p.IsFainted);
+                int next;
+                if (partyScreen != null)
+                {
+                    yield return partyScreen.Choose(battle.PlayerParty, false, "다음에 내보낼 팰을 골라 주세요!", SwitchError);
+                    next = partyScreen.Result;
+                }
+                else next = battle.PlayerParty.ToList().FindIndex(p => !p.IsFainted);   // 파티 화면이 없으면 자동
                 battle.SwitchAfterFaint(next);
                 yield return PlayEvents();
             }
