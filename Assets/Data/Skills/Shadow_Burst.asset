@@ -20,3 +20,5 @@ MonoBehaviour:
   accuracy: 100
   maxPP: 20
   priority: 0
+  statusEffect: 4
+  statusChance: 10

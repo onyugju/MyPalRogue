@@ -46,12 +46,11 @@ namespace PalRogue
         public RawImage typeBadge;
         [Tooltip("뱃지 이미지가 없는 속성(Void 등)일 때 대신 보여줄 글자")]
         public TMP_Text typeFallbackText;
-        public Image categoryBadge;
+        [Tooltip("스킬 종류 뱃지 (Resources의 Attack Icon / Status Icon 이미지)")]
+        public RawImage categoryBadge;
+        [Tooltip("종류 아이콘 이미지를 못 찾았을 때 대신 보여줄 글자")]
         public TMP_Text categoryText;
         public TMP_Text ppValueText, powerValueText, accuracyValueText;
-        [Header("스킬 종류 아이콘 (비워두면 글자 뱃지로 표시)")]
-        public Sprite attackIcon;
-        public Sprite statusIcon;
 
         [Header("끝난 뒤 다시 시작")]
         public Button restartButton;
@@ -63,6 +62,10 @@ namespace PalRogue
         static readonly Color StatusColor = new Color(0.4f, 0.5f, 0.75f);
         // Skill_type 이미지(1024x572)에서 뱃지가 실제로 그려진 부분만 잘라 쓰는 영역 (투명 여백 제외)
         static readonly Rect BadgeUv = new Rect(255f / 1024f, 129f / 572f, 514f / 1024f, 310f / 572f);
+        // Attack Icon / Status Icon 이미지(1024x572)에서 그려진 부분 (두 이미지를 모두 덮는 범위)
+        static readonly Rect CategoryUv = new Rect(152f / 1024f, 129f / 572f, 737f / 1024f, 318f / 572f);
+        const string AttackIconPath = "Attack Icon";
+        const string StatusIconPath = "Status Icon";
 
         enum Mode { Busy, Command, Skill, Ended }
         Mode mode = Mode.Busy;
@@ -235,11 +238,12 @@ namespace PalRogue
             typeBadge.enabled = tex != null;
             typeFallbackText.text = tex != null ? "" : PalTypeNames.Korean(data.type);
 
-            // 스킬 종류 뱃지: 아이콘 이미지를 넣어 두면 그걸 쓰고, 없으면 색깔 글자 뱃지
+            // 스킬 종류 뱃지: Resources/Attack Icon, Status Icon 이미지. 못 찾으면 색깔 글자 뱃지
             bool isAttack = data.category != SkillCategory.Status;
-            var icon = isAttack ? attackIcon : statusIcon;
+            var icon = Resources.Load<Texture2D>(isAttack ? AttackIconPath : StatusIconPath);
             categoryBadge.gameObject.SetActive(true);
-            categoryBadge.sprite = icon;
+            categoryBadge.texture = icon;
+            categoryBadge.uvRect = icon != null ? CategoryUv : new Rect(0, 0, 1, 1);
             categoryBadge.color = icon != null ? Color.white : (isAttack ? AttackColor : StatusColor);
             categoryText.text = icon != null ? "" : (isAttack ? "공격" : "변화");
 
@@ -296,9 +300,14 @@ namespace PalRogue
                         yield return ShowMessage(ev.Text);
                         break;
                     case BattleEventType.HpChanged:
+                        if (ev.From <= 0 && ev.To > 0) box.SetStatus(StatusCondition.None);   // 부활하면 기절 뱃지 지움
                         yield return box.AnimateHp(ev.Pal, ev.From, ev.To);
                         break;
+                    case BattleEventType.StatusChanged:
+                        box.SetStatus(ev.Status);
+                        break;
                     case BattleEventType.Fainted:
+                        box.ShowFainted();
                         yield return view.PlayFaint();
                         break;
                     case BattleEventType.SentOut:

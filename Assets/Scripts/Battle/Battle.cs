@@ -7,7 +7,7 @@ namespace PalRogue
 {
     public enum BattleState { Ongoing, WaitingPlayerSwitch, PlayerWon, PlayerLost }
 
-    public enum BattleEventType { Message, HpChanged, Fainted, SentOut }
+    public enum BattleEventType { Message, HpChanged, Fainted, SentOut, StatusChanged }
 
     /// <summary>화면이 순서대로 재생하는 전투 진행 기록 한 줄</summary>
     public class BattleEvent
@@ -17,6 +17,7 @@ namespace PalRogue
         public Pal Pal;               // HpChanged / Fainted / SentOut
         public bool IsPlayerSide;     // 어느 쪽 팰인지
         public int From, To;          // HpChanged
+        public StatusCondition Status; // StatusChanged (None이면 풀림)
     }
 
     /// <summary>한 턴에 고를 수 있는 행동: 스킬 사용 또는 교체</summary>
@@ -61,13 +62,20 @@ namespace PalRogue
         void Emit(BattleEvent e) => events.Enqueue(e);
         bool IsPlayerPal(Pal p) => PlayerParty.Contains(p);
 
+        void OnStatusChanged(Pal p, StatusCondition s) =>
+            Emit(new BattleEvent { Type = BattleEventType.StatusChanged, Pal = p, IsPlayerSide = IsPlayerPal(p), Status = s });
+
         void OnHpChanged(Pal p, int from, int to) =>
             Emit(new BattleEvent { Type = BattleEventType.HpChanged, Pal = p, IsPlayerSide = IsPlayerPal(p), From = from, To = to });
 
         /// <summary>팰의 HP 이벤트 구독을 끊는다. 전투가 끝나거나 화면이 사라질 때 호출 (여러 번 불러도 안전).</summary>
         public void Detach()
         {
-            foreach (var p in PlayerParty.Concat(EnemyParty)) p.HpChanged -= OnHpChanged;
+            foreach (var p in PlayerParty.Concat(EnemyParty))
+            {
+                p.HpChanged -= OnHpChanged;
+                p.StatusChanged -= OnStatusChanged;
+            }
         }
 
         readonly System.Random rng;
@@ -116,7 +124,11 @@ namespace PalRogue
                 return;
             }
 
-            foreach (var p0 in PlayerParty.Concat(EnemyParty)) p0.HpChanged += OnHpChanged;
+            foreach (var p0 in PlayerParty.Concat(EnemyParty))
+            {
+                p0.HpChanged += OnHpChanged;
+                p0.StatusChanged += OnStatusChanged;
+            }
             foreach (var p in PlayerParty.Concat(EnemyParty))
             {
                 p.ResetBattleState();
@@ -189,6 +201,11 @@ namespace PalRogue
 
             if (State == BattleState.Ongoing)
             {
+                foreach (var p in new[] { Player, Enemy }) ApplyResidualDamage(p);
+                ResolveFaints();
+            }
+            if (State == BattleState.Ongoing)
+            {
                 foreach (var p in new[] { Player, Enemy })
                     foreach (var e in p.EffectsSnapshot()) e.OnTurnEnd(p, Ctx);
                 ResolveFaints();
@@ -230,6 +247,7 @@ namespace PalRogue
 
             var user = en.Actor;
             var target = en.IsPlayer ? Enemy : Player;
+            if (!CanAct(user)) return;                                   // 얼음/마비로 행동 불가 (PP도 쓰지 않음)
             SkillInstance inst = en.Action.Index >= 0 ? user.Skills[en.Action.Index] : null;
             UseSkill(user, target, inst, inst != null ? inst.Data : Struggle);
         }
@@ -239,14 +257,17 @@ namespace PalRogue
             Log($"{user.Data.palName}의 {skill.skillName}!");
             if (inst != null) inst.PP--;
 
-            if (skill.category == SkillCategory.Status)
-            {
-                Log("하지만 아무 일도 일어나지 않았다! (변화기 효과는 아직 미구현)");
-                return;
-            }
             if (!BattleCalc.CheckHit(skill, rng))
             {
                 Log("공격은 빗나갔다!");
+                return;
+            }
+
+            if (skill.category == SkillCategory.Status)
+            {
+                // 변화기: 지금은 상태이상을 거는 효과만 있다 (능력치 변화 등은 나중에 추가)
+                if (skill.statusEffect == StatusCondition.None || !TryInflict(target, skill.statusEffect, skill.statusChance))
+                    Log("그러나 아무 일도 일어나지 않았다!");
                 return;
             }
 
@@ -256,6 +277,72 @@ namespace PalRogue
 
             int dealt = BattleCalc.ApplyDamage(info, Ctx);
             Log($"  → {target.Data.palName}에게 {dealt} 데미지 (HP {target.CurrentHP}/{target.MaxHP})");
+
+            if (target.IsFainted || dealt <= 0) return;
+
+            // 얼어 있는 상대가 불 속성 공격을 맞으면 녹는다
+            if (target.Status == StatusCondition.Freeze && skill.type == PalType.Fire && target.CureStatus())
+                Log($"{target.Data.palName}의 얼음이 녹았다!");
+
+            // 추가 효과: 정해진 확률로 상태이상
+            TryInflict(target, skill.statusEffect, skill.statusChance);
+        }
+
+        // ───────── 상태이상 ─────────
+        /// <summary>행동하기 직전 확인. 얼음(20%로 녹음) / 마비(25%로 행동 불가)</summary>
+        bool CanAct(Pal user)
+        {
+            string name = user.Data.palName;
+            switch (user.Status)
+            {
+                case StatusCondition.Freeze:
+                    if (rng.NextDouble() < StatusRules.FreezeThawChance)
+                    {
+                        user.CureStatus();
+                        Log($"{name}의 얼음이 녹았다!");
+                        return true;
+                    }
+                    Log($"{name}은(는) 얼어붙어서 움직일 수 없다!");
+                    return false;
+
+                case StatusCondition.Paralysis:
+                    if (rng.NextDouble() < StatusRules.ParalysisSkipChance)
+                    {
+                        Log($"{name}은(는) 몸이 저려서 움직일 수 없다!");
+                        return false;
+                    }
+                    return true;
+
+                default:
+                    return true;
+            }
+        }
+
+        /// <summary>chance(%) 확률로 상태이상을 건다. 걸렸으면 메시지를 남기고 true.</summary>
+        bool TryInflict(Pal target, StatusCondition status, int chance)
+        {
+            if (status == StatusCondition.None || chance <= 0) return false;
+            if (rng.Next(100) >= chance) return false;
+            if (!target.TrySetStatus(status)) return false;               // 이미 다른 상태이거나 속성 면역
+            Log($"{target.Data.palName}은(는) {StatusRules.InflictText(status)}");
+            return true;
+        }
+
+        /// <summary>턴 끝: 화상(최대 HP 1/16) / 독(1/8) 데미지</summary>
+        void ApplyResidualDamage(Pal p)
+        {
+            if (p.IsFainted) return;
+            int divisor = p.Status switch
+            {
+                StatusCondition.Burn => StatusRules.BurnDamageDivisor,
+                StatusCondition.Poison => StatusRules.PoisonDamageDivisor,
+                _ => 0,
+            };
+            if (divisor == 0) return;
+
+            string reason = p.Status == StatusCondition.Burn ? "화상" : "독";
+            p.TakeDamage(Mathf.Max(1, p.MaxHP / divisor));
+            Log($"{p.Data.palName}은(는) {reason} 데미지를 입고 있다!");
         }
 
         // ───────── 기절 처리 ─────────
@@ -263,6 +350,7 @@ namespace PalRogue
         {
             if (Enemy.IsFainted)
             {
+                Enemy.ClearStatusOnFaint();
                 Emit(new BattleEvent { Type = BattleEventType.Fainted, Pal = Enemy, IsPlayerSide = false });
                 Log($"{Enemy.Data.palName}(은)는 쓰러졌다!");
                 PalFainted?.Invoke(Enemy);
@@ -274,6 +362,7 @@ namespace PalRogue
             }
             if (Player.IsFainted)
             {
+                Player.ClearStatusOnFaint();
                 Emit(new BattleEvent { Type = BattleEventType.Fainted, Pal = Player, IsPlayerSide = true });
                 Log($"{Player.Data.palName}(은)는 쓰러졌다!");
                 PalFainted?.Invoke(Player);

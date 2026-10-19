@@ -99,16 +99,17 @@ namespace PalRogue.EditorTools
             var infoPanel = Make(root, "SkillInfoPanel", new Vector2(1, 0), new Vector2(0, 0), new Vector2(78, 48));
             AddWindow(infoPanel, windowSprite);
 
-            var typeBadgeRt = MakeTopLeft(infoPanel, "TypeBadge", new Vector2(8, 3), new Vector2(25, 15));
+            // 위쪽 줄: 속성 뱃지(22x13) + 종류 아이콘(30x13). 두 그림의 원본 비율에 맞춘 크기
+            var typeBadgeRt = MakeTopLeft(infoPanel, "TypeBadge", new Vector2(11, 4), new Vector2(22, 13));
             var typeBadge = typeBadgeRt.gameObject.AddComponent<RawImage>();
             typeBadge.raycastTarget = false;
             typeBadge.enabled = false;
-            var typeFallback = Label(infoPanel, "TypeFallback", font, InfoFont, TextAlignmentOptions.Midline, new Vector2(8, 3), new Vector2(25, 15));
+            var typeFallback = Label(infoPanel, "TypeFallback", font, InfoFont, TextAlignmentOptions.Midline, new Vector2(11, 4), new Vector2(22, 13));
 
-            var catRt = MakeTopLeft(infoPanel, "CategoryBadge", new Vector2(40, 3), new Vector2(26, 15));
-            var catBadge = catRt.gameObject.AddComponent<Image>();
+            var catRt = MakeTopLeft(infoPanel, "CategoryBadge", new Vector2(37, 4), new Vector2(30, 13));
+            var catBadge = catRt.gameObject.AddComponent<RawImage>();
             catBadge.raycastTarget = false;
-            var catText = Label(infoPanel, "CategoryText", font, InfoFont, TextAlignmentOptions.Midline, new Vector2(40, 3), new Vector2(26, 15));
+            var catText = Label(infoPanel, "CategoryText", font, InfoFont, TextAlignmentOptions.Midline, new Vector2(37, 4), new Vector2(30, 13));
 
             string[] rowIds = { "Pp", "Power", "Accuracy" };
             string[] rowTitles = { "PP", "위력", "명중률" };
@@ -201,8 +202,26 @@ namespace PalRogue.EditorTools
             if (info.expFill == null) info.expFill = FindComp<RawImage>(box, "ExpFill");   // 적 정보창엔 없음
             if (info.typeIcon1 == null) info.typeIcon1 = FindComp<Image>(box, "Type1");
             if (info.typeIcon2 == null) info.typeIcon2 = FindComp<Image>(box, "Type2");
+            if (info.statusBadge == null) info.statusBadge = EnsureStatusBadge(box);
             EditorUtility.SetDirty(info);
             return info;
+        }
+
+        /// <summary>
+        /// 정보창의 HP 줄 왼쪽(흰 띠 위)에 상태이상 뱃지 자리를 만든다. 이미 있으면 그대로 쓴다(손으로 옮긴 위치 유지).
+        /// 크기 19x8 = 뱃지 그림의 비율(565:242). 위치가 어긋나면 씬에서 StatusBadge를 직접 옮기면 된다.
+        /// </summary>
+        static RawImage EnsureStatusBadge(Transform box)
+        {
+            var existing = FindComp<RawImage>(box, "StatusBadge");
+            if (existing != null) return existing;
+
+            bool isPlayer = box.name == "PlayerInfo";
+            var rt = MakeTopLeft(box, "StatusBadge", isPlayer ? new Vector2(16, 16) : new Vector2(8, 16), new Vector2(19, 8));
+            var raw = rt.gameObject.AddComponent<RawImage>();
+            raw.raycastTarget = false;
+            raw.enabled = false;
+            return raw;
         }
 
         static T FindComp<T>(Transform parent, string childName) where T : Component

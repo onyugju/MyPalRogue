@@ -181,6 +181,7 @@ namespace PalRogue.EditorTools
                 sk.accuracy = band.acc;
                 sk.maxPP = band.pp;
                 sk.priority = r.priority;
+                ApplyDefaultStatus(sk);
                 AssetDatabase.CreateAsset(sk, path);
                 created++;
             }
@@ -275,6 +276,35 @@ namespace PalRogue.EditorTools
             }
             AssetDatabase.SaveAssets();
             Debug.Log($"[PalRogue] 스킬 종류 통합: {changed}개를 '공격'으로 정리했습니다.");
+        }
+
+        // ───────── 13. 스킬 추가 효과(상태이상) 기본값 ─────────
+        const int DefaultStatusChance = 10;   // 공격 스킬의 상태이상 확률(%)
+
+        /// <summary>불→화상, 얼음→얼음, 번개→마비, 어둠→독 (공격 스킬, 아직 효과가 없는 것만)</summary>
+        static bool ApplyDefaultStatus(SkillData sk)
+        {
+            if (sk.category != SkillCategory.Attack || sk.statusEffect != StatusCondition.None) return false;
+            var s = StatusRules.DefaultForSkillType(sk.type);
+            if (s == StatusCondition.None) return false;
+            sk.statusEffect = s;
+            sk.statusChance = DefaultStatusChance;
+            return true;
+        }
+
+        [MenuItem("PalRogue/13. 스킬 추가 효과(상태이상) 기본값 적용", false, 1013)]
+        static void ApplyDefaultStatuses()
+        {
+            int changed = 0;
+            foreach (var guid in AssetDatabase.FindAssets("t:SkillData", new[] { SkillDir }))
+            {
+                var sk = AssetDatabase.LoadAssetAtPath<SkillData>(AssetDatabase.GUIDToAssetPath(guid));
+                if (sk == null || !ApplyDefaultStatus(sk)) continue;
+                EditorUtility.SetDirty(sk);
+                changed++;
+            }
+            AssetDatabase.SaveAssets();
+            Debug.Log($"[PalRogue] 스킬 {changed}개에 상태이상 추가 효과({DefaultStatusChance}%)를 넣었습니다. (이미 효과가 있는 스킬은 그대로)");
         }
 
         static void EnsureFolder(string path)

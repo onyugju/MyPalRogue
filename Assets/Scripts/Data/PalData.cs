@@ -45,6 +45,9 @@ namespace PalRogue
         /// <summary>보조 속성이 없으면 null</summary>
         public PalType? SecondaryType => hasSecondaryType ? secondaryType : null;
 
+        /// <summary>이 속성을 가지고 있는지 (주 속성 또는 보조 속성)</summary>
+        public bool HasType(PalType t) => primaryType == t || (hasSecondaryType && secondaryType == t);
+
         [Header("기본 능력치")]
         [Min(1)] public int baseHP = 50;
         [Min(1)] public int baseAttack = 50;

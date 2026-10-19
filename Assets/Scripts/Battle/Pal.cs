@@ -39,6 +39,12 @@ namespace PalRogue
         /// <summary>HP가 바뀔 때마다 (팰, 이전 HP, 이후 HP). 화면의 HP바 연출에 쓴다.</summary>
         public event Action<Pal, int, int> HpChanged;
 
+        /// <summary>현재 상태이상. 교체해도 유지되고, 쓰러지면 풀린다.</summary>
+        public StatusCondition Status { get; private set; }
+
+        /// <summary>상태이상이 걸리거나 풀릴 때 (팰, 새 상태). 화면의 상태 뱃지에 쓴다.</summary>
+        public event Action<Pal, StatusCondition> StatusChanged;
+
         readonly Dictionary<StatType, int> rawStats = new();
         readonly Dictionary<StatType, int> stages = new();
 
@@ -78,6 +84,8 @@ namespace PalRogue
             float stageMult = stage >= 0 ? (2f + stage) / 2f : 2f / (2f - stage);
             float effectMult = 1f;
             foreach (var e in EffectsSnapshot()) effectMult *= e.StatMultiplier(stat);
+            if (stat == StatType.Attack && Status == StatusCondition.Burn) effectMult *= 0.5f;      // 화상: 공격 절반
+            if (stat == StatType.Speed && Status == StatusCondition.Paralysis) effectMult *= 0.5f; // 마비: 속도 절반
             return Mathf.Max(1, Mathf.FloorToInt(rawStats[stat] * stageMult * effectMult));
         }
 
@@ -123,6 +131,36 @@ namespace PalRogue
             CurrentHP = Mathf.Clamp(hp, 1, MaxHP);
             if (CurrentHP != before) HpChanged?.Invoke(this, before, CurrentHP);
         }
+
+        // ───────── 상태이상 ─────────
+        /// <summary>이 상태이상에 지금 걸릴 수 있는지 (이미 다른 상태이거나, 쓰러졌거나, 속성 면역이면 false)</summary>
+        public bool CanReceiveStatus(StatusCondition s)
+        {
+            if (s == StatusCondition.None || IsFainted || Status != StatusCondition.None) return false;
+            var immune = StatusRules.ImmuneType(s);
+            return !(immune.HasValue && Data.HasType(immune.Value));
+        }
+
+        /// <summary>상태이상을 건다. 걸리지 않으면 false.</summary>
+        public bool TrySetStatus(StatusCondition s)
+        {
+            if (!CanReceiveStatus(s)) return false;
+            Status = s;
+            StatusChanged?.Invoke(this, Status);
+            return true;
+        }
+
+        /// <summary>상태이상을 푼다 (회복 아이템, 얼음이 녹을 때 등). 풀린 게 있으면 true.</summary>
+        public bool CureStatus()
+        {
+            if (Status == StatusCondition.None) return false;
+            Status = StatusCondition.None;
+            StatusChanged?.Invoke(this, Status);
+            return true;
+        }
+
+        /// <summary>쓰러졌을 때 상태이상을 조용히 지운다 (화면에는 기절 뱃지가 대신 나온다)</summary>
+        public void ClearStatusOnFaint() => Status = StatusCondition.None;
 
         // ───────── 스킬 ─────────
         /// <summary>현재 레벨까지 배운 스킬 중 최근에 배운 4개를 장착 (포켓몬 방식)</summary>

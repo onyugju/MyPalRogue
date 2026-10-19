@@ -20,6 +20,11 @@ namespace PalRogue
         public RawImage expFill;       // 적 정보창은 비워둔다
         public Image typeIcon1;
         public Image typeIcon2;
+        [Tooltip("상태이상 / 기절 뱃지 (Resources/statuses 이미지)")]
+        public RawImage statusBadge;
+
+        // statuses 이미지(1024x572)에서 뱃지가 그려진 부분만 (투명 여백 제외)
+        static readonly Rect StatusUv = new Rect(221f / 1024f, 163f / 572f, 565f / 1024f, 242f / 572f);
 
         /// <summary>팰의 현재 상태를 화면에 반영한다</summary>
         public void Refresh(Pal pal)
@@ -29,6 +34,9 @@ namespace PalRogue
             if (hpText != null) hpText.text = $"{pal.CurrentHP}/{pal.MaxHP}";
             SetHp(pal.MaxHP > 0 ? (float)pal.CurrentHP / pal.MaxHP : 0f);
 
+            if (pal.IsFainted) ShowFainted();
+            else SetStatus(pal.Status);
+
             SetType(typeIcon1, pal.Data.primaryType);
             if (typeIcon2 != null)
             {
@@ -36,6 +44,21 @@ namespace PalRogue
                 typeIcon2.gameObject.SetActive(dual);
                 if (dual) SetType(typeIcon2, pal.Data.secondaryType);
             }
+        }
+
+        /// <summary>상태이상 뱃지를 보여주거나(None이면) 숨긴다</summary>
+        public void SetStatus(StatusCondition status) => SetBadge(StatusRules.BadgeName(status));
+
+        /// <summary>쓰러졌을 때 기절 뱃지</summary>
+        public void ShowFainted() => SetBadge(StatusRules.FaintedBadgeName);
+
+        void SetBadge(string imageName)
+        {
+            if (statusBadge == null) return;
+            var tex = imageName != null ? Resources.Load<Texture2D>($"statuses/{imageName}") : null;
+            statusBadge.texture = tex;
+            statusBadge.uvRect = StatusUv;
+            statusBadge.enabled = tex != null;
         }
 
         /// <summary>HP 비율(0~1). 절반 초과 초록 / 25% 초과 노랑 / 그 이하 빨강 (포켓로그와 동일)</summary>

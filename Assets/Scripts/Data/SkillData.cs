@@ -22,5 +22,10 @@ namespace PalRogue
         [Range(0, 100)] public int accuracy = 100;
         [Min(1)] public int maxPP = 15;
         [Range(-3, 3)] public int priority = 0; // 높을수록 먼저 행동
+
+        [Header("추가 효과 (상태이상)")]
+        public StatusCondition statusEffect = StatusCondition.None;
+        [Tooltip("공격 스킬: 맞혔을 때 이 확률(%)로 상태이상. 변화 스킬: 명중하면 이 확률로 상태이상 (보통 100)")]
+        [Range(0, 100)] public int statusChance = 0;
     }
 }
