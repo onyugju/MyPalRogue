@@ -22,6 +22,11 @@ namespace PalRogue
 
         public int Result { get; private set; } = -1;
 
+        /// <summary>커서가 다른 줄로 옮겨갈 때 (줄 번호). 설명 문구를 바꾸는 데 쓴다</summary>
+        public event System.Action<int> Highlighted;
+
+        const float DefaultWidth = 92f, RowX = 8f, TextX = 12f;
+
         int clicked = -2;
         GameObject lastSelected;
         bool bound;
@@ -42,9 +47,11 @@ namespace PalRogue
         }
 
         /// <summary>항목을 보여주고 하나 고를 때까지 기다린다. startIndex = 처음 커서 위치</summary>
-        public IEnumerator Choose(string[] items, int startIndex = 0)
+        /// <param name="width">창 폭. 0이면 기본(92). 긴 글자가 들어갈 때 넓힌다</param>
+        public IEnumerator Choose(string[] items, int startIndex = 0, float width = 0f)
         {
             Bind();
+            SetWidth(width > 0f ? width : DefaultWidth);
             int rows = Mathf.Min(items.Length, rowButtons.Length);
             for (int i = 0; i < rowButtons.Length; i++)
             {
@@ -80,8 +87,20 @@ namespace PalRogue
                 es.SetSelectedGameObject(lastSelected);
         }
 
+        void SetWidth(float w)
+        {
+            window.sizeDelta = new Vector2(w, window.sizeDelta.y);
+            for (int i = 0; i < rowButtons.Length; i++)
+            {
+                var row = (RectTransform)rowButtons[i].transform;
+                row.sizeDelta = new Vector2(w - RowX * 2f, row.sizeDelta.y);
+                if (labels[i] != null) labels[i].rectTransform.sizeDelta = new Vector2(w - RowX * 2f - TextX, labels[i].rectTransform.sizeDelta.y);
+            }
+        }
+
         void OnHighlight(int row, MenuEntry entry)
         {
+            Highlighted?.Invoke(row);
             lastSelected = entry.gameObject;
             if (cursor != null)
                 cursor.rectTransform.anchoredPosition = new Vector2(cursor.rectTransform.anchoredPosition.x, -(RowTop + RowStep * row + 1f));

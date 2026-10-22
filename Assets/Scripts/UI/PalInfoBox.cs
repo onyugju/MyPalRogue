@@ -33,6 +33,7 @@ namespace PalRogue
             levelText.text = $"Lv.{pal.Level}";
             if (hpText != null) hpText.text = $"{pal.CurrentHP}/{pal.MaxHP}";
             SetHp(pal.MaxHP > 0 ? (float)pal.CurrentHP / pal.MaxHP : 0f);
+            SetExp(pal.ExpRatio);
 
             if (pal.IsFainted) ShowFainted();
             else SetStatus(pal.Status);
@@ -97,6 +98,29 @@ namespace PalRogue
             if (expFill == null) return;
             int px = Mathf.RoundToInt(ExpBarWidth * Mathf.Clamp01(ratio));
             SetBar(expFill, px, ExpBarWidth, 0f, 1f);
+        }
+
+        /// <summary>EXP바를 from → to (0~1)로 채운다 (코루틴)</summary>
+        public System.Collections.IEnumerator AnimateExp(float from, float to)
+        {
+            if (expFill == null) yield break;
+            float duration = Mathf.Clamp(Mathf.Abs(to - from) * 1.0f, 0.2f, 0.9f);
+            for (float t = 0f; t < duration; t += Time.unscaledDeltaTime)
+            {
+                SetExp(Mathf.Lerp(from, to, t / duration));
+                yield return null;
+            }
+            SetExp(to);
+        }
+
+        /// <summary>레벨 글자만 바꾼다 (레벨업 연출 중간)</summary>
+        public void SetLevel(int level) => levelText.text = $"Lv.{level}";
+
+        /// <summary>HP 숫자와 바를 지금 값으로 (레벨업으로 최대 HP가 바뀌었을 때)</summary>
+        public void RefreshHp(Pal pal)
+        {
+            if (hpText != null) hpText.text = $"{pal.CurrentHP}/{pal.MaxHP}";
+            SetHp(pal.MaxHP > 0 ? (float)pal.CurrentHP / pal.MaxHP : 0f);
         }
 
         static void SetBar(RawImage bar, int px, float fullWidth, float uvY, float uvH)

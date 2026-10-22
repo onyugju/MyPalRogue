@@ -40,7 +40,16 @@ namespace PalRogue
     /// </summary>
     public abstract class BattleEffect
     {
-        public virtual string Name => GetType().Name;
+        public virtual string Name => PerkName ?? GetType().Name;
+
+        /// <summary>강화 효과 고르기 화면에 보이는 설명</summary>
+        public virtual string Description => PerkDescription ?? "";
+
+        /// <summary>강화 효과(퍽)로 붙은 효과면 그 퍽의 번호·이름·설명 (PerkCatalog가 채운다). 아니면 null</summary>
+        public string PerkId, PerkName, PerkDescription;
+
+        /// <summary>최대 HP 배율 (예: +10% → 1.1f). 팰에 붙이면 바로 최대 HP가 다시 계산된다</summary>
+        public virtual float MaxHpMultiplier => 1f;
 
         /// <summary>항상 적용되는 능력치 배율 (예: 공격 +10% → Attack일 때 1.1f)</summary>
         public virtual float StatMultiplier(StatType stat) => 1f;

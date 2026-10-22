@@ -85,7 +85,7 @@ namespace PalRogue.EditorTools
         // ═════════════════ 월드(배경 + 팰) ═════════════════
         static void SetupCamera()
         {
-            var cam = Camera.main != null ? Camera.main : UnityEngine.Object.FindFirstObjectByType<Camera>();
+            var cam = Camera.main != null ? Camera.main : UnityEngine.Object.FindAnyObjectByType<Camera>();
             if (cam == null) { Debug.LogWarning("[PalRogue] 카메라를 찾을 수 없습니다."); return; }
             cam.orthographic = true;
             cam.orthographicSize = (ScreenH / 2f) / PxPerUnit;      // 180px = 10유닛 → 5

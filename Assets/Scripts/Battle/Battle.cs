@@ -7,7 +7,7 @@ namespace PalRogue
 {
     public enum BattleState { Ongoing, WaitingPlayerSwitch, PlayerWon, PlayerLost, Caught }
 
-    public enum BattleEventType { Message, HpChanged, Fainted, SentOut, StatusChanged, SphereThrown, SphereShakes, SphereCaught, SphereBroke }
+    public enum BattleEventType { Message, HpChanged, Fainted, SentOut, StatusChanged, SphereThrown, SphereShakes, SphereCaught, SphereBroke, ExpBar, LevelUp }
 
     /// <summary>화면이 순서대로 재생하는 전투 진행 기록 한 줄</summary>
     public class BattleEvent
@@ -20,6 +20,9 @@ namespace PalRogue
         public StatusCondition Status; // StatusChanged (None이면 풀림)
         public SphereType Sphere;      // SphereThrown: 던진 스피어
         public int Count;              // SphereShakes: 흔들린 횟수 (0~3)
+        public float FromRatio, ToRatio;          // ExpBar: 지금 레벨 안에서 EXP바가 채워지는 구간 (0~1)
+        public int Level;                         // LevelUp: 새 레벨
+        public List<SkillData> NewSkills;         // LevelUp: 이 레벨에 배울 수 있는 스킬
     }
 
     /// <summary>한 턴에 고를 수 있는 행동: 스킬 사용 또는 교체</summary>
@@ -130,6 +133,7 @@ namespace PalRogue
                 return;
             }
 
+            participants.Add(Player);                                   // 처음 나온 팰도 경험치를 받는다
             foreach (var p0 in PlayerParty.Concat(EnemyParty))
             {
                 p0.HpChanged += OnHpChanged;
@@ -140,7 +144,7 @@ namespace PalRogue
                 p.ResetBattleState();
                 foreach (var e in p.EffectsSnapshot()) e.OnBattleStart(p, Ctx);
             }
-            Log($"야생의 {Enemy.Data.palName}(이)가 나타났다!");
+            Log($"야생의 {Josa.I(Enemy.Data.palName)} 나타났다!");
             Log($"가라, {Player.Data.palName}!");
         }
 
@@ -226,6 +230,7 @@ namespace PalRogue
             if (State != BattleState.WaitingPlayerSwitch) return false;
             if (partyIndex < 0 || partyIndex >= PlayerParty.Count || PlayerParty[partyIndex].IsFainted) return false;
             BringToFront(partyIndex);
+            participants.Add(playerList[0]);
             PlayerIndex = 0;
             State = BattleState.Ongoing;
             Emit(new BattleEvent { Type = BattleEventType.SentOut, Pal = Player, IsPlayerSide = true });
@@ -253,6 +258,7 @@ namespace PalRogue
                 Log($"{Player.Data.palName}, 돌아와!");
                 Player.ResetBattleState();
                 BringToFront(en.Action.Index);
+                participants.Add(playerList[0]);
                 PlayerIndex = 0;
                 Emit(new BattleEvent { Type = BattleEventType.SentOut, Pal = Player, IsPlayerSide = true });
                 Log($"가라, {Player.Data.palName}!");
@@ -290,7 +296,6 @@ namespace PalRogue
             if (!string.IsNullOrEmpty(info.EffectivenessText)) Log(info.EffectivenessText);
 
             int dealt = BattleCalc.ApplyDamage(info, Ctx);
-            Log($"  → {target.Data.palName}에게 {dealt} 데미지 (HP {target.CurrentHP}/{target.MaxHP})");
 
             if (target.IsFainted || dealt <= 0) return;
 
@@ -316,13 +321,13 @@ namespace PalRogue
                         Log($"{name}의 얼음이 녹았다!");
                         return true;
                     }
-                    Log($"{name}은(는) 얼어붙어서 움직일 수 없다!");
+                    Log($"{Josa.Eun(name)} 얼어붙어서 움직일 수 없다!");
                     return false;
 
                 case StatusCondition.Paralysis:
                     if (rng.NextDouble() < StatusRules.ParalysisSkipChance)
                     {
-                        Log($"{name}은(는) 몸이 저려서 움직일 수 없다!");
+                        Log($"{Josa.Eun(name)} 몸이 저려서 움직일 수 없다!");
                         return false;
                     }
                     return true;
@@ -338,7 +343,7 @@ namespace PalRogue
             if (status == StatusCondition.None || chance <= 0) return false;
             if (rng.Next(100) >= chance) return false;
             if (!target.TrySetStatus(status)) return false;               // 이미 다른 상태이거나 속성 면역
-            Log($"{target.Data.palName}은(는) {StatusRules.InflictText(status)}");
+            Log($"{Josa.Eun(target.Data.palName)} {StatusRules.InflictText(status)}");
             return true;
         }
 
@@ -356,7 +361,7 @@ namespace PalRogue
 
             string reason = p.Status == StatusCondition.Burn ? "화상" : "독";
             p.TakeDamage(Mathf.Max(1, p.MaxHP / divisor));
-            Log($"{p.Data.palName}은(는) {reason} 데미지를 입고 있다!");
+            Log($"{Josa.Eun(p.Data.palName)} {reason} 데미지를 입고 있다!");
         }
 
         // ───────── 기절 처리 ─────────
@@ -366,22 +371,55 @@ namespace PalRogue
             {
                 Enemy.ClearStatusOnFaint();
                 Emit(new BattleEvent { Type = BattleEventType.Fainted, Pal = Enemy, IsPlayerSide = false });
-                Log($"{Enemy.Data.palName}(은)는 쓰러졌다!");
+                Log($"{Josa.Eun(Enemy.Data.palName)} 쓰러졌다!");
                 PalFainted?.Invoke(Enemy);
+                AwardExp(Enemy);
                 int next = FirstAlive(EnemyParty);
                 if (next < 0) { State = BattleState.PlayerWon; Log("전투에서 승리했다!"); Detach(); return; }
                 EnemyIndex = next;
                 Emit(new BattleEvent { Type = BattleEventType.SentOut, Pal = Enemy, IsPlayerSide = false });
-                Log($"상대는 {Enemy.Data.palName}(을)를 내보냈다!");
+                Log($"상대는 {Josa.Eul(Enemy.Data.palName)} 내보냈다!");
             }
             if (Player.IsFainted)
             {
                 Player.ClearStatusOnFaint();
                 Emit(new BattleEvent { Type = BattleEventType.Fainted, Pal = Player, IsPlayerSide = true });
-                Log($"{Player.Data.palName}(은)는 쓰러졌다!");
+                Log($"{Josa.Eun(Player.Data.palName)} 쓰러졌다!");
                 PalFainted?.Invoke(Player);
                 if (FirstAlive(PlayerParty) < 0) { State = BattleState.PlayerLost; Log("눈앞이 깜깜해졌다..."); Detach(); return; }
                 State = BattleState.WaitingPlayerSwitch;
+            }
+        }
+
+        // ───────── 경험치 ─────────
+        /// <summary>이번 상대와 싸우는 동안 한 번이라도 나왔던 내 팰들 (상대가 쓰러지면 경험치를 나눠 받는다)</summary>
+        readonly HashSet<Pal> participants = new HashSet<Pal>();
+
+        /// <summary>
+        /// 상대를 쓰러뜨리면 싸움에 나왔던 팰들(쓰러진 팰 제외)이 경험치를 똑같이 나눠 받는다 (포켓몬 5세대 이전 방식).
+        /// 레벨이 오르면 화면이 새 스킬 배우기 / 강화 효과 고르기를 처리하도록 LevelUp 이벤트를 남긴다.
+        /// </summary>
+        void AwardExp(Pal defeated)
+        {
+            var receivers = playerList.Where(p => participants.Contains(p) && !p.IsFainted && !p.IsMaxLevel).ToList();
+            participants.Clear();
+            if (!Player.IsFainted) participants.Add(Player);            // 다음 상대를 위해 지금 팰부터 다시 센다
+            if (receivers.Count == 0) return;
+
+            int total = GameConfig.ExpYield(defeated.Data, defeated.Level);
+            int share = Mathf.Max(1, total / receivers.Count);
+            foreach (var pal in receivers)
+            {
+                Log($"{Josa.Eun(pal.Data.palName)} {share} 경험치를 얻었다!");
+                float from = pal.ExpRatio;
+                var ups = pal.GainExp(share);
+                foreach (var (level, skills) in ups)
+                {
+                    Emit(new BattleEvent { Type = BattleEventType.ExpBar, Pal = pal, IsPlayerSide = true, FromRatio = from, ToRatio = 1f });
+                    Emit(new BattleEvent { Type = BattleEventType.LevelUp, Pal = pal, IsPlayerSide = true, Level = level, NewSkills = skills });
+                    from = 0f;
+                }
+                Emit(new BattleEvent { Type = BattleEventType.ExpBar, Pal = pal, IsPlayerSide = true, FromRatio = from, ToRatio = pal.ExpRatio });
             }
         }
 
@@ -398,7 +436,7 @@ namespace PalRogue
         /// <summary>스피어를 던질 수 없는 이유. 던질 수 있으면 null (파티가 가득 차도 던질 수 있다, 포켓로그와 같음)</summary>
         public string CatchBlockReason()
         {
-            if (!Enemy.Data.canBeCaught) return $"{Enemy.Data.palName}은(는) 잡을 수 없는 팰이다!";
+            if (!Enemy.Data.canBeCaught) return $"{Josa.Eun(Enemy.Data.palName)} 잡을 수 없는 팰이다!";
             return null;
         }
 
@@ -437,7 +475,7 @@ namespace PalRogue
         {
             var target = Enemy;
             string name = target.Data.palName;
-            Log($"{PalSpheres.Name(sphere)}을(를) 던졌다!");
+            Log($"{Josa.Eul(PalSpheres.Name(sphere))} 던졌다!");
             Emit(new BattleEvent { Type = BattleEventType.SphereThrown, Pal = target, Sphere = sphere });
 
             float chance = CatchChance(target, sphere);
@@ -451,12 +489,12 @@ namespace PalRogue
             if (shakes >= CatchShakes)
             {
                 Emit(new BattleEvent { Type = BattleEventType.SphereCaught, Pal = target, Sphere = sphere });
-                Log($"신난다! {name}을(를) 잡았다!");
+                Log($"신난다! {Josa.Eul(name)} 잡았다!");
                 target.ResetBattleState();
                 if (playerList.Count < MaxPartySize)
                 {
                     playerList.Add(target);                  // 파티 맨 뒤에 들어온다
-                    Log($"{name}이(가) 파티에 들어왔다!");
+                    Log($"{Josa.I(name)} 파티에 들어왔다!");
                 }
                 else PendingCatch = target;                  // 가득 참: 화면에서 누구를 놓아줄지 묻는다
                 State = BattleState.Caught;
@@ -467,7 +505,7 @@ namespace PalRogue
             Emit(new BattleEvent { Type = BattleEventType.SphereBroke, Pal = target, Sphere = sphere });
             Log(shakes switch
             {
-                0 => $"앗! {name}이(가) 스피어에서 나와 버렸다!",
+                0 => $"앗! {Josa.I(name)} 스피어에서 나와 버렸다!",
                 1 => "아아! 잡았다고 생각했는데!",
                 _ => "아쉽다! 조금만 더 하면 잡을 수 있었는데!",
             });

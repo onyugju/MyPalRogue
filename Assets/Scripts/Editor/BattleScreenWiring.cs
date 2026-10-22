@@ -184,7 +184,7 @@ namespace PalRogue.EditorTools
             if (screen.enemyPal == null) screen.enemyPal = AssetDatabase.LoadAssetAtPath<PalData>($"{PalDir}/{DefaultEnemyPal}.asset");
             EditorUtility.SetDirty(screen);
 
-            if (Object.FindFirstObjectByType<EventSystem>() == null)
+            if (Object.FindAnyObjectByType<EventSystem>() == null)
                 Debug.LogWarning("[PalRogue] 씬에 EventSystem이 없습니다. 상단 메뉴 GameObject > UI > Event System 으로 만들어 주세요. (버튼 입력에 필요)");
 
             EditorSceneManager.MarkSceneDirty(UnityEngine.SceneManagement.SceneManager.GetActiveScene());

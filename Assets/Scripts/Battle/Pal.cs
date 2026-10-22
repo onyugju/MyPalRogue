@@ -68,7 +68,9 @@ namespace PalRogue
         public void RecalculateStats()
         {
             int oldMax = MaxHP;
-            MaxHP = CalcHP(Data.baseHP, Level);
+            float hpMult = 1f;
+            foreach (var e in Effects) hpMult *= e.MaxHpMultiplier;
+            MaxHP = Mathf.Max(1, Mathf.RoundToInt(CalcHP(Data.baseHP, Level) * hpMult));
             rawStats[StatType.Attack]    = CalcOther(Data.baseAttack, Level);
             rawStats[StatType.Defense]   = CalcOther(Data.baseDefense, Level);
             rawStats[StatType.Speed]     = CalcOther(Data.baseSpeed, Level);
@@ -189,6 +191,33 @@ namespace PalRogue
         /// 1레벨 올리고 능력치를 다시 계산한다. 이 레벨에 새로 배울 수 있는 스킬 목록을 반환.
         /// 강화 효과 선택 여부는 GameConfig.IsPerkLevel(Level)로 호출하는 쪽에서 판단한다.
         /// </summary>
+        // ───────── 경험치 ─────────
+        /// <summary>지금 레벨 안에서 모은 경험치 (레벨이 오르면 넘친 만큼만 남는다)</summary>
+        public int Exp { get; private set; }
+        public int ExpToNext => GameConfig.ExpToNext(Level);
+        /// <summary>EXP바 채움 비율 (0~1). 만렙이면 0</summary>
+        public float ExpRatio => ExpToNext > 0 ? Mathf.Clamp01((float)Exp / ExpToNext) : 0f;
+        public bool IsMaxLevel => Level >= GameConfig.MaxLevel;
+
+        /// <summary>
+        /// 경험치를 얻는다. 오른 레벨마다 (새 레벨, 그 레벨에 배울 수 있는 스킬들)을 돌려준다.
+        /// 스킬 장착이나 강화 효과 고르기는 부른 쪽(화면)에서 처리한다.
+        /// </summary>
+        public List<(int level, List<SkillData> newSkills)> GainExp(int amount)
+        {
+            var ups = new List<(int, List<SkillData>)>();
+            if (amount <= 0 || IsMaxLevel) return ups;
+            Exp += amount;
+            while (!IsMaxLevel && Exp >= ExpToNext)
+            {
+                Exp -= ExpToNext;
+                var skills = LevelUp();
+                ups.Add((Level, skills));
+            }
+            if (IsMaxLevel) Exp = 0;
+            return ups;
+        }
+
         public List<SkillData> LevelUp()
         {
             if (Level >= GameConfig.MaxLevel) return new List<SkillData>();
@@ -198,8 +227,17 @@ namespace PalRogue
         }
 
         // ───────── 효과 ─────────
-        public void AddEffect(BattleEffect effect) { if (effect != null) Effects.Add(effect); }
-        public void RemoveEffect(BattleEffect effect) => Effects.Remove(effect);
+        public void AddEffect(BattleEffect effect)
+        {
+            if (effect == null) return;
+            Effects.Add(effect);
+            RecalculateStats();                 // 최대 HP 같은 상시 효과를 바로 반영
+        }
+
+        public void RemoveEffect(BattleEffect effect)
+        {
+            if (Effects.Remove(effect)) RecalculateStats();
+        }
 
         /// <summary>훅 실행 중에 효과가 추가/제거돼도 안전하도록 복사본을 돌린다</summary>
         public BattleEffect[] EffectsSnapshot() => Effects.ToArray();

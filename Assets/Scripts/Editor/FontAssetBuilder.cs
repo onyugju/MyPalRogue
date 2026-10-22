@@ -62,7 +62,7 @@ namespace PalRogue.EditorTools
 
             // 현재 씬의 모든 TMP 텍스트(꺼져 있는 것 포함)에 새 폰트 적용
             int n = 0;
-            foreach (var t in Object.FindObjectsByType<TMP_Text>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+            foreach (var t in Object.FindObjectsByType<TMP_Text>(FindObjectsInactive.Include))
             {
                 t.font = fa;
                 EditorUtility.SetDirty(t);

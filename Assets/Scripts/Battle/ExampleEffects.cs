@@ -33,7 +33,7 @@ namespace PalRogue
             if (used) return false;
             used = true;
             self.Revive(Mathf.Max(1, self.MaxHP / 2));
-            ctx.Log($"{self.Data.palName}(은)는 기력을 되찾았다!");
+            ctx.Log($"{Josa.Eun(self.Data.palName)} 기력을 되찾았다!");
             return true;
         }
     }

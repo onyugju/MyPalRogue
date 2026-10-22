@@ -78,7 +78,8 @@ namespace PalRogue
 
         const float CharsPerSecond = 45f;
         const string SelectPrompt = "팰을 선택하세요.";   // 파티 화면 안내 문구
-        const float LineHoldSeconds = 0.55f;
+        const float LineHoldSeconds = 1.2f;    // 문장이 다 나온 뒤 자동으로 넘어가기까지 기다리는 시간
+        const float SkipGuardSeconds = 0.25f;  // 메시지가 뜬 직후 이 시간 동안은 눌러도 넘기지 않음
         static readonly Color Dim = new Color(0.55f, 0.55f, 0.55f);
         static readonly Color AttackColor = new Color(0.85f, 0.33f, 0.18f);
         static readonly Color StatusColor = new Color(0.4f, 0.5f, 0.75f);
@@ -197,7 +198,7 @@ namespace PalRogue
             skillInfoPanel.SetActive(false);
             commandBox.SetActive(true);
 
-            messageText.text = $"{PalName(battle.Player)}은(는)\n무엇을 할까?";
+            messageText.text = $"{Josa.Eun(PalName(battle.Player))}\n무엇을 할까?";
             messageText.maxVisibleCharacters = 9999;
             Select(fightButton);
         }
@@ -213,6 +214,110 @@ namespace PalRogue
 
         // ───────── 팰 스피어 ─────────
         int[] spheres = new int[PalSpheres.Count];   // 지금 가진 스피어 개수
+
+        // ───────── 레벨업: 새 기술 배우기 / 강화 효과 고르기 ─────────
+        readonly System.Random perkRng = new System.Random();
+        const float WidePromptWidth = 300f;          // 질문이 길 때 메시지 칸을 넓게 쓴다
+        const float SkillMenuWidth = 120f;
+
+        IEnumerator PlayLevelUp(Pal pal, int level, List<SkillData> newSkills)
+        {
+            bool active = pal == battle.Player;
+            if (active)
+            {
+                playerInfo.SetLevel(level);
+                playerInfo.RefreshHp(pal);
+                playerInfo.SetExp(0f);
+            }
+            yield return ShowMessage($"{Josa.Eun(PalName(pal))} {Josa.Ro("Lv." + level)} 올랐다!");
+
+            if (newSkills != null)
+                foreach (var skill in newSkills)
+                    yield return LearnSkill(pal, skill);
+
+            if (GameConfig.IsPerkLevel(level))
+                yield return ChoosePerk(pal, level);
+        }
+
+        IEnumerator LearnSkill(Pal pal, SkillData skill)
+        {
+            string name = PalName(pal);
+            if (pal.Skills.Any(s => s.Data == skill)) yield break;               // 이미 아는 기술
+            if (pal.Skills.Count < Pal.MaxSkills)
+            {
+                pal.TryLearnSkill(skill);
+                yield return ShowMessage($"{Josa.Eun(name)} {Josa.Eul(skill.skillName)} 배웠다!");
+                yield break;
+            }
+            if (choiceMenu == null) yield break;
+
+            float normal = WidenMessage();
+            while (true)
+            {
+                yield return ShowMessage($"{Josa.Eun(name)} {Josa.Eul(skill.skillName)} 배우고 싶다...\n하지만 기술은 {Pal.MaxSkills}개까지만 쓸 수 있다!");
+                yield return ShowMessage("어느 기술을 잊게 할까?");
+                var labels = pal.Skills.Select(s => s.Data.skillName).Concat(new[] { "배우지 않는다" }).ToArray();
+                yield return choiceMenu.Choose(labels, 0, SkillMenuWidth);
+                int pick = choiceMenu.Result;
+                if (pick >= 0 && pick < pal.Skills.Count)
+                {
+                    string forgotten = pal.Skills[pick].Data.skillName;
+                    pal.TryLearnSkill(skill, pick);
+                    yield return ShowMessage($"1, 2, … 짠!\n{Josa.Eun(name)} {Josa.Eul(forgotten)} 깨끗이 잊었다!");
+                    yield return ShowMessage($"그리고… {Josa.Eun(name)} {Josa.Eul(skill.skillName)} 배웠다!");
+                    break;
+                }
+                // "배우지 않는다"(또는 Esc)
+                yield return ShowMessage($"{Josa.Eun(name)} {Josa.Eul(skill.skillName)} 배우지 않았다!");
+                break;
+            }
+            RestoreMessage(normal);
+        }
+
+        IEnumerator ChoosePerk(Pal pal, int level)
+        {
+            var choices = PerkCatalog.RollChoices(pal, GameConfig.PerkChoices, perkRng);
+            if (choices.Count == 0 || choiceMenu == null) yield break;
+
+            string name = PalName(pal);
+            string prompt = $"{Josa.I(name)} Lv.{level}에 도달했다!\n강화 효과를 하나 골라 주세요.";
+            float normal = WidenMessage();
+            yield return ShowMessage(prompt);
+
+            // 커서를 옮기면 그 강화의 설명을 메시지창에 보여준다
+            void Describe(int i)
+            {
+                messageText.maxVisibleCharacters = 9999;
+                messageText.text = i >= 0 && i < choices.Count ? $"{choices[i].Name}\n{choices[i].Description}" : prompt;
+            }
+            choiceMenu.Highlighted += Describe;
+            Perk chosen = null;
+            while (chosen == null)                                                 // 반드시 하나 고른다 (Esc 무시)
+            {
+                yield return choiceMenu.Choose(choices.Select(c => c.Name).ToArray(), 0);
+                if (choiceMenu.Result >= 0 && choiceMenu.Result < choices.Count) chosen = choices[choiceMenu.Result];
+            }
+            choiceMenu.Highlighted -= Describe;
+
+            pal.AddEffect(chosen.Create());
+            if (pal == battle.Player) playerInfo.RefreshHp(pal);                   // 최대 HP 강화 반영
+            yield return ShowMessage($"{Josa.Eun(name)} [{chosen.Name}] 강화를 얻었다!");
+            RestoreMessage(normal);
+        }
+
+        float WidenMessage()
+        {
+            var rt = messageText.rectTransform;
+            float normal = rt.sizeDelta.x;
+            rt.sizeDelta = new Vector2(Mathf.Max(normal, WidePromptWidth), rt.sizeDelta.y);
+            return normal;
+        }
+
+        void RestoreMessage(float normalWidth)
+        {
+            var rt = messageText.rectTransform;
+            rt.sizeDelta = new Vector2(normalWidth, rt.sizeDelta.y);
+        }
         SphereThrowView sphereView;
 
         void OnSphere()
@@ -278,7 +383,7 @@ namespace PalRogue
 
             while (battle.PendingCatch != null)
             {
-                yield return ShowMessage($"지닌 팰이 가득 찼습니다. {name}을(를)\n대신해 다른 팰을 놓아주시겠습니까?");
+                yield return ShowMessage($"지닌 팰이 가득 찼습니다. {Josa.Eul(name)}\n대신해 다른 팰을 놓아주시겠습니까?");
 
                 int choice = ChoiceNo;
                 if (choiceMenu != null)
@@ -297,7 +402,7 @@ namespace PalRogue
                 if (choice == ChoiceNo)
                 {
                     battle.ReleaseCaught();
-                    yield return ShowMessage($"{name}을(를) 놓아주었다!");
+                    yield return ShowMessage($"{Josa.Eul(name)} 놓아주었다!");
                     break;
                 }
 
@@ -307,8 +412,8 @@ namespace PalRogue
                 if (partyScreen.Result < 0) continue;
 
                 var released = battle.ReplaceWithCaught(partyScreen.Result);
-                yield return ShowMessage($"{PalName(released)}을(를) 놓아주었다!");
-                yield return ShowMessage($"{name}이(가) 파티에 들어왔다!");
+                yield return ShowMessage($"{Josa.Eul(PalName(released))} 놓아주었다!");
+                yield return ShowMessage($"{Josa.I(name)} 파티에 들어왔다!");
             }
 
             msgRt.sizeDelta = new Vector2(normalWidth, msgRt.sizeDelta.y);
@@ -338,8 +443,8 @@ namespace PalRogue
         string SwitchError(int index)
         {
             var pal = battle.PlayerParty[index];
-            if (pal.IsFainted) return $"{PalName(pal)}은(는) 싸울 수 있는 기력이 없다!";
-            if (index == battle.PlayerIndex) return $"{PalName(pal)}은(는) 이미 싸우고 있다!";
+            if (pal.IsFainted) return $"{Josa.Eun(PalName(pal))} 싸울 수 있는 기력이 없다!";
+            if (index == battle.PlayerIndex) return $"{Josa.Eun(PalName(pal))} 이미 싸우고 있다!";
             return null;
         }
 
@@ -492,6 +597,12 @@ namespace PalRogue
                     case BattleEventType.SphereBroke:
                         yield return PlayBreakFree();
                         break;
+                    case BattleEventType.ExpBar:
+                        if (ev.Pal == battle.Player) yield return playerInfo.AnimateExp(ev.FromRatio, ev.ToRatio);
+                        break;
+                    case BattleEventType.LevelUp:
+                        yield return PlayLevelUp(ev.Pal, ev.Level, ev.NewSkills);
+                        break;
                     case BattleEventType.Fainted:
                         box.ShowFainted();
                         yield return view.PlayFaint();
@@ -512,15 +623,46 @@ namespace PalRogue
             messageText.ForceMeshUpdate();
             int total = messageText.textInfo.characterCount;
 
+            // 글자가 나오는 중에 누르면 문장을 한 번에 다 보여준다
+            float elapsed = 0f;
             float shown = 0f;
             while (shown < total)
             {
+                yield return null;
+                elapsed += Time.unscaledDeltaTime;
+                if (elapsed >= SkipGuardSeconds && AdvancePressed()) break;
                 shown += CharsPerSecond * Time.unscaledDeltaTime;
                 messageText.maxVisibleCharacters = Mathf.Min(total, Mathf.FloorToInt(shown));
-                yield return null;
             }
             messageText.maxVisibleCharacters = 9999;
-            yield return new WaitForSecondsRealtime(LineHoldSeconds);
+
+            // 다 나온 뒤에는 잠깐 기다렸다가 넘어간다 (누르면 바로 넘어감)
+            float hold = 0f;
+            while (hold < LineHoldSeconds)
+            {
+                yield return null;
+                hold += Time.unscaledDeltaTime;
+                elapsed += Time.unscaledDeltaTime;
+                if (elapsed >= SkipGuardSeconds * 2f && AdvancePressed()) break;
+            }
+        }
+
+        /// <summary>
+        /// 메시지를 넘기는 입력: 마우스 왼쪽 클릭, Z, 엔터, 스페이스 (포켓로그와 같은 키).
+        /// 메뉴를 고를 때 누른 클릭이 첫 메시지까지 넘겨 버리지 않도록, 메시지가 뜬 직후 잠깐은 무시한다.
+        /// </summary>
+        static bool AdvancePressed()
+        {
+#if ENABLE_INPUT_SYSTEM
+            var mouse = UnityEngine.InputSystem.Mouse.current;
+            var kb = UnityEngine.InputSystem.Keyboard.current;
+            if (mouse != null && mouse.leftButton.wasPressedThisFrame) return true;
+            if (kb != null && (kb.zKey.wasPressedThisFrame || kb.enterKey.wasPressedThisFrame || kb.spaceKey.wasPressedThisFrame)) return true;
+            return false;
+#else
+            return Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Z) ||
+                   Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space);
+#endif
         }
 
         // ───────── 메뉴 / 커서 도우미 ─────────

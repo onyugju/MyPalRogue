@@ -163,7 +163,7 @@ namespace PalRogue
             optionsBox.transform.SetAsLastSibling();
             optionsBox.SetActive(true);
             string name = party[slot].Data.palName;
-            string ask = $"{name}을(를) 어떻게 할까?";
+            string ask = $"{Josa.Eul(name)} 어떻게 할까?";
             Select(optionButtons[0]);
 
             while (true)
