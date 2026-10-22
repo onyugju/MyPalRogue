@@ -27,6 +27,7 @@ namespace PalRogue.EditorTools
             n += Apply($"{Core}/arenas", 18f, false);
             n += Apply("Assets/Resources/1.팰/2.Elements", 100f, true);
             n += Apply("Assets/Resources/statuses", 100f, true);                // 상태이상 뱃지
+            n += Apply("Assets/Resources/1.팰/3.Pal Spheres", 100f, true);       // 팰 스피어 (전투 필드에서 작게 보임)
             n += ApplyFile("Assets/Resources/Attack Icon.png", 100f, true);    // 스킬 종류: 공격
             n += ApplyFile("Assets/Resources/Status Icon.png", 100f, true);    // 스킬 종류: 변화
             Debug.Log($"[PalRogue] UI 이미지 {n}개의 임포트 설정을 바꿨습니다.");

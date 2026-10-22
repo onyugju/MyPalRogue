@@ -5,9 +5,9 @@ using UnityEngine;
 
 namespace PalRogue
 {
-    public enum BattleState { Ongoing, WaitingPlayerSwitch, PlayerWon, PlayerLost }
+    public enum BattleState { Ongoing, WaitingPlayerSwitch, PlayerWon, PlayerLost, Caught }
 
-    public enum BattleEventType { Message, HpChanged, Fainted, SentOut, StatusChanged }
+    public enum BattleEventType { Message, HpChanged, Fainted, SentOut, StatusChanged, SphereThrown, SphereShakes, SphereCaught, SphereBroke }
 
     /// <summary>화면이 순서대로 재생하는 전투 진행 기록 한 줄</summary>
     public class BattleEvent
@@ -18,12 +18,14 @@ namespace PalRogue
         public bool IsPlayerSide;     // 어느 쪽 팰인지
         public int From, To;          // HpChanged
         public StatusCondition Status; // StatusChanged (None이면 풀림)
+        public SphereType Sphere;      // SphereThrown: 던진 스피어
+        public int Count;              // SphereShakes: 흔들린 횟수 (0~3)
     }
 
     /// <summary>한 턴에 고를 수 있는 행동: 스킬 사용 또는 교체</summary>
     public readonly struct BattleAction
     {
-        public enum Kind { UseSkill, Switch }
+        public enum Kind { UseSkill, Switch, Sphere }
         public Kind Type { get; }
         public int Index { get; }
         BattleAction(Kind type, int index) { Type = type; Index = index; }
@@ -31,6 +33,7 @@ namespace PalRogue
         /// <summary>skillIndex = -1 이면 "발버둥" (모든 스킬의 PP가 0일 때만 선택 가능)</summary>
         public static BattleAction Skill(int skillIndex) => new(Kind.UseSkill, skillIndex);
         public static BattleAction SwitchTo(int partyIndex) => new(Kind.Switch, partyIndex);
+        public static BattleAction Throw(SphereType sphere) => new(Kind.Sphere, (int)sphere);
     }
 
     /// <summary>
@@ -145,6 +148,8 @@ namespace PalRogue
         public bool IsValidPlayerAction(BattleAction a)
         {
             if (State != BattleState.Ongoing) return false;
+            if (a.Type == BattleAction.Kind.Sphere)
+                return a.Index >= 0 && a.Index < PalSpheres.Count && CatchBlockReason() == null;
             if (a.Type == BattleAction.Kind.Switch)
                 return a.Index >= 0 && a.Index < PlayerParty.Count
                        && a.Index != PlayerIndex && !PlayerParty[a.Index].IsFainted;
@@ -166,7 +171,7 @@ namespace PalRogue
 
         Entry MakeEntry(bool isPlayer, Pal actor, BattleAction action)
         {
-            int priority = 100;                                            // 교체는 항상 가장 먼저
+            int priority = 100;                                            // 교체·스피어는 항상 가장 먼저
             if (action.Type == BattleAction.Kind.UseSkill)
                 priority = action.Index >= 0 ? actor.Skills[action.Index].Data.priority : 0;
             return new Entry
@@ -182,7 +187,6 @@ namespace PalRogue
             if (!IsValidPlayerAction(playerAction)) return false;
 
             Ctx.Turn++;
-            Log($"── 턴 {Ctx.Turn} ──");
             foreach (var p in new[] { Player, Enemy })
                 foreach (var e in p.EffectsSnapshot()) e.OnTurnStart(p, Ctx);
 
@@ -239,6 +243,11 @@ namespace PalRogue
 
         void Perform(Entry en)
         {
+            if (en.Action.Type == BattleAction.Kind.Sphere)
+            {
+                ThrowSphere((SphereType)en.Action.Index);
+                return;
+            }
             if (en.Action.Type == BattleAction.Kind.Switch)
             {
                 Log($"{Player.Data.palName}, 돌아와!");
@@ -374,6 +383,71 @@ namespace PalRogue
                 if (FirstAlive(PlayerParty) < 0) { State = BattleState.PlayerLost; Log("눈앞이 깜깜해졌다..."); Detach(); return; }
                 State = BattleState.WaitingPlayerSwitch;
             }
+        }
+
+        // ───────── 포획 ─────────
+        public const int MaxPartySize = 6;
+        const int CatchShakes = 3;   // 포켓로그처럼 3번 흔들리면 포획 성공
+
+        /// <summary>스피어를 던질 수 없는 이유. 던질 수 있으면 null</summary>
+        public string CatchBlockReason()
+        {
+            if (!Enemy.Data.canBeCaught) return $"{Enemy.Data.palName}은(는) 잡을 수 없는 팰이다!";
+            if (playerList.Count >= MaxPartySize) return "파티가 가득 차서 더 잡을 수 없다!";
+            return null;
+        }
+
+        /// <summary>
+        /// 포획 확률 (포켓몬 3세대 공식을 단순화):
+        ///  a = (3×최대HP − 2×현재HP) / (3×최대HP) × 포획률(1~255) × 스피어 배율 × 상태이상 배율
+        ///  잡힐 확률 = a / 255  (HP가 적을수록, 포획률이 높을수록 잘 잡힌다)
+        ///  흔들림 한 번을 버틸 확률 = (a / 255)^(1/3), 3번 모두 버티면 포획
+        /// </summary>
+        public static float CatchChance(Pal target, SphereType sphere)
+        {
+            if (PalSpheres.AlwaysCatches(sphere)) return 1f;
+            float max = Mathf.Max(1, target.MaxHP);
+            float hpFactor = (3f * max - 2f * target.CurrentHP) / (3f * max);
+            float statusMult = target.Status == StatusCondition.Freeze ? 2f
+                             : target.Status != StatusCondition.None ? 1.5f : 1f;
+            float a = hpFactor * target.Data.catchRate * PalSpheres.CatchMultiplier(sphere) * statusMult;
+            return Mathf.Clamp01(a / 255f);
+        }
+
+        void ThrowSphere(SphereType sphere)
+        {
+            var target = Enemy;
+            string name = target.Data.palName;
+            Log($"{PalSpheres.Name(sphere)}을(를) 던졌다!");
+            Emit(new BattleEvent { Type = BattleEventType.SphereThrown, Pal = target, Sphere = sphere });
+
+            float chance = CatchChance(target, sphere);
+            double perShake = Math.Pow(chance, 1.0 / CatchShakes);
+            int shakes = 0;
+            while (shakes < CatchShakes && rng.NextDouble() < perShake) shakes++;
+            if (chance >= 1f) shakes = CatchShakes;
+
+            Emit(new BattleEvent { Type = BattleEventType.SphereShakes, Pal = target, Count = shakes });
+
+            if (shakes >= CatchShakes)
+            {
+                Emit(new BattleEvent { Type = BattleEventType.SphereCaught, Pal = target, Sphere = sphere });
+                Log($"신난다! {name}을(를) 잡았다!");
+                target.ResetBattleState();
+                playerList.Add(target);                      // 파티 맨 뒤에 들어온다
+                Log($"{name}이(가) 파티에 들어왔다!");
+                State = BattleState.Caught;
+                Detach();
+                return;
+            }
+
+            Emit(new BattleEvent { Type = BattleEventType.SphereBroke, Pal = target, Sphere = sphere });
+            Log(shakes switch
+            {
+                0 => $"앗! {name}이(가) 스피어에서 나와 버렸다!",
+                1 => "아아! 잡았다고 생각했는데!",
+                _ => "아쉽다! 조금만 더 하면 잡을 수 있었는데!",
+            });
         }
 
         /// <summary>파티의 index번 팰을 0번(싸우는 자리)과 맞바꾼다. 파티 화면 왼쪽 큰 칸에 항상 지금 팰이 나오게 하기 위해서다</summary>

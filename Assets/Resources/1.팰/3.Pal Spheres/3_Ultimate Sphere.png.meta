@@ -1,15 +1,15 @@
 fileFormatVersion: 2
-guid: 9780c97ef15274e408008d42e7548ed4
+guid: ff38f38cd8b087a4090ad5bfc77a1131
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3303333943407329842
-    second: 3_Hyper Sphere_0
+      213: 1685769937283967255
+    second: 4_Ultimate Sphere_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 0
+    enableMipMap: 1
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 2
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -115,12 +115,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 3_Hyper Sphere_0
+      name: 4_Ultimate Sphere_0
       rect:
         serializedVersion: 2
         x: 0
         y: 91
-        width: 824
+        width: 825
         height: 933
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -130,8 +130,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 232c84f38bcc7dd20800000000000000
-      internalID: 3303333943407329842
+      spriteID: 719e7dc83de056710800000000000000
+      internalID: 1685769937283967255
       vertices: []
       indices: 
       edges: []
@@ -140,7 +140,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -150,7 +150,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      3_Hyper Sphere_0: 3303333943407329842
+      4_Ultimate Sphere_0: 1685769937283967255
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

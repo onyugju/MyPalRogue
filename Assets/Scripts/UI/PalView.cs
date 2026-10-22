@@ -75,6 +75,44 @@ namespace PalRogue
             pendingSprite = null;
         }
 
+        // ───────── 스피어 연출 ─────────
+        Vector3 savedPos, savedScale;
+
+        /// <summary>스피어 속으로 빨려 들어간다 (빨갛게 변하며 작아져서 point로 모임)</summary>
+        public IEnumerator AbsorbInto(Vector3 point, float duration = 0.35f)
+        {
+            if (sr == null) Awake();
+            savedPos = transform.position;
+            savedScale = transform.localScale;
+            for (float t = 0f; t < duration; t += Time.unscaledDeltaTime)
+            {
+                float k = t / duration;
+                transform.position = Vector3.Lerp(savedPos, point, k);
+                transform.localScale = Vector3.Lerp(savedScale, Vector3.zero, k);
+                sr.color = Color.Lerp(Color.white, new Color(1f, 0.35f, 0.35f), k);
+                yield return null;
+            }
+            sr.enabled = false;
+        }
+
+        /// <summary>스피어에서 다시 튀어나온다 (포획 실패)</summary>
+        public IEnumerator ReleaseFrom(Vector3 point, float duration = 0.3f)
+        {
+            if (sr == null) Awake();
+            sr.enabled = true;
+            for (float t = 0f; t < duration; t += Time.unscaledDeltaTime)
+            {
+                float k = t / duration;
+                transform.position = Vector3.Lerp(point, savedPos, k);
+                transform.localScale = Vector3.Lerp(Vector3.zero, savedScale, k);
+                sr.color = Color.Lerp(new Color(1f, 0.35f, 0.35f), Color.white, k);
+                yield return null;
+            }
+            transform.position = savedPos;
+            transform.localScale = savedScale;
+            sr.color = Color.white;
+        }
+
         /// <summary>쓰러지는 연출: 아래로 가라앉으며 투명해진다</summary>
         public IEnumerator PlayFaint()
         {

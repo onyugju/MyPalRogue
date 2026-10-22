@@ -65,6 +65,11 @@ namespace PalRogue
         [Header("파티 화면 (메뉴 14로 생성)")]
         public PartyScreen partyScreen;
 
+        [Header("팰 스피어 (메뉴 16으로 생성)")]
+        public SphereMenu sphereMenu;
+        [Tooltip("시작할 때 가진 스피어 개수: 팰 / 기가 / 하이퍼 / 얼티밋 / 엑조틱")]
+        public int[] startingSpheres = { 10, 5, 3, 2, 1 };
+
         [Header("끝난 뒤 다시 시작")]
         public Button restartButton;
 
@@ -108,7 +113,7 @@ namespace PalRogue
             messageText.textWrappingMode = TextWrappingModes.Normal;
 
             Bind(fightButton, OnFight);
-            Bind(sphereButton, () => StartCoroutine(Unavailable("팰 스피어는 아직 쓸 수 없어요!")));
+            Bind(sphereButton, OnSphere);
             Bind(palsButton, OnPals);
             Bind(runButton, () => StartCoroutine(Unavailable("도망칠 수 없어요!")));
             for (int i = 0; i < skillButtons.Length; i++)
@@ -162,6 +167,10 @@ namespace PalRogue
 
             playerView.Show(battle.Player.Data, true);
             enemyView.Show(battle.Enemy.Data, false);
+            if (sphereView != null) sphereView.Hide();
+            spheres = new int[PalSpheres.Count];
+            for (int i = 0; i < spheres.Length && startingSpheres != null && i < startingSpheres.Length; i++)
+                spheres[i] = Mathf.Max(0, startingSpheres[i]);
             playerInfo.Refresh(battle.Player);
             enemyInfo.Refresh(battle.Enemy);
 
@@ -197,6 +206,56 @@ namespace PalRogue
                                   .Select(m => new Pal(m.pal, m.level)).ToList();
             if (list.Count == 0) list.Add(new Pal(playerPal, playerLevel));
             return list;
+        }
+
+        // ───────── 팰 스피어 ─────────
+        int[] spheres = new int[PalSpheres.Count];   // 지금 가진 스피어 개수
+        SphereThrowView sphereView;
+
+        void OnSphere()
+        {
+            if (mode != Mode.Command) return;
+            if (sphereMenu == null) { StartCoroutine(Unavailable("스피어 메뉴가 아직 없어요! (메뉴 16 실행)")); return; }
+
+            string blocked = battle.CatchBlockReason();
+            if (blocked != null) { StartCoroutine(Unavailable(blocked)); return; }
+            if (spheres.All(n => n <= 0)) { StartCoroutine(Unavailable("가진 팰 스피어가 없다!")); return; }
+
+            StartCoroutine(SphereFromMenu());
+        }
+
+        IEnumerator SphereFromMenu()
+        {
+            mode = Mode.Busy;
+            HidePanels();
+            yield return sphereMenu.Choose(spheres);
+            if (sphereMenu.Result < 0) { ShowCommand(); yield break; }        // 취소
+
+            var type = (SphereType)sphereMenu.Result;
+            spheres[(int)type]--;                                                // 던지면 하나 줄어든다
+            yield return RunTurn(BattleAction.Throw(type));                      // 던지기는 한 턴을 쓴다
+        }
+
+        /// <summary>스피어가 상대에게 날아가 흡수하고 땅에 떨어지기까지</summary>
+        IEnumerator PlayThrow(SphereType type)
+        {
+            if (sphereView == null) sphereView = SphereThrowView.Create(enemyView.transform.parent);
+            Vector3 hit = enemyView.transform.position;                          // 상대 몸 가운데
+            yield return sphereView.Throw(type, hit);
+            yield return enemyView.AbsorbInto(hit);
+            yield return sphereView.Drop(new Vector3(hit.x, enemyView.feetWorldY + sphereView.Radius, 0f));
+        }
+
+        IEnumerator PlayShakes(int count)
+        {
+            for (int i = 0; i < count; i++) yield return sphereView.Shake();
+        }
+
+        IEnumerator PlayBreakFree()
+        {
+            Vector3 at = sphereView.transform.position;
+            sphereView.Hide();
+            yield return enemyView.ReleaseFrom(at);
         }
 
         void OnPals()
@@ -334,7 +393,7 @@ namespace PalRogue
                 yield return PlayEvents();
             }
 
-            if (battle.State == BattleState.PlayerWon || battle.State == BattleState.PlayerLost)
+            if (battle.State == BattleState.PlayerWon || battle.State == BattleState.PlayerLost || battle.State == BattleState.Caught)
             {
                 yield return ShowMessage("화면을 클릭하면 다시 시작해요.");
                 mode = Mode.Ended;
@@ -363,6 +422,18 @@ namespace PalRogue
                         break;
                     case BattleEventType.StatusChanged:
                         box.SetStatus(ev.Status);
+                        break;
+                    case BattleEventType.SphereThrown:
+                        yield return PlayThrow(ev.Sphere);
+                        break;
+                    case BattleEventType.SphereShakes:
+                        yield return PlayShakes(ev.Count);
+                        break;
+                    case BattleEventType.SphereCaught:
+                        sphereView.ShowCaught();
+                        break;
+                    case BattleEventType.SphereBroke:
+                        yield return PlayBreakFree();
                         break;
                     case BattleEventType.Fainted:
                         box.ShowFainted();
