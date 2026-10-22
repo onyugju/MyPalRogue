@@ -34,17 +34,16 @@ namespace PalRogue
             float scale = (back ? data.BackOrFrontScale : data.frontScale) * scaleTune;
             var controller = back ? data.BackOrFrontAnimator : data.frontAnimator;
 
-            sr.sprite = sprite;
-            sr.enabled = true;
-            sr.color = Color.white;
-            transform.localScale = Vector3.one * scale;
-
+            // ① 애니메이터를 먼저 정리한다.
+            //    애니메이터를 끄면 유니티가 애니메이터가 바꿔 놓은 그림을 "처음 값"(이전 팰)으로 되돌리기 때문에,
+            //    그림을 먼저 넣고 나중에 끄면 이전 팰 그림이 다시 나타난다.
             if (controller != null)
             {
                 if (animator == null) animator = gameObject.AddComponent<Animator>();
                 animator.enabled = true;
                 animator.runtimeAnimatorController = controller;
                 animator.Rebind();
+                animator.Update(0f);                  // 첫 프레임을 바로 적용
             }
             else if (animator != null)
             {
@@ -52,11 +51,28 @@ namespace PalRogue
                 animator.enabled = false;
             }
 
+            // ② 그 다음에 그림·크기를 넣는다 (애니메이션 팰이면 애니메이터가 이어서 그림을 바꾼다)
+            if (controller == null) sr.sprite = sprite;
+            pendingSprite = controller == null ? sprite : null;
+            sr.enabled = true;
+            sr.color = Color.white;
+            transform.localScale = Vector3.one * scale;
+
             // 스프라이트 중심이 기준이라, 발 끝 높이가 같도록 위치를 보정한다
             float height = sprite != null ? sprite.bounds.size.y * scale : 0f;
             var pos = transform.position;
             pos.y = feetWorldY + height / 2f;
             transform.position = pos;
+        }
+
+        Sprite pendingSprite;
+
+        // 같은 프레임 안에서 애니메이터가 그림을 되돌리는 경우까지 막기 위해, 정지 그림 팰은 한 번 더 확실히 넣는다
+        void LateUpdate()
+        {
+            if (pendingSprite == null) return;
+            if (sr.sprite != pendingSprite) sr.sprite = pendingSprite;
+            pendingSprite = null;
         }
 
         /// <summary>쓰러지는 연출: 아래로 가라앉으며 투명해진다</summary>

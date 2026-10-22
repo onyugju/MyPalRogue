@@ -23,7 +23,17 @@ namespace PalRogue
         public RawImage cancelFrame;       // party_cancel 시트 (위: 기본, 아래: 선택)
         public TMP_Text messageText;
 
+        [Header("칸을 골랐을 때 뜨는 메뉴 창")]
+        public GameObject optionsBox;
+        public Button[] optionButtons;     // OptionLabels와 같은 순서
+        public Image optionCursor;
+
+        /// <summary>메뉴 창 항목 (순서 = 번호). 메뉴 14가 이 글자로 창을 만든다</summary>
+        public static readonly string[] OptionLabels = { "교체한다", "능력치를 본다", "팰 도감", "닉네임 바꾸기", "그만둔다" };
+        public const int OptionSwitch = 0, OptionCancel = 4;
+
         const float ErrorHoldSeconds = 1.1f;
+        const string NotReadyText = "아직 준비 중인 기능이에요!";
 
         /// <summary>마지막으로 고른 파티 번호. 취소했으면 -1</summary>
         public int Result { get; private set; } = -1;
@@ -34,6 +44,8 @@ namespace PalRogue
         int clicked = -2;                  // -2: 아직 안 고름, -1: 취소, 0~5: 칸 번호
         bool canCancel;
         bool showingError;
+        bool inOptions;
+        int optionClicked = -2;            // -2: 아직 안 고름
         GameObject lastSelected;
         bool bound;
 
@@ -49,6 +61,17 @@ namespace PalRogue
                 if (entry != null)
                 {
                     entry.Selected += _ => OnHighlight(index);
+                    entry.Cancelled += OnCancel;
+                }
+            }
+            for (int i = 0; optionButtons != null && i < optionButtons.Length; i++)
+            {
+                int index = i;
+                optionButtons[i].onClick.AddListener(() => { if (inOptions && !showingError) optionClicked = index; });
+                var entry = optionButtons[i].GetComponent<MenuEntry>();
+                if (entry != null)
+                {
+                    entry.Selected += e => OnOptionHighlight(index, e);
                     entry.Cancelled += OnCancel;
                 }
             }
@@ -70,6 +93,8 @@ namespace PalRogue
             transform.SetAsLastSibling();          // 다른 전투 UI보다 항상 위에 그려지게
             gameObject.SetActive(true);
             cancelButton.gameObject.SetActive(canCancel);
+            if (optionsBox != null) optionsBox.SetActive(false);
+            inOptions = false;
             Result = -1;
 
             Select(slotButtons[0]);
@@ -81,15 +106,24 @@ namespace PalRogue
                 while (clicked == -2) yield return null;
 
                 if (clicked == -1) { Result = -1; break; }
+                int slot = clicked;
 
-                string error = validate?.Invoke(clicked);
-                if (string.IsNullOrEmpty(error)) { Result = clicked; break; }
+                // 칸을 고르면 바로 교체하지 않고 메뉴 창을 띄운다
+                if (optionsBox != null)
+                {
+                    yield return ChooseOption(slot);
+                    if (optionClicked != OptionSwitch) { Select(slotButtons[slot]); continue; }   // 그만둔다 → 다시 칸 고르기
+                }
+
+                string error = validate?.Invoke(slot);
+                if (string.IsNullOrEmpty(error)) { Result = slot; break; }
 
                 // 고를 수 없는 칸: 이유를 잠깐 보여주고 다시 고르게 한다
                 showingError = true;
                 messageText.text = error;
                 yield return new WaitForSecondsRealtime(ErrorHoldSeconds);
                 showingError = false;
+                Select(slotButtons[slot]);
             }
 
             gameObject.SetActive(false);
@@ -112,12 +146,59 @@ namespace PalRogue
 
         void OnCancel()
         {
-            if (showingError || !canCancel) return;
+            if (showingError) return;
+            if (inOptions) { optionClicked = OptionCancel; return; }   // 메뉴 창만 닫는다
+            if (!canCancel) return;
             clicked = -1;
+        }
+
+        /// <summary>메뉴 창을 띄우고 항목을 고를 때까지 기다린다. 결과는 optionClicked (교체한다/그만둔다)</summary>
+        IEnumerator ChooseOption(int slot)
+        {
+            inOptions = true;
+            SetSlotsInteractable(false);
+            optionsBox.transform.SetAsLastSibling();
+            optionsBox.SetActive(true);
+            string name = party[slot].Data.palName;
+            string ask = $"{name}을(를) 어떻게 할까?";
+            Select(optionButtons[0]);
+
+            while (true)
+            {
+                messageText.text = ask;
+                optionClicked = -2;
+                while (optionClicked == -2) yield return null;
+                if (optionClicked == OptionSwitch || optionClicked == OptionCancel) break;
+
+                // 아직 만들지 않은 기능
+                showingError = true;
+                messageText.text = NotReadyText;
+                yield return new WaitForSecondsRealtime(ErrorHoldSeconds);
+                showingError = false;
+            }
+
+            optionsBox.SetActive(false);
+            SetSlotsInteractable(true);
+            inOptions = false;
+        }
+
+        void SetSlotsInteractable(bool on)
+        {
+            foreach (var b in slotButtons) b.interactable = on;
+            cancelButton.interactable = on;
+        }
+
+        void OnOptionHighlight(int index, MenuEntry entry)
+        {
+            lastSelected = entry.gameObject;
+            if (optionCursor == null) return;
+            var label = (RectTransform)entry.transform;
+            optionCursor.rectTransform.anchoredPosition = label.anchoredPosition + new Vector2(-10f, -1f);
         }
 
         void OnHighlight(int index)
         {
+            if (inOptions) return;
             selected = index;
             lastSelected = index >= 0 ? slotButtons[index].gameObject : cancelButton.gameObject;
             Refresh();

@@ -17,6 +17,8 @@ namespace PalRogue
 
         public void OnPointerEnter(PointerEventData eventData)
         {
+            var selectable = GetComponent<UnityEngine.UI.Selectable>();
+            if (selectable != null && !selectable.IsInteractable()) return;   // 잠긴 메뉴는 무시
             if (EventSystem.current != null) EventSystem.current.SetSelectedGameObject(gameObject);
         }
 

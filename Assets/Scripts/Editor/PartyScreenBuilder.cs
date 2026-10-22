@@ -39,7 +39,7 @@ namespace PalRogue.EditorTools
         static readonly SlotLayout SmallLayout = new SlotLayout
         {
             iconPos = new Vector2(4, 2), iconSize = new Vector2(20, 20),
-            namePos = new Vector2(27, 1), nameWidth = 44, levelPos = new Vector2(27, 13),
+            namePos = new Vector2(27, 1), nameWidth = 44, levelPos = new Vector2(27, 12),
             hpBarPos = new Vector2(72, 4), hpTextRight = 169, hpTextY = 12, statusPos = new Vector2(48, 14),
         };
         static readonly Vector2 HpFillOffset = new Vector2(16, 2);   // party_slot_hp_bar 안에서 HP가 채워지는 자리
@@ -49,12 +49,17 @@ namespace PalRogue.EditorTools
         static readonly Vector2 MessagePos = new Vector2(1, 149), MessageSize = new Vector2(262, 30);
         static readonly Vector2 CancelPos = new Vector2(265, 155), CancelSize = new Vector2(52, 16);
 
-        const float NameFont = 11f, SmallFont = 8f, MessageFont = 11f, CancelFont = 10f;
+        // ───── 칸을 골랐을 때 뜨는 메뉴 창 (포켓로그처럼 오른쪽 아래) ─────
+        static readonly Vector2 OptionsPos = new Vector2(217, 79), OptionsSize = new Vector2(102, 100);
+        const float OptionTextX = 20, OptionTop = 9, OptionStep = 16;   // 글자 왼쪽, 첫 줄 위쪽, 줄 간격
 
-        // 파티가 비어 있을 때 넣어 줄 테스트 파티
-        static readonly (string asset, int level)[] DefaultParty =
+        const float NameFont = 11f, SmallFont = 8f, MessageFont = 11f, CancelFont = 10f, OptionFont = 11f;
+
+        // 테스트용 스타팅 파티: 큐룰리스, 파이호, 찌릿도치, 솔바둑, 청부리 (모두 같은 레벨)
+        const int StarterLevel = 10;
+        static readonly string[] StarterParty =
         {
-            ("004_Lifmunk", 10), ("001_Lamball", 8), ("002_Cattiva", 9), ("005_Fuack", 7),
+            "004_Lifmunk", "029_Foxparks", "015_Jolthog", "013_Pupperai", "005_Fuack",
         };
 
         static TMP_FontAsset font;
@@ -125,10 +130,51 @@ namespace PalRogue.EditorTools
             cancelBtn.targetGraphic = cancelFrame;
             cancelBtn.transition = Selectable.Transition.None;
             cancel.gameObject.AddComponent<MenuEntry>();
-            Label(cancel, "Label", new Vector2(18, 2), new Vector2(32, 12), CancelFont, TextAlignmentOptions.MidlineLeft).text = "취소";
+            var cancelLabel = Label(cancel, "Label", new Vector2(18, 2), new Vector2(33, 12), CancelFont, TextAlignmentOptions.MidlineLeft);
+            cancelLabel.text = "그만둔다";
+            cancelLabel.enableAutoSizing = true;              // 버튼 폭(33px)에 맞게 글자 크기를 줄인다
+            cancelLabel.fontSizeMin = 6f;
+            cancelLabel.fontSizeMax = CancelFont;
+
+            // ── 메뉴 창 (교체한다 / 능력치를 본다 / 팰 도감 / 닉네임 바꾸기 / 그만둔다) ──
+            var options = TopLeft(panel, "OptionsBox", OptionsPos, OptionsSize);
+            var optWin = options.gameObject.AddComponent<Image>();
+            optWin.sprite = AssetDatabase.LoadAssetAtPath<Sprite>($"{UiDir}/windows/window_1.png");
+            optWin.type = Image.Type.Sliced;
+            optWin.raycastTarget = true;                      // 창 뒤의 칸이 눌리지 않게
+            var labels = PartyScreen.OptionLabels;
+            var optionButtons = new Button[labels.Length];
+            for (int i = 0; i < labels.Length; i++)
+            {
+                var label = Label(options, $"Option{i + 1}", new Vector2(OptionTextX, OptionTop + OptionStep * i),
+                                  new Vector2(OptionsSize.x - OptionTextX - 4, 14), OptionFont, TextAlignmentOptions.MidlineLeft);
+                label.text = labels[i];
+                label.raycastTarget = true;                   // 글자를 눌러도 선택되게
+                var btn = label.gameObject.AddComponent<Button>();
+                btn.targetGraphic = label;
+                btn.transition = Selectable.Transition.None;  // 선택 표시는 ▶ 커서가 대신한다
+                label.gameObject.AddComponent<MenuEntry>();
+                optionButtons[i] = btn;
+            }
+            // 방향키 위/아래로 메뉴 안에서만 돌게
+            for (int i = 0; i < optionButtons.Length; i++)
+            {
+                var nav = new Navigation { mode = Navigation.Mode.Explicit };
+                nav.selectOnUp = optionButtons[(i + optionButtons.Length - 1) % optionButtons.Length];
+                nav.selectOnDown = optionButtons[(i + 1) % optionButtons.Length];
+                optionButtons[i].navigation = nav;
+            }
+            var cursorRt = TopLeft(options, "Cursor", new Vector2(OptionTextX - 10, OptionTop + 1), new Vector2(6, 10));
+            var optCursor = cursorRt.gameObject.AddComponent<Image>();
+            optCursor.sprite = AssetDatabase.LoadAssetAtPath<Sprite>($"{UiDir}/cursor.png");
+            optCursor.raycastTarget = false;
+            options.gameObject.SetActive(false);
 
             // ── PartyScreen 연결 ──
             var party = panelGo.AddComponent<PartyScreen>();
+            party.optionsBox = options.gameObject;
+            party.optionButtons = optionButtons;
+            party.optionCursor = optCursor;
             party.slots = slots;
             party.slotButtons = buttons;
             party.cancelButton = cancelBtn;
@@ -139,7 +185,7 @@ namespace PalRogue.EditorTools
 
             screen.partyScreen = party;
             if (screen.playerParty == null || !screen.playerParty.Any(m => m != null && m.pal != null))
-                screen.playerParty = BuildDefaultParty(screen);
+                screen.playerParty = BuildStarterParty();
             EditorUtility.SetDirty(screen);
 
             EditorSceneManager.MarkSceneDirty(UnityEngine.SceneManagement.SceneManager.GetActiveScene());
@@ -185,18 +231,33 @@ namespace PalRogue.EditorTools
             return (view, button);
         }
 
-        static List<PartyMember> BuildDefaultParty(BattleScreen screen)
+        static List<PartyMember> BuildStarterParty()
         {
             var list = new List<PartyMember>();
-            foreach (var (asset, level) in DefaultParty)
+            foreach (var asset in StarterParty)
             {
                 var pal = AssetDatabase.LoadAssetAtPath<PalData>($"{PalDir}/{asset}.asset");
-                if (pal != null) list.Add(new PartyMember { pal = pal, level = level });
+                if (pal != null) list.Add(new PartyMember { pal = pal, level = StarterLevel });
+                else Debug.LogWarning($"[PalRogue] 팰 에셋을 찾을 수 없음: {PalDir}/{asset}.asset");
             }
-            // 지금 쓰던 내 팰이 목록에 없으면 맨 앞에 넣는다
-            if (screen.playerPal != null && list.All(m => m.pal != screen.playerPal))
-                list.Insert(0, new PartyMember { pal = screen.playerPal, level = screen.playerLevel });
             return list.Take(6).ToList();
+        }
+
+        // ───────── 15. 테스트 파티를 스타팅 팰로 ─────────
+        [MenuItem("PalRogue/15. 테스트 파티를 스타팅 팰로 설정", false, 1015)]
+        static void SetStarterParty()
+        {
+            var canvasGo = GameObject.Find("BattleCanvas");
+            var screen = canvasGo != null ? canvasGo.GetComponent<BattleScreen>() : null;
+            if (screen == null)
+            {
+                EditorUtility.DisplayDialog("먼저 실행하세요", "씬에 BattleCanvas(BattleScreen)가 없어요. 메뉴 9, 10을 먼저 실행해 주세요.", "확인");
+                return;
+            }
+            screen.playerParty = BuildStarterParty();
+            EditorUtility.SetDirty(screen);
+            EditorSceneManager.MarkSceneDirty(UnityEngine.SceneManagement.SceneManager.GetActiveScene());
+            Debug.Log("[PalRogue] 테스트 파티: " + string.Join(", ", screen.playerParty.Select(m => $"{m.pal.palName} Lv{m.level}")));
         }
 
         // ═════════════════ 도우미 ═════════════════

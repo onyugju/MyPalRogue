@@ -69,6 +69,7 @@ namespace PalRogue
         public Button restartButton;
 
         const float CharsPerSecond = 45f;
+        const string SelectPrompt = "팰을 선택하세요.";   // 파티 화면 안내 문구
         const float LineHoldSeconds = 0.55f;
         static readonly Color Dim = new Color(0.55f, 0.55f, 0.55f);
         static readonly Color AttackColor = new Color(0.85f, 0.33f, 0.18f);
@@ -213,7 +214,7 @@ namespace PalRogue
         {
             mode = Mode.Busy;
             HidePanels();
-            yield return partyScreen.Choose(battle.PlayerParty, true, "어느 팰로 교체할까?", SwitchError);
+            yield return partyScreen.Choose(battle.PlayerParty, true, SelectPrompt, SwitchError);
             if (partyScreen.Result < 0) { ShowCommand(); yield break; }       // 취소
             yield return RunTurn(BattleAction.SwitchTo(partyScreen.Result));  // 교체는 한 턴을 쓴다
         }
@@ -325,7 +326,7 @@ namespace PalRogue
                 int next;
                 if (partyScreen != null)
                 {
-                    yield return partyScreen.Choose(battle.PlayerParty, false, "다음에 내보낼 팰을 골라 주세요!", SwitchError);
+                    yield return partyScreen.Choose(battle.PlayerParty, false, SelectPrompt, SwitchError);
                     next = partyScreen.Result;
                 }
                 else next = battle.PlayerParty.ToList().FindIndex(p => !p.IsFainted);   // 파티 화면이 없으면 자동

@@ -41,7 +41,9 @@ namespace PalRogue
     /// </summary>
     public class Battle
     {
-        public IReadOnlyList<Pal> PlayerParty { get; }
+        /// <summary>내 파티. 지금 싸우는 팰이 항상 0번이다 (교체하면 순서가 바뀐다, 포켓로그와 같음)</summary>
+        public IReadOnlyList<Pal> PlayerParty => playerList;
+        readonly List<Pal> playerList;
         public IReadOnlyList<Pal> EnemyParty { get; }
         public int PlayerIndex { get; private set; }
         public int EnemyIndex { get; private set; }
@@ -104,7 +106,7 @@ namespace PalRogue
 
         public Battle(IList<Pal> player, IList<Pal> enemy, System.Random rng = null, Action<string> log = null)
         {
-            PlayerParty = new List<Pal>(player);
+            playerList = new List<Pal>(player);
             EnemyParty = new List<Pal>(enemy);
             this.rng = rng ?? new System.Random();
             // 로그는 바깥으로 내보내면서 동시에 화면용 메시지 이벤트로도 쌓는다 (효과 쪽에서 ctx.Log를 써도 포함됨)
@@ -115,6 +117,7 @@ namespace PalRogue
             };
 
             PlayerIndex = FirstAlive(PlayerParty);
+            if (PlayerIndex > 0) { BringToFront(PlayerIndex); PlayerIndex = 0; }   // 기절하지 않은 첫 팰을 0번으로
             EnemyIndex = FirstAlive(EnemyParty);
             if (PlayerIndex < 0 || EnemyIndex < 0)
             {
@@ -218,7 +221,8 @@ namespace PalRogue
         {
             if (State != BattleState.WaitingPlayerSwitch) return false;
             if (partyIndex < 0 || partyIndex >= PlayerParty.Count || PlayerParty[partyIndex].IsFainted) return false;
-            PlayerIndex = partyIndex;
+            BringToFront(partyIndex);
+            PlayerIndex = 0;
             State = BattleState.Ongoing;
             Emit(new BattleEvent { Type = BattleEventType.SentOut, Pal = Player, IsPlayerSide = true });
             Log($"가라, {Player.Data.palName}!");
@@ -239,7 +243,8 @@ namespace PalRogue
             {
                 Log($"{Player.Data.palName}, 돌아와!");
                 Player.ResetBattleState();
-                PlayerIndex = en.Action.Index;
+                BringToFront(en.Action.Index);
+                PlayerIndex = 0;
                 Emit(new BattleEvent { Type = BattleEventType.SentOut, Pal = Player, IsPlayerSide = true });
                 Log($"가라, {Player.Data.palName}!");
                 return;
@@ -369,6 +374,13 @@ namespace PalRogue
                 if (FirstAlive(PlayerParty) < 0) { State = BattleState.PlayerLost; Log("눈앞이 깜깜해졌다..."); Detach(); return; }
                 State = BattleState.WaitingPlayerSwitch;
             }
+        }
+
+        /// <summary>파티의 index번 팰을 0번(싸우는 자리)과 맞바꾼다. 파티 화면 왼쪽 큰 칸에 항상 지금 팰이 나오게 하기 위해서다</summary>
+        void BringToFront(int index)
+        {
+            if (index <= 0 || index >= playerList.Count) return;
+            (playerList[0], playerList[index]) = (playerList[index], playerList[0]);
         }
 
         static int FirstAlive(IReadOnlyList<Pal> party)
