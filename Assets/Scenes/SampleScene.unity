@@ -3753,6 +3753,8 @@ MonoBehaviour:
     level: 10
   - pal: {fileID: 11400000, guid: 6ddaa798a32254c44bd5836778f16194, type: 2}
     level: 10
+  - pal: {fileID: 11400000, guid: 45664b6ffa5035e4b88fac7c5b1c92ff, type: 2}
+    level: 10
   playerPal: {fileID: 11400000, guid: c6ba11ff0f0be9a489d67d1b19b0ee9a, type: 2}
   enemyPal: {fileID: 11400000, guid: 38f4248988346a644804251f3c8245b9, type: 2}
   playerLevel: 10

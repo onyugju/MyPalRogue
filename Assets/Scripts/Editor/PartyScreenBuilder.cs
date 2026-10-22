@@ -56,10 +56,12 @@ namespace PalRogue.EditorTools
         const float NameFont = 11f, SmallFont = 8f, MessageFont = 11f, CancelFont = 10f, OptionFont = 11f;
 
         // 테스트용 스타팅 파티: 큐룰리스, 파이호, 찌릿도치, 솔바둑, 청부리 (모두 같은 레벨)
+        // + 파티가 가득 찼을 때 포획을 시험하려고 도로롱을 6번째로 넣어 둠 (시험이 끝나면 이 줄만 지우면 된다)
         const int StarterLevel = 10;
         static readonly string[] StarterParty =
         {
             "004_Lifmunk", "029_Foxparks", "015_Jolthog", "013_Pupperai", "005_Fuack",
+            "001_Lamball",
         };
 
         static TMP_FontAsset font;
