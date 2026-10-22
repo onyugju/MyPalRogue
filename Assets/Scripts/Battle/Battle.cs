@@ -389,13 +389,32 @@ namespace PalRogue
         public const int MaxPartySize = 6;
         const int CatchShakes = 3;   // 포켓로그처럼 3번 흔들리면 포획 성공
 
-        /// <summary>스피어를 던질 수 없는 이유. 던질 수 있으면 null</summary>
+        /// <summary>
+        /// 잡았지만 파티(6마리)가 가득 차서 아직 들어오지 못한 팰. 없으면 null.
+        /// 화면에서 "다른 팰을 놓아주시겠습니까?"를 물은 뒤 ReplaceWithCaught 또는 ReleaseCaught를 부른다.
+        /// </summary>
+        public Pal PendingCatch { get; private set; }
+
+        /// <summary>스피어를 던질 수 없는 이유. 던질 수 있으면 null (파티가 가득 차도 던질 수 있다, 포켓로그와 같음)</summary>
         public string CatchBlockReason()
         {
             if (!Enemy.Data.canBeCaught) return $"{Enemy.Data.palName}은(는) 잡을 수 없는 팰이다!";
-            if (playerList.Count >= MaxPartySize) return "파티가 가득 차서 더 잡을 수 없다!";
             return null;
         }
+
+        /// <summary>파티의 index번 팰을 놓아주고, 잡은 팰을 파티 맨 뒤에 넣는다. 놓아준 팰을 돌려준다</summary>
+        public Pal ReplaceWithCaught(int index)
+        {
+            if (PendingCatch == null || index < 0 || index >= playerList.Count) return null;
+            var released = playerList[index];
+            playerList.RemoveAt(index);
+            playerList.Add(PendingCatch);
+            PendingCatch = null;
+            return released;
+        }
+
+        /// <summary>잡은 팰을 파티에 넣지 않고 놓아준다</summary>
+        public void ReleaseCaught() => PendingCatch = null;
 
         /// <summary>
         /// 포획 확률 (포켓몬 3세대 공식을 단순화):
@@ -434,8 +453,12 @@ namespace PalRogue
                 Emit(new BattleEvent { Type = BattleEventType.SphereCaught, Pal = target, Sphere = sphere });
                 Log($"신난다! {name}을(를) 잡았다!");
                 target.ResetBattleState();
-                playerList.Add(target);                      // 파티 맨 뒤에 들어온다
-                Log($"{name}이(가) 파티에 들어왔다!");
+                if (playerList.Count < MaxPartySize)
+                {
+                    playerList.Add(target);                  // 파티 맨 뒤에 들어온다
+                    Log($"{name}이(가) 파티에 들어왔다!");
+                }
+                else PendingCatch = target;                  // 가득 참: 화면에서 누구를 놓아줄지 묻는다
                 State = BattleState.Caught;
                 Detach();
                 return;

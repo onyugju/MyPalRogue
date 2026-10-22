@@ -85,9 +85,12 @@ namespace PalRogue
         }
 
         /// <summary>파티 화면을 열고 한 칸을 고를 때까지 기다린다. 결과는 Result.</summary>
-        public IEnumerator Choose(IReadOnlyList<Pal> party, bool canCancel, string prompt, Func<int, string> validate)
+        /// <param name="actionLabel">메뉴 창 첫 항목 글자. 비우면 "교체한다" (놓아줄 때는 "놓아준다")</param>
+        public IEnumerator Choose(IReadOnlyList<Pal> party, bool canCancel, string prompt, Func<int, string> validate,
+                                  string actionLabel = null)
         {
             Bind();
+            SetActionLabel(string.IsNullOrEmpty(actionLabel) ? OptionLabels[OptionSwitch] : actionLabel);
             this.party = party;
             this.canCancel = canCancel;
             transform.SetAsLastSibling();          // 다른 전투 UI보다 항상 위에 그려지게
@@ -180,6 +183,13 @@ namespace PalRogue
             optionsBox.SetActive(false);
             SetSlotsInteractable(true);
             inOptions = false;
+        }
+
+        void SetActionLabel(string text)
+        {
+            if (optionButtons == null || optionButtons.Length == 0) return;
+            var label = optionButtons[OptionSwitch].GetComponentInChildren<TMP_Text>(true);
+            if (label != null) label.text = text;
         }
 
         void SetSlotsInteractable(bool on)

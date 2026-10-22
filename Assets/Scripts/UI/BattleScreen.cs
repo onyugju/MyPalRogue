@@ -65,6 +65,9 @@ namespace PalRogue
         [Header("파티 화면 (메뉴 14로 생성)")]
         public PartyScreen partyScreen;
 
+        [Header("예/아니오 선택 창 (메뉴 17로 생성)")]
+        public ChoiceMenu choiceMenu;
+
         [Header("팰 스피어 (메뉴 16으로 생성)")]
         public SphereMenu sphereMenu;
         [Tooltip("시작할 때 가진 스피어 개수: 팰 / 기가 / 하이퍼 / 얼티밋 / 엑조틱")]
@@ -258,6 +261,59 @@ namespace PalRogue
             yield return enemyView.ReleaseFrom(at);
         }
 
+        // ───────── 파티가 가득 찼을 때 잡은 팰 처리 (포켓로그와 같은 흐름) ─────────
+        static readonly string[] FullPartyChoices = { "능력치를 본다", "팰 도감", "예", "아니오" };
+        const int ChoiceStats = 0, ChoiceDex = 1, ChoiceYes = 2, ChoiceNo = 3;
+        const float WideMessageWidth = 300f;     // 질문이 길어서 이때만 메시지 칸을 넓게 쓴다
+
+        IEnumerator ResolveFullParty()
+        {
+            var caught = battle.PendingCatch;
+            string name = PalName(caught);
+            HidePanels();
+
+            var msgRt = messageText.rectTransform;
+            float normalWidth = msgRt.sizeDelta.x;
+            msgRt.sizeDelta = new Vector2(WideMessageWidth, msgRt.sizeDelta.y);
+
+            while (battle.PendingCatch != null)
+            {
+                yield return ShowMessage($"지닌 팰이 가득 찼습니다. {name}을(를)\n대신해 다른 팰을 놓아주시겠습니까?");
+
+                int choice = ChoiceNo;
+                if (choiceMenu != null)
+                {
+                    yield return choiceMenu.Choose(FullPartyChoices, ChoiceYes);
+                    choice = choiceMenu.Result < 0 ? ChoiceNo : choiceMenu.Result;   // Esc = 아니오
+                }
+                else Debug.LogWarning("[BattleScreen] 선택 창이 없어서 잡은 팰을 놓아줍니다. (메뉴 17 실행)");
+
+                if (choice == ChoiceStats || choice == ChoiceDex)
+                {
+                    yield return ShowMessage("아직 준비 중인 기능이에요!");
+                    continue;
+                }
+
+                if (choice == ChoiceNo)
+                {
+                    battle.ReleaseCaught();
+                    yield return ShowMessage($"{name}을(를) 놓아주었다!");
+                    break;
+                }
+
+                // 예: 파티 화면에서 놓아줄 팰 고르기 ("그만둔다"를 누르면 다시 질문으로)
+                if (partyScreen == null) { battle.ReleaseCaught(); break; }
+                yield return partyScreen.Choose(battle.PlayerParty, true, "놓아줄 팰을 선택하세요.", null, "놓아준다");
+                if (partyScreen.Result < 0) continue;
+
+                var released = battle.ReplaceWithCaught(partyScreen.Result);
+                yield return ShowMessage($"{PalName(released)}을(를) 놓아주었다!");
+                yield return ShowMessage($"{name}이(가) 파티에 들어왔다!");
+            }
+
+            msgRt.sizeDelta = new Vector2(normalWidth, msgRt.sizeDelta.y);
+        }
+
         void OnPals()
         {
             if (mode != Mode.Command) return;
@@ -395,6 +451,7 @@ namespace PalRogue
 
             if (battle.State == BattleState.PlayerWon || battle.State == BattleState.PlayerLost || battle.State == BattleState.Caught)
             {
+                if (battle.PendingCatch != null) yield return ResolveFullParty();
                 yield return ShowMessage("화면을 클릭하면 다시 시작해요.");
                 mode = Mode.Ended;
                 restartButton.gameObject.SetActive(true);
