@@ -199,6 +199,7 @@ namespace PalRogue
             battle = new Battle(run.Party, new List<Pal> { enemy }, run.Rng, null, firstWave, run.EnemyKind);
             run.SyncParty(battle.PlayerParty);         // 쓰러진 팰 대신 다른 팰이 앞으로 나왔을 수 있다
             battle.ExpMultiplier = run.ExpMultiplier;  // 경험부적
+            battle.ExpShareRatio = run.ExpShareRatio;  // 학습장치
 
             // 내 팰을 새로 내보내면 (첫 웨이브 등) 스피어를 던지는 연출 전까지 숨겨 둔다
             if (battle.PlayerSentOutAtStart)
@@ -356,8 +357,30 @@ namespace PalRogue
                 yield break;
             }
 
-            // 이기거나 잡으면 보상 아이템 하나를 고른다 (도망치면 없음)
-            if (!fled) yield return RewardPhase();
+            if (!fled)
+            {
+                // 고정 보상 (8웨이브: 학습장치, 25웨이브: 경험부적)
+                foreach (var (wave, itemId) in GameConfig.GuaranteedRewards)
+                {
+                    if (wave != run.Wave) continue;
+                    var item = ItemCatalog.Get(itemId);
+                    if (item == null) continue;
+                    yield return ShowMessage($"웨이브 {wave} 클리어 보상!\n{Josa.Eul(item.Name)} 손에 넣었다!");
+                    var outcome = item.Apply(new ItemContext { Run = run });
+                    if (!string.IsNullOrEmpty(outcome?.Message)) yield return ShowMessage(outcome.Message);
+                }
+
+                // 이기거나 잡으면 보상 아이템 하나를 고른다 (도망치면 없음)
+                yield return RewardPhase();
+
+                // 보스(10웨이브마다)를 이기면 파티 완전 회복
+                if (GameConfig.HealAfterBoss && run.IsBossWave)
+                {
+                    run.HealAll();
+                    playerInfo.Refresh(battle.Player);
+                    yield return ShowMessage("보스를 물리쳤다!\n파티의 팰들이 모두 기운을 되찾았다!");
+                }
+            }
 
             string areaBefore = run.AreaName;
             run.NextWave();
@@ -472,8 +495,7 @@ namespace PalRogue
         /// <summary>보상 화면 위에 웨이브·돈 글자가 보이게</summary>
         void BringHudToFront()
         {
-            RewardScreen.RaiseHud(areaText);
-            RewardScreen.RaiseHud(moneyText);
+            rewardScreen.MirrorHud(areaText, moneyText);   // 보상 화면 안에 같은 글자를 복사해서 보여준다
         }
 
         /// <summary>아이템 하나를 쓴다. 대상(팰·기술)이 필요하면 고르게 하고, 취소하면 itemUsed = false</summary>
@@ -685,24 +707,46 @@ namespace PalRogue
             if (choiceMenu == null) yield break;
 
             float normal = WidenMessage();
+            bool first = true;
             while (true)
             {
-                yield return ShowMessage($"{Josa.Eun(name)} {Josa.Eul(skill.skillName)} 배우고 싶다...\n하지만 기술은 {Pal.MaxSkills}개까지만 쓸 수 있다!");
+                if (first)
+                    yield return ShowMessage($"{Josa.Eun(name)} {Josa.Eul(skill.skillName)} 배우고 싶다...\n하지만 기술은 {Pal.MaxSkills}개까지만 쓸 수 있다!");
+                first = false;
+
+                // ① 다른 기술을 잊게 할지 묻는다
+                yield return ShowMessage($"다른 기술을 잊게 하고\n{Josa.Eul(skill.skillName)} 배우게 할까?");
+                yield return choiceMenu.Choose(YesNo, 0);
+                if (choiceMenu.Result != 0)
+                {
+                    // 아니오 → 정말 포기할지 한 번 더
+                    yield return ShowMessage($"{Josa.Eul(skill.skillName)} 배우는 것을 포기할까?");
+                    yield return choiceMenu.Choose(YesNo, 1);
+                    if (choiceMenu.Result == 0)
+                    {
+                        yield return ShowMessage($"{Josa.Eun(name)} {Josa.Eul(skill.skillName)} 배우지 않았다!");
+                        break;
+                    }
+                    continue;
+                }
+
+                // ② 잊을 기술 고르기
                 yield return ShowMessage("어느 기술을 잊게 할까?");
-                var labels = pal.Skills.Select(s => s.Data.skillName).Concat(new[] { "배우지 않는다" }).ToArray();
+                var labels = pal.Skills.Select(s => s.Data.skillName).Concat(new[] { "그만둔다" }).ToArray();
                 yield return choiceMenu.Choose(labels, 0, SkillMenuWidth);
                 int pick = choiceMenu.Result;
-                if (pick >= 0 && pick < pal.Skills.Count)
-                {
-                    string forgotten = pal.Skills[pick].Data.skillName;
-                    pal.TryLearnSkill(skill, pick);
-                    lastSkillLearned = true;
-                    yield return ShowMessage($"1, 2, … 짠!\n{Josa.Eun(name)} {Josa.Eul(forgotten)} 깨끗이 잊었다!");
-                    yield return ShowMessage($"그리고… {Josa.Eun(name)} {Josa.Eul(skill.skillName)} 배웠다!");
-                    break;
-                }
-                // "배우지 않는다"(또는 Esc)
-                yield return ShowMessage($"{Josa.Eun(name)} {Josa.Eul(skill.skillName)} 배우지 않았다!");
+                if (pick < 0 || pick >= pal.Skills.Count) continue;          // 그만둔다 → 처음 질문으로
+
+                // ③ 정말 잊을지 확인
+                string forgotten = pal.Skills[pick].Data.skillName;
+                yield return ShowMessage($"{Josa.Eul(forgotten)} 잊고\n{Josa.Eul(skill.skillName)} 배우게 할까?");
+                yield return choiceMenu.Choose(YesNo, 0);
+                if (choiceMenu.Result != 0) continue;
+
+                pal.TryLearnSkill(skill, pick);
+                lastSkillLearned = true;
+                yield return ShowMessage($"1, 2, … 짠!\n{Josa.Eun(name)} {Josa.Eul(forgotten)} 깨끗이 잊었다!");
+                yield return ShowMessage($"그리고… {Josa.Eun(name)} {Josa.Eul(skill.skillName)} 배웠다!");
                 break;
             }
             RestoreMessage(normal);

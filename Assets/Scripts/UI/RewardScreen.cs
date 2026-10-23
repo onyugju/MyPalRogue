@@ -176,7 +176,38 @@ namespace PalRogue
             if (clickable && go.GetComponent<GraphicRaycaster>() == null) go.AddComponent<GraphicRaycaster>();
         }
 
-        /// <summary>웨이브·돈 글자를 보상 화면 위에 보이게 한다</summary>
+        TMP_Text hudArea, hudMoney;
+
+        /// <summary>
+        /// 웨이브·돈 글자를 보상 화면 위에도 보이게 한다. 원래 글자를 건드리지 않고 같은 모양의 복사본을 보상 화면 안에 둔다.
+        /// (원래 글자에 Canvas를 붙이는 방식은 글자 위치가 어긋나서 쓰지 않는다)
+        /// </summary>
+        public void MirrorHud(TMP_Text area, TMP_Text money)
+        {
+            hudArea = Mirror(hudArea, area);
+            hudMoney = Mirror(hudMoney, money);
+        }
+
+        TMP_Text Mirror(TMP_Text copy, TMP_Text source)
+        {
+            if (source == null) return copy;
+            if (copy == null)
+            {
+                var go = Instantiate(source.gameObject, transform, false);
+                var extraCanvas = go.GetComponent<Canvas>();
+                if (extraCanvas != null) Destroy(extraCanvas);
+                copy = go.GetComponent<TMP_Text>();
+                var src = source.rectTransform;
+                var dst = copy.rectTransform;
+                dst.anchorMin = src.anchorMin; dst.anchorMax = src.anchorMax; dst.pivot = src.pivot;
+                dst.anchoredPosition = src.anchoredPosition; dst.sizeDelta = src.sizeDelta;
+            }
+            copy.text = source.text;
+            copy.transform.SetAsLastSibling();
+            return copy;
+        }
+
+        /// <summary>(예전 방식) 웨이브·돈 글자를 보상 화면 위에 보이게 한다 — 쓰지 않음</summary>
         public static void RaiseHud(Component text)
         {
             if (text != null && text.gameObject.activeInHierarchy) EnsureOwnCanvas(text.gameObject, HudSortingOrder, false);

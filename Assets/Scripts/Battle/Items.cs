@@ -534,6 +534,17 @@ namespace PalRogue
                 Description = "파티가 받는 경험치가 25% 늘어난다.",
                 Weight = _ => 4, Apply = c => { c.Run.ExpBonus += 0.25f; return ItemOutcome.Say("파티가 받는 경험치가 25% 늘어난다!"); },
             });
+            Add(new ItemDef
+            {
+                Id = "exp_share", Name = "학습장치", Tier = ItemTier.Hyper,
+                Description = $"싸움에 나가지 않은 팰도 경험치의 20%를 받는다. (최대 {Run.MaxExpShare}개, 개수만큼 늘어남)",
+                Weight = r => r.ExpShareCount < Run.MaxExpShare ? 3 : 0,
+                Apply = c =>
+                {
+                    c.Run.ExpShareCount = Mathf.Min(Run.MaxExpShare, c.Run.ExpShareCount + 1);
+                    return ItemOutcome.Say($"싸우지 않은 팰도 경험치의 {c.Run.ExpShareCount * 20}%를 받는다!");
+                },
+            });
 
             // ────────────── 얼티밋 (포켓로그 로그) ──────────────
             Add(new ItemDef

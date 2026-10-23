@@ -36,6 +36,10 @@ namespace PalRogue
         /// <summary>경험부적들이 더한 경험치 보너스 (0.25 = +25%)</summary>
         public float ExpBonus { get; set; }
         public float ExpMultiplier => 1f + ExpBonus;
+        /// <summary>학습장치 개수 (1개당 싸우지 않은 팰도 경험치 20%, 최대 5개)</summary>
+        public const int MaxExpShare = 5;
+        public int ExpShareCount { get; set; }
+        public float ExpShareRatio => 0.2f * ExpShareCount;
 
         /// <summary>보스가 나오는 웨이브인지 (보스·전설·최종 보스 모두 포함)</summary>
         public bool IsBossWave => GameConfig.IsBossWave(Wave);
@@ -68,6 +72,18 @@ namespace PalRogue
         }
 
         /// <summary>다음 웨이브로. 랭크업 도구 같은 기간 효과를 1웨이브씩 줄인다</summary>
+        /// <summary>파티 전원 완전 회복: 기절 부활, HP 가득, 상태이상 치료, 모든 기술 PP 가득 (10웨이브 보스를 이긴 뒤)</summary>
+        public void HealAll()
+        {
+            foreach (var pal in Party)
+            {
+                if (pal.IsFainted) pal.Revive(pal.MaxHP);
+                else pal.Heal(pal.MaxHP);
+                pal.CureStatus();
+                foreach (var s in pal.Skills) s.PP = s.MaxPP;
+            }
+        }
+
         public void NextWave()
         {
             Wave++;

@@ -61,6 +61,8 @@ namespace PalRogue
         public BattleContext Ctx { get; } = new BattleContext();
         /// <summary>파티 전체 경험치 배율 (경험부적 등, Run.ExpMultiplier)</summary>
         public float ExpMultiplier { get; set; } = 1f;
+        /// <summary>학습장치: 싸우지 않은 팰이 받는 경험치 비율 (1개당 0.2, Run.ExpShareRatio)</summary>
+        public float ExpShareRatio { get; set; }
 
         /// <summary>어느 쪽이든 팰이 쓰러질 때 호출 (경험치 지급 등에 사용)</summary>
         public event Action<Pal> PalFainted;
@@ -459,9 +461,10 @@ namespace PalRogue
             var receivers = playerList.Where(p => participants.Contains(p) && !p.IsFainted && !p.IsMaxLevel).ToList();
             participants.Clear();
             if (!Player.IsFainted) participants.Add(Player);            // 다음 상대를 위해 지금 팰부터 다시 센다
+            int total = GameConfig.ExpYield(defeated.Data, defeated.Level);
+            ShareExp(receivers, total);
             if (receivers.Count == 0) return;
 
-            int total = GameConfig.ExpYield(defeated.Data, defeated.Level);
             float baseShare = (float)total / receivers.Count * ExpMultiplier;
             foreach (var pal in receivers)
             {
@@ -478,6 +481,23 @@ namespace PalRogue
                     from = 0f;
                 }
                 Emit(new BattleEvent { Type = BattleEventType.ExpBar, Pal = pal, IsPlayerSide = true, FromRatio = from, ToRatio = pal.ExpRatio });
+            }
+        }
+
+        /// <summary>학습장치: 싸움에 나가지 않은(기절하지 않은) 팰들도 경험치의 일부를 받는다</summary>
+        void ShareExp(List<Pal> fighters, int total)
+        {
+            if (ExpShareRatio <= 0f) return;
+            var others = playerList.Where(p => !fighters.Contains(p) && !p.IsFainted && !p.IsMaxLevel).ToList();
+            if (others.Count == 0) return;
+            Log("학습장치로 다른 팰들도 경험치를 얻었다!");
+            foreach (var pal in others)
+            {
+                float palMult = 1f;
+                foreach (var e in pal.Effects) palMult *= e.ExpMultiplier;
+                int amount = Mathf.Max(1, Mathf.RoundToInt(total * ExpShareRatio * ExpMultiplier * palMult));
+                foreach (var (level, skills) in pal.GainExp(amount))
+                    Emit(new BattleEvent { Type = BattleEventType.LevelUp, Pal = pal, IsPlayerSide = true, Level = level, NewSkills = skills });
             }
         }
 

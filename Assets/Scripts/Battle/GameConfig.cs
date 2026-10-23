@@ -122,6 +122,19 @@ namespace PalRogue
             _ => 1,
         };
 
+        // ───── 고정 보상 ─────
+        /// <summary>이 웨이브를 이기면(잡아도) 보상 화면 전에 반드시 받는 아이템 (아이템 Id)</summary>
+        public static readonly (int wave, string item)[] GuaranteedRewards =
+        {
+            (8,  "exp_share"),   // 학습장치
+            (8,  "exp_charm"),   // 경험부적
+            (25, "exp_share"),   // 학습장치
+            (25, "exp_charm"),   // 경험부적
+        };
+
+        /// <summary>보스 웨이브(10, 20, …)를 이기면 다음 웨이브로 가기 전에 파티를 완전히 회복한다</summary>
+        public const bool HealAfterBoss = true;
+
         // ───── 돈 ─────
         public const int StartingMoney = 1000;
         /// <summary>웨이브를 이기면(잡아도) 받는 돈. 보스는 3배</summary>
