@@ -164,6 +164,81 @@ namespace PalRogue
             sr.color = AwakenTint;
         }
 
+        // ───────── 기술 연출 (SkillFx) ─────────
+        /// <summary>팰 그림의 가운데 (월드 좌표)</summary>
+        public Vector3 Center
+        {
+            get { if (sr == null) Awake(); return sr.enabled && sr.sprite != null ? sr.bounds.center : transform.position; }
+        }
+        /// <summary>팰 그림 높이 (월드 단위)</summary>
+        public float Height
+        {
+            get { if (sr == null) Awake(); return sr.sprite != null ? sr.bounds.size.y : 2f; }
+        }
+        public int SortingLayerId { get { if (sr == null) Awake(); return sr.sortingLayerID; } }
+        public int SortingOrder { get { if (sr == null) Awake(); return sr.sortingOrder; } }
+
+        /// <summary>몸통 박치기: target 쪽으로 distance만큼 튀어나갔다가 돌아온다. 가장 멀리 갔을 때 atPeak</summary>
+        public IEnumerator Lunge(Vector3 target, float distance, float duration, System.Action atPeak)
+        {
+            if (sr == null) Awake();
+            Vector3 home = transform.position;
+            Vector3 dir = (target - home); dir.z = 0f;
+            Vector3 peak = home + dir.normalized * Mathf.Min(distance, dir.magnitude * 0.8f);
+            float half = duration * 0.4f;
+            for (float t = 0f; t < half; t += Time.unscaledDeltaTime)
+            {
+                float k = t / half;
+                transform.position = Vector3.Lerp(home, peak, k * k);
+                yield return null;
+            }
+            transform.position = peak;
+            atPeak?.Invoke();
+            float back = duration - half;
+            for (float t = 0f; t < back; t += Time.unscaledDeltaTime)
+            {
+                transform.position = Vector3.Lerp(peak, home, t / back);
+                yield return null;
+            }
+            transform.position = home;
+        }
+
+        /// <summary>뒤로 살짝 물러섰다 앞으로 (기술을 쓰기 전 기를 모으는 동작)</summary>
+        public IEnumerator WindUp(Vector3 target, float duration)
+        {
+            if (sr == null) Awake();
+            Vector3 home = transform.position;
+            Vector3 dir = target - home; dir.z = 0f;
+            Vector3 back = home - dir.normalized * 0.25f;
+            for (float t = 0f; t < duration; t += Time.unscaledDeltaTime)
+            {
+                float k = Mathf.Sin(t / duration * Mathf.PI);
+                transform.position = Vector3.Lerp(home, back, k);
+                yield return null;
+            }
+            transform.position = home;
+        }
+
+        /// <summary>맞았을 때: 깜빡이며 좌우로 흔들린다 (strong이면 더 세게, 더 오래)</summary>
+        public IEnumerator HitReact(bool strong)
+        {
+            if (sr == null) Awake();
+            if (!sr.enabled) yield break;
+            Vector3 home = transform.position;
+            int blinks = strong ? 5 : 3;
+            float amp = strong ? 0.22f : 0.12f;
+            for (int i = 0; i < blinks; i++)
+            {
+                sr.enabled = false;
+                transform.position = home + Vector3.right * amp * (i % 2 == 0 ? 1f : -1f);
+                yield return new WaitForSecondsRealtime(0.045f);
+                sr.enabled = true;
+                transform.position = home;
+                yield return new WaitForSecondsRealtime(0.045f);
+            }
+            transform.position = home;
+        }
+
         /// <summary>각성해 있는 동안의 색</summary>
         public static readonly Color AwakenTint = new Color(1f, 0.92f, 0.62f);
 

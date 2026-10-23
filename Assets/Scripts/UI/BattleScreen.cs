@@ -189,6 +189,7 @@ namespace PalRogue
             run = new Run(BuildPlayerParty(), startingSpheres, rng);
             if (partyScreen != null) partyScreen.OpenSummary = OpenSummary;   // 파티 화면 "능력치를 본다"
             spheres = run.Spheres;                     // 스피어 메뉴가 쓰는 배열 = 런이 가진 배열
+            ApplyAreaScenery(true);                    // 첫 지역(초원) 배경으로 (게임 오버 후 다시 시작해도)
             StartWave(true);
         }
 
@@ -204,6 +205,7 @@ namespace PalRogue
             battle.ExpMultiplier = run.ExpMultiplier;  // 경험부적
             battle.ExpShareRatio = run.ExpShareRatio;  // 학습장치
             battle.PlayerBerrySave = run.BerrySave;     // 열매 주머니
+            battle.EnemySmartness = GameConfig.EnemySmartness(run.Wave, run.EnemyKind);   // 상대 AI
 
             // 내 팰을 새로 내보내면 (첫 웨이브 등) 스피어를 던지는 연출 전까지 숨겨 둔다
             if (battle.PlayerSentOutAtStart)
@@ -389,9 +391,63 @@ namespace PalRogue
 
             string areaBefore = run.AreaName;
             run.NextWave();
-            if (run.AreaName != areaBefore) yield return ShowMessage($"{Josa.Ro(run.AreaName)} 이동했다!");
+            if (run.AreaName != areaBefore) yield return ChangeArea();
             StartWave(false);
         }
+
+        // ───────── 지역 이동 (포켓로그처럼 검게 페이드 → 배경 교체 → 다시 밝게) ─────────
+        ScreenFade screenFade;
+        const float AreaFadeOut = 0.6f, AreaFadeIn = 0.6f, AreaTitleHold = 0.9f;
+
+        ScreenFade Fade => screenFade != null ? screenFade : (screenFade = ScreenFade.Create(messageText.font));
+
+        /// <summary>지금 웨이브의 지역 배경을 바로 깐다 (연출 없음). 같은 배경이면 아무것도 안 한다</summary>
+        void ApplyAreaScenery(bool force = false)
+        {
+            if (run == null) return;
+            string biome = GameConfig.AreaBiome(run.Wave);
+            if (!force && biome == AreaScenery.Current) return;
+            AreaScenery.Apply(enemyView.transform.parent, biome);
+        }
+
+        /// <summary>
+        /// 다음 지역으로: 화면이 검게 닫히고, 검은 화면에 지역 이름이 떴다가 사라지는 동안 배경·발판을 바꾸고, 다시 밝아진다.
+        /// 내 팰은 그대로 서 있고, 밝아진 뒤 "○○로 이동했다!"를 보여 준다.
+        /// </summary>
+        IEnumerator ChangeArea()
+        {
+            HidePanels();
+            yield return Fade.FadeTo(1f, AreaFadeOut);
+            ApplyAreaScenery();
+            UpdateHud();
+            int index = GameConfig.AreaIndex(run.Wave) + 1;
+            yield return Fade.ShowTitle(run.AreaName, $"지역 {index} / {GameConfig.AreaNames.Length}", AreaTitleHold);
+            yield return Fade.FadeTo(0f, AreaFadeIn);
+            yield return ShowMessage($"{Josa.Ro(run.AreaName)} 이동했다!");
+        }
+
+#if UNITY_EDITOR
+        /// <summary>테스트 메뉴(24)용: 다음 지역의 첫 웨이브로 건너뛰며 지역 이동 연출을 보여 준다</summary>
+        public void DebugNextArea()
+        {
+            if (run == null || mode == Mode.Busy) { Debug.LogWarning("[PalRogue] 명령을 고르는 중일 때 다시 눌러 주세요."); return; }
+            if (GameConfig.AreaIndex(run.Wave) >= GameConfig.AreaNames.Length - 1) { Debug.Log("[PalRogue] 마지막 지역이라 더 갈 곳이 없습니다."); return; }
+            StartCoroutine(DebugNextAreaRoutine());
+        }
+
+        IEnumerator DebugNextAreaRoutine()
+        {
+            mode = Mode.Busy;
+            HidePanels();
+            enemyInfo.gameObject.SetActive(false);
+            enemyView.Hide();
+            int next = GameConfig.AreaIndex(run.Wave) + 1;
+            string before = run.AreaName;
+            while (GameConfig.AreaIndex(run.Wave) < next) run.NextWave();    // 다음 지역의 첫 웨이브 (21, 41, …)
+            if (run.AreaName != before) yield return ChangeArea();
+            StartWave(false);
+        }
+#endif
 
         // ───────── 웨이브 보상 (포켓로그와 같은 방식) ─────────
         RewardScreen rewardScreen;
@@ -1027,6 +1083,37 @@ namespace PalRogue
             msgRt.sizeDelta = new Vector2(normalWidth, msgRt.sizeDelta.y);
         }
 
+        // ───────── 기술 연출 ─────────
+        SkillFx skillFx;
+        SkillFx Fx
+        {
+            get
+            {
+                if (skillFx == null) skillFx = new GameObject("SkillFx").AddComponent<SkillFx>();
+                return skillFx;
+            }
+        }
+
+        /// <summary>(테스트용, 메뉴 PalRogue/22) 지금 전투 화면에서 기술 연출을 차례로 보여준다. 내 팰 → 상대, 상대 → 내 팰 번갈아</summary>
+        public void PreviewSkillFx(IList<SkillData> skills)
+        {
+            StopCoroutine(nameof(PreviewRoutine));
+            StartCoroutine(PreviewRoutine(skills));
+        }
+
+        IEnumerator PreviewRoutine(IList<SkillData> skills)
+        {
+            for (int i = 0; i < skills.Count; i++)
+            {
+                bool mine = i % 2 == 0;
+                messageText.maxVisibleCharacters = 9999;
+                messageText.text = $"[연출 미리보기 {i + 1}/{skills.Count}]\n{skills[i].skillName} ({skills[i].name})";
+                yield return Fx.Play(skills[i], mine ? playerView : enemyView, mine ? enemyView : playerView, false, i % 5 == 4, 1f);
+                yield return new WaitForSecondsRealtime(0.35f);
+            }
+            messageText.text = "연출 미리보기 끝!";
+        }
+
         // ───────── 능력치 화면 ─────────
         SummaryScreen summaryScreen;
 
@@ -1206,7 +1293,15 @@ namespace PalRogue
                         break;
                     case BattleEventType.StatusChanged:
                         box.SetStatus(ev.Status);
+                        if (ev.Status != StatusCondition.None && view.IsVisible) yield return Fx.PlayStatus(view, ev.Status);
                         break;
+                    case BattleEventType.SkillAnim:
+                    {
+                        var targetView = ev.IsPlayerSide ? enemyView : playerView;
+                        if (view.IsVisible && targetView.IsVisible)
+                            yield return Fx.Play(ev.Skill, view, targetView, ev.Missed, ev.Critical, ev.Effectiveness);
+                        break;
+                    }
                     case BattleEventType.SphereThrown:
                         yield return PlayThrow(ev.Sphere);
                         break;

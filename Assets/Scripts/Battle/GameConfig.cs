@@ -9,6 +9,18 @@ namespace PalRogue
         /// <summary>능력치 화면 "어버이/" 뒤에 나오는 트레이너 이름</summary>
         public const string PlayerName = "트레이너";
 
+        // ───── 상대 AI (EnemyAI) ─────
+        /// <summary>
+        /// 상대의 똑똑함 (0~1). 야생 팰은 웨이브 1에서 0.3 → 웨이브 90쯤 0.9까지 점점 똑똑해진다.
+        /// 보스는 0.95, 전설·최종 보스는 1 (항상 가장 좋은 기술).
+        /// </summary>
+        public static float EnemySmartness(int wave, BossKind kind) => kind switch
+        {
+            BossKind.Legend or BossKind.Final => 1f,
+            BossKind.Boss => 0.95f,
+            _ => Mathf.Clamp(0.3f + wave / 150f, 0.3f, 0.9f),
+        };
+
         // ───── 강화 효과(퍽) ─────
         /// <summary>이 간격의 레벨(10, 20, … 100)에 도달하면 강화 효과 3개 중 1개를 고른다</summary>
         public const int PerkLevelStep = 10;
@@ -73,11 +85,18 @@ namespace PalRogue
             PalType.Neutral, PalType.Fire, PalType.Grass, PalType.Water, PalType.Ice,
             PalType.Ground, PalType.Electric, PalType.Dragon, PalType.Dark, PalType.Void,
         };
+        /// <summary>
+        /// 지역마다 쓰는 포켓로그 배경(arenas 폴더의 이름). {이름}_bg = 배경, _a = 내 발판, _b = 상대 발판, _b_1~3 = 상대 발판 장식.
+        /// 그림은 Assets/Resources/Arenas 에 있다 (메뉴 24로 확인).
+        /// </summary>
+        public static readonly string[] AreaBiomes =
+            { "plains", "volcano", "forest", "sea", "snowy_forest", "desert", "mountain", "wasteland", "abyss", "space" };
 
         public static bool IsBossWave(int wave) => wave > 0 && wave % BossWaveStep == 0;
 
-        static int AreaIndex(int wave) => Mathf.Clamp((Mathf.Max(1, wave) - 1) / AreaWaveStep, 0, AreaNames.Length - 1);
+        public static int AreaIndex(int wave) => Mathf.Clamp((Mathf.Max(1, wave) - 1) / AreaWaveStep, 0, AreaNames.Length - 1);
         public static string AreaName(int wave) => AreaNames[AreaIndex(wave)];
+        public static string AreaBiome(int wave) => AreaBiomes[Mathf.Min(AreaIndex(wave), AreaBiomes.Length - 1)];
         public static PalType AreaType(int wave) => AreaTypes[Mathf.Min(AreaIndex(wave), AreaTypes.Length - 1)];
 
         /// <summary>

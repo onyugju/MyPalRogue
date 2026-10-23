@@ -7,7 +7,7 @@ namespace PalRogue
 {
     public enum BattleState { Ongoing, WaitingPlayerSwitch, PlayerWon, PlayerLost, Caught }
 
-    public enum BattleEventType { Message, HpChanged, Fainted, SentOut, StatusChanged, SphereThrown, SphereShakes, SphereCaught, SphereBroke, ExpBar, LevelUp, Recalled, ShieldBroken, Awakened }
+    public enum BattleEventType { Message, HpChanged, Fainted, SentOut, StatusChanged, SphereThrown, SphereShakes, SphereCaught, SphereBroke, ExpBar, LevelUp, Recalled, ShieldBroken, Awakened, SkillAnim }
 
     /// <summary>화면이 순서대로 재생하는 전투 진행 기록 한 줄</summary>
     public class BattleEvent
@@ -23,6 +23,9 @@ namespace PalRogue
         public float FromRatio, ToRatio;          // ExpBar: 지금 레벨 안에서 EXP바가 채워지는 구간 (0~1)
         public int Level;                         // LevelUp: 새 레벨
         public List<SkillData> NewSkills;         // LevelUp: 이 레벨에 배울 수 있는 스킬
+        public SkillData Skill;                   // SkillAnim: 쓴 기술 (Pal = 쓴 팰, IsPlayerSide = 쓴 쪽)
+        public bool Missed, Critical;             // SkillAnim: 빗나감 / 급소
+        public float Effectiveness = 1f;          // SkillAnim: 상성 배율 (연출 세기)
     }
 
     /// <summary>한 턴에 고를 수 있는 행동: 스킬 사용 또는 교체</summary>
@@ -154,6 +157,7 @@ namespace PalRogue
             };
 
             Ctx.OpponentOf = p => IsPlayerPal(p) ? Enemy : Player;
+            EnemySmartness = GameConfig.EnemySmartness(0, bossKind);   // 화면이 웨이브에 맞춰 다시 정한다
             Ctx.BerrySaveChance = p => IsPlayerPal(p) ? PlayerBerrySave : 0f;
             Ctx.Awakened = p => Emit(new BattleEvent { Type = BattleEventType.Awakened, Pal = p, IsPlayerSide = IsPlayerPal(p) });
 
@@ -295,12 +299,10 @@ namespace PalRogue
         }
 
         // 적 AI: 지금은 PP가 남은 스킬 중 무작위
-        BattleAction ChooseEnemyAction()
-        {
-            var usable = Enemy.Skills.Select((s, i) => (s, i)).Where(t => t.s.HasPP).ToList();
-            if (usable.Count == 0) return BattleAction.Skill(-1);
-            return BattleAction.Skill(usable[rng.Next(usable.Count)].i);
-        }
+        /// <summary>상대의 똑똑함 (0~1). 높을수록 상성·막타·상태이상을 따져서 기술을 고른다 (EnemyAI)</summary>
+        public float EnemySmartness { get; set; }
+
+        BattleAction ChooseEnemyAction() => BattleAction.Skill(EnemyAI.ChooseSkill(Enemy, Player, EnemySmartness, rng));
 
         void Perform(Entry en)
         {
@@ -336,6 +338,7 @@ namespace PalRogue
 
             if (!BattleCalc.CheckHit(skill, rng))
             {
+                EmitSkillAnim(user, skill, true, false, 1f);           // 빗나가는 연출
                 Log("공격은 빗나갔다!");
                 return;
             }
@@ -343,16 +346,19 @@ namespace PalRogue
             if (skill.category == SkillCategory.Status)
             {
                 // 변화기: 지금은 상태이상을 거는 효과만 있다 (능력치 변화 등은 나중에 추가)
+                EmitSkillAnim(user, skill, false, false, 1f);
                 if (skill.statusEffect == StatusCondition.None || !TryInflict(target, skill.statusEffect, skill.statusChance))
                     Log("그러나 아무 일도 일어나지 않았다!");
                 return;
             }
 
             var info = BattleCalc.CalculateDamage(user, target, skill, rng);
-            if (info.IsCritical) Log("급소에 맞았다!");
-            if (!string.IsNullOrEmpty(info.EffectivenessText)) Log(info.EffectivenessText);
-
-            int dealt = BattleCalc.ApplyDamage(info, Ctx);
+            EmitSkillAnim(user, skill, false, info.IsCritical, info.TypeMultiplier);   // 기술 연출 → HP가 깎인다 → 급소·상성 문구
+            int dealt = BattleCalc.ApplyDamage(info, Ctx, () =>
+            {
+                if (info.IsCritical) Log("급소에 맞았다!");
+                if (!string.IsNullOrEmpty(info.EffectivenessText)) Log(info.EffectivenessText);
+            });
 
             if (target.IsFainted || dealt <= 0) return;
 
@@ -655,5 +661,13 @@ namespace PalRogue
         }
 
         void Log(string message) => Ctx.Log(message);
+
+        /// <summary>화면에 기술 연출을 맡긴다 (SkillFx)</summary>
+        void EmitSkillAnim(Pal user, SkillData skill, bool missed, bool critical, float effectiveness) =>
+            Emit(new BattleEvent
+            {
+                Type = BattleEventType.SkillAnim, Pal = user, IsPlayerSide = IsPlayerPal(user), Skill = skill,
+                Missed = missed, Critical = critical, Effectiveness = effectiveness,
+            });
     }
 }

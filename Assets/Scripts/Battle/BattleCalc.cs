@@ -45,11 +45,13 @@ namespace PalRogue
         }
 
         /// <summary>계산된 데미지를 실제로 적용하고 공격 후/피격/기절 훅을 호출한다. 실제로 깎인 HP를 반환.</summary>
-        public static int ApplyDamage(DamageInfo info, BattleContext ctx)
+        /// <param name="afterHit">HP가 깎인 바로 다음 (효과 훅보다 먼저) — 급소·상성 문구를 여기서 남긴다</param>
+        public static int ApplyDamage(DamageInfo info, BattleContext ctx, Action afterHit = null)
         {
             var attacker = info.Attacker;
             var defender = info.Defender;
             int dealt = defender.TakeDamage(info.FinalDamage);
+            afterHit?.Invoke();
 
             foreach (var e in attacker.EffectsSnapshot()) e.OnAfterAttack(attacker, info, ctx);
             foreach (var e in defender.EffectsSnapshot()) e.OnDamaged(defender, info, ctx);
