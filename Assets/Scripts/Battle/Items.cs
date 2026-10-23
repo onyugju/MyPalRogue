@@ -74,6 +74,8 @@ namespace PalRogue
         public Func<Pal, string> CannotUse = _ => null;
         /// <summary>대상이 없는 아이템을 지금 쓸 수 없으면 이유, 쓸 수 있으면 null</summary>
         public Func<Run, string> CannotUseNow = _ => null;
+        /// <summary>기술을 고르는 아이템(ItemTarget.PalSkill)에서 그 기술에 쓸 수 없으면 이유 (기본: PP가 가득이면 효과 없음)</summary>
+        public Func<SkillInstance, string> CannotUseSkill = s => s.PP >= s.MaxPP ? ItemCatalog.NoEffect : null;
         public Func<ItemContext, ItemOutcome> Apply;
 
         /// <summary>상점 가격 배율 (가격 = ItemCatalog.ShopBaseCost(웨이브) × 배율)</summary>
@@ -118,7 +120,12 @@ namespace PalRogue
 
         /// <summary>보상 개수: 처음 3개, 지역(20웨이브)을 클리어할 때마다 1개씩 늘어 최대 8개</summary>
         public static int RewardCount(int wave) =>
-            Mathf.Clamp(3 + (Mathf.Max(1, wave) - 1) / GameConfig.AreaWaveStep, 3, 8);
+            Mathf.Clamp(3 + (Mathf.Max(1, wave) - 1) / GameConfig.AreaWaveStep, 3, MaxRewardCount);
+
+        public const int MaxRewardCount = 8;
+
+        /// <summary>황금 스피어까지 더한 보상 개수 (최대 8)</summary>
+        public static int RewardCount(Run run) => Mathf.Min(MaxRewardCount, RewardCount(run.Wave) + run.ExtraRewards);
 
         /// <summary>상점에 한 번에 보이는 최대 개수 (넘치면 오래된 싼 아이템부터 빠진다)</summary>
         public const int MaxShopItems = 7;
@@ -232,6 +239,16 @@ namespace PalRogue
             return ItemOutcome.Say($"{N(p)}의 기술 PP가 회복되었다!");
         }
 
+        static ItemOutcome RaisePp(SkillInstance s, int ups)
+        {
+            int before = s.MaxPP;
+            int add = Mathf.Min(ups, SkillInstance.MaxPpUps - s.PpUps);
+            for (int i = 0; i < add; i++) s.BonusPP += Mathf.Max(1, s.Data.maxPP / 5);
+            s.PpUps += add;
+            s.PP += s.MaxPP - before;                                   // 늘어난 만큼 PP도 채운다
+            return ItemOutcome.Say($"{s.Data.skillName}의 최대 PP가 {s.MaxPP - before} 늘었다!");
+        }
+
         static string CannotRestoreAllPp(Pal p) => p.Skills.All(s => s.PP >= s.MaxPP) ? NoEffect : null;
 
         static ItemOutcome GiveSpheres(Run run, SphereType type, int count)
@@ -288,9 +305,13 @@ namespace PalRogue
                 Description = "팰 1마리의 레벨이 1 오른다.",
                 Weight = r => r.Party.Any(p => !p.IsMaxLevel) ? 2 : 0,
                 CannotUse = p => p.IsMaxLevel ? NoEffect : null,
-                Apply = c => new ItemOutcome
+                Apply = c =>
                 {
-                    LevelUps = new List<(int, List<SkillData>)> { (c.Target.Level + 1, c.Target.LevelUp()) },
+                    // 사탕단지 1개마다 레벨이 1 더 오른다
+                    var ups = new List<(int, List<SkillData>)>();
+                    for (int i = 0; i <= c.Run.CandyJars && !c.Target.IsMaxLevel; i++)
+                        ups.Add((c.Target.Level + 1, c.Target.LevelUp()));
+                    return new ItemOutcome { LevelUps = ups };
                 },
             });
             Add(new ItemDef
@@ -592,6 +613,270 @@ namespace PalRogue
                 Weight = _ => 2, Apply = c => { c.Run.ExpBonus += 1f; return ItemOutcome.Say("파티가 받는 경험치가 100% 늘어난다!"); },
             });
 
+            // ═════════════════ 추가 아이템 (2차) ═════════════════
+            // 포켓로그 아이템 중 팰로그에서 쓸 수 있는 것 + 팰월드 아이템(그림은 팰로그에서 못 쓰는 포켓로그 아이템 그림을 빌려 씀)
+
+            // ────────────── 일반 ──────────────
+            Add(new ItemDef
+            {
+                Id = "leppa_berry", Name = "과사열매", Tier = ItemTier.Common, Target = ItemTarget.Pal, IsHeld = true,
+                Description = "지니게 하면 기술의 PP가 0이 됐을 때 PP를 10 회복한다. (한 번 쓰면 사라짐)",
+                Weight = _ => 2, Apply = c => Hold(c, "과사열매", new LeppaBerry(), "PP가 0이 되면 10 회복 (1회)"),
+            });
+            Add(new ItemDef
+            {
+                Id = "enigma_berry", Name = "의문열매", Tier = ItemTier.Common, Target = ItemTarget.Pal, IsHeld = true,
+                Description = "지니게 하면 효과가 굉장한 공격을 맞았을 때 최대 HP의 1/4을 회복한다. (한 번 쓰면 사라짐)",
+                Weight = _ => 2, Apply = c => Hold(c, "의문열매", new EnigmaBerry(), "약점을 맞으면 HP 1/4 회복 (1회)"),
+            });
+            foreach (var (id, name, stat) in new[]
+                     {
+                         ("liechi_berry", "치리열매", StatType.Attack),
+                         ("ganlon_berry", "용아열매", StatType.Defense),
+                         ("salac_berry", "캄라열매", StatType.Speed),
+                     })
+            {
+                string statName = StatNames.Korean(stat);
+                Add(new ItemDef
+                {
+                    Id = id, Name = name, Tier = ItemTier.Common, Target = ItemTarget.Pal, IsHeld = true,
+                    Description = $"지니게 하면 HP가 1/4 이하가 됐을 때 {Josa.I(statName)} 1랭크 올라간다. (한 번 쓰면 사라짐)",
+                    Weight = _ => 2f / 3f,
+                    Apply = c => Hold(c, name, new PinchBerry(name, stat), $"위기 때 {statName} +1랭크 (1회)"),
+                });
+            }
+            AddSoul("dawn_stone", "작은 팰 영혼", ItemTier.Common, 0.03f);
+            AddManual("scroll_of_waters", "수련의 서 S", ItemTier.Common, 0.5f);
+            AddImplant("medichamite", "용감", ItemTier.Common, "공격 +10%", 0.7f, atk: 1.1f);
+            AddImplant("aggronite", "단단한 피부", ItemTier.Common, "방어 +10%", 0.7f, def: 1.1f);
+            AddImplant("manectite", "재빠름", ItemTier.Common, "스피드 +10%", 0.7f, spd: 1.1f);
+
+            // ────────────── 기가 ──────────────
+            Add(new ItemDef
+            {
+                Id = "dire_hit", Name = "크리티컬커터", Tier = ItemTier.Giga,
+                Description = $"{TempCritBoost.Duration}웨이브 동안 파티 전원의 공격이 급소에 맞을 확률이 15% 올라간다.",
+                Weight = _ => 4,
+                Apply = c =>
+                {
+                    foreach (var p in c.Run.Party)
+                    {
+                        var existing = p.Effects.OfType<TempCritBoost>().FirstOrDefault();
+                        if (existing != null) existing.WavesLeft = TempCritBoost.Duration;
+                        else p.AddEffect(new TempCritBoost());
+                    }
+                    return ItemOutcome.Say($"{TempCritBoost.Duration}웨이브 동안 파티의 급소율이 올라간다!");
+                },
+            });
+            Add(new ItemDef
+            {
+                Id = "pp_up", Name = "포인트업", Tier = ItemTier.Giga, Target = ItemTarget.PalSkill,
+                Description = $"팰 1마리의 기술 1개의 최대 PP가 원래의 1/5만큼 늘어난다. (기술당 {SkillInstance.MaxPpUps}번까지)",
+                Weight = _ => 2,
+                CannotUse = p => p.Skills.All(s => s.PpUps >= SkillInstance.MaxPpUps) ? NoEffect : null,
+                CannotUseSkill = s => s.PpUps >= SkillInstance.MaxPpUps ? "더 이상 늘릴 수 없다." : null,
+                Apply = c => RaisePp(c.Target.Skills[c.SkillIndex], 1),
+            });
+            AddSoul("dusk_stone", "중간 팰 영혼", ItemTier.Giga, 0.05f);
+            AddManual("scroll_of_waters", "수련의 서 M", ItemTier.Giga, 1f);
+            AddImplant("gyaradosite", "사나움", ItemTier.Giga, "공격 +20%", 1f, atk: 1.2f);
+            foreach (var (gem, type) in new[]
+                     {
+                         ("normal_gem", PalType.Neutral), ("fire_gem", PalType.Fire), ("water_gem", PalType.Water),
+                         ("grass_gem", PalType.Grass), ("electric_gem", PalType.Electric), ("ground_gem", PalType.Ground),
+                         ("ice_gem", PalType.Ice), ("dragon_gem", PalType.Dragon), ("dark_gem", PalType.Dark),
+                     })
+            {
+                string typeName = PalTypeNames.Korean(type);
+                string name = $"응원 호루라기: {typeName}";
+                Add(new ItemDef
+                {
+                    Id = "whistle_" + gem, Icon = gem, Name = name, Tier = ItemTier.Giga,
+                    Description = $"{TempTypeBoost.Duration}웨이브 동안 파티 전원의 {typeName}속성 기술 위력이 30% 올라간다.",
+                    Weight = r => PartyHasSkillType(r, type) ? 0.4f : 0f,
+                    Apply = c =>
+                    {
+                        foreach (var p in c.Run.Party)
+                        {
+                            var existing = p.Effects.OfType<TempTypeBoost>().FirstOrDefault(b => b.Type == type);
+                            if (existing != null) existing.WavesLeft = TempTypeBoost.Duration;
+                            else p.AddEffect(new TempTypeBoost(type));
+                        }
+                        return ItemOutcome.Say($"{TempTypeBoost.Duration}웨이브 동안 파티의 {typeName}속성 기술이 강해진다!");
+                    },
+                });
+            }
+
+            // ────────────── 하이퍼 ──────────────
+            Add(new ItemDef
+            {
+                Id = "candy_jar", Name = "사탕단지", Tier = ItemTier.Hyper,
+                Description = $"이상한사탕을 쓸 때마다 레벨이 1 더 오른다. (최대 {Run.MaxCandyJars}개)",
+                Weight = r => r.CandyJars < Run.MaxCandyJars ? 3 : 0,
+                Apply = c =>
+                {
+                    c.Run.CandyJars++;
+                    return ItemOutcome.Say($"이제 이상한사탕을 쓰면 레벨이 {1 + c.Run.CandyJars} 오른다!");
+                },
+            });
+            Add(new ItemDef
+            {
+                Id = "pp_max", Name = "포인트맥스", Tier = ItemTier.Hyper, Target = ItemTarget.PalSkill,
+                Description = "팰 1마리의 기술 1개의 최대 PP를 한계까지(원래의 3/5만큼) 늘린다.",
+                Weight = _ => 2,
+                CannotUse = p => p.Skills.All(s => s.PpUps >= SkillInstance.MaxPpUps) ? NoEffect : null,
+                CannotUseSkill = s => s.PpUps >= SkillInstance.MaxPpUps ? "더 이상 늘릴 수 없다." : null,
+                Apply = c => RaisePp(c.Target.Skills[c.SkillIndex], SkillInstance.MaxPpUps),
+            });
+            Add(new ItemDef
+            {
+                Id = "revival_drug", Icon = "tera_orb", Name = "부활약물", Tier = ItemTier.Hyper,
+                Description = "(팰월드) 기절한 팰을 모두 최대 HP의 절반으로 되살린다.",
+                Weight = r => FaintedCount(r) > 0 ? 3 : 0,
+                CannotUseNow = r => FaintedCount(r) == 0 ? NoEffect : null,
+                Apply = c =>
+                {
+                    foreach (var p in c.Run.Party.Where(p => p.IsFainted)) p.Revive(Mathf.Max(1, p.MaxHP / 2));
+                    return ItemOutcome.Say("기절한 팰들이 모두 다시 일어섰다!");
+                },
+            });
+            AddSoul("shiny_stone", "대형 팰 영혼", ItemTier.Hyper, 0.08f);
+            AddManual("scroll_of_darkness", "수련의 서 L", ItemTier.Hyper, 2f);
+            AddLotus("mint_spdef", "라이프 로터스", "최대 HP", 0.8f, hp: 1.15f);
+            AddLotus("mint_atk", "파워 로터스", "공격", 0.8f, atk: 1.15f);
+            AddLotus("mint_spd", "스피드 로터스", "스피드", 0.8f, spd: 1.15f);
+            AddImplant("garchompite", "귀신", ItemTier.Hyper, "공격 +30%, 방어 +5%", 0.8f, atk: 1.3f, def: 1.05f);
+            AddImplant("metagrossite", "다이아몬드 보디", ItemTier.Hyper, "방어 +30%", 0.8f, def: 1.3f);
+            AddImplant("salamencite", "신속", ItemTier.Hyper, "스피드 +30%", 0.8f, spd: 1.3f);
+            AddImplant("gengarite", "흡혈귀", ItemTier.Hyper, "준 데미지의 1/10 흡수", 0.8f, drain: 10);
+            AddPendant("venusaurite", "생명의 펜던트", "최대 HP", hp: 1.2f);
+            AddPendant("charizardite_x", "공격의 펜던트", "공격", atk: 1.2f);
+            AddPendant("blastoisinite", "방어의 펜던트", "방어", def: 1.2f);
+
+            // ────────────── 얼티밋 ──────────────
+            AddSoul("sun_stone", "극한 팰 영혼", ItemTier.Ultimate, 0.12f);
+            AddManual("scroll_of_darkness", "수련의 서 XL", ItemTier.Ultimate, 4f);
+            AddFruit("grass_tera_shard", "생명의 열매", "최대 HP", hp: 1.25f);
+            AddFruit("fire_tera_shard", "괴력의 열매", "공격", atk: 1.25f);
+            AddFruit("rock_tera_shard", "견고의 열매", "방어", def: 1.25f);
+            AddImplant("mewtwonite_x", "전설", ItemTier.Ultimate, "공격 +20%, 방어 +20%, 스피드 +15%", 2f, atk: 1.2f, def: 1.2f, spd: 1.15f);
+
+            // ────────────── 엑조틱 ──────────────
+            Add(new ItemDef
+            {
+                Id = "pb_gold", Name = "황금 스피어", Tier = ItemTier.Exotic,
+                Description = "보상으로 고를 수 있는 아이템이 1개 늘어난다. (최대 8개까지)",
+                Weight = r => ItemCatalog.RewardCount(r) < MaxRewardCount ? 6 : 0,
+                Apply = c =>
+                {
+                    c.Run.ExtraRewards++;
+                    return ItemOutcome.Say("앞으로 보상을 하나 더 고를 수 있게 되었다!");
+                },
+            });
+
+            // ───── 위 아이템들을 만드는 도우미 ─────
+            // 팰 영혼(팰월드): 팰 1마리 모든 능력치(HP·공격·방어·스피드)가 영구히 오른다
+            void AddSoul(string icon, string name, ItemTier tier, float bonus)
+            {
+                Add(new ItemDef
+                {
+                    Id = "soul_" + icon, Icon = icon, Name = name, Tier = tier, Target = ItemTarget.Pal,
+                    Description = $"(팰월드) 팰 1마리의 모든 능력치가 영구히 {Mathf.RoundToInt(bonus * 100)}% 오른다.",
+                    Weight = _ => 2,
+                    Apply = c =>
+                    {
+                        c.Target.AddEffect(new StatBundle(1f + bonus, 1f + bonus, 1f + bonus, 1f + bonus) { PerkName = name, PerkDescription = $"모든 능력치 +{Mathf.RoundToInt(bonus * 100)}%" });
+                        return ItemOutcome.Say($"{N(c.Target)}의 모든 능력치가 올랐다!");
+                    },
+                });
+            }
+
+            // 수련의 서(팰월드): 팰 1마리가 경험치를 얻는다 (지금 레벨에서 다음 레벨까지 필요한 양 × levels)
+            void AddManual(string icon, string name, ItemTier tier, float levels)
+            {
+                Add(new ItemDef
+                {
+                    Id = "manual_" + name.Replace(" ", "_"), Icon = icon, Name = name, Tier = tier, Target = ItemTarget.Pal,
+                    Description = levels < 1f ? "(팰월드) 팰 1마리가 다음 레벨까지 필요한 경험치의 절반을 얻는다."
+                                              : $"(팰월드) 팰 1마리가 레벨 {levels:0}개만큼의 경험치를 얻는다.",
+                    Weight = r => r.Party.Any(p => !p.IsMaxLevel) ? 2 : 0,
+                    CannotUse = p => p.IsMaxLevel ? NoEffect : null,
+                    Apply = c =>
+                    {
+                        int amount = Mathf.Max(1, Mathf.RoundToInt(c.Target.ExpToNext * levels));
+                        var ups = c.Target.GainExp(amount);
+                        return new ItemOutcome { Message = $"{Josa.Eun(N(c.Target))} 경험치를 {amount} 얻었다!", LevelUps = ups };
+                    },
+                });
+            }
+
+            // 패시브 스킬 임플란트(팰월드): 팰 1마리에게 패시브 스킬을 영구히 심는다 (같은 것은 한 번만)
+            void AddImplant(string icon, string skill, ItemTier tier, string effectText, float weight,
+                            float atk = 1f, float def = 1f, float spd = 1f, int drain = 0)
+            {
+                string name = $"임플란트: {skill}";
+                Add(new ItemDef
+                {
+                    Id = "implant_" + icon, Icon = icon, Name = name, Tier = tier, Target = ItemTarget.Pal,
+                    Description = $"(팰월드) 팰 1마리에게 패시브 스킬 {Josa.Eul($"[{skill}]")} 심는다. {effectText} (영구)",
+                    Weight = _ => weight,
+                    CannotUse = p => p.Effects.Any(e => e.PerkName == skill) ? "이미 그 패시브 스킬을 가지고 있다." : null,
+                    Apply = c =>
+                    {
+                        BattleEffect effect = drain > 0 ? new DrainPerk(drain) : new StatBundle(1f, atk, def, spd);
+                        effect.PerkName = skill;
+                        effect.PerkDescription = effectText;
+                        c.Target.AddEffect(effect);
+                        return ItemOutcome.Say($"{Josa.Eun(N(c.Target))} 패시브 스킬 {Josa.Eul($"[{skill}]")} 얻었다!");
+                    },
+                });
+            }
+
+            // 로터스(팰월드): 팰 1마리의 능력치 하나가 영구히 15% 오른다
+            void AddLotus(string icon, string name, string statName, float weight, float hp = 1f, float atk = 1f, float spd = 1f)
+            {
+                Add(new ItemDef
+                {
+                    Id = "lotus_" + icon, Icon = icon, Name = name, Tier = ItemTier.Hyper, Target = ItemTarget.Pal,
+                    Description = $"(팰월드) 팰 1마리의 {Josa.I(statName)} 영구히 15% 오른다.",
+                    Weight = _ => weight,
+                    Apply = c =>
+                    {
+                        c.Target.AddEffect(new StatBundle(hp, atk, 1f, spd) { PerkName = name, PerkDescription = $"{statName} +15%" });
+                        return ItemOutcome.Say($"{N(c.Target)}의 {Josa.I(statName)} 올랐다!");
+                    },
+                });
+            }
+
+            // 펜던트(팰월드): 지니게 하면 능력치 하나 +20%
+            void AddPendant(string icon, string name, string statName, float hp = 1f, float atk = 1f, float def = 1f)
+            {
+                Add(new ItemDef
+                {
+                    Id = "pendant_" + icon, Icon = icon, Name = name, Tier = ItemTier.Hyper, Target = ItemTarget.Pal, IsHeld = true,
+                    Description = $"(팰월드) 지니게 하면 {Josa.I(statName)} 20% 오른다.",
+                    Weight = _ => 0.7f,
+                    CannotUse = p => p.Effects.Any(e => e.PerkName == name) ? "이미 지니고 있다." : null,
+                    Apply = c => Hold(c, name, new StatBundle(hp, atk, def, 1f), $"{statName} +20%"),
+                });
+            }
+
+            // 능력 향상 열매(팰월드): 팰 1마리의 능력치 하나가 영구히 25% 오른다
+            void AddFruit(string icon, string name, string statName, float hp = 1f, float atk = 1f, float def = 1f)
+            {
+                Add(new ItemDef
+                {
+                    Id = "fruit_" + icon, Icon = icon, Name = name, Tier = ItemTier.Ultimate, Target = ItemTarget.Pal,
+                    Description = $"(팰월드) 팰 1마리의 {Josa.I(statName)} 영구히 25% 오른다.",
+                    Weight = _ => 1,
+                    Apply = c =>
+                    {
+                        c.Target.AddEffect(new StatBundle(hp, atk, def, 1f) { PerkName = name, PerkDescription = $"{statName} +25%" });
+                        return ItemOutcome.Say($"{N(c.Target)}의 {Josa.I(statName)} 크게 올랐다!");
+                    },
+                });
+            }
+
             return list;
         }
 
@@ -687,12 +972,18 @@ namespace PalRogue
 
     // ═════════════════ 지니는 아이템 / 임시 효과 ═════════════════
 
+    /// <summary>몇 웨이브 동안만 가는 효과. 웨이브가 끝날 때마다 Run이 WavesLeft를 1씩 줄이고 0이 되면 뗀다</summary>
+    public interface ITimedEffect
+    {
+        int WavesLeft { get; set; }
+    }
+
     /// <summary>랭크업 도구: 몇 웨이브 동안 능력치 1랭크(1.5배). 웨이브가 끝날 때마다 Run이 1씩 줄인다</summary>
-    public class TempStatBoost : BattleEffect
+    public class TempStatBoost : BattleEffect, ITimedEffect
     {
         public const int Duration = 5;
         public StatType Stat { get; }
-        public int WavesLeft = Duration;
+        public int WavesLeft { get; set; } = Duration;
 
         public TempStatBoost(StatType stat)
         {
@@ -763,5 +1054,84 @@ namespace PalRogue
         readonly float mult;
         public ExpBoostItem(float mult) { this.mult = mult; }
         public override float ExpMultiplier => mult;
+    }
+}
+
+namespace PalRogue
+{
+    /// <summary>크리티컬커터: 몇 웨이브 동안 급소 확률 +15%</summary>
+    public class TempCritBoost : CritPerk, ITimedEffect
+    {
+        public const int Duration = 5;
+        public int WavesLeft { get; set; } = Duration;
+        public TempCritBoost() : base(0.15f) { PerkName = "크리티컬커터"; }
+    }
+
+    /// <summary>응원 호루라기(팰월드): 몇 웨이브 동안 한 속성 기술 위력 +30%</summary>
+    public class TempTypeBoost : TypePowerPerk, ITimedEffect
+    {
+        public const int Duration = 5;
+        public PalType Type { get; }
+        public int WavesLeft { get; set; } = Duration;
+        public TempTypeBoost(PalType type) : base(type, 1.3f) { Type = type; PerkName = "응원 호루라기"; }
+    }
+
+    /// <summary>능력치 배율 묶음 (최대 HP, 공격, 방어, 스피드). 팰 영혼·임플란트·로터스·펜던트·열매에 쓴다</summary>
+    public class StatBundle : BattleEffect
+    {
+        readonly float hp, atk, def, spd;
+        public StatBundle(float hp, float atk, float def, float spd) { this.hp = hp; this.atk = atk; this.def = def; this.spd = spd; }
+        public override float MaxHpMultiplier => hp;
+        public override float StatMultiplier(StatType s) => s switch
+        {
+            StatType.Attack => atk,
+            StatType.Defense => def,
+            _ => spd,
+        };
+    }
+
+    /// <summary>과사열매: 기술 PP가 0이 되면 턴 끝에 10 회복 (1회)</summary>
+    public class LeppaBerry : BattleEffect
+    {
+        public override void OnTurnEnd(Pal self, BattleContext ctx)
+        {
+            if (self.IsFainted) return;
+            var empty = self.Skills.FirstOrDefault(s => s.PP <= 0);
+            if (empty == null) return;
+            self.RemoveEffect(this);
+            empty.PP = Mathf.Min(empty.MaxPP, 10);
+            ctx.Log($"{Josa.Eun(self.Data.palName)} 과사열매로 {empty.Data.skillName}의 PP를 회복했다!");
+        }
+    }
+
+    /// <summary>의문열매: 효과가 굉장한 공격을 맞으면 HP 1/4 회복 (1회)</summary>
+    public class EnigmaBerry : BattleEffect
+    {
+        public override void OnDamaged(Pal self, DamageInfo info, BattleContext ctx)
+        {
+            if (self.IsFainted || info.TypeMultiplier <= 1f) return;
+            self.RemoveEffect(this);
+            self.Heal(Mathf.Max(1, self.MaxHP / 4));
+            ctx.Log($"{Josa.Eun(self.Data.palName)} 의문열매로 HP를 회복했다!");
+        }
+    }
+
+    /// <summary>치리·용아·캄라열매: HP가 1/4 이하가 되면 능력치 1랭크 상승 (1회)</summary>
+    public class PinchBerry : BattleEffect
+    {
+        readonly string berry;
+        readonly StatType stat;
+        public PinchBerry(string berry, StatType stat) { this.berry = berry; this.stat = stat; }
+
+        public override void OnDamaged(Pal self, DamageInfo info, BattleContext ctx) => Check(self, ctx);
+        public override void OnTurnEnd(Pal self, BattleContext ctx) => Check(self, ctx);
+
+        void Check(Pal self, BattleContext ctx)
+        {
+            if (self.IsFainted || self.CurrentHP * 4 > self.MaxHP) return;
+            self.RemoveEffect(this);
+            if (self.ModifyStage(stat, 1) > 0)
+                ctx.Log($"{Josa.Eun(self.Data.palName)} {berry}로 {Josa.I(StatNames.Korean(stat))} 올라갔다!");
+        }
     }
 }

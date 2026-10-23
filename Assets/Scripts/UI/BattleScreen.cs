@@ -407,7 +407,7 @@ namespace PalRogue
             }
 
             int rerolls = 0;
-            var rewards = ItemCatalog.RollRewards(run, ItemCatalog.RewardCount(run.Wave), run.Rng);
+            var rewards = ItemCatalog.RollRewards(run, ItemCatalog.RewardCount(run), run.Rng);
             float normalWidth = WidenMessage();
             SetInfoBoxFaded(true);                            // 내 팰 정보창도 뒤로 어둡게
             int lastPick = 0;
@@ -431,7 +431,7 @@ namespace PalRogue
                     run.Money -= rerollCost;
                     rerolls++;
                     UpdateHud();
-                    rewards = ItemCatalog.RollRewards(run, ItemCatalog.RewardCount(run.Wave), run.Rng);
+                    rewards = ItemCatalog.RollRewards(run, ItemCatalog.RewardCount(run), run.Rng);
                     reveal = true;
                     lastPick = 0;
                     continue;
@@ -525,14 +525,15 @@ namespace PalRogue
 
                     // PP 회복: 기술 고르기
                     var skills = ctx.Target.Skills;
-                    messageText.text = "어느 기술의 PP를 회복할까?";
+                    messageText.text = $"{Josa.Eul(item.Name)} 어느 기술에 사용할까?";
                     messageText.maxVisibleCharacters = 9999;
                     var labels = skills.Select(s => $"{s.Data.skillName}  {s.PP}/{s.MaxPP}").Concat(new[] { "그만둔다" }).ToArray();
                     choiceMenu.transform.SetAsLastSibling();
                     yield return choiceMenu.Choose(labels, 0, PpMenuWidth);
                     int pick = choiceMenu.Result;
                     if (pick < 0 || pick >= skills.Count) continue;                 // 그만둔다 → 다시 팰 고르기
-                    if (skills[pick].PP >= skills[pick].MaxPP) { yield return ShowMessage(ItemCatalog.NoEffect); continue; }
+                    string skillError = item.CannotUseSkill(skills[pick]);
+                    if (skillError != null) { yield return ShowMessage(skillError); continue; }
                     ctx.SkillIndex = pick;
                     break;
                 }

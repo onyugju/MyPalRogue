@@ -22,7 +22,12 @@ namespace PalRogue
     {
         public SkillData Data { get; }
         public int PP;
-        public int MaxPP => Data.maxPP;
+        /// <summary>포인트업/포인트맥스로 늘어난 최대 PP</summary>
+        public int BonusPP;
+        /// <summary>포인트업을 쓴 횟수 (포인트맥스는 한 번에 끝까지)</summary>
+        public int PpUps;
+        public const int MaxPpUps = 3;
+        public int MaxPP => Data.maxPP + BonusPP;
         public bool HasPP => PP > 0;
 
         public SkillInstance(SkillData data) { Data = data; PP = data.maxPP; }

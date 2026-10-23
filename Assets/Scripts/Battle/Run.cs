@@ -40,6 +40,11 @@ namespace PalRogue
         public const int MaxExpShare = 5;
         public int ExpShareCount { get; set; }
         public float ExpShareRatio => 0.2f * ExpShareCount;
+        /// <summary>사탕단지 개수 (이상한사탕 1개당 레벨 +1씩 더)</summary>
+        public const int MaxCandyJars = 3;
+        public int CandyJars { get; set; }
+        /// <summary>황금 스피어로 늘어난 보상 선택지 수</summary>
+        public int ExtraRewards { get; set; }
 
         /// <summary>보스가 나오는 웨이브인지 (보스·전설·최종 보스 모두 포함)</summary>
         public bool IsBossWave => GameConfig.IsBossWave(Wave);
@@ -88,8 +93,8 @@ namespace PalRogue
         {
             Wave++;
             foreach (var pal in Party)
-                foreach (var boost in pal.Effects.OfType<TempStatBoost>().ToList())
-                    if (--boost.WavesLeft <= 0) pal.RemoveEffect(boost);
+                foreach (var boost in pal.Effects.OfType<ITimedEffect>().ToList())
+                    if (--boost.WavesLeft <= 0) pal.RemoveEffect((BattleEffect)boost);
         }
 
         /// <summary>
