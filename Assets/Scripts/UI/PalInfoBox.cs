@@ -41,6 +41,8 @@ namespace PalRogue
             if (pal.IsFainted) ShowFainted();
             else SetStatus(pal.Status);
 
+            ShowStages(Battle.StageSnapshot(pal), Battle.IsCharging(pal));
+
             SetType(typeIcon1, pal.Data.primaryType);
             if (typeIcon2 != null)
             {
@@ -48,6 +50,67 @@ namespace PalRogue
                 typeIcon2.gameObject.SetActive(dual);
                 if (dual) SetType(typeIcon2, pal.Data.secondaryType);
             }
+        }
+
+        // ───────── 능력치 단계 표시 (공격+2  스피드-1 …) ─────────
+        // 상대 정보창은 아래에, 내 정보창은 위에 작은 글씨로. 오르면 주황, 떨어지면 하늘색. 보스가 힘을 모으면 빨간 "힘 모으는 중!"
+        const string UpColor = "#ffa070", DownColor = "#7cc0ff", ChargeColor = "#ff4d4d";
+        TMP_Text stageText;
+        Image stageBack;
+
+        /// <summary>stages = 공격·방어·스피드 단계 (StatType 순서)</summary>
+        public void ShowStages(int[] stages, bool charging)
+        {
+            var parts = new List<string>();
+            if (stages != null)
+            {
+                var types = (StatType[])System.Enum.GetValues(typeof(StatType));
+                for (int i = 0; i < stages.Length && i < types.Length; i++)
+                {
+                    int st = stages[i];
+                    if (st == 0) continue;
+                    parts.Add($"<color={(st > 0 ? UpColor : DownColor)}>{StatStages.Short(types[i])}{(st > 0 ? "+" : "")}{st}</color>");
+                }
+            }
+            if (charging) parts.Add($"<color={ChargeColor}>힘 모으는 중!</color>");
+
+            if (parts.Count == 0)
+            {
+                if (stageText != null) stageBack.gameObject.SetActive(false);
+                return;
+            }
+            EnsureStageText();
+            stageBack.gameObject.SetActive(true);
+            stageText.text = string.Join("  ", parts);
+            float w = stageText.GetPreferredValues(stageText.text).x;
+            stageBack.rectTransform.sizeDelta = new Vector2(Mathf.Ceil(w) + 6f, 10f);
+        }
+
+        void EnsureStageText()
+        {
+            if (stageText != null) return;
+            bool player = expFill != null;                      // 내 정보창은 위쪽, 상대 정보창은 아래쪽에 붙인다
+            var back = new GameObject("StageBack", typeof(RectTransform)).AddComponent<Image>();
+            var rt = back.rectTransform;
+            rt.SetParent(transform, false);
+            rt.anchorMin = rt.anchorMax = player ? new Vector2(0f, 1f) : new Vector2(0f, 0f);
+            rt.pivot = player ? new Vector2(0f, 0f) : new Vector2(0f, 1f);
+            rt.anchoredPosition = player ? new Vector2(10f, 1f) : new Vector2(6f, -1f);
+            back.color = new Color(0f, 0f, 0f, 0.55f);
+            back.raycastTarget = false;
+            stageBack = back;
+
+            stageText = new GameObject("StageText", typeof(RectTransform)).AddComponent<TextMeshProUGUI>();
+            var trt = stageText.rectTransform;
+            trt.SetParent(rt, false);
+            trt.anchorMin = Vector2.zero; trt.anchorMax = Vector2.one;
+            trt.offsetMin = new Vector2(3f, 0f); trt.offsetMax = Vector2.zero;
+            stageText.font = nameText.font;
+            stageText.fontSize = 7f;
+            stageText.alignment = TextAlignmentOptions.Left;
+            stageText.textWrappingMode = TextWrappingModes.NoWrap;
+            stageText.richText = true;
+            stageText.raycastTarget = false;
         }
 
         /// <summary>상태이상 뱃지를 보여주거나(None이면) 숨긴다</summary>

@@ -7,7 +7,7 @@ namespace PalRogue
 {
     public enum BattleState { Ongoing, WaitingPlayerSwitch, PlayerWon, PlayerLost, Caught }
 
-    public enum BattleEventType { Message, HpChanged, Fainted, SentOut, StatusChanged, SphereThrown, SphereShakes, SphereCaught, SphereBroke, ExpBar, LevelUp, Recalled, ShieldBroken, Awakened, SkillAnim }
+    public enum BattleEventType { Message, HpChanged, Fainted, SentOut, StatusChanged, SphereThrown, SphereShakes, SphereCaught, SphereBroke, ExpBar, LevelUp, Recalled, ShieldBroken, Awakened, SkillAnim, StatStage, BossPattern }
 
     /// <summary>화면이 순서대로 재생하는 전투 진행 기록 한 줄</summary>
     public class BattleEvent
@@ -26,6 +26,12 @@ namespace PalRogue
         public SkillData Skill;                   // SkillAnim: 쓴 기술 (Pal = 쓴 팰, IsPlayerSide = 쓴 쪽)
         public bool Missed, Critical;             // SkillAnim: 빗나감 / 급소
         public float Effectiveness = 1f;          // SkillAnim: 상성 배율 (연출 세기)
+        public StatType Stat;                     // StatStage: 바뀐 능력치 (Count = 바뀐 양, +면 상승)
+        public BossFx Fx;                         // BossPattern: 연출 종류 (Pal = 보스, Target = 연출이 나오는 팰)
+        public Pal Target;
+        public bool TargetIsPlayerSide;
+        public int[] Stages;                      // StatStage / BossPattern: 그 순간의 능력치 단계 (정보창 표시용)
+        public bool Charging;                     // StatStage / BossPattern: 그 순간 힘을 모으고 있는지
     }
 
     /// <summary>한 턴에 고를 수 있는 행동: 스킬 사용 또는 교체</summary>
@@ -102,6 +108,20 @@ namespace PalRogue
             }
         }
 
+        void OnStageChanged(Pal p, StatType stat, int delta) =>
+            Emit(new BattleEvent
+            {
+                Type = BattleEventType.StatStage, Pal = p, IsPlayerSide = IsPlayerPal(p), Stat = stat, Count = delta,
+                Stages = StageSnapshot(p), Charging = IsCharging(p),
+            });
+
+        /// <summary>지금 능력치 단계 (StatType 순서: 공격·방어·스피드)</summary>
+        public static int[] StageSnapshot(Pal p) =>
+            ((StatType[])Enum.GetValues(typeof(StatType))).Select(p.GetStage).ToArray();
+
+        /// <summary>보스가 힘을 모으고 있는지 (정보창에 "힘 모으는 중!")</summary>
+        public static bool IsCharging(Pal p) => p.Effects.OfType<ChargeStrike>().Any(c => c.Charged);
+
         void OnHpChanged(Pal p, int from, int to) =>
             Emit(new BattleEvent { Type = BattleEventType.HpChanged, Pal = p, IsPlayerSide = IsPlayerPal(p), From = from, To = to });
 
@@ -113,6 +133,7 @@ namespace PalRogue
                 p.HpChanged -= OnHpChanged;
                 p.StatusChanged -= OnStatusChanged;
                 p.ShieldsBroken -= OnShieldsBroken;
+                p.StageChanged -= OnStageChanged;
             }
         }
 
@@ -160,6 +181,12 @@ namespace PalRogue
             EnemySmartness = GameConfig.EnemySmartness(0, bossKind);   // 화면이 웨이브에 맞춰 다시 정한다
             Ctx.BerrySaveChance = p => IsPlayerPal(p) ? PlayerBerrySave : 0f;
             Ctx.Awakened = p => Emit(new BattleEvent { Type = BattleEventType.Awakened, Pal = p, IsPlayerSide = IsPlayerPal(p) });
+            Ctx.PatternFx = (boss, fx, target) => Emit(new BattleEvent
+            {
+                Type = BattleEventType.BossPattern, Pal = boss, IsPlayerSide = IsPlayerPal(boss), Fx = fx,
+                Target = target ?? boss, TargetIsPlayerSide = IsPlayerPal(target ?? boss),
+                Stages = StageSnapshot(boss), Charging = IsCharging(boss),
+            });
 
             PlayerIndex = FirstAlive(PlayerParty);
             bool frontChanged = PlayerIndex > 0;
@@ -179,6 +206,7 @@ namespace PalRogue
                 p0.HpChanged += OnHpChanged;
                 p0.StatusChanged += OnStatusChanged;
                 p0.ShieldsBroken += OnShieldsBroken;
+                p0.StageChanged += OnStageChanged;
             }
             foreach (var p in PlayerParty.Concat(EnemyParty))
             {
@@ -199,6 +227,12 @@ namespace PalRogue
             {
                 string list = string.Join(", ", held.Take(3)) + (held.Count > 3 ? $" 외 {held.Count - 3}개" : "");
                 Log($"{Josa.Eun(enemyName)} {Josa.Eul(list)} 지니고 있다!");
+            }
+            // 보스 패턴 예고 (포켓로그에는 없는 팰로그 오리지널)
+            foreach (var pattern in Enemy.Effects.OfType<BossPattern>())
+            {
+                string intro = pattern.Intro(Enemy);
+                if (intro != null) Log(intro);
             }
             PlayerSentOutAtStart = announcePlayer || frontChanged;
             if (PlayerSentOutAtStart)
@@ -336,7 +370,7 @@ namespace PalRogue
             Log($"{user.Data.palName}의 {skill.skillName}!");
             if (inst != null) inst.PP--;
 
-            if (!BattleCalc.CheckHit(skill, rng))
+            if (!skill.IsSelfOnly && !BattleCalc.CheckHit(skill, rng))   // 자신에게 쓰는 기술은 빗나가지 않는다
             {
                 EmitSkillAnim(user, skill, true, false, 1f);           // 빗나가는 연출
                 Log("공격은 빗나갔다!");
@@ -345,10 +379,22 @@ namespace PalRogue
 
             if (skill.category == SkillCategory.Status)
             {
-                // 변화기: 지금은 상태이상을 거는 효과만 있다 (능력치 변화 등은 나중에 추가)
+                // 변화기: 회복 → 능력치 변화 → 상태이상. 아무것도 못 하면 "그러나 아무 일도 일어나지 않았다!"
                 EmitSkillAnim(user, skill, false, false, 1f);
-                if (skill.statusEffect == StatusCondition.None || !TryInflict(target, skill.statusEffect, skill.statusChance))
-                    Log("그러나 아무 일도 일어나지 않았다!");
+                bool any = false;
+                if (skill.healPercent > 0)
+                {
+                    any = true;
+                    if (user.CurrentHP >= user.MaxHP) Log($"그러나 {Josa.Eun(user.Data.palName)} HP가 가득 차 있다!");
+                    else
+                    {
+                        user.Heal(Mathf.Max(1, Mathf.RoundToInt(user.MaxHP * skill.healPercent / 100f)));
+                        Log($"{Josa.Eun(user.Data.palName)} HP를 회복했다!");
+                    }
+                }
+                any |= ApplyStatChanges(user, target, skill);
+                if (skill.statusEffect != StatusCondition.None) any |= TryInflict(target, skill.statusEffect, skill.statusChance);
+                if (!any) Log("그러나 아무 일도 일어나지 않았다!");
                 return;
             }
 
@@ -360,6 +406,10 @@ namespace PalRogue
                 if (!string.IsNullOrEmpty(info.EffectivenessText)) Log(info.EffectivenessText);
             });
 
+            // 추가 효과: 정해진 확률로 능력치 변화 (자신에게 오는 효과는 상대가 쓰러져도 일어난다)
+            if (dealt > 0 && skill.HasStatChanges && rng.Next(100) < skill.statChangeChance)
+                ApplyStatChanges(user, target, skill);
+
             if (target.IsFainted || dealt <= 0) return;
 
             // 얼어 있는 상대가 불 속성 공격을 맞으면 녹는다
@@ -368,6 +418,20 @@ namespace PalRogue
 
             // 추가 효과: 정해진 확률로 상태이상
             TryInflict(target, skill.statusEffect, skill.statusChance);
+        }
+
+        /// <summary>기술의 능력치 변화를 자신·상대에게 (쓰러진 팰은 건너뜀). 메시지를 남겼으면 true</summary>
+        bool ApplyStatChanges(Pal user, Pal target, SkillData skill)
+        {
+            if (!skill.HasStatChanges) return false;
+            bool any = false;
+            foreach (var group in skill.statChanges.GroupBy(c => c.self))
+            {
+                var who = group.Key ? user : target;
+                if (who == null || who.IsFainted) continue;
+                any |= StatStages.ChangeMany(who, group.Select(c => (c.stat, c.stages)).ToList(), Log);
+            }
+            return any;
         }
 
         // ───────── 상태이상 ─────────
@@ -627,6 +691,7 @@ namespace PalRogue
                 target.ResetBattleState();
                 target.CaughtSphere = sphere;                // 나중에 내보낼 때 이 스피어를 던진다
                 target.ClearBoss();
+                foreach (var pattern in target.Effects.OfType<BossPattern>().ToList()) target.RemoveEffect(pattern);   // 보스 패턴은 잡으면 사라진다
                 if (playerList.Count < MaxPartySize && CondenseTarget(target) == null)
                 {
                     playerList.Add(target);                  // 파티 맨 뒤에 들어온다

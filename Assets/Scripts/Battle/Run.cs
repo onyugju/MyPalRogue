@@ -180,6 +180,7 @@ namespace PalRogue
             EnemyLoadout.Equip(pal, this, Wave, kind, Rng);   // 웨이브가 깊을수록 아이템을 많이·강하게 지닌다
             pal.Heal(pal.MaxHP);                             // 최대 HP가 늘어난 만큼 채운다
             if (kind != BossKind.None) pal.MakeBoss(GameConfig.BossSegments(kind, pal.Level));
+            BossPattern.Attach(pal, kind, Wave);             // 보스 패턴: 힘 모으기·분노·속성별 고유 패턴
             return pal;
         }
 

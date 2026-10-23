@@ -22,3 +22,9 @@ MonoBehaviour:
   priority: 0
   statusEffect: 4
   statusChance: 10
+  statChanges:
+  - stat: 1
+    stages: -1
+    self: 0
+  statChangeChance: 20
+  healPercent: 0

@@ -1278,12 +1278,32 @@ namespace PalRogue
         /// <summary>Battle이 쌓아 둔 진행 기록을 순서대로 화면에 재생한다</summary>
         IEnumerator PlayEvents()
         {
+            BattleEvent prev = null;
             while (battle.TryDequeueEvent(out var ev))
             {
                 var box = ev.IsPlayerSide ? playerInfo : enemyInfo;
                 var view = ev.IsPlayerSide ? playerView : enemyView;
+                var before = prev;
+                prev = ev;
                 switch (ev.Type)
                 {
+                    case BattleEventType.StatStage:
+                    {
+                        box.ShowStages(ev.Stages, ev.Charging);
+                        // 여러 능력치가 한꺼번에 같은 쪽으로 바뀌면 화살표는 한 번만
+                        bool sameBurst = before != null && before.Type == BattleEventType.StatStage && before.Pal == ev.Pal
+                                         && (before.Count > 0) == (ev.Count > 0);
+                        if (!sameBurst && view.IsVisible) yield return Fx.PlayStatStage(view, ev.Count > 0);
+                        break;
+                    }
+                    case BattleEventType.BossPattern:
+                    {
+                        box.ShowStages(ev.Stages, ev.Charging);
+                        var targetView = ev.TargetIsPlayerSide ? playerView : enemyView;
+                        if (view.IsVisible) yield return Fx.PlayBossFx(ev.Fx, ev.Pal.Data.primaryType, view, targetView);
+                        if (ev.Fx == BossFx.Charge || ev.Fx == BossFx.Enrage) yield return ShakeBox((RectTransform)box.transform);
+                        break;
+                    }
                     case BattleEventType.Message:
                         yield return ShowMessage(ev.Text);
                         break;

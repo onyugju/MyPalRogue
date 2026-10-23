@@ -13,6 +13,8 @@ namespace PalRogue
         public Func<Pal, float> BerrySaveChance = _ => 0f;
         /// <summary>팰이 각성했을 때 (화면 연출용). 전투가 채운다</summary>
         public Action<Pal> Awakened = _ => { };
+        /// <summary>보스 패턴 연출 (보스, 연출 종류, 연출이 나오는 팰). 전투가 채운다</summary>
+        public Action<Pal, BossFx, Pal> PatternFx = (_, _, _) => { };
     }
 
     /// <summary>

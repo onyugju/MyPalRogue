@@ -176,7 +176,23 @@ namespace PalRogue
         {
             int before = stages[stat];
             stages[stat] = Mathf.Clamp(before + delta, MinStage, MaxStage);
-            return stages[stat] - before;
+            int changed = stages[stat] - before;
+            if (changed != 0) StageChanged?.Invoke(this, stat, changed);
+            return changed;
+        }
+
+        public const int StageLimit = MaxStage;
+
+        /// <summary>능력치 단계가 바뀔 때 (팰, 능력치, 바뀐 양). 전투가 화면 연출(화살표)로 보낸다</summary>
+        public event Action<Pal, StatType, int> StageChanged;
+
+        /// <summary>떨어진 능력치 단계를 모두 0으로 되돌린다 (보스의 정화). 하나라도 되돌렸으면 true</summary>
+        public bool ClearNegativeStages()
+        {
+            bool any = false;
+            foreach (StatType t in Enum.GetValues(typeof(StatType)))
+                if (stages[t] < 0) { ModifyStage(t, -stages[t]); any = true; }
+            return any;
         }
 
         public void ResetBattleState()

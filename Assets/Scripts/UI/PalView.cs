@@ -56,6 +56,8 @@ namespace PalRogue
             pendingSprite = controller == null ? sprite : null;
             sr.enabled = true;
             sr.color = Color.white;
+            baseTint = Color.white;
+            glow = null;
             transform.localScale = Vector3.one * scale;
 
             // 스프라이트 중심이 기준이라, 발 끝 높이가 같도록 위치를 보정한다
@@ -97,6 +99,7 @@ namespace PalRogue
         {
             if (sr == null) Awake();
             sr.enabled = false;
+            glow = null;
         }
 
         // 같은 프레임 안에서 애니메이터가 그림을 되돌리는 경우까지 막기 위해, 정지 그림 팰은 한 번 더 확실히 넣는다
@@ -162,6 +165,43 @@ namespace PalRogue
                 yield return new WaitForSecondsRealtime(0.09f);
             }
             sr.color = AwakenTint;
+            baseTint = AwakenTint;
+        }
+
+        // ───────── 색 연출 (능력치 변화·보스 패턴) ─────────
+        /// <summary>평소 색 (각성하면 은은한 금빛)</summary>
+        Color baseTint = Color.white;
+        /// <summary>계속 맥동하는 기운의 색 (보스가 힘을 모으는 동안). null이면 없음</summary>
+        Color? glow;
+
+        /// <summary>times번 color로 번쩍인다 (능력치가 오르면 붉게, 내리면 푸르게)</summary>
+        public IEnumerator Flash(Color color, int times = 2, float each = 0.08f)
+        {
+            if (sr == null) Awake();
+            for (int i = 0; i < times; i++)
+            {
+                sr.color = color;
+                yield return new WaitForSecondsRealtime(each);
+                sr.color = baseTint;
+                yield return new WaitForSecondsRealtime(each);
+            }
+        }
+
+        /// <summary>몸에 맥동하는 기운을 두른다 (null이면 끈다)</summary>
+        public void SetGlow(Color? color)
+        {
+            if (sr == null) Awake();
+            glow = color;
+            if (color == null) sr.color = baseTint;
+        }
+
+        public bool IsGlowing => glow != null;
+
+        void Update()
+        {
+            if (glow == null || sr == null || !sr.enabled) return;
+            float k = (Mathf.Sin(Time.unscaledTime * 7f) + 1f) * 0.5f;
+            sr.color = Color.Lerp(baseTint, glow.Value, 0.25f + 0.5f * k);
         }
 
         // ───────── 기술 연출 (SkillFx) ─────────

@@ -20,3 +20,11 @@ MonoBehaviour:
   accuracy: 100
   maxPP: 20
   priority: 0
+  statusEffect: 0
+  statusChance: 0
+  statChanges:
+  - stat: 2
+    stages: -1
+    self: 0
+  statChangeChance: 20
+  healPercent: 0

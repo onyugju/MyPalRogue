@@ -27,8 +27,6 @@ MonoBehaviour:
   baseHP: 70
   baseAttack: 70
   baseDefense: 70
-  baseSpAttack: 70
-  baseSpDefense: 70
   baseSpeed: 70
   learnset:
   - level: 1
@@ -43,6 +41,8 @@ MonoBehaviour:
     skill: {fileID: 11400000, guid: bc61e1ce82ffeec4c9fd4872c4706552, type: 2}
   - level: 6
     skill: {fileID: 11400000, guid: 6e617c3771e91cc428fd1d39044c3ea5, type: 2}
+  - level: 10
+    skill: {fileID: 11400000, guid: 7733c9c810a9d6847b2b91104cae41ff, type: 2}
   - level: 12
     skill: {fileID: 11400000, guid: d2545f591d729184fac8c797eebac0d1, type: 2}
   - level: 12
@@ -51,6 +51,8 @@ MonoBehaviour:
     skill: {fileID: 11400000, guid: daed68a6bef3ce647bbef3965a9ed12a, type: 2}
   - level: 20
     skill: {fileID: 11400000, guid: 6d5eb2aa2b236e64fa678b7d3857ed97, type: 2}
+  - level: 22
+    skill: {fileID: 11400000, guid: de32601f01c8af54ea4c8439faf2c89e, type: 2}
   - level: 40
     skill: {fileID: 11400000, guid: e6b2f5a5639888f45b3f3ae0d3fa11cd, type: 2}
   canBeCaught: 1

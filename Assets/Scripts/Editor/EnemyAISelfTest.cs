@@ -74,7 +74,8 @@ namespace PalRogue.EditorTools
                 if (hasGood && data.category != SkillCategory.Status &&
                     TypeChart.GetMultiplier(data.type, foe.Data.primaryType, foe.Data.SecondaryType) <= 0f)
                     throw new Exception($"효과 없는 기술 {data.skillName}을 고름");
-                if (hasGood && data.category == SkillCategory.Status && !foe.CanReceiveStatus(data.statusEffect))
+                if (hasGood && data.category == SkillCategory.Status && data.statusEffect != StatusCondition.None
+                    && !foe.CanReceiveStatus(data.statusEffect) && EnemyAI.SupportValue(me, foe, data) <= 0f)
                     throw new Exception($"걸 수 없는 상태이상 기술 {data.skillName}을 고름 (상대 {foe.Status})");
                 if (options.Any(o => o.Score <= 0f && me.Skills[o.Index].Data.category == SkillCategory.Status)) statusAvoid++;
                 if (options.Any(o => o.Reason.StartsWith("효과 없음"))) immuneAvoid++;

@@ -83,9 +83,11 @@ namespace PalRogue
 
             if (s.category == SkillCategory.Status)
             {
-                float v = StatusValue(me, foe, s.statusEffect);
-                o.Score = v * acc * Mathf.Clamp01(Mathf.Max(s.statusChance, 1) / 100f) * foe.MaxHP;
-                o.Reason = v > 0f ? $"{StatusRules.Korean(s.statusEffect)} 걸기" : "걸 수 없음";
+                float v = StatusValue(me, foe, s.statusEffect) * Mathf.Clamp01(Mathf.Max(s.statusChance, 1) / 100f);
+                float support = SupportValue(me, foe, s);
+                o.Score = (v + support) * (s.IsSelfOnly ? 1f : acc) * foe.MaxHP;
+                o.Reason = v > 0f ? $"{StatusRules.Korean(s.statusEffect)} 걸기"
+                         : support > 0f ? (s.healPercent > 0 ? "회복" : "능력치 변화") : "쓸모없음";
                 return o;
             }
 
@@ -108,6 +110,10 @@ namespace PalRogue
             // 추가 효과로 상태이상
             if (s.statusEffect != StatusCondition.None && s.statusChance > 0)
                 o.Score += StatusValue(me, foe, s.statusEffect) * acc * (s.statusChance / 100f) * foe.MaxHP * 0.5f;
+
+            // 추가 효과로 능력치 변화
+            if (s.HasStatChanges && s.statChangeChance > 0)
+                o.Score += SupportValue(me, foe, s) * acc * (s.statChangeChance / 100f) * foe.MaxHP * 0.5f;
 
             // 얼어 있는 상대에게 불 기술은 녹여 준다
             if (foe.Status == StatusCondition.Freeze && s.type == PalType.Fire && !o.CanKo)
@@ -136,6 +142,66 @@ namespace PalRogue
             };
             // 상대 HP가 얼마 안 남았으면 상태이상보다 공격이 낫다
             return v * Mathf.Lerp(0.3f, 1f, hpLeft);
+        }
+
+        /// <summary>
+        /// 회복·능력치 변화의 가치 (상대 최대 HP 대비 비율과 같은 크기로 맞춘 값). 쓸모없으면 0, 손해면 음수.
+        ///  - 회복: 잃은 HP만큼만 가치가 있다 (HP가 많으면 거의 0)
+        ///  - 내 공격↑ / 상대 방어↓: 공격이 세진다.  내 방어↑ / 상대 공격↓: 덜 아프다
+        ///  - 스피드: 지금 느린데 바꾸면 앞지를 수 있을 때 크게, 아니면 조금
+        ///  - 이미 크게 바뀐 능력치는 덜 쳐준다. 내 HP가 적거나 상대가 곧 쓰러질 것 같으면 능력치 변화는 미룬다
+        /// </summary>
+        public static float SupportValue(Pal me, Pal foe, SkillData s)
+        {
+            float myHp = (float)me.CurrentHP / Mathf.Max(1, me.MaxHP);
+            float foeHp = (float)foe.CurrentHP / Mathf.Max(1, foe.MaxHP);
+            float v = 0f;
+
+            if (s.healPercent > 0)
+            {
+                float healed = Mathf.Min(s.healPercent / 100f, 1f - myHp);
+                v += healed * (myHp < 0.5f ? 1.2f : 0.8f);
+            }
+
+            if (s.HasStatChanges)
+            {
+                float stats = 0f;
+                bool speedCounted = false;
+                foreach (var c in s.statChanges)
+                {
+                    var who = c.self ? me : foe;
+                    int cur = who.GetStage(c.stat);
+                    int eff = c.stages > 0 ? Mathf.Min(c.stages, Pal.StageLimit - cur) : Mathf.Max(c.stages, -Pal.StageLimit - cur);
+                    if (eff == 0) continue;
+                    float good = c.self ? eff : -eff;                       // +면 나에게 이득
+                    float per;
+                    if (c.stat == StatType.Speed)
+                    {
+                        if (speedCounted) continue;
+                        speedCounted = true;
+                        int mySpd = me.GetStat(StatType.Speed), foeSpd = foe.GetStat(StatType.Speed);
+                        float after = c.self ? mySpd * StatStages.Multiplier(cur + eff) / StatStages.Multiplier(cur)
+                                             : foeSpd * StatStages.Multiplier(cur + eff) / StatStages.Multiplier(cur);
+                        bool overtakes = c.self ? mySpd <= foeSpd && after > foeSpd : mySpd <= foeSpd && mySpd > after;
+                        stats += good > 0 ? (overtakes ? 0.25f : 0.03f * Mathf.Abs(good)) : -0.05f * Mathf.Abs(good);
+                        continue;
+                    }
+                    per = (c.stat, c.self) switch
+                    {
+                        (StatType.Attack, true) => 0.16f,
+                        (StatType.Defense, true) => 0.12f,
+                        (StatType.Attack, false) => 0.12f,
+                        _ => 0.14f,                                       // 상대 방어
+                    };
+                    // 이미 내 쪽으로 2단계 넘게 기운 능력치는 덜 쳐준다
+                    int already = c.self ? cur : -cur;
+                    if (good > 0 && already >= 2) per *= 0.4f;
+                    stats += good * per;
+                }
+                if (stats > 0f) stats *= Mathf.Lerp(0.2f, 1f, myHp) * Mathf.Lerp(0.3f, 1f, foeHp);
+                v += stats;
+            }
+            return v;
         }
 
         /// <summary>

@@ -27,8 +27,6 @@ MonoBehaviour:
   baseHP: 121
   baseAttack: 69
   baseDefense: 121
-  baseSpAttack: 69
-  baseSpDefense: 104
   baseSpeed: 35
   learnset:
   - level: 1
@@ -39,6 +37,8 @@ MonoBehaviour:
     skill: {fileID: 11400000, guid: d407d0d68ab1438448a66fe2ce0f5610, type: 2}
   - level: 6
     skill: {fileID: 11400000, guid: b24710bc06f88e147a6a62fe2eae886d, type: 2}
+  - level: 10
+    skill: {fileID: 11400000, guid: 42f47fc11cbffcd4d850b4287656e372, type: 2}
   - level: 12
     skill: {fileID: 11400000, guid: c98f48158ebbe1a45bda5138515ccb71, type: 2}
   - level: 12

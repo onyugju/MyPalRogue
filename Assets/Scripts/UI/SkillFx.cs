@@ -15,6 +15,9 @@ namespace PalRogue
     ///  - 직격(Strike):    기를 모았다가 상대 자리에서 터진다 (번개·폭발·베기)
     ///  - 돌진(Melee):     몸으로 부딪친다 (펀치·할퀴기·태클)
     ///  - 낙하(Rain):      하늘에서 여러 개가 쏟아진다 (운석·폭풍)
+    ///  - 기운(Aura):      변화 기술. 자신에게 쓰면 자기 몸에, 상대에게 쓰면 상대 몸에 기운이 감돈다 (맞는 연출 없음)
+    /// 능력치가 오르면 붉은 화살표(Buff Up), 떨어지면 푸른 화살표(Debuff Down)와 함께 팰이 번쩍인다 (PlayStatStage).
+    /// 보스 패턴(힘 모으기·분노·정화 등)은 PlayBossFx.
     /// 맞으면 상대가 깜빡이며 흔들리고, 급소·효과 굉장·위력 100 이상이면 화면도 흔들린다.
     /// 기술별 연출은 아래 표(BySkill, 키 = 기술 에셋 이름)에, 표에 없으면 속성 기본 연출(ByType)을 쓴다.
     /// </summary>
@@ -25,7 +28,7 @@ namespace PalRogue
         const float ImpactFps = 20f, TravelFps = 16f;
         const int SortingAbovePals = 20;
 
-        enum Kind { Projectile, Beam, Strike, Melee, Rain }
+        enum Kind { Projectile, Beam, Strike, Melee, Rain, Aura }
 
         class Def
         {
@@ -54,6 +57,8 @@ namespace PalRogue
             new Def { kind = Kind.Strike, impact = impact, impact2 = impact2, cast = cast, tint = tint ?? Color.white, impactScale = scale };
         static Def Melee(string impact, string impact2 = null, Color? tint = null, float scale = 2.2f) =>
             new Def { kind = Kind.Melee, impact = impact, impact2 = impact2, tint = tint ?? Color.white, impactScale = scale };
+        static Def Aura(string impact, string impact2 = null, Color? tint = null, float scale = 2.4f, string cast = null) =>
+            new Def { kind = Kind.Aura, impact = impact, impact2 = impact2, cast = cast, tint = tint ?? Color.white, impactScale = scale };
         static Def Rain(string travel, string impact, Color? tint = null, int count = 3, float scale = 1.8f, float impactScale = 2.2f) =>
             new Def { kind = Kind.Rain, travel = travel, impact = impact, tint = tint ?? Color.white, count = count, travelScale = scale, impactScale = impactScale };
 
@@ -83,6 +88,12 @@ namespace PalRogue
                      FireSlash = "Slashes/Fire Slash", SpinSlash = "Slashes/Spin Slash", DoubleSlash = "Slashes/Double Slash", Thrust = "Slashes/Thrust";
         const string SandBurst = "Smoke and Dust/Sand Burst", DustCloud = "Smoke and Dust/Dust Cloud", DirtKick = "Smoke and Dust/Dirt Kick",
                      Steam = "Smoke and Dust/Steam", Leaves = "Ambient/Falling Leaves", Bubbles = "Ambient/Bubbles", StarBurst = "Pickups and UI/Star Burst";
+        // 변화 기술·능력치 변화·보스 패턴
+        const string BuffUp = "Magic/Buff Up", DebuffDown = "Magic/Debuff Down", HealFx = "Magic/Heal", HealCross = "Pickups and UI/Heal Cross",
+                     ShieldBubble = "Magic/Shield Bubble", CastCircle = "Magic/Cast Circle", ChargeUp = "Lightning/Charge Up",
+                     StaticLoop = "Lightning/Static Loop", ShockAura = "Lightning/Shock Aura", FireShield = "Fire/Fire Shield",
+                     EmberRise = "Fire/Ember Rise", FogDrift = "Smoke and Dust/Fog Drift", SmokePuff = "Smoke and Dust/Smoke Puff",
+                     Dissipate = "Smoke and Dust/Dissipate", RankUp = "Pickups and UI/Rank Up";
 
         static readonly Dictionary<string, Def> BySkill = new Dictionary<string, Def>
         {
@@ -166,6 +177,18 @@ namespace PalRogue
             ["Void_Shot"]      = Proj(HomingOrb, Portal, VoidCol),
             ["Void_Pulse"]     = Strike(Emp, Portal, VoidCol, 2.5f),
             ["Annihilate"]     = Strike(Portal, Nuke, VoidCol, 3f, cast: DarkCurse),
+
+            // ── 변화 기술 (버프·디버프·회복) ──
+            ["Focus_Up"]       = Aura(ChargeUp, StarBurst, C(0xffb070)),
+            ["Burning_Spirit"] = Aura(FireShield, EmberRise),
+            ["Aqua_Veil"]      = Aura(ShieldBubble, WaterSplash, Blue),
+            ["Photosynthesis"] = Aura(HealFx, HealCross, Green),
+            ["Charge_Up"]      = Aura(ChargeUp, StaticLoop, Yellow),
+            ["Rock_Armor"]     = Aura(ShieldBubble, RockBurst, Brown),
+            ["Frost_Mist"]     = Aura(FogDrift, FrostNova, Ice),
+            ["Dragon_Dance"]   = Aura(CastCircle, WindGust, Purple),
+            ["Fear_Gaze"]      = Aura(DarkCurse, SmokePuff, DarkPurple),
+            ["Void_Erosion"]   = Aura(Portal, DarkCurse, VoidCol, 2.6f),
         };
 
         /// <summary>표에 없는 기술 (새로 추가한 기술 등)은 속성별 기본 연출</summary>
@@ -196,6 +219,9 @@ namespace PalRogue
         /// <summary>표에 있는 시트 이름 전부 (테스트에서 그림이 있는지 확인)</summary>
         public static IEnumerable<string> AllSheets()
         {
+            foreach (var s in new[] { BuffUp, DebuffDown, HealFx, ChargeUp, Shockwave, Dissipate, FireShield, HolyLight, DarkCurse,
+                                      FrostNova, Portal, Ignite, ShockAura, RankUp })
+                yield return s;
             foreach (var d in BySkill.Values)
                 foreach (var s in new[] { d.travel, d.impact, d.impact2, d.cast })
                     if (s != null) yield return s;
@@ -432,6 +458,21 @@ namespace PalRogue
                     if (missed) Run(PlayOnce(d.impact, to, impactScale * 0.7f, new Color(1f, 1f, 1f, 0.5f)));
                     break;
 
+                case Kind.Aura:
+                {
+                    // 자신에게 쓰는 기술은 몸을 웅크렸다 펴며 자기 몸에, 상대에게 쓰는 기술은 상대 몸에 기운이 감돈다
+                    bool self = skill.IsSelfOnly;
+                    var at = self ? user : target;
+                    yield return user.WindUp(self ? user.Center + Vector3.down : target.Center, 0.2f);
+                    Vector3 p = self ? user.Center : (missed ? to : target.Center);
+                    Color tint = missed ? new Color(d.tint.r, d.tint.g, d.tint.b, 0.5f) : d.tint;
+                    Run(PlayOnce(d.impact, p, d.impactScale, tint, 14f));
+                    if (d.impact2 != null) Run(DelayThen(0.15f, PlayOnce(d.impact2, p, d.impactScale * 0.8f, tint, 14f)));
+                    if (!self && !missed) Run(DelayThen(0.1f, at.Flash(new Color(0.75f, 0.6f, 1f), 2)));
+                    yield return new WaitForSecondsRealtime(0.3f);
+                    break;
+                }
+
                 case Kind.Rain:
                     for (int i = 0; i < d.count; i++)
                     {
@@ -462,6 +503,81 @@ namespace PalRogue
             sortingLayer = view.SortingLayerId;
             sortingOrder = view.SortingOrder + SortingAbovePals;
             yield return PlayOnce(sheet, view.Center, 2.2f, tint, 14f);
+        }
+
+        // ═════════════════ 능력치 변화 ═════════════════
+        static readonly Color UpFlash = new Color(1f, 0.55f, 0.4f), DownFlash = new Color(0.45f, 0.65f, 1f);
+
+        /// <summary>능력치가 오르면 붉은 화살표가 솟고, 떨어지면 푸른 화살표가 내려온다. 팰도 그 색으로 번쩍인다</summary>
+        public IEnumerator PlayStatStage(PalView view, bool up)
+        {
+            if (view == null || !view.IsVisible) yield break;
+            sortingLayer = view.SortingLayerId;
+            sortingOrder = view.SortingOrder + SortingAbovePals;
+            Run(view.Flash(up ? UpFlash : DownFlash, 3, 0.07f));
+            Run(PlayOnce(up ? BuffUp : DebuffDown, view.Center, 2.6f, Color.white, 14f));
+            while (running > 0) yield return null;
+        }
+
+        // ═════════════════ 보스 패턴 ═════════════════
+        static readonly Color ChargeGlow = new Color(1f, 0.35f, 0.3f), RageRed = new Color(1f, 0.3f, 0.25f), HolyGold = new Color(1f, 0.95f, 0.6f);
+
+        /// <summary>보스 패턴 연출. boss = 패턴을 쓴 팰, target = 연출이 나오는 팰 (상대에게 거는 패턴이면 상대)</summary>
+        public IEnumerator PlayBossFx(BossFx fx, PalType bossType, PalView boss, PalView target)
+        {
+            if (boss == null) yield break;
+            target ??= boss;
+            sortingLayer = boss.SortingLayerId;
+            sortingOrder = Mathf.Max(boss.SortingOrder, target.SortingOrder) + SortingAbovePals;
+            switch (fx)
+            {
+                case BossFx.Charge:                       // 붉은 기운을 모으고, 다음 공격까지 몸이 붉게 맥동한다
+                    Run(PlayOnce(ChargeUp, boss.Center, 2.8f, ChargeGlow, 14f));
+                    Run(DelayThen(0.2f, PlayOnce(ChargeUp, boss.Center, 2.2f, ChargeGlow, 14f)));
+                    Run(CameraShake(0.06f, 0.5f));
+                    yield return new WaitForSecondsRealtime(0.35f);
+                    boss.SetGlow(ChargeGlow);
+                    break;
+                case BossFx.Release:                      // 모은 힘이 터진다: 상대 자리에 충격파 + 큰 흔들림
+                    boss.SetGlow(null);
+                    Run(PlayOnce(Shockwave, target.Center, 3f, ChargeGlow));
+                    Run(target.HitReact(true));
+                    Run(CameraShake(0.25f, 0.4f));
+                    break;
+                case BossFx.ChargeBroken:                 // 모으던 기운이 흩어진다
+                    boss.SetGlow(null);
+                    Run(PlayOnce(Dissipate, boss.Center, 2.6f, ChargeGlow));
+                    break;
+                case BossFx.Enrage:                       // 분노: 붉게 번쩍이며 불꽃 기운, 화면이 흔들린다
+                    Run(boss.Flash(RageRed, 4, 0.06f));
+                    Run(PlayOnce(FireShield, boss.Center, 2.8f, RageRed, 14f));
+                    Run(CameraShake(0.14f, 0.45f));
+                    break;
+                case BossFx.Purify:                       // 정화: 성스러운 빛
+                    Run(boss.Flash(HolyGold, 2));
+                    Run(PlayOnce(HolyLight, boss.Center, 2.8f, Color.white, 14f));
+                    break;
+                case BossFx.Curse:                        // 상대에게 거는 패턴 (속성마다 다른 그림)
+                {
+                    var (sheet, tint) = bossType switch
+                    {
+                        PalType.Ice => (FrostNova, Ice),
+                        PalType.Void => (Portal, VoidCol),
+                        _ => (DarkCurse, DarkPurple),
+                    };
+                    Run(PlayOnce(sheet, target.Center, 2.6f, tint, 14f));
+                    Run(DelayThen(0.1f, target.Flash(tint, 2)));
+                    break;
+                }
+                case BossFx.Heal:
+                    Run(PlayOnce(HealFx, boss.Center, 2.4f, Green, 14f));
+                    break;
+                case BossFx.Aura:                         // 몸에 두른 기운이 반응 (작열 오라: 상대에게 불꽃 / 번개 가속: 전기)
+                    if (bossType == PalType.Fire) Run(PlayOnce(Ignite, target.Center, 2.4f, Color.white, 14f));
+                    else Run(PlayOnce(ShockAura, boss.Center, 2.6f, Yellow, 14f));
+                    break;
+            }
+            while (running > 0) yield return null;
         }
 
         IEnumerator DelayThen(float seconds, IEnumerator then)
