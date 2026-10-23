@@ -43,6 +43,10 @@ namespace PalRogue
         /// <summary>사탕단지 개수 (이상한사탕 1개당 레벨 +1씩 더)</summary>
         public const int MaxCandyJars = 3;
         public int CandyJars { get; set; }
+        /// <summary>열매 주머니 개수 (1개당 열매가 남을 확률 30%, 최대 3개 = 90%)</summary>
+        public const int MaxBerryPouches = 3;
+        public int BerryPouches { get; set; }
+        public float BerrySave => 0.3f * BerryPouches;
         /// <summary>황금 스피어로 늘어난 보상 선택지 수</summary>
         public int ExtraRewards { get; set; }
 
@@ -157,6 +161,7 @@ namespace PalRogue
                 pal.AddEffect(new BossAura("전설의 기운", GameConfig.LegendStatMultiplier, GameConfig.LegendHpMultiplier));
             else if (kind == BossKind.Final)
                 pal.AddEffect(new BossAura("공허의 기운", GameConfig.FinalBossStatMultiplier, GameConfig.FinalBossHpMultiplier));
+            EnemyLoadout.Equip(pal, this, Wave, kind, Rng);   // 웨이브가 깊을수록 아이템을 많이·강하게 지닌다
             pal.Heal(pal.MaxHP);                             // 최대 HP가 늘어난 만큼 채운다
             if (kind != BossKind.None) pal.MakeBoss(GameConfig.BossSegments(kind, pal.Level));
             return pal;

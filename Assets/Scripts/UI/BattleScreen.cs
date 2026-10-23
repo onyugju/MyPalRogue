@@ -200,6 +200,7 @@ namespace PalRogue
             run.SyncParty(battle.PlayerParty);         // 쓰러진 팰 대신 다른 팰이 앞으로 나왔을 수 있다
             battle.ExpMultiplier = run.ExpMultiplier;  // 경험부적
             battle.ExpShareRatio = run.ExpShareRatio;  // 학습장치
+            battle.PlayerBerrySave = run.BerrySave;     // 열매 주머니
 
             // 내 팰을 새로 내보내면 (첫 웨이브 등) 스피어를 던지는 연출 전까지 숨겨 둔다
             if (battle.PlayerSentOutAtStart)

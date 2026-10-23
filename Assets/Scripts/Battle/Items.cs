@@ -269,9 +269,27 @@ namespace PalRogue
         {
             effect.PerkName = itemName;
             effect.PerkDescription = description;
+            effect.HeldItemId = itemName;
             c.Target.AddEffect(effect);
             return ItemOutcome.Say($"{N(c.Target)}에게 {Josa.Eul(itemName)} 지니게 했다!");
         }
+
+        /// <summary>도둑 팰이 상대가 지닌 아이템 하나를 무작위로 빼앗는다 (미니 블랙홀은 못 빼앗음). 빼앗았으면 true</summary>
+        public static bool StealHeldItem(Pal thief, Pal victim, BattleContext ctx, string via)
+        {
+            if (thief == null || victim == null || thief == victim || thief.IsFainted || victim.IsFainted) return false;
+            var items = victim.Effects.Where(e => e.HeldItemId != null && e.HeldItemId != MiniBlackHoleName).ToList();
+            if (items.Count == 0) return false;
+            var item = items[UnityEngine.Random.Range(0, items.Count)];
+            victim.RemoveEffect(item);
+            thief.AddEffect(item);
+            ctx.Log($"{thief.Data.palName}의 {Josa.I(via)} {victim.Data.palName}의 {Josa.Eul(item.HeldItemId)} 빼앗았다!");
+            return true;
+        }
+        public const string MiniBlackHoleName = "미니 블랙홀";
+
+        /// <summary>속성 강화 아이템(숯 등) id → 속성. 상대 팰에게 맞는 것만 쥐여 주기 위해</summary>
+        public static readonly Dictionary<string, PalType> TypeBoosters = new();
 
         static ItemOutcome TempBoost(Run run, StatType stat, string statName)
         {
@@ -529,6 +547,7 @@ namespace PalRogue
                      })
             {
                 string typeName = PalTypeNames.Korean(type);
+                TypeBoosters[id] = type;
                 Add(new ItemDef
                 {
                     Id = id, Name = name, Tier = ItemTier.Hyper, Target = ItemTarget.Pal, IsHeld = true,
@@ -774,6 +793,47 @@ namespace PalRogue
                 },
             });
 
+            // ═════════════════ 추가 아이템 (3차) ═════════════════
+            // ────────────── 얼티밋 ──────────────
+            Add(new ItemDef
+            {
+                Id = "relic_gold", Name = "고대의 금화", Tier = ItemTier.Ultimate,
+                Description = "아주 귀한 금화. 많은 돈을 받는다. (금구슬의 10배)",
+                Weight = _ => 3, Apply = c => GiveMoney(c.Run, 10f),
+            });
+            Add(new ItemDef
+            {
+                Id = "grip_claw", Name = "끈기갈고리손톱", Tier = ItemTier.Ultimate, Target = ItemTarget.Pal, IsHeld = true,
+                Description = "지니게 하면 공격을 맞힐 때마다 10% 확률로 상대가 지닌 아이템을 하나 빼앗는다.",
+                Weight = _ => 3, Apply = c => Hold(c, "끈기갈고리손톱", new GripClaw(0.1f), "맞힐 때 10% 확률로 상대 아이템 빼앗기"),
+            });
+            Add(new ItemDef
+            {
+                Id = "berry_pouch", Name = "열매 주머니", Tier = ItemTier.Ultimate,
+                Description = $"내 팰이 지닌 열매를 먹어도 30% 확률로 남는다. 겹치면 확률이 오른다. (최대 {Run.MaxBerryPouches}개)",
+                Weight = r => r.BerryPouches < Run.MaxBerryPouches ? 3 : 0,
+                CannotUseNow = r => r.BerryPouches >= Run.MaxBerryPouches ? "열매 주머니는 더 가질 수 없다." : null,
+                Apply = c =>
+                {
+                    c.Run.BerryPouches++;
+                    return ItemOutcome.Say($"열매를 먹어도 {Mathf.RoundToInt(c.Run.BerrySave * 100)}% 확률로 남게 되었다!");
+                },
+            });
+
+            // ────────────── 엑조틱 ──────────────
+            Add(new ItemDef
+            {
+                Id = "mini_black_hole", Name = MiniBlackHoleName, Tier = ItemTier.Exotic, Target = ItemTarget.Pal, IsHeld = true,
+                Description = "지니게 하면 매 턴이 끝날 때마다 상대가 지닌 아이템을 하나 빨아들여 빼앗는다.",
+                Weight = _ => 1, Apply = c => Hold(c, MiniBlackHoleName, new MiniBlackHole(), "매 턴 상대 아이템 1개 빼앗기"),
+            });
+            Add(new ItemDef
+            {
+                Id = "multi_lens", Name = "멀티렌즈", Tier = ItemTier.Exotic, Target = ItemTarget.Pal, IsHeld = true,
+                Description = "지니게 하면 공격할 때마다 그 데미지의 1/4만큼 한 번 더 때린다.",
+                Weight = _ => 2, Apply = c => Hold(c, "멀티렌즈", new MultiLens(), "공격 후 1/4 위력으로 한 번 더"),
+            });
+
             // ───── 위 아이템들을 만드는 도우미 ─────
             // 팰 영혼(팰월드): 팰 1마리 모든 능력치(HP·공격·방어·스피드)가 영구히 오른다
             void AddSoul(string icon, string name, ItemTier tier, float bonus)
@@ -994,8 +1054,24 @@ namespace PalRogue
         public override float StatMultiplier(StatType s) => s == Stat ? 1.5f : 1f;
     }
 
+    /// <summary>
+    /// 열매 공통: 효과를 낸 뒤 사라진다. 단, 내 팰이면 열매 주머니 개수만큼 확률로 남는다 (ctx.BerrySaveChance)
+    /// </summary>
+    public abstract class HeldBerry : BattleEffect
+    {
+        protected void Consume(Pal self, BattleContext ctx)
+        {
+            if (UnityEngine.Random.value < ctx.BerrySaveChance(self))
+            {
+                ctx.Log($"열매 주머니 덕분에 {Josa.I(PerkName ?? "열매")} 남았다!");
+                return;
+            }
+            self.RemoveEffect(this);
+        }
+    }
+
     /// <summary>자뭉열매: HP가 절반 이하가 되면 최대 HP의 1/4 회복 (1회)</summary>
-    public class SitrusBerry : BattleEffect
+    public class SitrusBerry : HeldBerry
     {
         public override void OnDamaged(Pal self, DamageInfo info, BattleContext ctx) => Check(self, ctx);
         public override void OnTurnEnd(Pal self, BattleContext ctx) => Check(self, ctx);
@@ -1003,21 +1079,21 @@ namespace PalRogue
         void Check(Pal self, BattleContext ctx)
         {
             if (self.IsFainted || self.CurrentHP * 2 > self.MaxHP) return;
-            self.RemoveEffect(this);
             self.Heal(Mathf.Max(1, self.MaxHP / 4));
             ctx.Log($"{Josa.Eun(self.Data.palName)} 자뭉열매로 HP를 회복했다!");
+            Consume(self, ctx);
         }
     }
 
     /// <summary>리샘열매: 상태이상에 걸리면 턴이 끝날 때 치료 (1회)</summary>
-    public class LumBerry : BattleEffect
+    public class LumBerry : HeldBerry
     {
         public override void OnTurnEnd(Pal self, BattleContext ctx)
         {
             if (self.IsFainted || self.Status == StatusCondition.None) return;
-            self.RemoveEffect(this);
             self.CureStatus();
             ctx.Log($"{Josa.Eun(self.Data.palName)} 리샘열매로 상태이상이 나았다!");
+            Consume(self, ctx);
         }
     }
 
@@ -1091,33 +1167,33 @@ namespace PalRogue
     }
 
     /// <summary>과사열매: 기술 PP가 0이 되면 턴 끝에 10 회복 (1회)</summary>
-    public class LeppaBerry : BattleEffect
+    public class LeppaBerry : HeldBerry
     {
         public override void OnTurnEnd(Pal self, BattleContext ctx)
         {
             if (self.IsFainted) return;
             var empty = self.Skills.FirstOrDefault(s => s.PP <= 0);
             if (empty == null) return;
-            self.RemoveEffect(this);
             empty.PP = Mathf.Min(empty.MaxPP, 10);
             ctx.Log($"{Josa.Eun(self.Data.palName)} 과사열매로 {empty.Data.skillName}의 PP를 회복했다!");
+            Consume(self, ctx);
         }
     }
 
     /// <summary>의문열매: 효과가 굉장한 공격을 맞으면 HP 1/4 회복 (1회)</summary>
-    public class EnigmaBerry : BattleEffect
+    public class EnigmaBerry : HeldBerry
     {
         public override void OnDamaged(Pal self, DamageInfo info, BattleContext ctx)
         {
             if (self.IsFainted || info.TypeMultiplier <= 1f) return;
-            self.RemoveEffect(this);
             self.Heal(Mathf.Max(1, self.MaxHP / 4));
             ctx.Log($"{Josa.Eun(self.Data.palName)} 의문열매로 HP를 회복했다!");
+            Consume(self, ctx);
         }
     }
 
     /// <summary>치리·용아·캄라열매: HP가 1/4 이하가 되면 능력치 1랭크 상승 (1회)</summary>
-    public class PinchBerry : BattleEffect
+    public class PinchBerry : HeldBerry
     {
         readonly string berry;
         readonly StatType stat;
@@ -1129,9 +1205,116 @@ namespace PalRogue
         void Check(Pal self, BattleContext ctx)
         {
             if (self.IsFainted || self.CurrentHP * 4 > self.MaxHP) return;
-            self.RemoveEffect(this);
             if (self.ModifyStage(stat, 1) > 0)
                 ctx.Log($"{Josa.Eun(self.Data.palName)} {berry}로 {Josa.I(StatNames.Korean(stat))} 올라갔다!");
+            Consume(self, ctx);
+        }
+    }
+
+    /// <summary>미니 블랙홀: 매 턴 끝에 상대 아이템 하나를 빼앗는다</summary>
+    public class MiniBlackHole : BattleEffect
+    {
+        public override void OnTurnEnd(Pal self, BattleContext ctx) =>
+            ItemCatalog.StealHeldItem(self, ctx.OpponentOf(self), ctx, ItemCatalog.MiniBlackHoleName);
+    }
+
+    /// <summary>끈기갈고리손톱: 공격을 맞히면 확률로 상대 아이템 하나를 빼앗는다</summary>
+    public class GripClaw : BattleEffect
+    {
+        readonly float chance;
+        public GripClaw(float chance) { this.chance = chance; }
+        public override void OnAfterAttack(Pal self, DamageInfo info, BattleContext ctx)
+        {
+            if (info.FinalDamage <= 0 || UnityEngine.Random.value >= chance) return;
+            ItemCatalog.StealHeldItem(self, info.Defender, ctx, PerkName ?? "끈기갈고리손톱");
+        }
+    }
+
+    /// <summary>멀티렌즈: 공격하고 나서 데미지의 1/4로 한 번 더 때린다</summary>
+    public class MultiLens : BattleEffect
+    {
+        public override void OnAfterAttack(Pal self, DamageInfo info, BattleContext ctx)
+        {
+            var target = info.Defender;
+            if (self.IsFainted || target == null || target.IsFainted || info.FinalDamage <= 0) return;
+            target.TakeDamage(Mathf.Max(1, info.FinalDamage / 4));
+            ctx.Log($"{Josa.Eun(self.Data.palName)} 멀티렌즈로 한 번 더 공격했다!");
+        }
+    }
+
+    /// <summary>
+    /// 상대 팰이 지니는 아이템. 웨이브가 깊어질수록 더 많이, 더 높은 등급의 아이템을 지닌다.
+    /// 보스는 +1개, 전설은 +2개, 최종 보스는 +3개에 미니 블랙홀을 반드시 지닌다.
+    /// 아이템은 그 팰에게 맞는 것만 고른다 (속성 강화 아이템은 그 팰이 쓰는 속성만).
+    /// </summary>
+    public static class EnemyLoadout
+    {
+        public const int MaxItems = 8;
+        /// <summary>이 웨이브마다 지니는 아이템 수가 평균 1개씩 는다</summary>
+        public const float WavesPerItem = 30f;
+        static readonly HashSet<string> Excluded = new() { "lucky_egg", "mini_black_hole" };
+        static readonly HashSet<string> Vitamins = new() { "hp_up", "protein", "iron", "carbos", "calcium", "zinc" };
+        static readonly string[] PermanentPrefixes = { "soul_", "implant_", "lotus_", "pendant_", "fruit_" };
+
+        public static int ItemCount(int wave, BossKind kind, System.Random rng)
+        {
+            float expected = wave / WavesPerItem;
+            int count = Mathf.FloorToInt(expected) + (rng.NextDouble() < expected - Mathf.Floor(expected) ? 1 : 0);
+            count += kind switch { BossKind.Boss => 1, BossKind.Legend => 2, BossKind.Final => 3, _ => 0 };
+            return Mathf.Clamp(count, 0, MaxItems);
+        }
+
+        /// <summary>등급 뽑기: 보상과 같은 확률에서 웨이브가 깊을수록 한 단계씩 올라갈 확률이 커진다</summary>
+        static ItemTier RollTier(int wave, BossKind kind, System.Random rng)
+        {
+            var w = ItemTiers.RollWeights;
+            int total = w.Sum(), roll = rng.Next(total), t = 0;
+            while (roll >= w[t]) { roll -= w[t]; t++; }
+            float up = Mathf.Min(0.6f, wave / 250f) + (kind == BossKind.None ? 0f : 0.15f);
+            int maxTier = kind == BossKind.None ? (int)ItemTier.Ultimate : (int)ItemTier.Exotic;   // 엑조틱은 보스만
+            while (t < maxTier && rng.NextDouble() < up) t++;
+            t = Mathf.Min(t, maxTier);
+            return (ItemTier)t;
+        }
+
+        static bool Fits(ItemDef d, Pal pal)
+        {
+            if (d.Target != ItemTarget.Pal || Excluded.Contains(d.Id)) return false;
+            if (!(d.IsHeld || Vitamins.Contains(d.Id) || PermanentPrefixes.Any(pre => d.Id.StartsWith(pre)))) return false;
+            if (ItemCatalog.TypeBoosters.TryGetValue(d.Id, out var type) && !pal.Skills.Any(s => s.Data.type == type && s.Data.category != SkillCategory.Status))
+                return false;
+            return d.CannotUse(pal) == null;
+        }
+
+        /// <summary>상대 팰에게 아이템을 쥐여 준다. 지니게 한 아이템 이름 목록을 돌려준다</summary>
+        public static List<string> Equip(Pal pal, Run run, int wave, BossKind kind, System.Random rng)
+        {
+            var given = new List<string>();
+            var used = new HashSet<ItemDef>();
+            void Give(ItemDef d)
+            {
+                used.Add(d);
+                d.Apply(new ItemContext { Run = run, Target = pal });
+                given.Add(d.Name);
+            }
+
+            if (kind == BossKind.Final) Give(ItemCatalog.Get("mini_black_hole"));   // 최종 보스 제로버스는 반드시
+
+            int count = ItemCount(wave, kind, rng);
+            for (int i = given.Count; i < count; i++)
+            {
+                var tier = RollTier(wave, kind, rng);
+                ItemDef pick = null;
+                // 그 등급에 맞는 게 없으면 한 단계씩 낮춰서 찾는다
+                for (int t = (int)tier; t >= 0 && pick == null; t--)
+                {
+                    var pool = ItemCatalog.All.Where(d => d.Tier == (ItemTier)t && !used.Contains(d) && Fits(d, pal)).ToList();
+                    if (pool.Count > 0) pick = pool[rng.Next(pool.Count)];
+                }
+                if (pick == null) break;
+                Give(pick);
+            }
+            return given;
         }
     }
 }

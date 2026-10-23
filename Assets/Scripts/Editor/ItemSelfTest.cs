@@ -86,6 +86,14 @@ namespace PalRogue.EditorTools
             }
             catch (Exception e) { fail++; report.AppendLine($"  ✘ 보상 뽑기: {e.Message}"); }
 
+            // 상대 팰 아이템: 웨이브가 깊을수록 많이·강하게, 최종 보스는 미니 블랙홀
+            try { Debug.Log("[아이템 테스트] 상대 아이템\n" + TestEnemyLoadouts(partyData, pals, rng)); pass++; }
+            catch (Exception e) { fail++; report.AppendLine($"  ✘ 상대 아이템: {e.GetType().Name} {e.Message}"); Debug.LogException(e); }
+
+            // 훔치기 / 멀티렌즈 / 열매 주머니가 실제로 동작하는지
+            try { Debug.Log("[아이템 테스트] 새 아이템 동작\n" + TestStealAndLens(partyData, rng)); pass++; }
+            catch (Exception e) { fail++; report.AppendLine($"  ✘ 훔치기/멀티렌즈/열매 주머니: {e.GetType().Name} {e.Message}"); Debug.LogException(e); }
+
             string dist = string.Join(", ", Enumerable.Range(0, 5).Select(i => $"{ItemTiers.Names[i]} {tierCount[i] * 100f / Mathf.Max(1, rolls):0.#}%"));
             string head = $"[아이템 테스트] 통과 {pass} / 실패 {fail} / 건너뜀 {skipped}  (아이템 {ItemCatalog.All.Count}종)\n보상 등급 분포({rolls}개): {dist}";
             if (fail > 0) Debug.LogError(head + "\n" + report);
@@ -147,15 +155,93 @@ namespace PalRogue.EditorTools
             return pal + $"돈{r.Money} 스피어{string.Join("/", r.Spheres)} 경험+{r.ExpBonus:0.##} 학습{r.ExpShareCount} 사탕단지{r.CandyJars} 보상+{r.ExtraRewards}";
         }
 
-        static void SimulateBattle(Run run, List<PalData> pals, System.Random rng)
+        static string TestEnemyLoadouts(List<PalData> partyData, List<PalData> pals, System.Random rng)
         {
-            var enemyData = pals[rng.Next(pals.Count)];
-            var enemy = new Pal(enemyData, TestLevel);
-            enemy.MakeBoss(3);                                                     // 보스 실드도 같이 확인
-            var battle = new Battle(run.Party, new List<Pal> { enemy }, rng, null, true, BossKind.Boss)
+            var sb = new StringBuilder("  ✔ 상대 아이템 (웨이브: 평균 개수 / 평균 등급 / 예시)\n");
+            var waves = new List<int> { 1, 5, 10, 15, 20, 30, 45, 60, 75, 90, 100, 120, 140, 150, 160, 175, 180, 189, 190 };
+            var run = MakeRun(partyData, rng);
+            int at = 1;
+            foreach (int wave in waves)
+            {
+                while (at < wave) { run.NextWave(); at++; }
+                int samples = wave == GameConfig.FinalWave ? 3 : 12, total = 0; float tierSum = 0; int tierN = 0;
+                string example = "";
+                for (int i = 0; i < samples; i++)
+                {
+                    var enemy = run.CreateEnemy(pals);
+                    var held = enemy.Effects.Where(e => e.HeldItemId != null).Select(e => e.HeldItemId).ToList();
+                    total += held.Count;
+                    foreach (var h in held)
+                    {
+                        var def = ItemCatalog.All.FirstOrDefault(d => d.Name == h);
+                        if (def != null) { tierSum += (int)def.Tier; tierN++; }
+                    }
+                    if (run.EnemyKind == BossKind.Final && !held.Contains(ItemCatalog.MiniBlackHoleName))
+                        throw new Exception("최종 보스가 미니 블랙홀을 지니지 않음");
+                    if (enemy.CurrentHP != enemy.MaxHP) throw new Exception($"웨이브 {wave}: 상대 HP가 가득 차 있지 않음");
+                    if (i == 0) example = $"{run.EnemyKind} {enemy.Data.palName} Lv{enemy.Level}: {string.Join(", ", enemy.Effects.Select(e => e.PerkName).Where(n => n != null))}";
+                    if (i == 0 && wave % 30 == 0 || wave == GameConfig.FinalWave && i == 0) SimulateBattle(MakeRun(partyData, rng), pals, rng, enemy, run.EnemyKind);
+                }
+                sb.AppendLine($"     W{wave}: {total / (float)samples:0.0}개 / {(tierN == 0 ? 0 : tierSum / tierN):0.00} / {example}");
+            }
+            return sb.ToString().TrimEnd();
+        }
+
+        static string TestStealAndLens(List<PalData> partyData, System.Random rng)
+        {
+            var msgs = new List<string>();
+            // 내 팰: 미니 블랙홀 + 멀티렌즈. 상대: 아이템 3개
+            var me = new Pal(partyData[0], 60);
+            var foe = new Pal(partyData[1], 60);
+            foreach (var id in new[] { "mini_black_hole", "multi_lens" }) ItemCatalog.Get(id).Apply(new ItemContext { Target = me });
+            foreach (var id in new[] { "leftovers", "shell_bell", "focus_band" }) ItemCatalog.Get(id).Apply(new ItemContext { Target = foe });
+            foe.MakeBoss(4);
+            foe.Heal(foe.MaxHP);
+            var battle = new Battle(new List<Pal> { me }, new List<Pal> { foe }, rng, msgs.Add, true, BossKind.Boss);
+            for (int t = 0; t < 3 && battle.State == BattleState.Ongoing; t++)
+            {
+                int idx = me.Skills.FindIndex(sk => sk.HasPP && sk.Data.category != SkillCategory.Status);
+                battle.ExecuteTurn(BattleAction.Skill(Mathf.Max(0, idx)));
+                while (battle.TryDequeueEvent(out _)) { }
+            }
+            int stolen = msgs.Count(m => m.Contains("빼앗았다"));
+            int lens = msgs.Count(m => m.Contains("멀티렌즈"));
+            if (stolen == 0) throw new Exception("미니 블랙홀이 아이템을 빼앗지 못함");
+            if (foe.Effects.Any(e => e.HeldItemId != null) && stolen >= 3) throw new Exception("빼앗은 아이템이 상대에게 남아 있음");
+            if (me.Effects.Count(e => e.HeldItemId != null) != 2 + stolen) throw new Exception("빼앗은 아이템이 내 팰에게 오지 않음");
+            if (lens == 0) throw new Exception("멀티렌즈 추가 공격이 없음");
+            if (!msgs.Any(m => m.Contains("지니고 있다"))) throw new Exception("상대가 지닌 아이템을 알리지 않음");
+            battle.Detach();
+
+            // 열매 주머니 3개(90%): 자뭉열매가 20번 중 대부분 남아야 한다
+            int kept = 0;
+            for (int i = 0; i < 20; i++)
+            {
+                var p = new Pal(partyData[0], 30);
+                ItemCatalog.Get("sitrus_berry").Apply(new ItemContext { Target = p });
+                var berry = p.Effects.First(e => e.HeldItemId != null);
+                var ctx = new BattleContext { BerrySaveChance = _ => 0.9f };
+                p.TakeDamage(p.MaxHP * 3 / 4);
+                berry.OnTurnEnd(p, ctx);
+                berry.OnDamaged(p, new DamageInfo { Attacker = p, Defender = p, FinalDamage = 1 }, ctx);
+                if (p.Effects.Contains(berry)) kept++;
+            }
+            if (kept < 10) throw new Exception($"열매 주머니(90%)인데 열매가 {kept}/20번만 남음");
+            return $"  ✔ 미니 블랙홀 {stolen}번 빼앗음, 멀티렌즈 {lens}번, 열매 주머니 90% → {kept}/20 남음\n     " + string.Join(" / ", msgs.Where(m => m.Contains("빼앗았다") || m.Contains("지니고")).Take(4));
+        }
+
+        static void SimulateBattle(Run run, List<PalData> pals, System.Random rng, Pal enemy = null, BossKind kind = BossKind.Boss)
+        {
+            if (enemy == null)
+            {
+                enemy = new Pal(pals[rng.Next(pals.Count)], TestLevel);
+                enemy.MakeBoss(3);                                                 // 보스 실드도 같이 확인
+            }
+            var battle = new Battle(run.Party, new List<Pal> { enemy }, rng, null, true, kind)
             {
                 ExpMultiplier = run.ExpMultiplier,
                 ExpShareRatio = run.ExpShareRatio,
+                PlayerBerrySave = run.BerrySave,
             };
             for (int turn = 0; turn < BattleTurns; turn++)
             {

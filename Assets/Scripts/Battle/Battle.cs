@@ -63,6 +63,8 @@ namespace PalRogue
         public float ExpMultiplier { get; set; } = 1f;
         /// <summary>학습장치: 싸우지 않은 팰이 받는 경험치 비율 (1개당 0.2, Run.ExpShareRatio)</summary>
         public float ExpShareRatio { get; set; }
+        /// <summary>열매 주머니: 내 팰의 열매가 먹어도 남을 확률 (Run.BerrySave)</summary>
+        public float PlayerBerrySave { get; set; }
 
         /// <summary>어느 쪽이든 팰이 쓰러질 때 호출 (경험치 지급 등에 사용)</summary>
         public event Action<Pal> PalFainted;
@@ -151,6 +153,9 @@ namespace PalRogue
                 Emit(new BattleEvent { Type = BattleEventType.Message, Text = msg });
             };
 
+            Ctx.OpponentOf = p => IsPlayerPal(p) ? Enemy : Player;
+            Ctx.BerrySaveChance = p => IsPlayerPal(p) ? PlayerBerrySave : 0f;
+
             PlayerIndex = FirstAlive(PlayerParty);
             bool frontChanged = PlayerIndex > 0;
             if (PlayerIndex > 0) { BringToFront(PlayerIndex); PlayerIndex = 0; }   // 기절하지 않은 첫 팰을 0번으로
@@ -183,6 +188,13 @@ namespace PalRogue
                 BossKind.Final  => $"공허가 모든 것을 삼키려 한다…!\n최종 보스 {Josa.I(enemyName)} 나타났다!",
                 _               => $"야생의 {Josa.I(enemyName)} 나타났다!",
             });
+            // 상대가 지닌 아이템 알려주기 (많으면 3개까지 + 외 n개)
+            var held = Enemy.Effects.Where(e => e.HeldItemId != null).Select(e => e.HeldItemId).ToList();
+            if (held.Count > 0)
+            {
+                string list = string.Join(", ", held.Take(3)) + (held.Count > 3 ? $" 외 {held.Count - 3}개" : "");
+                Log($"{Josa.Eun(enemyName)} {Josa.Eul(list)} 지니고 있다!");
+            }
             PlayerSentOutAtStart = announcePlayer || frontChanged;
             if (PlayerSentOutAtStart)
             {

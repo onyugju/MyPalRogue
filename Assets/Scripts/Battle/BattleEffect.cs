@@ -7,6 +7,10 @@ namespace PalRogue
     {
         public int Turn;
         public Action<string> Log = _ => { };
+        /// <summary>이 팰의 상대 (미니 블랙홀 등 상대를 건드리는 효과용). 전투가 채운다</summary>
+        public Func<Pal, Pal> OpponentOf = _ => null;
+        /// <summary>열매를 먹어도 남을 확률 (열매 주머니, 내 팰만). 전투가 채운다</summary>
+        public Func<Pal, float> BerrySaveChance = _ => 0f;
     }
 
     /// <summary>
@@ -47,6 +51,8 @@ namespace PalRogue
 
         /// <summary>강화 효과(퍽)로 붙은 효과면 그 퍽의 번호·이름·설명 (PerkCatalog가 채운다). 아니면 null</summary>
         public string PerkId, PerkName, PerkDescription;
+        /// <summary>지니는 아이템이면 그 아이템 이름 (훔치기·"지니고 있다" 표시에 쓴다). 지니는 게 아니면 null</summary>
+        public string HeldItemId;
 
         /// <summary>최대 HP 배율 (예: +10% → 1.1f). 팰에 붙이면 바로 최대 HP가 다시 계산된다</summary>
         public virtual float MaxHpMultiplier => 1f;
