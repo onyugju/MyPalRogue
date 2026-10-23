@@ -7,7 +7,7 @@ namespace PalRogue
 {
     public enum BattleState { Ongoing, WaitingPlayerSwitch, PlayerWon, PlayerLost, Caught }
 
-    public enum BattleEventType { Message, HpChanged, Fainted, SentOut, StatusChanged, SphereThrown, SphereShakes, SphereCaught, SphereBroke, ExpBar, LevelUp, Recalled }
+    public enum BattleEventType { Message, HpChanged, Fainted, SentOut, StatusChanged, SphereThrown, SphereShakes, SphereCaught, SphereBroke, ExpBar, LevelUp, Recalled, ShieldBroken }
 
     /// <summary>화면이 순서대로 재생하는 전투 진행 기록 한 줄</summary>
     public class BattleEvent
@@ -77,6 +77,24 @@ namespace PalRogue
         void OnStatusChanged(Pal p, StatusCondition s) =>
             Emit(new BattleEvent { Type = BattleEventType.StatusChanged, Pal = p, IsPlayerSide = IsPlayerPal(p), Status = s });
 
+        /// <summary>
+        /// 보스 실드가 깨질 때마다: 화면에 알리고, 깨진 실드 하나당 무작위 능력치 1단계 상승 (포켓로그 보스와 같음).
+        /// 마지막 실드가 깨지면(맨 아래 칸만 남음) 분노해서 한 단계 더 오른다.
+        /// </summary>
+        void OnShieldsBroken(Pal p, int count)
+        {
+            Emit(new BattleEvent { Type = BattleEventType.ShieldBroken, Pal = p, IsPlayerSide = IsPlayerPal(p), Count = count });
+            Log(count > 1 ? $"{p.Data.palName}의 실드가 {count}개 한꺼번에 깨졌다!" : $"{p.Data.palName}의 실드가 깨졌다!");
+            if (p.IsFainted) return;
+            int boosts = count + (p.ShieldsLeft == 0 ? 1 : 0);
+            var stats = (StatType[])Enum.GetValues(typeof(StatType));
+            for (int i = 0; i < boosts; i++)
+            {
+                var stat = stats[rng.Next(stats.Length)];
+                if (p.ModifyStage(stat, 1) > 0) Log($"{p.Data.palName}의 {Josa.I(StatNames.Korean(stat))} 올라갔다!");
+            }
+        }
+
         void OnHpChanged(Pal p, int from, int to) =>
             Emit(new BattleEvent { Type = BattleEventType.HpChanged, Pal = p, IsPlayerSide = IsPlayerPal(p), From = from, To = to });
 
@@ -87,6 +105,7 @@ namespace PalRogue
             {
                 p.HpChanged -= OnHpChanged;
                 p.StatusChanged -= OnStatusChanged;
+                p.ShieldsBroken -= OnShieldsBroken;
             }
         }
 
@@ -147,6 +166,7 @@ namespace PalRogue
             {
                 p0.HpChanged += OnHpChanged;
                 p0.StatusChanged += OnStatusChanged;
+                p0.ShieldsBroken += OnShieldsBroken;
             }
             foreach (var p in PlayerParty.Concat(EnemyParty))
             {
@@ -475,6 +495,7 @@ namespace PalRogue
         public string CatchBlockReason()
         {
             if (!Enemy.Data.canBeCaught) return $"{Josa.Eun(Enemy.Data.palName)} 잡을 수 없는 팰이다!";
+            if (Enemy.ShieldsLeft > 0) return $"{Enemy.Data.palName}의 실드가 아직 남아 있다!\n실드를 모두 깨야 잡을 수 있다.";
             return null;
         }
 
@@ -533,6 +554,7 @@ namespace PalRogue
                 Log($"신난다! {Josa.Eul(name)} 잡았다!");
                 target.ResetBattleState();
                 target.CaughtSphere = sphere;                // 나중에 내보낼 때 이 스피어를 던진다
+                target.ClearBoss();
                 if (playerList.Count < MaxPartySize)
                 {
                     playerList.Add(target);                  // 파티 맨 뒤에 들어온다

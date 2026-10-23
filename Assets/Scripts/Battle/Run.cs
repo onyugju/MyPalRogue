@@ -137,6 +137,7 @@ namespace PalRogue
             else if (kind == BossKind.Final)
                 pal.AddEffect(new BossAura("공허의 기운", GameConfig.FinalBossStatMultiplier, GameConfig.FinalBossHpMultiplier));
             pal.Heal(pal.MaxHP);                             // 최대 HP가 늘어난 만큼 채운다
+            if (kind != BossKind.None) pal.MakeBoss(GameConfig.BossSegments(kind, pal.Level));
             return pal;
         }
 

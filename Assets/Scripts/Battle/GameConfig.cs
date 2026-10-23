@@ -112,6 +112,16 @@ namespace PalRogue
             return Mathf.Clamp(level, 1, MaxLevel);
         }
 
+        // ───── 보스 실드 (HP바 칸 수) ─────
+        // 보스: Lv.24까지 2칸, Lv.25~49 3칸, Lv.50 이상 4칸 / 전설: 한 칸 더 (최대 5) / 최종 보스: 5칸
+        public static int BossSegments(BossKind kind, int level) => kind switch
+        {
+            BossKind.Boss => Mathf.Clamp(level / 25 + 2, 2, 4),
+            BossKind.Legend => Mathf.Clamp(level / 25 + 3, 3, 5),
+            BossKind.Final => 5,
+            _ => 1,
+        };
+
         // ───── 돈 ─────
         public const int StartingMoney = 1000;
         /// <summary>웨이브를 이기면(잡아도) 받는 돈. 보스는 3배</summary>

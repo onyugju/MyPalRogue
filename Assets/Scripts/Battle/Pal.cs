@@ -7,6 +7,16 @@ namespace PalRogue
 {
     public enum StatType { Attack, Defense, Speed }
 
+    public static class StatNames
+    {
+        public static string Korean(StatType s) => s switch
+        {
+            StatType.Attack => "공격",
+            StatType.Defense => "방어",
+            _ => "스피드",
+        };
+    }
+
     /// <summary>팰이 실제로 들고 있는 스킬 (남은 PP 포함)</summary>
     public class SkillInstance
     {
@@ -111,11 +121,62 @@ namespace PalRogue
         // ───────── HP ─────────
         public int TakeDamage(int amount)
         {
+            int broken = 0;
+            if (ShieldsLeft > 0) amount = ClampForShields(amount, out broken);
             int dealt = Mathf.Clamp(amount, 0, CurrentHP);
             int before = CurrentHP;
             CurrentHP -= dealt;
             if (dealt > 0) HpChanged?.Invoke(this, before, CurrentHP);
+            if (broken > 0)
+            {
+                ShieldsLeft -= broken;
+                ShieldsBroken?.Invoke(this, broken);
+            }
             return dealt;
+        }
+
+        // ───────── 보스 실드 (포켓로그 보스 세그먼트) ─────────
+        // 보스의 HP바는 BossSegments칸으로 나뉜다. 칸 경계(실드)를 넘는 데미지는 경계에서 멈추고 실드가 깨진다.
+        // 아주 큰 데미지(한 칸의 2배, 4배, 8배…)면 실드를 여러 개 한 번에 깰 수 있다 (포켓로그와 같은 규칙).
+
+        /// <summary>HP바 칸 수 (1 = 보스 아님)</summary>
+        public int BossSegments { get; private set; } = 1;
+        /// <summary>남은 실드 수 (= 지금 칸 위쪽에 남은 경계 수). 0이면 실드 없음</summary>
+        public int ShieldsLeft { get; private set; }
+        public bool IsBoss => BossSegments > 1;
+        /// <summary>실드가 깨졌을 때 (팰, 깨진 개수)</summary>
+        public event Action<Pal, int> ShieldsBroken;
+
+        public void MakeBoss(int segments)
+        {
+            BossSegments = Mathf.Max(1, segments);
+            ShieldsLeft = BossSegments - 1;
+        }
+
+        /// <summary>보스 상태를 없앤다 (잡아서 내 팰이 되면)</summary>
+        public void ClearBoss()
+        {
+            BossSegments = 1;
+            ShieldsLeft = 0;
+        }
+
+        /// <summary>shield번째 실드(아래에서부터 1, 2, …)가 있는 HP</summary>
+        public int ShieldHp(int shield) => Mathf.RoundToInt(MaxHP * shield / (float)BossSegments);
+
+        int ClampForShields(int amount, out int broken)
+        {
+            broken = 0;
+            int threshold = ShieldHp(ShieldsLeft);
+            if (CurrentHP < threshold || CurrentHP - amount > threshold) return amount;   // 이번 공격은 실드에 안 닿음
+
+            float segment = MaxHP / (float)BossSegments;
+            int remainder = CurrentHP - threshold;
+            int bypassed = 0;
+            // 남은 데미지가 한 칸의 2배, 4배, 8배… 이상이면 실드를 하나씩 더 뚫는다 (마지막 칸은 남긴다)
+            while (bypassed + 1 < ShieldsLeft && amount - remainder >= Mathf.RoundToInt(segment * Mathf.Pow(2, bypassed + 1)))
+                bypassed++;
+            broken = 1 + bypassed;
+            return Mathf.Max(1, CurrentHP - ShieldHp(ShieldsLeft - bypassed));
         }
 
         public int Heal(int amount)

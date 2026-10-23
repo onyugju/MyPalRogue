@@ -16,6 +16,10 @@ namespace PalRogue.EditorTools
     {
         const string SourceDir = "Assets/palrogue_assets_core/images/items";
         const string TargetDir = "Assets/Resources/2.아이템";
+        // 아이템 말고 게임 중에 불러 쓰는 포켓로그 UI 그림 (보스 정보창 등)
+        const string UiSourceDir = "Assets/palrogue_assets_core/images/ui";
+        const string UiTargetDir = "Assets/Resources/UI";
+        static readonly string[] UiFiles = { "pbinfo_enemy_boss", "overlay_hp_boss" };
 
         [InitializeOnLoadMethod]
         static void AutoCopy() => EditorApplication.delayCall += () => CopyIcons(false);
@@ -43,6 +47,15 @@ namespace PalRogue.EditorTools
                 if (!File.Exists(from)) { missing.Add(id); continue; }
                 if (AssetDatabase.CopyAsset(from, to)) copied++;
             }
+            if (!AssetDatabase.IsValidFolder(UiTargetDir)) AssetDatabase.CreateFolder("Assets/Resources", "UI");
+            foreach (var name in UiFiles)
+            {
+                string to = $"{UiTargetDir}/{name}.png";
+                if (File.Exists(to)) continue;
+                string from = $"{UiSourceDir}/{name}.png";
+                if (!File.Exists(from)) { missing.Add(name); continue; }
+                if (AssetDatabase.CopyAsset(from, to)) copied++;
+            }
             if (copied > 0) AssetDatabase.Refresh();
             if (copied > 0 || report)
                 Debug.Log($"[아이템 이미지] {copied}개 복사 → {TargetDir}" + (missing.Count > 0 ? $"  (원본 없음: {string.Join(", ", missing)})" : ""));
@@ -50,7 +63,8 @@ namespace PalRogue.EditorTools
 
         void OnPreprocessTexture()
         {
-            if (!assetPath.Replace('\\', '/').StartsWith(TargetDir + "/")) return;
+            string path = assetPath.Replace('\\', '/');
+            if (!path.StartsWith(TargetDir + "/") && !path.StartsWith(UiTargetDir + "/")) return;
             var importer = (TextureImporter)assetImporter;
             importer.textureType = TextureImporterType.Default;
             importer.filterMode = FilterMode.Point;

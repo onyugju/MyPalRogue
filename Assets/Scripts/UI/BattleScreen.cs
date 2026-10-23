@@ -300,7 +300,21 @@ namespace PalRogue
             yield return playerView.AbsorbInto(recallPoint, 0.25f);
         }
 
-        IEnumerator SlideBox(RectTransform box, Vector2 home, float fromDx)
+/// <summary>실드가 깨질 때 정보창이 좌우로 흔들린다</summary>
+        IEnumerator ShakeBox(RectTransform box)
+        {
+            Vector2 home = box.anchoredPosition;
+            const float duration = 0.3f;
+            for (float t = 0f; t < duration; t += Time.unscaledDeltaTime)
+            {
+                float k = t / duration;
+                box.anchoredPosition = home + new Vector2(Mathf.Sin(k * Mathf.PI * 8f) * 2f * (1f - k), 0f);
+                yield return null;
+            }
+            box.anchoredPosition = home;
+        }
+
+                IEnumerator SlideBox(RectTransform box, Vector2 home, float fromDx)
         {
             for (float t = 0f; t < BoxSlideSeconds; t += Time.unscaledDeltaTime)
             {
@@ -1028,6 +1042,10 @@ namespace PalRogue
                     case BattleEventType.Fainted:
                         box.ShowFainted();
                         yield return view.PlayFaint();
+                        break;
+                    case BattleEventType.ShieldBroken:
+                        box.SetShields(ev.Pal);                        // 깨진 실드의 경계선이 사라진다
+                        yield return ShakeBox((RectTransform)box.transform);
                         break;
                     case BattleEventType.Recalled:
                         yield return PlayRecall();
