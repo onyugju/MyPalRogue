@@ -62,10 +62,14 @@ namespace PalRogue
 
         PalData lastEnemy;   // 같은 팰이 연달아 나오지 않게
 
+        /// <summary>트레이너 ID (능력치 화면의 IDNo.). 모험마다 새로 정해진다</summary>
+        public int TrainerId { get; }
+
         public Run(IEnumerable<Pal> party, int[] startingSpheres, System.Random rng = null)
         {
             Party = party.ToList();
             Rng = rng ?? new System.Random();
+            TrainerId = Rng.Next(10000, 100000);
             Spheres = new int[PalSpheres.Count];
             for (int i = 0; i < Spheres.Length && startingSpheres != null && i < startingSpheres.Length; i++)
                 Spheres[i] = Mathf.Max(0, startingSpheres[i]);
@@ -76,9 +80,15 @@ namespace PalRogue
         {
             Party = party.ToList();
             foreach (var pal in Party)
+            {
                 foreach (var aura in pal.Effects.OfType<BossAura>().ToList())
                     pal.RemoveEffect(aura);
+                foreach (var awakening in pal.Effects.OfType<Awakening>()) awakening.Sleep();   // 전투가 끝나면 각성이 풀린다
+            }
         }
+
+        /// <summary>파티 속성 시너지를 다시 계산한다. 바뀐 시너지 알림 문장을 돌려준다</summary>
+        public List<string> UpdateSynergies() => Synergies.Apply(Party);
 
         /// <summary>다음 웨이브로. 랭크업 도구 같은 기간 효과를 1웨이브씩 줄인다</summary>
         /// <summary>파티 전원 완전 회복: 기절 부활, HP 가득, 상태이상 치료, 모든 기술 PP 가득 (10웨이브 보스를 이긴 뒤)</summary>
@@ -156,11 +166,17 @@ namespace PalRogue
         {
             lastEnemy = data;
             EnemyKind = kind;
-            var pal = new Pal(data, GameConfig.EnemyLevel(Wave, kind, Rng));
+            var pal = new Pal(data, GameConfig.EnemyLevel(Wave, kind, Rng), Rng)
+            {
+                MetWave = Wave, MetArea = AreaName, MetAsBoss = kind != BossKind.None,   // 잡으면 트레이너 메모에 나온다
+            };
             if (kind == BossKind.Legend)
                 pal.AddEffect(new BossAura("전설의 기운", GameConfig.LegendStatMultiplier, GameConfig.LegendHpMultiplier));
             else if (kind == BossKind.Final)
                 pal.AddEffect(new BossAura("공허의 기운", GameConfig.FinalBossStatMultiplier, GameConfig.FinalBossHpMultiplier));
+            pal.SetStars(GameConfig.EnemyStars(Wave, kind));    // 깊은 웨이브의 상대는 응축 ★을 달고 나온다
+            if (kind == BossKind.Legend || kind == BossKind.Final)                     // 전설·최종 보스는 각성한다
+                pal.AddEffect(new Awakening(AwakeningCatalog.ForEnemy(pal), kind == BossKind.Final));
             EnemyLoadout.Equip(pal, this, Wave, kind, Rng);   // 웨이브가 깊을수록 아이템을 많이·강하게 지닌다
             pal.Heal(pal.MaxHP);                             // 최대 HP가 늘어난 만큼 채운다
             if (kind != BossKind.None) pal.MakeBoss(GameConfig.BossSegments(kind, pal.Level));

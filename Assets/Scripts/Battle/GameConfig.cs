@@ -6,6 +6,8 @@ namespace PalRogue
     public static class GameConfig
     {
         public const int MaxLevel = 100;
+        /// <summary>능력치 화면 "어버이/" 뒤에 나오는 트레이너 이름</summary>
+        public const string PlayerName = "트레이너";
 
         // ───── 강화 효과(퍽) ─────
         /// <summary>이 간격의 레벨(10, 20, … 100)에 도달하면 강화 효과 3개 중 1개를 고른다</summary>
@@ -13,6 +15,31 @@ namespace PalRogue
         public const int PerkChoices = 3;
 
         public static bool IsPerkLevel(int level) => level > 0 && level % PerkLevelStep == 0;
+        /// <summary>전설 등급 강화 효과가 나오기 시작하는 레벨</summary>
+        public const int LegendaryPerkLevel = 40;
+        /// <summary>강화 효과 카드를 공짜로 다시 뽑을 수 있는 횟수 (고를 때마다)</summary>
+        public const int PerkFreeRerolls = 1;
+
+        // ───── 각성 (메가진화·다이맥스 대신) ─────
+        /// <summary>이 레벨부터 강화 레벨(10단위)에 아직 각성이 없으면 강화 효과 대신 각성을 하나 고른다</summary>
+        public const int AwakenLevel = 50;
+        /// <summary>이 레벨에 각성이 진각성이 된다</summary>
+        public const int TrueAwakenLevel = 100;
+        /// <summary>HP가 이 비율 이하가 되면 각성한다 (전투마다 한 번)</summary>
+        public const float AwakenHpRatio = 0.5f;
+        public const float AwakenStatMultiplier = 1.2f;
+        public const float TrueAwakenStatMultiplier = 1.35f;
+
+        // ───── 응축 ★ (진화 대신, 팰월드 팰 응축) ─────
+        public const int MaxStars = 4;
+        /// <summary>★ 하나당 최대 HP·공격·방어·스피드 +10%</summary>
+        public const float StarStatBonus = 0.1f;
+        /// <summary>★4를 찍으면 영웅 등급 이상 강화 효과를 하나 더 고른다</summary>
+        public const bool BonusPerkAtMaxStars = true;
+
+        /// <summary>상대 팰의 ★: 50웨이브마다 1개, 전설·최종 보스는 +1 (최대 ★4)</summary>
+        public static int EnemyStars(int wave, BossKind kind) =>
+            Mathf.Clamp(wave / 50 + (kind == BossKind.Legend || kind == BossKind.Final ? 1 : 0), 0, MaxStars);
 
         // ───── 경험치 ─────
         // 다음 레벨까지 필요한 경험치 = ExpBase + ExpPerLevel × 지금 레벨   (Lv10→11: 120, Lv50→51: 520)

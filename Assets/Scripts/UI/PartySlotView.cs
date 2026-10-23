@@ -38,6 +38,7 @@ namespace PalRogue
             icon.sprite = pal.Data.frontSprite;
             icon.enabled = icon.sprite != null;
             nameText.text = string.IsNullOrEmpty(pal.Data.palName) ? pal.Data.name : pal.Data.palName;
+            StarIcons.Show(nameText, pal.Stars);                       // 응축 ★
             levelText.text = $"Lv.{pal.Level}";
             hpText.text = $"{pal.CurrentHP}/{pal.MaxHP}";
             SetHp(pal.MaxHP > 0 ? (float)pal.CurrentHP / pal.MaxHP : 0f);

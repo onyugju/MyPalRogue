@@ -40,7 +40,9 @@ namespace PalRogue
     {
         public const int MaxSkills = 4;
         const int MinStage = -6, MaxStage = 6;
-        const int FixedIV = 15;   // 개체값을 따로 두지 않고 모두 같은 값으로 고정
+        /// <summary>개체값 최대 (포켓몬과 같은 0~31). 평균이 예전 고정값 15와 비슷하다</summary>
+        public const int MaxIV = 31;
+        static readonly System.Random ivRandom = new System.Random();
 
         public PalData Data { get; }
         public int Level { get; private set; }
@@ -65,10 +67,26 @@ namespace PalRogue
         readonly Dictionary<StatType, int> rawStats = new();
         readonly Dictionary<StatType, int> stages = new();
 
-        public Pal(PalData data, int level)
+        /// <summary>개체값: [0]=HP, [1]=공격, [2]=방어, [3]=스피드 (0~31). 태어날 때 무작위로 정해진다</summary>
+        public int[] IVs { get; } = new int[4];
+        public int IV(StatType s) => IVs[(int)s + 1];
+        public int HpIV => IVs[0];
+
+        // ───────── 만난 기록 (능력치 화면의 트레이너 메모) ─────────
+        /// <summary>만난 웨이브 (0 = 모험을 함께 시작한 팰)</summary>
+        public int MetWave;
+        public int MetLevel;
+        public string MetArea;
+        /// <summary>보스(보스·전설·최종)로 만났는지</summary>
+        public bool MetAsBoss;
+
+        public Pal(PalData data, int level, System.Random rng = null)
         {
             Data = data;
             Level = Mathf.Clamp(level, 1, GameConfig.MaxLevel);
+            MetLevel = Level;
+            var r = rng ?? ivRandom;
+            for (int i = 0; i < IVs.Length; i++) IVs[i] = r.Next(MaxIV + 1);
             foreach (StatType t in Enum.GetValues(typeof(StatType))) stages[t] = 0;
             RecalculateStats();
             CurrentHP = MaxHP;
@@ -79,18 +97,61 @@ namespace PalRogue
         // 포켓몬 공식에서 노력치를 뺀 단순 버전
         //  HP   = (2*종족값 + 15) * Lv / 100 + Lv + 10
         //  기타 = (2*종족값 + 15) * Lv / 100 + 5
-        static int CalcHP(int baseValue, int level) => (2 * baseValue + FixedIV) * level / 100 + level + 10;
-        static int CalcOther(int baseValue, int level) => (2 * baseValue + FixedIV) * level / 100 + 5;
+        static int CalcHP(int baseValue, int iv, int level) => (2 * baseValue + iv) * level / 100 + level + 10;
+        static int CalcOther(int baseValue, int iv, int level) => (2 * baseValue + iv) * level / 100 + 5;
+
+        /// <summary>효과·별을 빼고 레벨·종족값·개체값만으로 낸 최대 HP (능력치 화면 색 비교용)</summary>
+        public int BaseMaxHP => CalcHP(Data.baseHP, HpIV, Level);
+        /// <summary>효과·별·랭크를 빼고 레벨·종족값·개체값만으로 낸 능력치</summary>
+        public int RawStat(StatType s) => rawStats[s];
+
+        /// <summary>응축할 때: 두 팰 중 더 높은 개체값을 이어받는다</summary>
+        public void InheritBetterIVs(Pal other)
+        {
+            if (other == null) return;
+            for (int i = 0; i < IVs.Length; i++) IVs[i] = Mathf.Max(IVs[i], other.IVs[i]);
+            RecalculateStats();
+        }
+
+        /// <summary>기술 두 개의 순서를 바꾼다 (능력치 화면의 "기술 순서 교체")</summary>
+        public void SwapSkills(int a, int b)
+        {
+            if (a < 0 || b < 0 || a >= Skills.Count || b >= Skills.Count || a == b) return;
+            (Skills[a], Skills[b]) = (Skills[b], Skills[a]);
+        }
+
+        // ───────── 응축 ★ ─────────
+        /// <summary>응축 랭크 (0~4). ★ 하나당 모든 능력치 +10%</summary>
+        public int Stars { get; private set; }
+        public float StarMultiplier => 1f + GameConfig.StarStatBonus * Stars;
+        public bool CanCondense => Stars < GameConfig.MaxStars;
+
+        public void SetStars(int stars)
+        {
+            Stars = Mathf.Clamp(stars, 0, GameConfig.MaxStars);
+            RecalculateStats();
+        }
+
+        /// <summary>같은 팰을 응축해서 ★ +1. 오르면 true</summary>
+        public bool AddStar()
+        {
+            if (!CanCondense) return false;
+            SetStars(Stars + 1);
+            return true;
+        }
+
+        /// <summary>각성해 있는지 (전투 중)</summary>
+        public bool IsAwakened => Effects.OfType<Awakening>().Any(a => a.Active);
 
         public void RecalculateStats()
         {
             int oldMax = MaxHP;
-            float hpMult = 1f;
+            float hpMult = StarMultiplier;
             foreach (var e in Effects) hpMult *= e.MaxHpMultiplier;
-            MaxHP = Mathf.Max(1, Mathf.RoundToInt(CalcHP(Data.baseHP, Level) * hpMult));
-            rawStats[StatType.Attack]    = CalcOther(Data.baseAttack, Level);
-            rawStats[StatType.Defense]   = CalcOther(Data.baseDefense, Level);
-            rawStats[StatType.Speed]     = CalcOther(Data.baseSpeed, Level);
+            MaxHP = Mathf.Max(1, Mathf.RoundToInt(CalcHP(Data.baseHP, HpIV, Level) * hpMult));
+            rawStats[StatType.Attack]    = CalcOther(Data.baseAttack, IV(StatType.Attack), Level);
+            rawStats[StatType.Defense]   = CalcOther(Data.baseDefense, IV(StatType.Defense), Level);
+            rawStats[StatType.Speed]     = CalcOther(Data.baseSpeed, IV(StatType.Speed), Level);
 
             // 레벨업으로 최대 HP가 늘면 늘어난 만큼 현재 HP도 회복 (포켓몬과 동일)
             if (oldMax > 0 && !IsFainted) CurrentHP = Mathf.Clamp(CurrentHP + (MaxHP - oldMax), 1, MaxHP);
@@ -101,7 +162,7 @@ namespace PalRogue
         {
             int stage = stages[stat];
             float stageMult = stage >= 0 ? (2f + stage) / 2f : 2f / (2f - stage);
-            float effectMult = 1f;
+            float effectMult = StarMultiplier;
             foreach (var e in EffectsSnapshot()) effectMult *= e.StatMultiplier(stat);
             if (stat == StatType.Attack && Status == StatusCondition.Burn) effectMult *= 0.5f;      // 화상: 공격 절반
             if (stat == StatType.Speed && Status == StatusCondition.Paralysis) effectMult *= 0.5f; // 마비: 속도 절반
@@ -263,6 +324,16 @@ namespace PalRogue
         /// <summary>지금 레벨 안에서 모은 경험치 (레벨이 오르면 넘친 만큼만 남는다)</summary>
         public int Exp { get; private set; }
         public int ExpToNext => GameConfig.ExpToNext(Level);
+        /// <summary>지금까지 모은 경험치 합계 (Lv.1부터)</summary>
+        public int TotalExp
+        {
+            get
+            {
+                int total = Exp;
+                for (int l = 1; l < Level; l++) total += GameConfig.ExpToNext(l);
+                return total;
+            }
+        }
         /// <summary>EXP바 채움 비율 (0~1). 만렙이면 0</summary>
         public float ExpRatio => ExpToNext > 0 ? Mathf.Clamp01((float)Exp / ExpToNext) : 0f;
         public bool IsMaxLevel => Level >= GameConfig.MaxLevel;

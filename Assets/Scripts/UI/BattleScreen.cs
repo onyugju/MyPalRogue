@@ -187,6 +187,7 @@ namespace PalRogue
         {
             var rng = seed >= 0 ? new System.Random(seed) : new System.Random();
             run = new Run(BuildPlayerParty(), startingSpheres, rng);
+            if (partyScreen != null) partyScreen.OpenSummary = OpenSummary;   // 파티 화면 "능력치를 본다"
             spheres = run.Spheres;                     // 스피어 메뉴가 쓰는 배열 = 런이 가진 배열
             StartWave(true);
         }
@@ -195,6 +196,8 @@ namespace PalRogue
         void StartWave(bool firstWave)
         {
             battle?.Detach();
+            var synergyNews = run.UpdateSynergies();             // 첫 웨이브: 시작 파티의 속성 시너지
+            if (synergyNews.Count > 0) pendingSynergyMessages = synergyNews;
             var enemy = run.CreateEnemy(WildPool());
             battle = new Battle(run.Party, new List<Pal> { enemy }, run.Rng, null, firstWave, run.EnemyKind);
             run.SyncParty(battle.PlayerParty);         // 쓰러진 팰 대신 다른 팰이 앞으로 나왔을 수 있다
@@ -332,8 +335,9 @@ namespace PalRogue
         {
             mode = Mode.Busy;
             HidePanels();
-            if (battle.PendingCatch != null) yield return ResolveFullParty();
+            if (battle.PendingCatch != null) yield return ResolveCatch();
             run.SyncParty(battle.PlayerParty);
+            foreach (var msg in run.UpdateSynergies()) yield return ShowMessage(msg);   // 파티가 바뀌면 속성 시너지도
 
             // 상대가 사라졌으니 상대 정보창·스피어도 치운다
             enemyInfo.gameObject.SetActive(false);
@@ -633,6 +637,8 @@ namespace PalRogue
         static TMP_Text FindLabel(string objectName) =>
             FindObjectsByType<TMP_Text>(FindObjectsInactive.Include).FirstOrDefault(t => t.name == objectName);
 
+        List<string> pendingSynergyMessages;
+
         IEnumerator Intro(bool firstWave)
         {
             mode = Mode.Busy;
@@ -640,6 +646,9 @@ namespace PalRogue
             messageText.text = "";
             yield return EnemyEntrance(firstWave);
             yield return PlayEvents();
+            if (pendingSynergyMessages != null)
+                foreach (var msg in pendingSynergyMessages) yield return ShowMessage(msg);
+            pendingSynergyMessages = null;
             ShowCommand();
         }
 
@@ -689,7 +698,20 @@ namespace PalRogue
                     yield return LearnSkill(pal, skill);
 
             if (GameConfig.IsPerkLevel(level))
-                yield return ChoosePerk(pal, level);
+            {
+                // Lv.50부터는 아직 각성이 없으면 강화 효과 대신 각성을 고른다
+                if (level >= GameConfig.AwakenLevel && AwakeningCatalog.Of(pal) == null) yield return ChooseAwakening(pal);
+                else yield return ChoosePerk(pal, $"{Josa.I(PalName(pal))} Lv.{level}에 도달했다!");
+            }
+
+            // Lv.100: 각성이 진각성이 된다
+            var awakening = AwakeningCatalog.Of(pal);
+            if (level >= GameConfig.TrueAwakenLevel && awakening != null && !awakening.IsTrue)
+            {
+                awakening.SetTrue(true);
+                yield return ShowMessage($"{PalName(pal)}의 {Josa.I(awakening.Def.Name)} 진각성으로 거듭났다!\n" +
+                                         $"각성하면 모든 능력치 ×{GameConfig.TrueAwakenStatMultiplier:0.##}!");
+            }
         }
 
         bool lastSkillLearned;                       // LearnSkill 결과: 실제로 배웠는지
@@ -754,34 +776,98 @@ namespace PalRogue
             RestoreMessage(normal);
         }
 
-        IEnumerator ChoosePerk(Pal pal, int level)
+        const float PerkMenuWidth = 120f;
+
+        static string Hex(Color c) => ColorUtility.ToHtmlStringRGB(c);
+
+        /// <summary>
+        /// 강화 효과 카드 고르기: 카드 3장(등급 색으로 표시) 중 1장. 커서를 옮기면 설명이 나온다.
+        /// "다시 뽑기"로 공짜로 GameConfig.PerkFreeRerolls번 새로 뽑을 수 있다. minRarity 이상만 나온다 (★4 보너스는 영웅 이상)
+        /// </summary>
+        IEnumerator ChoosePerk(Pal pal, string reason, PerkRarity minRarity = PerkRarity.Common)
         {
-            var choices = PerkCatalog.RollChoices(pal, GameConfig.PerkChoices, perkRng);
-            if (choices.Count == 0 || choiceMenu == null) yield break;
+            if (choiceMenu == null) yield break;
+            var offers = PerkCatalog.RollChoices(pal, GameConfig.PerkChoices, perkRng, minRarity);
+            if (offers.Count == 0) yield break;
 
             string name = PalName(pal);
-            string prompt = $"{Josa.I(name)} Lv.{level}에 도달했다!\n강화 효과를 하나 골라 주세요.";
+            string prompt = $"{reason}\n강화 효과를 하나 골라 주세요.";
+            int rerolls = GameConfig.PerkFreeRerolls;
             float normal = WidenMessage();
             yield return ShowMessage(prompt);
 
-            // 커서를 옮기면 그 강화의 설명을 메시지창에 보여준다
+            string Title(PerkOffer o) => o.Perk.MaxRank > 1 ? $"{o.Perk.Name} Lv.{o.Rank}" : o.Perk.Name;
             void Describe(int i)
             {
                 messageText.maxVisibleCharacters = 9999;
-                messageText.text = i >= 0 && i < choices.Count ? $"{choices[i].Name}\n{choices[i].Description}" : prompt;
+                if (i >= 0 && i < offers.Count)
+                {
+                    var o = offers[i];
+                    string rarity = $"<color=#{Hex(PerkRarities.Color(o.Perk.Rarity))}>[{PerkRarities.Name(o.Perk.Rarity)}]</color>";
+                    string upgrade = o.Rank > 1 ? " (강화)" : "";
+                    messageText.text = $"{rarity} {Title(o)}{upgrade}\n{o.Perk.Describe(o.Rank)}";
+                }
+                else if (i == offers.Count) messageText.text = $"카드를 새로 뽑는다. (남은 횟수 {rerolls}번)";
+                else messageText.text = prompt;
             }
             choiceMenu.Highlighted += Describe;
-            Perk chosen = null;
+            PerkOffer chosen = null;
             while (chosen == null)                                                 // 반드시 하나 고른다 (Esc 무시)
             {
-                yield return choiceMenu.Choose(choices.Select(c => c.Name).ToArray(), 0);
+                var labels = offers.Select(o => $"<color=#{Hex(PerkRarities.Color(o.Perk.Rarity))}>{Title(o)}</color>").ToList();
+                if (rerolls > 0) labels.Add("다시 뽑기");
+                yield return choiceMenu.Choose(labels.ToArray(), 0, PerkMenuWidth);
+                int r = choiceMenu.Result;
+                if (r >= 0 && r < offers.Count) chosen = offers[r];
+                else if (r == offers.Count && rerolls > 0)
+                {
+                    var again = PerkCatalog.RollChoices(pal, GameConfig.PerkChoices, perkRng, minRarity);
+                    if (again.Count > 0) offers = again;
+                    rerolls--;
+                }
+            }
+            choiceMenu.Highlighted -= Describe;
+
+            PerkCatalog.Apply(pal, chosen);
+            if (pal == battle.Player) playerInfo.RefreshHp(pal);                   // 최대 HP 강화 반영
+            yield return ShowMessage(chosen.Rank > 1 ? $"{PalName(pal)}의 [{chosen.Perk.Name}] 강화가 Lv.{chosen.Rank}로 올랐다!"
+                                                     : $"{Josa.Eun(name)} [{chosen.Perk.Name}] 강화를 얻었다!");
+            RestoreMessage(normal);
+        }
+
+        /// <summary>각성 고르기 (Lv.50 이후 첫 강화 레벨): 내 속성 각성 + 공용 각성 중 1개</summary>
+        IEnumerator ChooseAwakening(Pal pal)
+        {
+            if (choiceMenu == null) yield break;
+            var choices = AwakeningCatalog.RollChoices(pal, GameConfig.PerkChoices, perkRng);
+            if (choices.Count == 0) yield break;
+
+            string name = PalName(pal);
+            float normal = WidenMessage();
+            yield return ShowMessage($"{name}의 몸 깊은 곳에서\n숨겨진 힘이 느껴진다…!");
+            yield return ShowMessage($"각성하면 전투 중 HP가 절반 이하일 때 깨어나\n그 전투 동안 모든 능력치 ×{GameConfig.AwakenStatMultiplier:0.##} + 고유 효과!");
+            string prompt = "어떤 힘을 깨우칠까?";
+            yield return ShowMessage(prompt);
+
+            void Describe(int i)
+            {
+                messageText.maxVisibleCharacters = 9999;
+                if (i < 0 || i >= choices.Count) { messageText.text = prompt; return; }
+                var d = choices[i];
+                string type = d.Type.HasValue ? $"<color=#{Hex(PerkRarities.Color(PerkRarity.Epic))}>[{PalTypeNames.Korean(d.Type.Value)}]</color> " : "[공용] ";
+                messageText.text = $"{type}{d.Name}\n{d.Description}";
+            }
+            choiceMenu.Highlighted += Describe;
+            AwakeningDef chosen = null;
+            while (chosen == null)
+            {
+                yield return choiceMenu.Choose(choices.Select(c => c.Name).ToArray(), 0, PerkMenuWidth);
                 if (choiceMenu.Result >= 0 && choiceMenu.Result < choices.Count) chosen = choices[choiceMenu.Result];
             }
             choiceMenu.Highlighted -= Describe;
 
-            pal.AddEffect(chosen.Create());
-            if (pal == battle.Player) playerInfo.RefreshHp(pal);                   // 최대 HP 강화 반영
-            yield return ShowMessage($"{Josa.Eun(name)} [{chosen.Name}] 강화를 얻었다!");
+            pal.AddEffect(new Awakening(chosen, pal.Level >= GameConfig.TrueAwakenLevel));
+            yield return ShowMessage($"{Josa.Eun(name)} [{chosen.Name}]의 힘을 깨우쳤다!");
             RestoreMessage(normal);
         }
 
@@ -851,6 +937,43 @@ namespace PalRogue
         const int ChoiceStats = 0, ChoiceDex = 1, ChoiceYes = 2, ChoiceNo = 3;
         const float WideMessageWidth = 300f;     // 질문이 길어서 이때만 메시지 칸을 넓게 쓴다
 
+        /// <summary>
+        /// 잡은 팰 처리. 파티에 같은 팰이 있으면 응축(★ +1)할지 먼저 묻는다.
+        /// 응축하지 않으면 파티에 넣고, 파티가 가득 찼으면 누구를 놓아줄지 묻는다.
+        /// </summary>
+        IEnumerator ResolveCatch()
+        {
+            var caught = battle.PendingCatch;
+            string name = PalName(caught);
+            var same = battle.CondenseTarget(caught);
+            if (same != null && choiceMenu != null)
+            {
+                HidePanels();
+                float normal = WidenMessage();
+                string stars = same.Stars > 0 ? $" 별 {same.Stars}개" : "";
+                yield return ShowMessage($"파티에 같은 팰이 있다! ({name} Lv.{same.Level}{stars})\n응축해서 별을 올릴까?");
+                yield return choiceMenu.Choose(YesNo, 0);
+                if (choiceMenu.Result == 0)
+                {
+                    var target = battle.CondenseCaught(out var moved);
+                    yield return ShowMessage($"{Josa.Eul(name)} 응축했다!\n별 {target.Stars}개: 모든 능력치 +{Mathf.RoundToInt(target.Stars * GameConfig.StarStatBonus * 100)}%");
+                    if (moved.Count > 0) yield return ShowMessage($"{Josa.Eul(string.Join(", ", moved))} 함께 넘겨받았다!");
+                    if (target == battle.Player) playerInfo.Refresh(target);
+                    RestoreMessage(normal);
+                    if (target.Stars >= GameConfig.MaxStars && GameConfig.BonusPerkAtMaxStars)
+                        yield return ChoosePerk(target, $"{PalName(target)}의 별이 가득 찼다!", PerkRarity.Epic);
+                    yield break;
+                }
+                RestoreMessage(normal);
+            }
+            if (battle.AddCaughtToParty())                                      // 응축하지 않음 + 자리 있음
+            {
+                yield return ShowMessage($"{Josa.I(name)} 파티에 들어왔다!");
+                yield break;
+            }
+            if (battle.PendingCatch != null) yield return ResolveFullParty();
+        }
+
         IEnumerator ResolveFullParty()
         {
             var caught = battle.PendingCatch;
@@ -873,7 +996,12 @@ namespace PalRogue
                 }
                 else Debug.LogWarning("[BattleScreen] 선택 창이 없어서 잡은 팰을 놓아줍니다. (메뉴 17 실행)");
 
-                if (choice == ChoiceStats || choice == ChoiceDex)
+                if (choice == ChoiceStats)
+                {
+                    yield return OpenSummary(new List<Pal> { caught }, 0);   // 잡은 팰의 능력치
+                    continue;
+                }
+                if (choice == ChoiceDex)
                 {
                     yield return ShowMessage("아직 준비 중인 기능이에요!");
                     continue;
@@ -897,6 +1025,19 @@ namespace PalRogue
             }
 
             msgRt.sizeDelta = new Vector2(normalWidth, msgRt.sizeDelta.y);
+        }
+
+        // ───────── 능력치 화면 ─────────
+        SummaryScreen summaryScreen;
+
+        IEnumerator OpenSummary(IReadOnlyList<Pal> party, int index)
+        {
+            if (summaryScreen == null)
+            {
+                var parent = areaText != null ? areaText.transform.parent : messageText.canvas.rootCanvas.transform;
+                summaryScreen = SummaryScreen.Create(parent, messageText.font, choiceMenu);
+            }
+            yield return summaryScreen.Show(party, index, run);
         }
 
         void OnPals()
@@ -1095,6 +1236,10 @@ namespace PalRogue
                         break;
                     case BattleEventType.Recalled:
                         yield return PlayRecall();
+                        break;
+                    case BattleEventType.Awakened:
+                        yield return view.PlayAwaken();                 // 금빛으로 번쩍이며 각성
+                        yield return ShakeBox((RectTransform)box.transform);
                         break;
                     case BattleEventType.SentOut:
                         if (ev.IsPlayerSide) yield return PlaySendOut(ev.Pal);   // 스피어를 던져서 내보낸다

@@ -30,7 +30,10 @@ namespace PalRogue
 
         /// <summary>메뉴 창 항목 (순서 = 번호). 메뉴 14가 이 글자로 창을 만든다</summary>
         public static readonly string[] OptionLabels = { "교체한다", "능력치를 본다", "팰 도감", "닉네임 바꾸기", "그만둔다" };
-        public const int OptionSwitch = 0, OptionCancel = 4;
+        public const int OptionSwitch = 0, OptionSummary = 1, OptionCancel = 4;
+
+        /// <summary>"능력치를 본다"를 고르면 부른다 (파티, 칸 번호). BattleScreen이 능력치 화면을 연결한다</summary>
+        public Func<IReadOnlyList<Pal>, int, IEnumerator> OpenSummary;
 
         const float ErrorHoldSeconds = 1.1f;
         const int SortingOrder = 80;               // RewardScreen(50), 웨이브·돈 글자(60)보다 위
@@ -175,6 +178,19 @@ namespace PalRogue
                 optionClicked = -2;
                 while (optionClicked == -2) yield return null;
                 if (optionClicked == OptionSwitch || optionClicked == OptionCancel) break;
+
+                if (optionClicked == OptionSummary && OpenSummary != null)
+                {
+                    // 능력치 화면을 보는 동안 파티 화면은 잠깐 숨긴다 (뒤에서 방향키를 먹지 않게)
+                    optionsBox.SetActive(false);
+                    gameObject.SetActive(false);
+                    yield return OpenSummary(party, slot);
+                    gameObject.SetActive(true);
+                    optionsBox.SetActive(true);
+                    Refresh();
+                    Select(optionButtons[OptionSummary]);
+                    continue;
+                }
 
                 // 아직 만들지 않은 기능
                 showingError = true;

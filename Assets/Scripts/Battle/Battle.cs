@@ -7,7 +7,7 @@ namespace PalRogue
 {
     public enum BattleState { Ongoing, WaitingPlayerSwitch, PlayerWon, PlayerLost, Caught }
 
-    public enum BattleEventType { Message, HpChanged, Fainted, SentOut, StatusChanged, SphereThrown, SphereShakes, SphereCaught, SphereBroke, ExpBar, LevelUp, Recalled, ShieldBroken }
+    public enum BattleEventType { Message, HpChanged, Fainted, SentOut, StatusChanged, SphereThrown, SphereShakes, SphereCaught, SphereBroke, ExpBar, LevelUp, Recalled, ShieldBroken, Awakened }
 
     /// <summary>화면이 순서대로 재생하는 전투 진행 기록 한 줄</summary>
     public class BattleEvent
@@ -155,6 +155,7 @@ namespace PalRogue
 
             Ctx.OpponentOf = p => IsPlayerPal(p) ? Enemy : Player;
             Ctx.BerrySaveChance = p => IsPlayerPal(p) ? PlayerBerrySave : 0f;
+            Ctx.Awakened = p => Emit(new BattleEvent { Type = BattleEventType.Awakened, Pal = p, IsPlayerSide = IsPlayerPal(p) });
 
             PlayerIndex = FirstAlive(PlayerParty);
             bool frontChanged = PlayerIndex > 0;
@@ -545,6 +546,39 @@ namespace PalRogue
         /// <summary>잡은 팰을 파티에 넣지 않고 놓아준다</summary>
         public void ReleaseCaught() => PendingCatch = null;
 
+        /// <summary>잡은 팰을 응축할 수 있는 파티의 같은 팰 (★이 4가 아닌 것 중 레벨이 가장 높은 팰). 없으면 null</summary>
+        public Pal CondenseTarget(Pal caught) =>
+            caught == null ? null : playerList.Where(p => p != caught && p.Data == caught.Data && p.CanCondense)
+                                              .OrderByDescending(p => p.Level).FirstOrDefault();
+
+        /// <summary>잡은 팰(PendingCatch)을 같은 팰에 응축한다: ★ +1, 잡은 팰이 지닌 아이템도 넘어간다. 응축된 팰을 돌려준다</summary>
+        public Pal CondenseCaught(out List<string> movedItems)
+        {
+            movedItems = new List<string>();
+            var target = CondenseTarget(PendingCatch);
+            if (target == null) return null;
+            foreach (var item in PendingCatch.Effects.Where(e => e.HeldItemId != null).ToList())
+            {
+                PendingCatch.RemoveEffect(item);
+                target.AddEffect(item);
+                movedItems.Add(item.HeldItemId);
+            }
+            target.AddStar();
+            target.InheritBetterIVs(PendingCatch);           // 더 좋은 개체값을 이어받는다
+            target.Heal(target.MaxHP);                       // 응축하면 기운도 가득
+            PendingCatch = null;
+            return target;
+        }
+
+        /// <summary>파티에 자리가 있으면 잡은 팰을 그냥 파티에 넣는다 (응축하지 않기로 했을 때)</summary>
+        public bool AddCaughtToParty()
+        {
+            if (PendingCatch == null || playerList.Count >= MaxPartySize) return false;
+            playerList.Add(PendingCatch);
+            PendingCatch = null;
+            return true;
+        }
+
         /// <summary>
         /// 포획 확률 (포켓몬 3세대 공식을 단순화):
         ///  a = (3×최대HP − 2×현재HP) / (3×최대HP) × 포획률(1~255) × 스피어 배율 × 상태이상 배율
@@ -587,12 +621,12 @@ namespace PalRogue
                 target.ResetBattleState();
                 target.CaughtSphere = sphere;                // 나중에 내보낼 때 이 스피어를 던진다
                 target.ClearBoss();
-                if (playerList.Count < MaxPartySize)
+                if (playerList.Count < MaxPartySize && CondenseTarget(target) == null)
                 {
                     playerList.Add(target);                  // 파티 맨 뒤에 들어온다
                     Log($"{Josa.I(name)} 파티에 들어왔다!");
                 }
-                else PendingCatch = target;                  // 가득 참: 화면에서 누구를 놓아줄지 묻는다
+                else PendingCatch = target;                  // 같은 팰이 있거나(응축) 가득 참: 화면에서 묻는다
                 State = BattleState.Caught;
                 Detach();
                 return;

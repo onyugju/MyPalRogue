@@ -146,6 +146,27 @@ namespace PalRogue
         }
 
         /// <summary>쓰러지는 연출: 아래로 가라앉으며 투명해진다</summary>
+        /// <summary>각성 연출: 금빛으로 몇 번 번쩍인 뒤 은은한 금빛으로 남는다 (다음 Show 때 원래 색)</summary>
+        public IEnumerator PlayAwaken()
+        {
+            if (sr == null) Awake();
+            var gold = new Color(1f, 0.82f, 0.25f);
+            var start = transform.localScale;
+            for (int i = 0; i < 3; i++)
+            {
+                sr.color = gold;
+                transform.localScale = start * 1.08f;
+                yield return new WaitForSecondsRealtime(0.09f);
+                sr.color = Color.white;
+                transform.localScale = start;
+                yield return new WaitForSecondsRealtime(0.09f);
+            }
+            sr.color = AwakenTint;
+        }
+
+        /// <summary>각성해 있는 동안의 색</summary>
+        public static readonly Color AwakenTint = new Color(1f, 0.92f, 0.62f);
+
         public IEnumerator PlayFaint()
         {
             if (sr == null) Awake();
