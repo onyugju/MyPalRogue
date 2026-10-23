@@ -1,0 +1,144 @@
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+
+namespace PalRogue
+{
+    /// <summary>이번 웨이브 상대의 종류</summary>
+    public enum BossKind
+    {
+        None,    // 일반 야생 팰
+        Boss,    // 10웨이브마다 나오는 보스
+        Legend,  // 20웨이브마다 확률로 나오는 속성의 왕 (전설 팰)
+        Final,   // 마지막 웨이브의 최종 보스 제로버스
+    }
+
+    /// <summary>
+    /// 한 번의 모험(런). 포켓로그처럼 웨이브를 하나씩 이겨 나가며, 파티 상태가 다음 웨이브로 그대로 이어진다.
+    ///  - 이어지는 것: HP, 상태이상, 기절, PP, 레벨·경험치, 강화 효과, 스피어 개수, 돈
+    ///  - 매 웨이브 초기화: 능력치 단계 변화(전투 시작 때 Battle이 초기화)
+    /// MonoBehaviour가 아닌 일반 클래스라서 UI 없이도 돌릴 수 있다.
+    /// </summary>
+    public class Run
+    {
+        public List<Pal> Party { get; private set; }
+        public int Wave { get; private set; } = 1;
+        public int Money { get; set; } = GameConfig.StartingMoney;
+        /// <summary>가진 스피어 개수 (SphereType 순서)</summary>
+        public int[] Spheres { get; }
+        public System.Random Rng { get; }
+
+        /// <summary>보스가 나오는 웨이브인지 (보스·전설·최종 보스 모두 포함)</summary>
+        public bool IsBossWave => GameConfig.IsBossWave(Wave);
+        /// <summary>CreateEnemy로 만든 이번 상대의 종류</summary>
+        public BossKind EnemyKind { get; private set; }
+        /// <summary>마지막 웨이브까지 모두 이겼는지</summary>
+        public bool IsCleared => Wave > GameConfig.FinalWave;
+        public string AreaName => GameConfig.AreaName(Mathf.Min(Wave, GameConfig.FinalWave));
+        /// <summary>파티가 전멸했는지</summary>
+        public bool IsWiped => Party.All(p => p.IsFainted);
+
+        PalData lastEnemy;   // 같은 팰이 연달아 나오지 않게
+
+        public Run(IEnumerable<Pal> party, int[] startingSpheres, System.Random rng = null)
+        {
+            Party = party.ToList();
+            Rng = rng ?? new System.Random();
+            Spheres = new int[PalSpheres.Count];
+            for (int i = 0; i < Spheres.Length && startingSpheres != null && i < startingSpheres.Length; i++)
+                Spheres[i] = Mathf.Max(0, startingSpheres[i]);
+        }
+
+        /// <summary>전투에서 바뀐 파티(교체 순서, 잡은 팰, 놓아준 팰)를 런에 반영한다. 잡은 보스의 강화는 떼어 낸다</summary>
+        public void SyncParty(IEnumerable<Pal> party)
+        {
+            Party = party.ToList();
+            foreach (var pal in Party)
+                foreach (var aura in pal.Effects.OfType<BossAura>().ToList())
+                    pal.RemoveEffect(aura);
+        }
+
+        public void NextWave() => Wave++;
+
+        /// <summary>
+        /// 이번 웨이브의 상대를 만든다.
+        ///  마지막 웨이브: 무조건 최종 보스 제로버스
+        ///  20웨이브마다: LegendChance 확률로 그 웨이브의 속성의 왕 (전설 팰, 강화 붙음)
+        ///  10웨이브마다(보스): 전설이 아닌 팰 중 능력치 총합 상위 1/3 + 레벨 보너스
+        ///  일반 웨이브: 전설이 아닌, 잡을 수 있는 팰. 초반에는 약한 팰만 나오고 점점 강한 팰이 섞인다.
+        ///             지역 속성 팰은 2배로 잘 나온다
+        /// </summary>
+        public Pal CreateEnemy(IReadOnlyList<PalData> pool)
+        {
+            var all = pool.Where(d => d != null).Distinct().ToList();
+            if (all.Count == 0) return null;
+
+            // ① 최종 보스 / 속성의 왕
+            if (Wave >= GameConfig.FinalWave)
+            {
+                var final = all.FirstOrDefault(d => d.name == GameConfig.FinalBossAsset);
+                if (final != null) return MakeEnemy(final, BossKind.Final);
+            }
+            string legendAsset = GameConfig.LegendAssetFor(Wave);
+            if (legendAsset != null && Rng.NextDouble() < GameConfig.LegendChance)
+            {
+                var legend = all.FirstOrDefault(d => d.name == legendAsset);
+                if (legend != null) return MakeEnemy(legend, BossKind.Legend);
+            }
+
+            // ② 일반 보스 / 야생 팰 (전설 팰은 빼고)
+            var normal = all.Where(d => !GameConfig.IsLegendary(d)).ToList();
+            if (normal.Count == 0) normal = all;
+
+            List<PalData> candidates;
+            if (IsBossWave)
+            {
+                var ranked = normal.OrderByDescending(StatTotal).ToList();
+                candidates = ranked.Take(Mathf.Max(1, ranked.Count / 3)).ToList();
+            }
+            else
+            {
+                var wild = normal.Where(d => d.canBeCaught).OrderBy(StatTotal).ToList();
+                if (wild.Count == 0) wild = normal.OrderBy(StatTotal).ToList();
+                int count = Mathf.Clamp(Mathf.CeilToInt(wild.Count * GameConfig.WildPoolShare(Wave)), Mathf.Min(3, wild.Count), wild.Count);
+                candidates = wild.Take(count).ToList();
+                var areaType = GameConfig.AreaType(Wave);
+                candidates.AddRange(candidates.Where(d => d.HasType(areaType)).ToList());   // 지역 속성은 2배
+            }
+            if (candidates.Distinct().Count() > 1 && lastEnemy != null) candidates.RemoveAll(d => d == lastEnemy);
+
+            var pick = candidates[Rng.Next(candidates.Count)];
+            return MakeEnemy(pick, IsBossWave ? BossKind.Boss : BossKind.None);
+        }
+
+        Pal MakeEnemy(PalData data, BossKind kind)
+        {
+            lastEnemy = data;
+            EnemyKind = kind;
+            var pal = new Pal(data, GameConfig.EnemyLevel(Wave, kind, Rng));
+            if (kind == BossKind.Legend)
+                pal.AddEffect(new BossAura("전설의 기운", GameConfig.LegendStatMultiplier, GameConfig.LegendHpMultiplier));
+            else if (kind == BossKind.Final)
+                pal.AddEffect(new BossAura("공허의 기운", GameConfig.FinalBossStatMultiplier, GameConfig.FinalBossHpMultiplier));
+            pal.Heal(pal.MaxHP);                             // 최대 HP가 늘어난 만큼 채운다
+            return pal;
+        }
+
+        static int StatTotal(PalData d) => d.baseHP + d.baseAttack + d.baseDefense + d.baseSpeed;
+    }
+
+    /// <summary>전설·최종 보스가 받는 강화 (모든 능력치·최대 HP 배율). 잡으면 사라진다</summary>
+    public class BossAura : BattleEffect
+    {
+        readonly float statMult, hpMult;
+        public BossAura(string name, float statMult, float hpMult)
+        {
+            PerkName = name;
+            PerkDescription = $"모든 능력치 ×{statMult:0.##}, 최대 HP ×{hpMult:0.##}";
+            this.statMult = statMult;
+            this.hpMult = hpMult;
+        }
+        public override float StatMultiplier(StatType stat) => statMult;
+        public override float MaxHpMultiplier => hpMult;
+    }
+}

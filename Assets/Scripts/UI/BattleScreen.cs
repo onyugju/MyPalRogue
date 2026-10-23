@@ -19,6 +19,7 @@ namespace PalRogue
     /// <summary>
     /// 전투 화면 전체를 움직이는 컨트롤러. Battle(전투 로직)이 쌓아 둔 진행 기록을 순서대로 재생한다.
     /// 흐름: 등장 메시지 → 커맨드 선택 → (싸운다) 스킬 선택 → 턴 재생(메시지·HP바·쓰러짐) → 다시 커맨드
+    ///       상대를 쓰러뜨리거나 잡으면 → 돈 받기 → 다음 웨이브 (파티 상태는 그대로 이어진다, Run 참고)
     /// 입력: 마우스 클릭, 방향키 + Enter/Space(확인), Esc(뒤로). 화면 UI 이벤트만 쓰기 때문에 입력 시스템과 상관없이 동작한다.
     /// 참조 칸들은 메뉴 PalRogue/10 이 자동으로 연결한다.
     /// </summary>
@@ -28,9 +29,19 @@ namespace PalRogue
         [Tooltip("내 파티 (최대 6마리, 1번이 먼저 나간다). 비어 있으면 아래 playerPal 한 마리로 싸운다")]
         public List<PartyMember> playerParty = new List<PartyMember>();
         public PalData playerPal;
+        [Tooltip("야생 팰 목록이 비어 있을 때만 쓰는 상대")]
         public PalData enemyPal;
         [Range(1, GameConfig.MaxLevel)] public int playerLevel = 10;
+        [Tooltip("(웨이브 방식에서는 쓰지 않음 - 적 레벨은 GameConfig.EnemyLevel)")]
         [Range(1, GameConfig.MaxLevel)] public int enemyLevel = 8;
+
+        [Header("웨이브 (런)")]
+        [Tooltip("웨이브마다 이 중에서 상대가 나온다. 비어 있으면 플레이할 때 Assets의 모든 PalData로 자동으로 채운다\n(컴포넌트 오른쪽 위 ⋮ → '야생 팰 목록 다시 채우기')")]
+        public List<PalData> wildPals = new List<PalData>();
+        [Tooltip("오른쪽 위 '마을 - 1' 글자. 비어 있으면 이름(AreaText)으로 찾는다")]
+        public TMP_Text areaText;
+        [Tooltip("오른쪽 위 '1,000 G' 글자. 비어 있으면 이름(MoneyText)으로 찾는다")]
+        public TMP_Text moneyText;
         [Tooltip("-1이면 매번 다른 결과, 0 이상이면 같은 전투를 다시 볼 수 있다")]
         public int seed = -1;
 
@@ -97,10 +108,13 @@ namespace PalRogue
 
         void Start()
         {
+#if UNITY_EDITOR
+            if (wildPals.All(p => p == null)) FillWildPals();
+#endif
             bool hasPlayer = playerPal != null || playerParty.Any(m => m != null && m.pal != null);
-            if (!hasPlayer || enemyPal == null)
+            if (!hasPlayer || WildPool().Count == 0)
             {
-                Debug.LogWarning("[BattleScreen] 내 파티(playerParty 또는 playerPal)와 enemyPal 에 PalData 에셋을 넣어주세요.");
+                Debug.LogWarning("[BattleScreen] 내 파티(playerParty 또는 playerPal)와 야생 팰 목록(wildPals 또는 enemyPal)에 PalData 에셋을 넣어주세요.");
                 enabled = false;
                 return;
             }
@@ -115,19 +129,21 @@ namespace PalRogue
             }
 
             messageText.textWrappingMode = TextWrappingModes.Normal;
+            if (areaText == null) areaText = FindLabel("AreaText");
+            if (moneyText == null) moneyText = FindLabel("MoneyText");
 
             Bind(fightButton, OnFight);
             Bind(sphereButton, OnSphere);
             Bind(palsButton, OnPals);
-            Bind(runButton, () => StartCoroutine(Unavailable("도망칠 수 없어요!")));
+            Bind(runButton, OnRun);
             for (int i = 0; i < skillButtons.Length; i++)
             {
                 int index = i;
                 Bind(skillButtons[i], () => OnSkill(index));
             }
-            Bind(restartButton, StartNewBattle);
+            Bind(restartButton, StartNewRun);
 
-            StartNewBattle();
+            StartNewRun();
         }
 
         void OnDestroy() => battle?.Detach();
@@ -162,25 +178,136 @@ namespace PalRogue
             return list;
         }
 
-        // ───────── 전투 시작 ─────────
-        void StartNewBattle()
+        // ───────── 런(모험) / 웨이브 ─────────
+        Run run;
+
+        /// <summary>새 모험을 처음부터 시작한다 (파티·스피어·돈 초기화, 웨이브 1)</summary>
+        void StartNewRun()
+        {
+            var rng = seed >= 0 ? new System.Random(seed) : new System.Random();
+            run = new Run(BuildPlayerParty(), startingSpheres, rng);
+            spheres = run.Spheres;                     // 스피어 메뉴가 쓰는 배열 = 런이 가진 배열
+            StartWave(true);
+        }
+
+        /// <summary>지금 웨이브의 상대를 만들고 전투를 시작한다</summary>
+        void StartWave(bool firstWave)
         {
             battle?.Detach();
-            var rng = seed >= 0 ? new System.Random(seed) : new System.Random();
-            battle = new Battle(BuildPlayerParty(), new List<Pal> { new Pal(enemyPal, enemyLevel) }, rng);
+            var enemy = run.CreateEnemy(WildPool());
+            battle = new Battle(run.Party, new List<Pal> { enemy }, run.Rng, null, firstWave, run.EnemyKind);
+            run.SyncParty(battle.PlayerParty);         // 쓰러진 팰 대신 다른 팰이 앞으로 나왔을 수 있다
 
             playerView.Show(battle.Player.Data, true);
             enemyView.Show(battle.Enemy.Data, false);
             if (sphereView != null) sphereView.Hide();
-            spheres = new int[PalSpheres.Count];
-            for (int i = 0; i < spheres.Length && startingSpheres != null && i < startingSpheres.Length; i++)
-                spheres[i] = Mathf.Max(0, startingSpheres[i]);
             playerInfo.Refresh(battle.Player);
+            enemyInfo.gameObject.SetActive(true);
             enemyInfo.Refresh(battle.Enemy);
+            UpdateHud();
 
             restartButton.gameObject.SetActive(false);
             StartCoroutine(Intro());
         }
+
+        /// <summary>웨이브가 끝났을 때(이김 / 잡음 / 도망): 돈 받기 → 다음 웨이브 또는 게임 끝</summary>
+        IEnumerator FinishWave(bool fled)
+        {
+            mode = Mode.Busy;
+            HidePanels();
+            if (battle.PendingCatch != null) yield return ResolveFullParty();
+            run.SyncParty(battle.PlayerParty);
+
+            // 상대가 사라졌으니 상대 정보창·스피어도 치운다
+            enemyInfo.gameObject.SetActive(false);
+            enemyView.Hide();
+            if (sphereView != null) sphereView.Hide();
+
+            if (!fled)
+            {
+                int money = GameConfig.WinMoney(run.Wave, run.IsBossWave);   // 보스·전설·최종 보스는 3배
+                run.Money += money;
+                UpdateHud();
+                yield return ShowMessage($"{money:N0}G를 손에 넣었다!");
+            }
+
+            if (run.IsWiped) { yield return GameOver(); yield break; }
+
+            string areaBefore = run.AreaName;
+            run.NextWave();
+            if (run.IsCleared)
+            {
+                yield return ShowMessage("공허의 왕을 쓰러뜨리고 모든 웨이브를 돌파했다!");
+                yield return ShowMessage($"웨이브 {GameConfig.FinalWave} 클리어! 모험 성공!");
+                yield return EndRun();
+                yield break;
+            }
+            if (run.AreaName != areaBefore) yield return ShowMessage($"{Josa.Ro(run.AreaName)} 이동했다!");
+            StartWave(false);
+        }
+
+        IEnumerator GameOver()
+        {
+            yield return ShowMessage($"웨이브 {run.Wave}에서 모험이 끝났다...");
+            yield return EndRun();
+        }
+
+        IEnumerator EndRun()
+        {
+            yield return ShowMessage("화면을 클릭하면 새 모험을 시작해요.");
+            mode = Mode.Ended;
+            restartButton.gameObject.SetActive(true);
+            Select(restartButton);
+        }
+
+        void UpdateHud()
+        {
+            if (run == null) return;
+            if (areaText != null) areaText.text = $"{run.AreaName} - {run.Wave}";
+            if (moneyText != null) moneyText.text = $"{run.Money:N0} G";
+        }
+
+        // ───────── 도망간다 ─────────
+        void OnRun()
+        {
+            if (mode != Mode.Command) return;
+            if (run.IsBossWave) { StartCoroutine(Unavailable("보스에게서는 도망칠 수 없다!")); return; }
+            StartCoroutine(Flee());
+        }
+
+        IEnumerator Flee()
+        {
+            mode = Mode.Busy;
+            HidePanels();
+            battle.Detach();
+            yield return ShowMessage("무사히 도망쳤다!");
+            yield return FinishWave(true);            // 도망쳐도 다음 웨이브로 넘어간다 (경험치·돈은 없음)
+        }
+
+        // ───────── 야생 팰 목록 ─────────
+        List<PalData> WildPool()
+        {
+            var pool = wildPals.Where(p => p != null).ToList();
+            if (pool.Count == 0 && enemyPal != null) pool.Add(enemyPal);
+            return pool;
+        }
+
+#if UNITY_EDITOR
+        /// <summary>프로젝트의 모든 PalData 에셋으로 야생 팰 목록을 채운다 (에디터 전용)</summary>
+        [ContextMenu("야생 팰 목록 다시 채우기")]
+        void FillWildPals()
+        {
+            wildPals = UnityEditor.AssetDatabase.FindAssets("t:PalData")
+                .Select(g => UnityEditor.AssetDatabase.LoadAssetAtPath<PalData>(UnityEditor.AssetDatabase.GUIDToAssetPath(g)))
+                .Where(p => p != null)
+                .OrderBy(p => p.name)
+                .ToList();
+            UnityEditor.EditorUtility.SetDirty(this);
+        }
+#endif
+
+        static TMP_Text FindLabel(string objectName) =>
+            FindObjectsByType<TMP_Text>(FindObjectsInactive.Include).FirstOrDefault(t => t.name == objectName);
 
         IEnumerator Intro()
         {
@@ -213,7 +340,7 @@ namespace PalRogue
         }
 
         // ───────── 팰 스피어 ─────────
-        int[] spheres = new int[PalSpheres.Count];   // 지금 가진 스피어 개수
+        int[] spheres = new int[PalSpheres.Count];   // 지금 가진 스피어 개수 (런이 시작될 때 run.Spheres로 바뀐다)
 
         // ───────── 레벨업: 새 기술 배우기 / 강화 효과 고르기 ─────────
         readonly System.Random perkRng = new System.Random();
@@ -554,13 +681,14 @@ namespace PalRogue
                 yield return PlayEvents();
             }
 
-            if (battle.State == BattleState.PlayerWon || battle.State == BattleState.PlayerLost || battle.State == BattleState.Caught)
+            if (battle.State == BattleState.PlayerWon || battle.State == BattleState.Caught)
             {
-                if (battle.PendingCatch != null) yield return ResolveFullParty();
-                yield return ShowMessage("화면을 클릭하면 다시 시작해요.");
-                mode = Mode.Ended;
-                restartButton.gameObject.SetActive(true);
-                Select(restartButton);
+                yield return FinishWave(false);
+                yield break;
+            }
+            if (battle.State == BattleState.PlayerLost)
+            {
+                yield return GameOver();
                 yield break;
             }
             ShowCommand();
@@ -593,6 +721,7 @@ namespace PalRogue
                         break;
                     case BattleEventType.SphereCaught:
                         sphereView.ShowCaught();
+                        enemyInfo.gameObject.SetActive(false);        // 잡히면 상대 정보창이 사라진다 (포켓로그와 같음)
                         break;
                     case BattleEventType.SphereBroke:
                         yield return PlayBreakFree();
@@ -724,7 +853,7 @@ namespace PalRogue
             PalType.Electric => "번개",
             PalType.Ground => "땅",
             PalType.Ice => "얼음",
-            PalType.Dragon => "용",
+            PalType.Dragon => "드래곤",
             PalType.Dark => "어둠",
             PalType.Void => "공허",
             _ => type.ToString(),

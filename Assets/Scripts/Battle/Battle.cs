@@ -110,7 +110,11 @@ namespace PalRogue
             }
         }
 
-        public Battle(IList<Pal> player, IList<Pal> enemy, System.Random rng = null, Action<string> log = null)
+        /// <param name="announcePlayer">"가라, ○○!"를 띄울지. 웨이브가 이어질 때는 이미 나와 있으므로 false
+        /// (단, 지금 팰이 쓰러져 있어서 다른 팰이 나가면 띄운다)</param>
+        /// <param name="bossKind">보스·전설·최종 보스면 등장 문구가 달라진다</param>
+        public Battle(IList<Pal> player, IList<Pal> enemy, System.Random rng = null, Action<string> log = null,
+                      bool announcePlayer = true, BossKind bossKind = BossKind.None)
         {
             playerList = new List<Pal>(player);
             EnemyParty = new List<Pal>(enemy);
@@ -123,6 +127,7 @@ namespace PalRogue
             };
 
             PlayerIndex = FirstAlive(PlayerParty);
+            bool frontChanged = PlayerIndex > 0;
             if (PlayerIndex > 0) { BringToFront(PlayerIndex); PlayerIndex = 0; }   // 기절하지 않은 첫 팰을 0번으로
             EnemyIndex = FirstAlive(EnemyParty);
             if (PlayerIndex < 0 || EnemyIndex < 0)
@@ -144,8 +149,15 @@ namespace PalRogue
                 p.ResetBattleState();
                 foreach (var e in p.EffectsSnapshot()) e.OnBattleStart(p, Ctx);
             }
-            Log($"야생의 {Josa.I(Enemy.Data.palName)} 나타났다!");
-            Log($"가라, {Player.Data.palName}!");
+            string enemyName = Enemy.Data.palName;
+            Log(bossKind switch
+            {
+                BossKind.Boss   => $"강한 기운이 느껴진다…!\n보스 {Josa.I(enemyName)} 나타났다!",
+                BossKind.Legend => $"대지가 울린다…!\n{PalTypeNames.Korean(Enemy.Data.primaryType)}속성의 왕, 전설의 {Josa.I(enemyName)} 나타났다!",
+                BossKind.Final  => $"공허가 모든 것을 삼키려 한다…!\n최종 보스 {Josa.I(enemyName)} 나타났다!",
+                _               => $"야생의 {Josa.I(enemyName)} 나타났다!",
+            });
+            if (announcePlayer || frontChanged) Log($"가라, {Player.Data.palName}!");
         }
 
         // ───────── 행동 검증 ─────────
@@ -375,7 +387,20 @@ namespace PalRogue
                 PalFainted?.Invoke(Enemy);
                 AwardExp(Enemy);
                 int next = FirstAlive(EnemyParty);
-                if (next < 0) { State = BattleState.PlayerWon; Log("전투에서 승리했다!"); Detach(); return; }
+                if (next < 0)
+                {
+                    // 같은 턴에 내 팰도 쓰러졌다면(반동·독 등) 그 연출도 보여준다. 다음 웨이브에서 다른 팰이 나간다
+                    if (Player.IsFainted)
+                    {
+                        Player.ClearStatusOnFaint();
+                        Emit(new BattleEvent { Type = BattleEventType.Fainted, Pal = Player, IsPlayerSide = true });
+                        Log($"{Josa.Eun(Player.Data.palName)} 쓰러졌다!");
+                        PalFainted?.Invoke(Player);
+                    }
+                    State = BattleState.PlayerWon;
+                    Detach();
+                    return;
+                }
                 EnemyIndex = next;
                 Emit(new BattleEvent { Type = BattleEventType.SentOut, Pal = Enemy, IsPlayerSide = false });
                 Log($"상대는 {Josa.Eul(Enemy.Data.palName)} 내보냈다!");
@@ -467,7 +492,10 @@ namespace PalRogue
             float hpFactor = (3f * max - 2f * target.CurrentHP) / (3f * max);
             float statusMult = target.Status == StatusCondition.Freeze ? 2f
                              : target.Status != StatusCondition.None ? 1.5f : 1f;
-            float a = hpFactor * target.Data.catchRate * PalSpheres.CatchMultiplier(sphere) * statusMult;
+            int catchRate = GameConfig.IsLegendary(target.Data)
+                ? Mathf.Min(target.Data.catchRate, GameConfig.LegendCatchRate)   // 전설 팰은 잘 안 잡힌다
+                : target.Data.catchRate;
+            float a = hpFactor * catchRate * PalSpheres.CatchMultiplier(sphere) * statusMult;
             return Mathf.Clamp01(a / 255f);
         }
 

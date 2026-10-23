@@ -67,6 +67,13 @@ namespace PalRogue
 
         Sprite pendingSprite;
 
+        /// <summary>화면에서 감춘다 (웨이브가 끝나 상대가 사라질 때)</summary>
+        public void Hide()
+        {
+            if (sr == null) Awake();
+            sr.enabled = false;
+        }
+
         // 같은 프레임 안에서 애니메이터가 그림을 되돌리는 경우까지 막기 위해, 정지 그림 팰은 한 번 더 확실히 넣는다
         void LateUpdate()
         {
