@@ -7,7 +7,7 @@ namespace PalRogue
 {
     public enum BattleState { Ongoing, WaitingPlayerSwitch, PlayerWon, PlayerLost, Caught }
 
-    public enum BattleEventType { Message, HpChanged, Fainted, SentOut, StatusChanged, SphereThrown, SphereShakes, SphereCaught, SphereBroke, ExpBar, LevelUp }
+    public enum BattleEventType { Message, HpChanged, Fainted, SentOut, StatusChanged, SphereThrown, SphereShakes, SphereCaught, SphereBroke, ExpBar, LevelUp, Recalled }
 
     /// <summary>화면이 순서대로 재생하는 전투 진행 기록 한 줄</summary>
     public class BattleEvent
@@ -56,7 +56,11 @@ namespace PalRogue
         public Pal Player => PlayerParty[PlayerIndex];
         public Pal Enemy => EnemyParty[EnemyIndex];
         public BattleState State { get; private set; } = BattleState.Ongoing;
+        /// <summary>전투 시작 때 내 팰을 새로 내보내는지 (첫 웨이브, 또는 앞 팰이 쓰러져 있어서 다른 팰이 나갈 때)</summary>
+        public bool PlayerSentOutAtStart { get; private set; }
         public BattleContext Ctx { get; } = new BattleContext();
+        /// <summary>파티 전체 경험치 배율 (경험부적 등, Run.ExpMultiplier)</summary>
+        public float ExpMultiplier { get; set; } = 1f;
 
         /// <summary>어느 쪽이든 팰이 쓰러질 때 호출 (경험치 지급 등에 사용)</summary>
         public event Action<Pal> PalFainted;
@@ -157,7 +161,12 @@ namespace PalRogue
                 BossKind.Final  => $"공허가 모든 것을 삼키려 한다…!\n최종 보스 {Josa.I(enemyName)} 나타났다!",
                 _               => $"야생의 {Josa.I(enemyName)} 나타났다!",
             });
-            if (announcePlayer || frontChanged) Log($"가라, {Player.Data.palName}!");
+            PlayerSentOutAtStart = announcePlayer || frontChanged;
+            if (PlayerSentOutAtStart)
+            {
+                Log($"가라, {Player.Data.palName}!");
+                Emit(new BattleEvent { Type = BattleEventType.SentOut, Pal = Player, IsPlayerSide = true });   // 화면: 스피어를 던져 내보낸다
+            }
         }
 
         // ───────── 행동 검증 ─────────
@@ -245,8 +254,8 @@ namespace PalRogue
             participants.Add(playerList[0]);
             PlayerIndex = 0;
             State = BattleState.Ongoing;
-            Emit(new BattleEvent { Type = BattleEventType.SentOut, Pal = Player, IsPlayerSide = true });
             Log($"가라, {Player.Data.palName}!");
+            Emit(new BattleEvent { Type = BattleEventType.SentOut, Pal = Player, IsPlayerSide = true });
             return true;
         }
 
@@ -268,12 +277,13 @@ namespace PalRogue
             if (en.Action.Type == BattleAction.Kind.Switch)
             {
                 Log($"{Player.Data.palName}, 돌아와!");
+                Emit(new BattleEvent { Type = BattleEventType.Recalled, Pal = Player, IsPlayerSide = true });   // 화면: 스피어로 돌아간다
                 Player.ResetBattleState();
                 BringToFront(en.Action.Index);
                 participants.Add(playerList[0]);
                 PlayerIndex = 0;
-                Emit(new BattleEvent { Type = BattleEventType.SentOut, Pal = Player, IsPlayerSide = true });
                 Log($"가라, {Player.Data.palName}!");
+                Emit(new BattleEvent { Type = BattleEventType.SentOut, Pal = Player, IsPlayerSide = true });
                 return;
             }
 
@@ -432,9 +442,12 @@ namespace PalRogue
             if (receivers.Count == 0) return;
 
             int total = GameConfig.ExpYield(defeated.Data, defeated.Level);
-            int share = Mathf.Max(1, total / receivers.Count);
+            float baseShare = (float)total / receivers.Count * ExpMultiplier;
             foreach (var pal in receivers)
             {
+                float palMult = 1f;
+                foreach (var e in pal.Effects) palMult *= e.ExpMultiplier;      // 행복의알 등
+                int share = Mathf.Max(1, Mathf.RoundToInt(baseShare * palMult));
                 Log($"{Josa.Eun(pal.Data.palName)} {share} 경험치를 얻었다!");
                 float from = pal.ExpRatio;
                 var ups = pal.GainExp(share);
@@ -519,6 +532,7 @@ namespace PalRogue
                 Emit(new BattleEvent { Type = BattleEventType.SphereCaught, Pal = target, Sphere = sphere });
                 Log($"신난다! {Josa.Eul(name)} 잡았다!");
                 target.ResetBattleState();
+                target.CaughtSphere = sphere;                // 나중에 내보낼 때 이 스피어를 던진다
                 if (playerList.Count < MaxPartySize)
                 {
                     playerList.Add(target);                  // 파티 맨 뒤에 들어온다

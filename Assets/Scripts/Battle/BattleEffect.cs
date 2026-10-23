@@ -51,6 +51,9 @@ namespace PalRogue
         /// <summary>최대 HP 배율 (예: +10% → 1.1f). 팰에 붙이면 바로 최대 HP가 다시 계산된다</summary>
         public virtual float MaxHpMultiplier => 1f;
 
+        /// <summary>이 팰이 받는 경험치 배율 (행복의알 등). 여러 효과가 있으면 곱한다</summary>
+        public virtual float ExpMultiplier => 1f;
+
         /// <summary>항상 적용되는 능력치 배율 (예: 공격 +10% → Attack일 때 1.1f)</summary>
         public virtual float StatMultiplier(StatType stat) => 1f;
 

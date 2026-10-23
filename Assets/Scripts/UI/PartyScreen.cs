@@ -33,6 +33,7 @@ namespace PalRogue
         public const int OptionSwitch = 0, OptionCancel = 4;
 
         const float ErrorHoldSeconds = 1.1f;
+        const int SortingOrder = 80;               // RewardScreen(50), 웨이브·돈 글자(60)보다 위
         const string NotReadyText = "아직 준비 중인 기능이에요!";
 
         /// <summary>마지막으로 고른 파티 번호. 취소했으면 -1</summary>
@@ -94,6 +95,8 @@ namespace PalRogue
             this.party = party;
             this.canCancel = canCancel;
             transform.SetAsLastSibling();          // 다른 전투 UI보다 항상 위에 그려지게
+            // 자기 캔버스로 맨 위에 그린다 (보상 화면·웨이브/돈 글자보다도 위 → 파티 화면 위에 다른 글자가 안 비친다)
+            RewardScreen.EnsureOwnCanvas(gameObject, SortingOrder, true);
             gameObject.SetActive(true);
             cancelButton.gameObject.SetActive(canCancel);
             if (optionsBox != null) optionsBox.SetActive(false);

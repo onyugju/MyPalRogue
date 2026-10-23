@@ -32,7 +32,8 @@ namespace PalRogue
         public void Hide() => gameObject.SetActive(false);
 
         /// <summary>start(지금 화면 왼쪽 아래)에서 target까지 포물선으로 날아간다</summary>
-        public IEnumerator Throw(SphereType type, Vector3 target, float duration = 0.55f)
+        /// <param name="from">던지기 시작 위치 (비우면 기본 위치). 내 팰을 내보낼 때는 화면 왼쪽 아래 밖</param>
+        public IEnumerator Throw(SphereType type, Vector3 target, float duration = 0.55f, Vector3? from = null, float arc = 2.2f)
         {
             if (sr == null) sr = GetComponent<SpriteRenderer>();
             sr.sprite = PalSpheres.LoadSprite(type);
@@ -42,8 +43,7 @@ namespace PalRogue
             transform.rotation = Quaternion.identity;
             gameObject.SetActive(true);
 
-            Vector3 start = new Vector3((ThrowFromPx.x - 160f) / PxPerUnit, (90f - ThrowFromPx.y) / PxPerUnit, 0f);
-            float arc = 2.2f;
+            Vector3 start = from ?? new Vector3((ThrowFromPx.x - 160f) / PxPerUnit, (90f - ThrowFromPx.y) / PxPerUnit, 0f);
             for (float t = 0f; t < duration; t += Time.unscaledDeltaTime)
             {
                 float k = t / duration;

@@ -129,6 +129,7 @@ namespace PalRogue
             }
 
             messageText.textWrappingMode = TextWrappingModes.Normal;
+            ItemCatalog.SetSkillPool(KnownSkills());          // 기술머신 아이템 목록 만들기
             if (areaText == null) areaText = FindLabel("AreaText");
             if (moneyText == null) moneyText = FindLabel("MoneyText");
 
@@ -197,17 +198,117 @@ namespace PalRogue
             var enemy = run.CreateEnemy(WildPool());
             battle = new Battle(run.Party, new List<Pal> { enemy }, run.Rng, null, firstWave, run.EnemyKind);
             run.SyncParty(battle.PlayerParty);         // 쓰러진 팰 대신 다른 팰이 앞으로 나왔을 수 있다
+            battle.ExpMultiplier = run.ExpMultiplier;  // 경험부적
 
-            playerView.Show(battle.Player.Data, true);
+            // 내 팰을 새로 내보내면 (첫 웨이브 등) 스피어를 던지는 연출 전까지 숨겨 둔다
+            if (battle.PlayerSentOutAtStart)
+            {
+                playerView.Hide();
+                playerInfo.gameObject.SetActive(false);
+            }
+            else
+            {
+                playerView.Show(battle.Player.Data, true);
+                playerInfo.gameObject.SetActive(true);
+                playerInfo.Refresh(battle.Player);
+            }
             enemyView.Show(battle.Enemy.Data, false);
             if (sphereView != null) sphereView.Hide();
-            playerInfo.Refresh(battle.Player);
-            enemyInfo.gameObject.SetActive(true);
+            enemyInfo.gameObject.SetActive(false);              // 상대가 다 들어온 뒤에 나타난다
             enemyInfo.Refresh(battle.Enemy);
             UpdateHud();
 
             restartButton.gameObject.SetActive(false);
-            StartCoroutine(Intro());
+            StartCoroutine(Intro(firstWave));
+        }
+
+        // ───────── 등장 연출 (포켓로그처럼) ─────────
+        const float SlideSeconds = 0.9f;          // 상대가 왼쪽 밖에서 들어오는 시간
+        const float SlideDistance = 18f;          // 화면 한 폭 (월드 유닛, 320px ÷ 18)
+        const float BoxSlideSeconds = 0.25f;      // 정보창이 미끄러져 들어오는 시간
+        const float BoxSlidePixels = 160f;
+        // 던지기 시작: 화면 왼쪽 끝, 메시지창 바로 위 (화면 픽셀 x 0, y 128 → 월드). 더 아래는 메시지창에 가려진다
+        static readonly Vector3 ThrowFromWorld = new Vector3(-9.2f, -2.1f, 0f);
+        const float SendOutThrowSeconds = 0.6f, SendOutArc = 2.6f;
+
+        Transform enemyBase, playerBase;
+        Vector3 enemyBaseHome, playerBaseHome;
+        Vector2 enemyInfoHome, playerInfoHome;
+        bool homesSaved;
+        SphereThrowView sendOutView;
+
+        void SaveHomes()
+        {
+            if (homesSaved) return;
+            homesSaved = true;
+            var field = enemyView.transform.parent;
+            enemyBase = field != null ? field.Find("EnemyBase") : null;
+            playerBase = field != null ? field.Find("PlayerBase") : null;
+            if (enemyBase != null) enemyBaseHome = enemyBase.position;
+            if (playerBase != null) playerBaseHome = playerBase.position;
+            enemyInfoHome = ((RectTransform)enemyInfo.transform).anchoredPosition;
+            playerInfoHome = ((RectTransform)playerInfo.transform).anchoredPosition;
+        }
+
+        /// <summary>상대 팰이 발판과 함께 왼쪽 화면 밖에서 들어온다 (첫 웨이브는 내 발판도 오른쪽에서). 끝나면 상대 정보창이 들어온다</summary>
+        IEnumerator EnemyEntrance(bool firstWave)
+        {
+            SaveHomes();
+            Vector3 enemyHome = enemyView.transform.position;
+            for (float t = 0f; t < SlideSeconds; t += Time.unscaledDeltaTime)
+            {
+                float k = t / SlideSeconds;
+                float off = (1f - k) * (1f - k) * (1f - k) * SlideDistance;    // 빠르게 들어와서 천천히 멈춘다
+                enemyView.transform.position = enemyHome + Vector3.left * off;
+                if (enemyBase != null) enemyBase.position = enemyBaseHome + Vector3.left * off;
+                if (firstWave && playerBase != null) playerBase.position = playerBaseHome + Vector3.right * off;
+                yield return null;
+            }
+            enemyView.transform.position = enemyHome;
+            if (enemyBase != null) enemyBase.position = enemyBaseHome;
+            if (playerBase != null) playerBase.position = playerBaseHome;
+
+            enemyInfo.gameObject.SetActive(true);
+            yield return SlideBox((RectTransform)enemyInfo.transform, enemyInfoHome, -BoxSlidePixels);
+        }
+
+        /// <summary>내 팰 내보내기: (나와 있던 팰은 스피어로 돌아오고) 화면 왼쪽 아래 밖에서 그 팰을 잡은 스피어를 던져 열린 곳에서 튀어나온다</summary>
+        IEnumerator PlaySendOut(Pal pal)
+        {
+            SaveHomes();
+            yield return PlayRecall();                           // 아직 나와 있는 팰이 있으면 먼저 넣는다
+
+            if (sendOutView == null) sendOutView = SphereThrowView.Create(playerView.transform.parent);
+            playerView.Show(pal.Data, true);                     // 모습·위치를 먼저 정해 두고 숨긴다
+            playerView.Hide();
+            Vector3 open = new Vector3(playerView.transform.position.x, playerView.feetWorldY + 0.8f, 0f);
+            yield return sendOutView.Throw(pal.CaughtSphere, open, SendOutThrowSeconds, ThrowFromWorld, SendOutArc);
+            sendOutView.Hide();
+            yield return playerView.EmergeFrom(open);
+
+            playerInfo.gameObject.SetActive(true);
+            playerInfo.Refresh(pal);
+            yield return SlideBox((RectTransform)playerInfo.transform, playerInfoHome, BoxSlidePixels);
+        }
+
+        /// <summary>"돌아와!": 나와 있던 내 팰이 빨갛게 변하며 스피어 쪽으로 빨려 들어간다</summary>
+        IEnumerator PlayRecall()
+        {
+            playerInfo.gameObject.SetActive(false);
+            if (!playerView.IsVisible) yield break;
+            Vector3 recallPoint = new Vector3(playerView.transform.position.x, playerView.feetWorldY + 0.6f, 0f);
+            yield return playerView.AbsorbInto(recallPoint, 0.25f);
+        }
+
+        IEnumerator SlideBox(RectTransform box, Vector2 home, float fromDx)
+        {
+            for (float t = 0f; t < BoxSlideSeconds; t += Time.unscaledDeltaTime)
+            {
+                float k = t / BoxSlideSeconds;
+                box.anchoredPosition = home + Vector2.right * (fromDx * (1f - k) * (1f - k));
+                yield return null;
+            }
+            box.anchoredPosition = home;
         }
 
         /// <summary>웨이브가 끝났을 때(이김 / 잡음 / 도망): 돈 받기 → 다음 웨이브 또는 게임 끝</summary>
@@ -225,7 +326,7 @@ namespace PalRogue
 
             if (!fled)
             {
-                int money = GameConfig.WinMoney(run.Wave, run.IsBossWave);   // 보스·전설·최종 보스는 3배
+                int money = Mathf.RoundToInt(GameConfig.WinMoney(run.Wave, run.IsBossWave) * run.MoneyMultiplier);   // 보스는 3배, 부적금화 +20%씩
                 run.Money += money;
                 UpdateHud();
                 yield return ShowMessage($"{money:N0}G를 손에 넣었다!");
@@ -233,18 +334,193 @@ namespace PalRogue
 
             if (run.IsWiped) { yield return GameOver(); yield break; }
 
-            string areaBefore = run.AreaName;
-            run.NextWave();
-            if (run.IsCleared)
+            if (run.Wave >= GameConfig.FinalWave)
             {
                 yield return ShowMessage("공허의 왕을 쓰러뜨리고 모든 웨이브를 돌파했다!");
                 yield return ShowMessage($"웨이브 {GameConfig.FinalWave} 클리어! 모험 성공!");
                 yield return EndRun();
                 yield break;
             }
+
+            // 이기거나 잡으면 보상 아이템 하나를 고른다 (도망치면 없음)
+            if (!fled) yield return RewardPhase();
+
+            string areaBefore = run.AreaName;
+            run.NextWave();
             if (run.AreaName != areaBefore) yield return ShowMessage($"{Josa.Ro(run.AreaName)} 이동했다!");
             StartWave(false);
         }
+
+        // ───────── 웨이브 보상 (포켓로그와 같은 방식) ─────────
+        RewardScreen rewardScreen;
+        bool itemUsed;                                // UseItem 결과: 실제로 썼는지 (취소하면 false)
+        const float RewardErrorSeconds = 1.1f;
+        static readonly string[] YesNo = { "예", "아니오" };
+
+        /// <summary>
+        /// 보상 화면: 보상 중 하나를 고르면 끝. 그 전에 돈으로 상점 아이템을 사거나, 돈을 내고 보상을 다시 뽑을 수 있다.
+        /// Esc를 누르면 보상 없이 넘어갈지 묻는다.
+        /// </summary>
+        IEnumerator RewardPhase()
+        {
+            if (rewardScreen == null)
+            {
+                var parent = areaText != null ? areaText.transform.parent : messageText.canvas.rootCanvas.transform;
+                rewardScreen = RewardScreen.Create(parent, messageText.font, commandCursor.sprite, messageText);
+            }
+
+            int rerolls = 0;
+            var rewards = ItemCatalog.RollRewards(run, ItemCatalog.RewardCount(run.Wave), run.Rng);
+            float normalWidth = WidenMessage();
+            SetInfoBoxFaded(true);                            // 내 팰 정보창도 뒤로 어둡게
+            int lastPick = 0;
+            bool reveal = true;                               // 처음 열 때와 갱신했을 때는 스피어가 떨어지는 연출
+
+            while (true)
+            {
+                var shop = ItemCatalog.ShopItems(run.Wave);
+                int rerollCost = ItemCatalog.RerollCost(run.Wave, rerolls);
+                rewardScreen.Open(rewards, shop, rerollCost, run.Money, reveal);
+                BringHudToFront();
+                if (reveal) yield return rewardScreen.PlayReveal();
+                reveal = false;
+                yield return rewardScreen.Choose(lastPick);
+                var kind = rewardScreen.ResultKind;
+                int index = rewardScreen.ResultIndex;
+
+                if (kind == RewardScreen.Pick.Reroll)
+                {
+                    if (run.Money < rerollCost) { yield return RewardError("돈이 부족하다!"); continue; }
+                    run.Money -= rerollCost;
+                    rerolls++;
+                    UpdateHud();
+                    rewards = ItemCatalog.RollRewards(run, ItemCatalog.RewardCount(run.Wave), run.Rng);
+                    reveal = true;
+                    lastPick = 0;
+                    continue;
+                }
+                if (kind == RewardScreen.Pick.Party)
+                {
+                    if (partyScreen == null) continue;
+                    rewardScreen.Hide();
+                    yield return partyScreen.Choose(run.Party, true, "파티의 상태를 확인하세요.", null, "닫는다");
+                    continue;
+                }
+                if (kind == RewardScreen.Pick.Skip)
+                {
+                    rewardScreen.Hide();
+                    yield return ShowMessage("보상 아이템을 고르지 않고 넘어갈까요?");
+                    if (choiceMenu == null) break;
+                    choiceMenu.transform.SetAsLastSibling();
+                    yield return choiceMenu.Choose(YesNo, 1);
+                    if (choiceMenu.Result == 0) break;
+                    continue;
+                }
+                if (kind == RewardScreen.Pick.Shop)
+                {
+                    var (item, price) = shop[index];
+                    if (run.Money < price) { yield return RewardError("돈이 부족하다!"); continue; }
+                    yield return UseItem(item);
+                    if (itemUsed)
+                    {
+                        run.Money -= price;
+                        UpdateHud();
+                    }
+                    continue;                                       // 사도 보상 화면은 계속된다
+                }
+
+                // 보상 아이템: 쓰면 보상 끝, 대상 고르기를 취소하면 다시 고른다
+                lastPick = index;
+                yield return UseItem(rewards[index]);
+                if (itemUsed) break;
+            }
+
+            rewardScreen.Close();
+            SetInfoBoxFaded(false);
+            RestoreMessage(normalWidth);
+            playerInfo.Refresh(battle.Player);
+        }
+
+        /// <summary>보상 화면 동안 내 팰 정보창을 흐리게 (정보창은 다른 UI보다 위에 그려져서 어두운 막에 안 덮인다)</summary>
+        void SetInfoBoxFaded(bool faded)
+        {
+            var group = playerInfo.GetComponent<CanvasGroup>();
+            if (group == null) group = playerInfo.gameObject.AddComponent<CanvasGroup>();
+            group.alpha = faded ? 0.12f : 1f;
+        }
+
+        IEnumerator RewardError(string text)
+        {
+            rewardScreen.SetMessage(text);
+            yield return new WaitForSecondsRealtime(RewardErrorSeconds);
+        }
+
+        /// <summary>보상 화면 위에 웨이브·돈 글자가 보이게</summary>
+        void BringHudToFront()
+        {
+            RewardScreen.RaiseHud(areaText);
+            RewardScreen.RaiseHud(moneyText);
+        }
+
+        /// <summary>아이템 하나를 쓴다. 대상(팰·기술)이 필요하면 고르게 하고, 취소하면 itemUsed = false</summary>
+        IEnumerator UseItem(ItemDef item)
+        {
+            itemUsed = false;
+            var ctx = new ItemContext { Run = run };
+
+            if (item.Target == ItemTarget.None)
+            {
+                string why = item.CannotUseNow(run);
+                if (why != null) { yield return RewardError(why); yield break; }
+            }
+            else
+            {
+                if (partyScreen == null) { yield return RewardError("파티 화면이 아직 없어요! (메뉴 14 실행)"); yield break; }
+                rewardScreen.Hide();
+                string prompt = item.IsHeld ? $"{Josa.Eul(item.Name)} 누구에게 지니게 할까?" : $"{Josa.Eul(item.Name)} 누구에게 사용할까?";
+                while (true)
+                {
+                    yield return partyScreen.Choose(run.Party, true, prompt, i => item.CannotUse(run.Party[i]),
+                                                    item.IsHeld ? "지니게 한다" : "사용한다");
+                    if (partyScreen.Result < 0) yield break;                       // 취소 → 보상 화면으로
+                    ctx.Target = run.Party[partyScreen.Result];
+
+                    if (item.Target != ItemTarget.PalSkill || choiceMenu == null) break;
+
+                    // PP 회복: 기술 고르기
+                    var skills = ctx.Target.Skills;
+                    messageText.text = "어느 기술의 PP를 회복할까?";
+                    messageText.maxVisibleCharacters = 9999;
+                    var labels = skills.Select(s => $"{s.Data.skillName}  {s.PP}/{s.MaxPP}").Concat(new[] { "그만둔다" }).ToArray();
+                    choiceMenu.transform.SetAsLastSibling();
+                    yield return choiceMenu.Choose(labels, 0, PpMenuWidth);
+                    int pick = choiceMenu.Result;
+                    if (pick < 0 || pick >= skills.Count) continue;                 // 그만둔다 → 다시 팰 고르기
+                    if (skills[pick].PP >= skills[pick].MaxPP) { yield return ShowMessage(ItemCatalog.NoEffect); continue; }
+                    ctx.SkillIndex = pick;
+                    break;
+                }
+            }
+
+            rewardScreen.Hide();
+            var outcome = item.Apply(ctx);
+            itemUsed = true;
+            if (outcome?.TeachSkill != null)
+            {
+                // 기술머신: 배우기를 그만두면 아이템을 쓰지 않은 것으로 하고 보상 화면으로 돌아간다
+                yield return LearnSkill(ctx.Target, outcome.TeachSkill);
+                itemUsed = lastSkillLearned;
+                yield break;
+            }
+            UpdateHud();
+            playerInfo.Refresh(battle.Player);
+            if (outcome != null && !string.IsNullOrEmpty(outcome.Message)) yield return ShowMessage(outcome.Message);
+            if (outcome?.LevelUps != null)
+                foreach (var (level, newSkills) in outcome.LevelUps)
+                    yield return PlayLevelUp(ctx.Target, level, newSkills);
+        }
+
+        const float PpMenuWidth = 140f;
 
         IEnumerator GameOver()
         {
@@ -306,13 +582,25 @@ namespace PalRogue
         }
 #endif
 
+        /// <summary>게임에 나오는 모든 기술 (야생 팰·내 파티 팰의 학습 목록에서 모은다). 기술머신 목록에 쓴다</summary>
+        IEnumerable<SkillData> KnownSkills()
+        {
+            var pals = WildPool().Concat(playerParty.Where(m => m != null && m.pal != null).Select(m => m.pal));
+            if (playerPal != null) pals = pals.Append(playerPal);
+            return pals.Where(p => p.learnset != null)
+                       .SelectMany(p => p.learnset).Where(e => e.skill != null).Select(e => e.skill)
+                       .Distinct();
+        }
+
         static TMP_Text FindLabel(string objectName) =>
             FindObjectsByType<TMP_Text>(FindObjectsInactive.Include).FirstOrDefault(t => t.name == objectName);
 
-        IEnumerator Intro()
+        IEnumerator Intro(bool firstWave)
         {
             mode = Mode.Busy;
             HidePanels();
+            messageText.text = "";
+            yield return EnemyEntrance(firstWave);
             yield return PlayEvents();
             ShowCommand();
         }
@@ -366,13 +654,17 @@ namespace PalRogue
                 yield return ChoosePerk(pal, level);
         }
 
+        bool lastSkillLearned;                       // LearnSkill 결과: 실제로 배웠는지
+
         IEnumerator LearnSkill(Pal pal, SkillData skill)
         {
+            lastSkillLearned = false;
             string name = PalName(pal);
             if (pal.Skills.Any(s => s.Data == skill)) yield break;               // 이미 아는 기술
             if (pal.Skills.Count < Pal.MaxSkills)
             {
                 pal.TryLearnSkill(skill);
+                lastSkillLearned = true;
                 yield return ShowMessage($"{Josa.Eun(name)} {Josa.Eul(skill.skillName)} 배웠다!");
                 yield break;
             }
@@ -390,6 +682,7 @@ namespace PalRogue
                 {
                     string forgotten = pal.Skills[pick].Data.skillName;
                     pal.TryLearnSkill(skill, pick);
+                    lastSkillLearned = true;
                     yield return ShowMessage($"1, 2, … 짠!\n{Josa.Eun(name)} {Josa.Eul(forgotten)} 깨끗이 잊었다!");
                     yield return ShowMessage($"그리고… {Josa.Eun(name)} {Josa.Eul(skill.skillName)} 배웠다!");
                     break;
@@ -736,9 +1029,16 @@ namespace PalRogue
                         box.ShowFainted();
                         yield return view.PlayFaint();
                         break;
+                    case BattleEventType.Recalled:
+                        yield return PlayRecall();
+                        break;
                     case BattleEventType.SentOut:
-                        view.Show(ev.Pal.Data, ev.IsPlayerSide);
-                        box.Refresh(ev.Pal);
+                        if (ev.IsPlayerSide) yield return PlaySendOut(ev.Pal);   // 스피어를 던져서 내보낸다
+                        else
+                        {
+                            view.Show(ev.Pal.Data, false);
+                            box.Refresh(ev.Pal);
+                        }
                         break;
                 }
             }

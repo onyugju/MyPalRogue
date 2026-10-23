@@ -28,6 +28,15 @@ namespace PalRogue
         public int[] Spheres { get; }
         public System.Random Rng { get; }
 
+        // ───── 아이템으로 쌓이는 런 효과 ─────
+        public const int MaxAmuletCoins = 5;
+        /// <summary>부적금화 개수 (1개당 받는 돈 +20%)</summary>
+        public int AmuletCoins { get; set; }
+        public float MoneyMultiplier => 1f + 0.2f * AmuletCoins;
+        /// <summary>경험부적들이 더한 경험치 보너스 (0.25 = +25%)</summary>
+        public float ExpBonus { get; set; }
+        public float ExpMultiplier => 1f + ExpBonus;
+
         /// <summary>보스가 나오는 웨이브인지 (보스·전설·최종 보스 모두 포함)</summary>
         public bool IsBossWave => GameConfig.IsBossWave(Wave);
         /// <summary>CreateEnemy로 만든 이번 상대의 종류</summary>
@@ -58,7 +67,14 @@ namespace PalRogue
                     pal.RemoveEffect(aura);
         }
 
-        public void NextWave() => Wave++;
+        /// <summary>다음 웨이브로. 랭크업 도구 같은 기간 효과를 1웨이브씩 줄인다</summary>
+        public void NextWave()
+        {
+            Wave++;
+            foreach (var pal in Party)
+                foreach (var boost in pal.Effects.OfType<TempStatBoost>().ToList())
+                    if (--boost.WavesLeft <= 0) pal.RemoveEffect(boost);
+        }
 
         /// <summary>
         /// 이번 웨이브의 상대를 만든다.

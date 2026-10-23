@@ -32,6 +32,8 @@ namespace PalRogue
         public int MaxHP { get; private set; }
         public int CurrentHP { get; private set; }
         public bool IsFainted => CurrentHP <= 0;
+        /// <summary>이 팰을 잡은 스피어 (내보낼 때 이 스피어를 던진다). 처음 파티 팰은 팰 스피어</summary>
+        public SphereType CaughtSphere { get; set; } = SphereType.Pal;
 
         public List<SkillInstance> Skills { get; } = new();
         public List<BattleEffect> Effects { get; } = new();

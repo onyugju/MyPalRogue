@@ -67,6 +67,31 @@ namespace PalRogue
 
         Sprite pendingSprite;
 
+        public bool IsVisible => sr != null && sr.enabled;
+
+        /// <summary>
+        /// 스피어에서 튀어나온다 (내보내기). 미리 Show로 모습·위치를 정해 둔 상태에서 부른다.
+        /// point(스피어가 열린 곳)에서 커지며 제자리로, 빨간빛에서 원래 색으로.
+        /// </summary>
+        public IEnumerator EmergeFrom(Vector3 point, float duration = 0.3f)
+        {
+            if (sr == null) Awake();
+            Vector3 home = transform.position, scale = transform.localScale;
+            sr.enabled = true;
+            for (float t = 0f; t < duration; t += Time.unscaledDeltaTime)
+            {
+                float k = t / duration;
+                float ease = 1f - (1f - k) * (1f - k);
+                transform.position = Vector3.Lerp(point, home, ease);
+                transform.localScale = Vector3.Lerp(Vector3.zero, scale, ease);
+                sr.color = Color.Lerp(new Color(1f, 0.45f, 0.45f), Color.white, k);
+                yield return null;
+            }
+            transform.position = home;
+            transform.localScale = scale;
+            sr.color = Color.white;
+        }
+
         /// <summary>화면에서 감춘다 (웨이브가 끝나 상대가 사라질 때)</summary>
         public void Hide()
         {
