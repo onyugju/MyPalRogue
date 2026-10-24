@@ -192,7 +192,7 @@ namespace PalRogue.EditorTools
 
         // ───────── 5. 팰에 학습 스킬 연결 ─────────
         [MenuItem("PalRogue/5. 팰에 학습 스킬 자동 연결")]
-        static void FillLearnsets()
+        public static void FillLearnsets()
         {
             // 속성별 공용 스킬 (Rows 순서 유지)
             var generic = new Dictionary<PalType, List<Row>>();

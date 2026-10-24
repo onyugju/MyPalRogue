@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4627a231d918ef54b8d936bce8e4f4c3, type: 3}
+  m_Name: 121_Jormuntide
+  m_EditorClassIdentifier: Assembly-CSharp::PalRogue.PalData
+  palId: 121
+  palName: "\uB808\uBE44\uB4DC\uB77C"
+  englishName: Jormuntide
+  frontSprite: {fileID: 1949461518270875455, guid: e5e7e1e56c2701e498f972d9c14ff5a6, type: 3}
+  backSprite: {fileID: 0}
+  frontScale: 0.43923867
+  backScale: 1
+  frontAnimator: {fileID: 0}
+  backAnimator: {fileID: 0}
+  primaryType: 7
+  hasSecondaryType: 1
+  secondaryType: 2
+  baseHP: 78
+  baseAttack: 130
+  baseDefense: 69
+  baseSpeed: 69
+  learnset:
+  - level: 1
+    skill: {fileID: 11400000, guid: a69689769d8d44a4083b43fedc00c4a5, type: 2}
+  - level: 1
+    skill: {fileID: 11400000, guid: d2c7a7240e86fba4aa3b6ee6886ba977, type: 2}
+  - level: 1
+    skill: {fileID: 11400000, guid: d407d0d68ab1438448a66fe2ce0f5610, type: 2}
+  - level: 6
+    skill: {fileID: 11400000, guid: 28f3a3ca222e38f449009d17801fbbae, type: 2}
+  - level: 6
+    skill: {fileID: 11400000, guid: 058f6f69b81bc2946acb1d50ad591c77, type: 2}
+  - level: 10
+    skill: {fileID: 11400000, guid: de32601f01c8af54ea4c8439faf2c89e, type: 2}
+  - level: 12
+    skill: {fileID: 11400000, guid: 4d45e9d7fe63f504da2955681a6acf43, type: 2}
+  - level: 12
+    skill: {fileID: 11400000, guid: c98f48158ebbe1a45bda5138515ccb71, type: 2}
+  - level: 20
+    skill: {fileID: 11400000, guid: daed68a6bef3ce647bbef3965a9ed12a, type: 2}
+  - level: 22
+    skill: {fileID: 11400000, guid: e42599920a18fd54ea2f1c39de668c43, type: 2}
+  - level: 28
+    skill: {fileID: 11400000, guid: e3c02a49df2c06546b47fc27dad4e3d1, type: 2}
+  - level: 40
+    skill: {fileID: 11400000, guid: 95b07380e9cab184d90078f63879c392, type: 2}
+  canBeCaught: 1
+  catchRate: 60

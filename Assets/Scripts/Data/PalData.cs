@@ -35,7 +35,8 @@ namespace PalRogue
         public RuntimeAnimatorController BackOrFrontAnimator => HasBackVisual ? backAnimator : frontAnimator;
 
         public Sprite BackOrFront => backSprite != null ? backSprite : frontSprite;
-        public float BackOrFrontScale => backSprite != null ? backScale : frontScale;
+        /// <summary>뒷모습 그림이 없으면 앞모습을 내 자리에 쓰는데, 내 자리는 화면 앞쪽이라 조금 크게 (PalSizing 기준 3.9 / 3.0)</summary>
+        public float BackOrFrontScale => backSprite != null ? backScale : frontScale * 1.3f;
 
         [Header("속성")]
         public PalType primaryType;

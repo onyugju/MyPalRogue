@@ -55,6 +55,7 @@ namespace PalRogue
             if (controller == null) sr.sprite = sprite;
             pendingSprite = controller == null ? sprite : null;
             sr.enabled = true;
+            sr.flipX = back && !data.HasBackVisual;   // 뒷모습 그림이 없는 팰은 앞모습을 좌우로 뒤집어 상대 쪽을 보게
             sr.color = Color.white;
             baseTint = Color.white;
             glow = null;

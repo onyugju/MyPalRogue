@@ -70,7 +70,30 @@ namespace PalRogue.EditorTools
             new("201","넵티오스","Neptilius","201_Neptilius",null,PalType.Water,null,Tier.Late,Role.Fast,50),
             new("202","제트래곤","Jetragon","202_Jetragon","202_Jetragon_back",PalType.Dragon,null,Tier.Boss,Role.Fast,10),
             new("000","벨라루주","Bellanoir_Libero","000_Bellanoir Libero",null,PalType.Dark,null,Tier.Boss,Role.Attacker,5),
-            new("000","제로버스","Zerobus","boss_Zerobus",null,PalType.Void,null,Tier.Boss,Role.Tank,0),   // catchRate 0 = 포획 불가   
+            new("000","제로버스","Zerobus","boss_Zerobus",null,PalType.Void,null,Tier.Boss,Role.Tank,0),   // catchRate 0 = 포획 불가
+
+            // ── 추가 20종 (속성별 4~5종이 되도록. 원종만, 이벤트·콜라보·아종 제외) ──
+            // 그림(앞모습 png 또는 애니메이션)을 폴더에 넣은 팰만 만들어진다. 나머지는 그림을 넣으면 자동으로 추가된다 (메뉴 2-1)
+            new("016","뚱코알라","Depresso","016_Depresso","016_Depresso_back",PalType.Dark,null,Tier.Early,Role.Tank,190),
+            new("017","펭키","Pengullet","017_Pengullet","017_Pengullet_back",PalType.Water,PalType.Ice,Tier.Early,Role.Balanced,190),
+            new("023","몽지","Tanzee","023_Tanzee","023_Tanzee_back",PalType.Grass,null,Tier.Early,Role.Balanced,190),
+            new("026","불꽃밤비","Rooby","026_Rooby","026_Rooby_back",PalType.Fire,null,Tier.Early,Role.Fast,190),
+            new("028","돌진돼지","Rushoar","028_Rushoar","028_Rushoar_back",PalType.Ground,null,Tier.Early,Role.Tank,180),
+            new("033","다크울프","Direhowl","033_Direhowl","033_Direhowl_back",PalType.Neutral,null,Tier.Mid,Role.Fast,150),
+            new("042","번개냥","Sparkit","042_Sparkit","042_Sparkit_back",PalType.Electric,null,Tier.Early,Role.Attacker,190),
+            new("075","씨무기","Surfent","075_Surfent","075_Surfent_back",PalType.Water,null,Tier.Mid,Role.Fast,120),
+            new("076","로빈몽","Robinquill","076_Robinquill","076_Robinquill_back",PalType.Grass,null,Tier.Mid,Role.Attacker,120),
+            new("080","헬가루다","Helzephyr","080_Helzephyr","080_Helzephyr_back",PalType.Dark,null,Tier.Late,Role.Fast,80),
+            new("084","플로라디노","Dinossom","084_Dinossom","084_Dinossom_back",PalType.Grass,PalType.Dragon,Tier.Mid,Role.Tank,110),
+            new("093","파이린","Pyrin","093_Pyrin","093_Pyrin_back",PalType.Fire,null,Tier.Mid,Role.Fast,110),
+            new("095","빙호","Foxcicle","095_Foxcicle","095_Foxcicle_back",PalType.Ice,null,Tier.Mid,Role.Attacker,110),
+            new("098","썬도그","Rayhound","098_Rayhound","098_Rayhound_back",PalType.Electric,null,Tier.Mid,Role.Fast,110),
+            new("102","풀바오","Mossanda","102_Mossanda","102_Mossanda_back",PalType.Grass,null,Tier.Late,Role.Tank,80),
+            new("112","만티파이어","Blazehowl","112_Blazehowl","112_Blazehowl_back",PalType.Fire,null,Tier.Late,Role.Attacker,70),
+            new("117","고스호스","Maraith","117_Maraith","117_Maraith_back",PalType.Dark,null,Tier.Mid,Role.Attacker,110),
+            new("121","레비드라","Jormuntide","121_Jormuntide","121_Jormuntide_back",PalType.Dragon,PalType.Water,Tier.Late,Role.Attacker,60),
+            new("124","페스키","Quivern","124_Quivern","124_Quivern_back",PalType.Dragon,null,Tier.Late,Role.Balanced,70),
+            new("134","움포","Wumpo","134_Wumpo","134_Wumpo_back",PalType.Ice,null,Tier.Late,Role.Tank,70),   
         };
 
         // ───────── 1. 도트 이미지 필터 보정 ─────────
@@ -113,6 +136,7 @@ namespace PalRogue.EditorTools
                 pal.backAnimator  = backAnim;
                 pal.frontScale  = FitScale(front, FrontBox);
                 pal.backScale   = FitScale(back, BackBox);
+                PalSizing.Apply(pal);
                 EditorUtility.SetDirty(pal);
                 ok++;
             }
@@ -137,12 +161,16 @@ namespace PalRogue.EditorTools
 
         // ───────── 2. PalData 생성 ─────────
         [MenuItem("PalRogue/2. PalData 에셋 생성")]
-        static void CreatePalAssets()
+        static void CreatePalAssetsMenu() => CreatePalAssets(true);
+
+        /// <summary>그림이 있는데 아직 PalData가 없는 팰만 만든다. 만든 수를 돌려준다</summary>
+        public static int CreatePalAssets(bool report)
         {
             EnsureFolder("Assets/Data");
             EnsureFolder(OutDir);
 
             int created = 0, skipped = 0, missing = 0;
+            var waiting = new System.Collections.Generic.List<string>();
             foreach (var r in Rows)
             {
                 string assetPath = $"{OutDir}/{r.id}_{r.eng}.asset";
@@ -152,7 +180,7 @@ namespace PalRogue.EditorTools
                 LoadVisual(dir, r.front, "Frames", out var front, out var frontAnim);
                 Sprite back = null; RuntimeAnimatorController backAnim = null;
                 if (r.back != null) LoadVisual(dir, r.back, "Frames_back", out back, out backAnim);
-                if (front == null) { Debug.LogWarning($"[PalRogue] 앞모습 스프라이트 없음: {dir}/{r.front}.png"); missing++; }
+                if (front == null) { waiting.Add(r.kor); missing++; continue; }   // 그림이 아직 없으면 만들지 않는다 (야생에 투명한 팰이 나오지 않게)
 
                 var pal = ScriptableObject.CreateInstance<PalData>();
                 pal.palId = r.id;
@@ -174,13 +202,61 @@ namespace PalRogue.EditorTools
                 var w = Weights[(int)r.role];
                 int S(int i) => Mathf.Max(1, Mathf.RoundToInt(total / 6f * w[i]));
                 pal.baseHP = S(0); pal.baseAttack = S(1); pal.baseDefense = S(2); pal.baseSpeed = S(3);
+                PalSizing.Apply(pal);                         // 넓이·몸집 기준으로 크기 맞춤
 
                 AssetDatabase.CreateAsset(pal, assetPath);
                 created++;
             }
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
-            Debug.Log($"[PalRogue] PalData 생성 {created}개 / 건너뜀 {skipped}개 / 스프라이트 누락 {missing}개");
+            if (report || created > 0)
+                Debug.Log($"[PalRogue] PalData 생성 {created}개 / 이미 있음 {skipped}개 / 그림 기다리는 중 {missing}개" +
+                          (waiting.Count > 0 ? $" ({string.Join(", ", waiting)})" : ""));
+            return created;
+        }
+
+        // ───────── 2-1. 새 팰 한 번에 추가 ─────────
+        // 그림을 넣은 새 팰을: PalData 만들기(2) → 학습 기술(5) → 변화 기술(26) → 애니메이션 연결(7-1) → 야생 목록에 넣기
+        // 에디터가 켜지거나 스크립트가 바뀔 때도 새로 만들 팰이 있으면 자동으로 실행된다.
+        [MenuItem("PalRogue/2-1. 새 팰 한 번에 추가 (그림 넣은 팰)")]
+        static void AddNewPalsMenu() => AddNewPals(true);
+
+        [InitializeOnLoadMethod]
+        static void AutoAddNewPals() => EditorApplication.delayCall += () =>
+        {
+            if (!EditorApplication.isPlayingOrWillChangePlaymode) AddNewPals(false);
+        };
+
+        static void AddNewPals(bool report)
+        {
+            if (!AssetDatabase.IsValidFolder(OutDir)) return;
+            PalAnimationLinker.Run(false);                     // 프레임만 넣은 팰은 애니메이션부터 만든다
+            int created = CreatePalAssets(report);
+            if (created == 0 && !report) return;
+            SkillDataBuilder.FillLearnsets();                  // 학습 목록이 빈(새) 팰만 채운다
+            if (AssetDatabase.IsValidFolder("Assets/Data/Skills")) SupportSkillBuilder.Build();
+            PalAnimationLinker.Run(false);
+            bool sceneChanged = RefillWildPals(out int wild);
+            Debug.Log($"[PalRogue] 새 팰 {created}종 추가 완료 (학습 기술·변화 기술·애니메이션 연결). 야생 팰 목록 {wild}종" +
+                      (sceneChanged ? " — 씬의 야생 팰 목록이 바뀌었으니 Ctrl+S로 저장하세요." : ""));
+        }
+
+        /// <summary>열린 씬의 전투 화면(BattleScreen) 야생 팰 목록을 모든 PalData로 다시 채운다</summary>
+        static bool RefillWildPals(out int count)
+        {
+            count = 0;
+            var screen = Object.FindAnyObjectByType<BattleScreen>();
+            if (screen == null) return false;
+            var all = AssetDatabase.FindAssets("t:PalData", new[] { OutDir })
+                .Select(g => AssetDatabase.LoadAssetAtPath<PalData>(AssetDatabase.GUIDToAssetPath(g)))
+                .Where(p => p != null).OrderBy(p => p.name).ToList();
+            count = all.Count;
+            if (screen.wildPals != null && screen.wildPals.Count == all.Count && screen.wildPals.All(all.Contains)) return false;
+            Undo.RecordObject(screen, "야생 팰 목록");
+            screen.wildPals = all;
+            EditorUtility.SetDirty(screen);
+            UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(screen.gameObject.scene);
+            return true;
         }
 
         // 이미지가 Multiple(자동 슬라이스)이라 서브 스프라이트를 꺼내야 한다
@@ -209,6 +285,22 @@ namespace PalRogue.EditorTools
                 if (first != null) sprite = LoadSprite(first);
             }
             if (sprite == null) sprite = LoadSprite($"{dir}/{name}.png");
+            if (sprite != null || !AssetDatabase.IsValidFolder(dir)) return;
+
+            // 이름이 조금 달라도 찾는다: 폴더 안의 애니메이션 컨트롤러(앞/뒤 구분) → 폴더 바로 아래 PNG
+            bool back = framesFolder.EndsWith("_back");
+            bool IsBack(string p) => Path.GetFileNameWithoutExtension(p).EndsWith("_back", System.StringComparison.OrdinalIgnoreCase);
+            var ctrlPath = AssetDatabase.FindAssets("t:AnimatorController", new[] { dir })
+                .Select(AssetDatabase.GUIDToAssetPath).FirstOrDefault(p => IsBack(p) == back);
+            if (ctrlPath != null)
+            {
+                animator = AssetDatabase.LoadAssetAtPath<RuntimeAnimatorController>(ctrlPath);
+                sprite = PalAnimationLinker.FirstSprite(animator);
+                if (sprite != null) return;
+            }
+            var png = Directory.GetFiles(dir, "*.png").Select(p => p.Replace('\\', '/'))
+                .FirstOrDefault(p => IsBack(p) == back);
+            if (png != null) sprite = LoadSprite(png);
         }
 
         static float FitScale(Sprite s, float box)

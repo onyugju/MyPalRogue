@@ -31,11 +31,12 @@ namespace PalRogue.EditorTools
         [MenuItem("PalRogue/7-1. 팰 애니메이션 자동 연결")]
         static void FromMenu() => Run(true);
 
-        static void Run(bool report)
+        public static void Run(bool report)
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode || !AssetDatabase.IsValidFolder(PalRoot)) return;
             var log = new List<string>();
             int retimed = 0;
+            int built = BuildMissingControllers(log);
 
             foreach (var guid in AssetDatabase.FindAssets("t:PalData", new[] { PalDir }))
             {
@@ -57,8 +58,10 @@ namespace PalRogue.EditorTools
                 var front = controllers.FirstOrDefault(c => !IsBack(c.path)).ctrl;
                 var back = controllers.FirstOrDefault(c => IsBack(c.path)).ctrl;
                 bool changed = false;
+                bool Same(RuntimeAnimatorController a, RuntimeAnimatorController b) =>
+                    a != null && AssetDatabase.GetAssetPath(a) == AssetDatabase.GetAssetPath(b);
 
-                if (front != null && pal.frontAnimator != front)
+                if (front != null && !Same(pal.frontAnimator, front))
                 {
                     var first = FirstSprite(front);
                     pal.frontAnimator = front;
@@ -66,7 +69,7 @@ namespace PalRogue.EditorTools
                     log.Add($"{pal.palName} 앞모습");
                     changed = true;
                 }
-                if (back != null && pal.backAnimator != back)
+                if (back != null && !Same(pal.backAnimator, back))
                 {
                     var first = FirstSprite(back);
                     pal.backAnimator = back;
@@ -77,18 +80,80 @@ namespace PalRogue.EditorTools
                 // 앞모습 그림이 지워졌는데(참조가 비었는데) 애니메이션이 있으면 첫 프레임으로 채운다
                 if (pal.frontSprite == null && pal.frontAnimator != null) { pal.frontSprite = FirstSprite(pal.frontAnimator); changed = true; }
                 if (pal.backSprite == null && pal.backAnimator != null) { pal.backSprite = FirstSprite(pal.backAnimator); changed = true; }
-                if (changed) EditorUtility.SetDirty(pal);
+                if (changed) { PalSizing.Apply(pal); EditorUtility.SetDirty(pal); }
             }
 
             if (log.Count > 0 || retimed > 0) AssetDatabase.SaveAssets();
             if (log.Count > 0 || retimed > 0 || report)
-                Debug.Log($"[팰 애니메이션] 새로 연결 {log.Count}개{(log.Count > 0 ? $" ({string.Join(", ", log)})" : "")}, " +
-                          $"{Fps:0} FPS로 맞춘 애니메이션 {retimed}개");
+                Debug.Log($"[팰 애니메이션] 프레임으로 새로 만든 애니메이션 {built}개, 새로 연결 {log.Count - built}개" +
+                          $"{(log.Count > 0 ? $" ({string.Join(", ", log)})" : "")}, {Fps:0} FPS로 맞춘 애니메이션 {retimed}개");
+        }
+
+        /// <summary>
+        /// 프레임 PNG만 넣고 아직 애니메이션(컨트롤러)이 없는 폴더에 15 FPS 반복 애니메이션 + 컨트롤러를 만든다.
+        /// 예) "000 벨라루주/000_Bellanoir Libero/Frames/*.png" → "000_Bellanoir Libero/000_Bellanoir Libero.controller"
+        ///  - 프레임 폴더 이름이 Frames(…)이면 그 위 폴더 이름으로, 아니면 프레임 폴더 이름으로 만든다
+        ///  - 폴더 이름이 _back 으로 끝나면 뒷모습 (연결은 Run이 한다)
+        ///  - 프레임 그림은 Sprite · Point 필터 · 무압축 · 밉맵 끔으로 맞춘다
+        /// </summary>
+        static int BuildMissingControllers(List<string> log)
+        {
+            int built = 0;
+            var folders = new List<string>();
+            void Walk(string f) { foreach (var sub in AssetDatabase.GetSubFolders(f)) { folders.Add(sub); Walk(sub); } }
+            Walk(PalRoot);
+
+            foreach (var folder in folders)
+            {
+                var frames = Directory.GetFiles(folder, "*.png").Select(p => p.Replace('\\', '/'))
+                    .OrderBy(p => Path.GetFileName(p), StringComparer.Ordinal).ToList();
+                if (frames.Count < 8) continue;                                   // 그림 몇 장뿐이면 애니메이션 폴더가 아님
+                string folderName = Path.GetFileName(folder);
+                string owner = folderName.StartsWith("Frames", StringComparison.OrdinalIgnoreCase)
+                    ? Path.GetDirectoryName(folder).Replace('\\', '/') : folder;
+                if (AssetDatabase.FindAssets("t:AnimatorController", new[] { owner }).Length > 0) continue;   // 이미 있음
+
+                foreach (var f in frames)
+                {
+                    if (AssetImporter.GetAtPath(f) is not TextureImporter imp) continue;
+                    if (imp.textureType == TextureImporterType.Sprite && imp.spriteImportMode == SpriteImportMode.Single
+                        && imp.filterMode == FilterMode.Point && !imp.mipmapEnabled) continue;
+                    imp.textureType = TextureImporterType.Sprite;
+                    imp.spriteImportMode = SpriteImportMode.Single;
+                    imp.spritePixelsPerUnit = 100f;
+                    imp.filterMode = FilterMode.Point;
+                    imp.mipmapEnabled = false;
+                    imp.alphaIsTransparency = true;
+                    imp.textureCompression = TextureImporterCompression.Uncompressed;
+                    imp.SaveAndReimport();
+                }
+                var sprites = frames.Select(AssetDatabase.LoadAssetAtPath<Sprite>).Where(x => x != null).ToArray();
+                if (sprites.Length < 2) continue;
+
+                string name = Path.GetFileName(owner);
+                var clip = new AnimationClip { name = name + "_Idle", frameRate = Fps };
+                var keys = sprites.Select((sp, i) => new ObjectReferenceKeyframe { time = i / Fps, value = sp }).ToArray();
+                AnimationUtility.SetObjectReferenceCurve(clip, SpriteBinding, keys);
+                var settings = AnimationUtility.GetAnimationClipSettings(clip);
+                settings.loopTime = true;
+                settings.stopTime = sprites.Length / Fps;                         // 마지막 프레임도 1/15초 보여 줘서 끊김 없이 반복
+                AnimationUtility.SetAnimationClipSettings(clip, settings);
+                AssetDatabase.CreateAsset(clip, $"{owner}/{name}_Idle.anim");
+
+                var ctrl = AnimatorController.CreateAnimatorControllerAtPath($"{owner}/{name}.controller");
+                var state = ctrl.layers[0].stateMachine.AddState("Idle");
+                state.motion = clip;
+                ctrl.layers[0].stateMachine.defaultState = state;
+                log.Add($"{name} ({sprites.Length}장)");
+                built++;
+            }
+            if (built > 0) AssetDatabase.SaveAssets();
+            return built;
         }
 
         static readonly EditorCurveBinding SpriteBinding = EditorCurveBinding.PPtrCurve("", typeof(SpriteRenderer), "m_Sprite");
 
-        static Sprite FirstSprite(RuntimeAnimatorController ctrl)
+        public static Sprite FirstSprite(RuntimeAnimatorController ctrl)
         {
             foreach (var clip in ctrl.animationClips)
             {

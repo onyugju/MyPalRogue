@@ -139,6 +139,34 @@ namespace PalRogue.EditorTools
             if (missing.Count > 0 || palProblems.Count > 0) Debug.LogError(head + "\n" + report); else Debug.Log(head + "\n" + report);
         }
 
+        static int palPreview;
+
+        /// <summary>
+        /// 플레이 중에 누를 때마다 다음 팰을 상대 자리(앞모습)와 내 자리(뒷모습)에 세워 본다.
+        /// 새로 넣은 그림의 크기·발 위치·애니메이션을 확인하는 용도. 번호 순서대로, 마지막 다음엔 처음으로.
+        /// </summary>
+        [MenuItem("PalRogue/30. 팰 모습 미리보기 (플레이 중)")]
+        static void PreviewPals()
+        {
+            if (!EditorApplication.isPlaying) { EditorUtility.DisplayDialog("플레이 중에 실행", "플레이 버튼을 누른 뒤에 실행해 주세요.", "확인"); return; }
+            var screen = Object.FindAnyObjectByType<BattleScreen>();
+            if (screen == null) return;
+            var pals = AssetDatabase.FindAssets("t:PalData")
+                .Select(g => AssetDatabase.LoadAssetAtPath<PalData>(AssetDatabase.GUIDToAssetPath(g)))
+                .Where(p => p != null).OrderBy(p => p.name).ToList();
+            if (pals.Count == 0) return;
+            var data = pals[palPreview % pals.Count];
+            palPreview++;
+            screen.enemyView.Show(data, false);
+            screen.playerView.Show(data, true);
+            screen.enemyInfo.gameObject.SetActive(true);
+            screen.playerInfo.gameObject.SetActive(true);
+            screen.enemyInfo.Refresh(new Pal(data, 30));
+            screen.playerInfo.Refresh(new Pal(data, 30));
+            Debug.Log($"[팰 미리보기 {(palPreview - 1) % pals.Count + 1}/{pals.Count}] {data.palId} {data.palName} — 앞 {(data.frontAnimator != null ? "애니메이션" : "정지 그림")}, " +
+                      $"뒤 {(data.backAnimator != null ? "애니메이션" : data.backSprite != null ? "정지 그림" : "없음(앞모습으로 대신)")}");
+        }
+
         [MenuItem("PalRogue/25. 다음 지역으로 이동 (플레이 중)")]
         static void NextArea()
         {

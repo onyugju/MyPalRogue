@@ -109,7 +109,7 @@ namespace PalRogue
         void Start()
         {
 #if UNITY_EDITOR
-            if (wildPals.All(p => p == null)) FillWildPals();
+            FillWildPals();                          // 에디터에서는 새로 추가한 팰까지 항상 야생 목록에 넣는다
 #endif
             bool hasPlayer = playerPal != null || playerParty.Any(m => m != null && m.pal != null);
             if (!hasPlayer || WildPool().Count == 0)
