@@ -15,11 +15,11 @@ MonoBehaviour:
   palId: 004
   palName: "\uD050\uB8F0\uB9AC\uC2A4"
   englishName: Lifmunk
-  frontSprite: {fileID: 705531119397648709, guid: 008a6af1f7de2334089831c2b45a3614, type: 3}
+  frontSprite: {fileID: 21300000, guid: 0661aa49c613f514f8b67bc0ca9b6e7e, type: 3}
   backSprite: {fileID: 21300000, guid: 73e7722db453e1848a5ea4ddf7518314, type: 3}
-  frontScale: 0.75376886
+  frontScale: 0.51724136
   backScale: 0.390625
-  frontAnimator: {fileID: 0}
+  frontAnimator: {fileID: 9100000, guid: e3dbe76f35e117847ac88306f7ec4fc4, type: 2}
   backAnimator: {fileID: 9100000, guid: 607aa94237bdceb41954c59cfafe43ee, type: 2}
   primaryType: 3
   hasSecondaryType: 0

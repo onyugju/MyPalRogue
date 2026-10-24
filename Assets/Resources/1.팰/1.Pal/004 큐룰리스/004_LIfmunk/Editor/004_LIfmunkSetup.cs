@@ -19,7 +19,7 @@ public static class LIfmunk004Setup
     private const string ClipPath = AnimationsFolder + "/004_LIfmunk_Idle.anim";
     private const string ControllerPath = AnimationsFolder + "/004_LIfmunk.controller";
     private const string PrefabPath = PrefabsFolder + "/004_LIfmunk.prefab";
-    private const float SampleRate = 7.5f;
+    private const float SampleRate = 15f;   // 팰로그 팰 애니메이션 기준 15 FPS (75장 = 5초)
     private const float PixelsPerUnit = 100f;
 
     [MenuItem("Tools/004_LIfmunk/Setup Sprites and Create Idle Animation")]
