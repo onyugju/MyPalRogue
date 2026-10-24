@@ -15,11 +15,11 @@ MonoBehaviour:
   palId: 000
   palName: "\uC81C\uB85C\uBC84\uC2A4"
   englishName: Zerobus
-  frontSprite: {fileID: -8753236834094489662, guid: ffec8a3ead48f3f448de12c63dbd7ec1, type: 3}
+  frontSprite: {fileID: 21300000, guid: 67666707621adbb44804dce581ca38b0, type: 3}
   backSprite: {fileID: 0}
-  frontScale: 0.3440367
+  frontScale: 0.8797654
   backScale: 1
-  frontAnimator: {fileID: 0}
+  frontAnimator: {fileID: 9100000, guid: 6935b58ce1e85db47aa43c46a5ede5c4, type: 2}
   backAnimator: {fileID: 0}
   primaryType: 9
   hasSecondaryType: 0

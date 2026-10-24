@@ -43,13 +43,103 @@ namespace PalRogue
 
             ShowStages(Battle.StageSnapshot(pal), Battle.IsCharging(pal));
 
-            SetType(typeIcon1, pal.Data.primaryType);
+            ShowTypes(pal.Data);
+        }
+
+        // ───────── 속성 표시 (화살표 모양 뱃지) ─────────
+        // Resources/1.팰/2.Elements/{enemy_type | player_type}/
+        //   single_type/Single_{속성}.png          : 속성 1개 — 상대는 오른쪽(>), 나는 왼쪽(<)을 가리키는 화살표
+        //   double_type/{속성}/Double_{속성}_Type1 : "/" 모양 반쪽,  Type2 : "\\" 모양 반쪽
+        // 위치·크기는 씬에서 Type1 칸을 놓아 둔 자리를 그대로 쓴다 (속성 1개일 때의 화살표 자리).
+        // 속성 2개면 같은 너비로 반쪽 둘을 위아래로 붙여 같은 화살표 모양을 만든다 (위 = 주 속성, 아래 = 보조 속성).
+        //   상대(>) : 위 Type2(\\) + 아래 Type1(/)      나(<) : 위 Type1(/) + 아래 Type2(\\)
+        // 그림이 없는 속성은 예전 ui_type 아이콘을 쓴다.
+        const string ElementDir = "1.팰/2.Elements";
+        // 반쪽 그림(1659x948)은 위아래에 투명 여백이 있다. 그림이 실제로 그려진 줄(원본 픽셀)을 기준으로
+        // 위 반쪽의 아랫변과 아래 반쪽의 윗변을 딱 맞붙여 틈 없는 화살표 하나로 만든다.
+        //   Type1("/") : 그림 있는 줄 192 ~ 804      Type2("\\") : 145 ~ 812
+        const float SrcW = 1659f, SrcH = 948f;
+        const float T1Top = 192f, T1Bottom = 804f, T2Top = 145f, T2Bottom = 812f;
+        const float JoinOverlap = 6f;              // 맞닿는 테두리를 살짝 겹쳐 이음매를 한 줄로 (원본 픽셀)
+
+        bool badgeFrameSaved;
+        Vector2 badgePos, badgeSize, type2Pos, type2Size;
+
+        void SaveBadgeFrame()
+        {
+            if (badgeFrameSaved || typeIcon1 == null) return;
+            badgeFrameSaved = true;
+            badgePos = typeIcon1.rectTransform.anchoredPosition;
+            badgeSize = typeIcon1.rectTransform.sizeDelta;
+            if (typeIcon2 != null) { type2Pos = typeIcon2.rectTransform.anchoredPosition; type2Size = typeIcon2.rectTransform.sizeDelta; }
+        }
+
+        void ShowTypes(PalData data)
+        {
+            if (typeIcon1 == null) return;
+            SaveBadgeFrame();
+            bool player = expFill != null;
+            string side = player ? "player_type" : "enemy_type";
+            bool dual = data.hasSecondaryType && data.secondaryType != data.primaryType;
+            var shift = new Vector2(bossMode ? BossExtraWidth : 0f, 0f);     // 보스 정보창은 가로로 길어진다
+
+            Sprite top, bottom = null;
+            if (!dual) top = Resources.Load<Sprite>($"{ElementDir}/{side}/single_type/Single_{data.primaryType}");
+            else
+            {
+                string topPart = player ? "Type1" : "Type2", bottomPart = player ? "Type2" : "Type1";
+                top = Resources.Load<Sprite>($"{ElementDir}/{side}/double_type/{data.primaryType}/Double_{data.primaryType}_{topPart}");
+                bottom = Resources.Load<Sprite>($"{ElementDir}/{side}/double_type/{data.secondaryType}/Double_{data.secondaryType}_{bottomPart}");
+            }
+
+            if (top == null || (dual && bottom == null))
+            {
+                // 새 그림이 없으면 예전 동그란 아이콘 (원래 자리)
+                Place(typeIcon1, Resources.Load<Sprite>($"{ElementDir}/ui_type/{data.primaryType}"), badgePos + shift, new Vector2(12f, 12f));
+                if (typeIcon2 != null)
+                {
+                    typeIcon2.gameObject.SetActive(dual);
+                    if (dual) Place(typeIcon2, Resources.Load<Sprite>($"{ElementDir}/ui_type/{data.secondaryType}"), type2Pos + shift, type2Size);
+                }
+                return;
+            }
+
+            if (!dual)
+            {
+                Place(typeIcon1, top, badgePos + shift, badgeSize);
+                if (typeIcon2 != null) typeIcon2.gameObject.SetActive(false);
+                return;
+            }
+
+            // 반쪽 둘: 화살표 자리와 같은 너비. 위 반쪽 아랫변에 아래 반쪽 윗변을 붙이고, 합친 모양의 세로 가운데를 화살표 자리 가운데에 맞춘다
+            float w = badgeSize.x, k = w / SrcW, h = SrcH * k;
+            float topVisTop = player ? T1Top : T2Top, topVisBottom = player ? T1Bottom : T2Bottom;
+            float bottomVisTop = player ? T2Top : T1Top, bottomVisBottom = player ? T2Bottom : T1Bottom;
+            float offset = topVisBottom - bottomVisTop - JoinOverlap;          // 아래 반쪽 그림이 위 반쪽 그림보다 내려가는 양 (원본 픽셀)
+            float visCenter = (topVisTop + offset + bottomVisBottom) / 2f;      // 합친 모양의 가운데 (위 반쪽 그림 맨 위 기준)
+            float centerY = -badgePos.y + badgeSize.y / 2f;                    // 화살표 자리 가운데 (정보창 위에서부터)
+            float topY = centerY - visCenter * k;
+            Place(typeIcon1, top, new Vector2(badgePos.x, -topY) + shift, new Vector2(w, h));
             if (typeIcon2 != null)
             {
-                bool dual = pal.Data.hasSecondaryType;
-                typeIcon2.gameObject.SetActive(dual);
-                if (dual) SetType(typeIcon2, pal.Data.secondaryType);
+                typeIcon2.gameObject.SetActive(true);
+                Place(typeIcon2, bottom, new Vector2(badgePos.x, -(topY + offset * k)) + shift, new Vector2(w, h));
+                typeIcon2.transform.SetSiblingIndex(typeIcon1.transform.GetSiblingIndex() + 1);
             }
+        }
+
+        static void Place(Image icon, Sprite sprite, Vector2 pos, Vector2 size)
+        {
+            if (icon == null) return;
+            icon.gameObject.SetActive(true);
+            icon.sprite = sprite;
+            icon.enabled = sprite != null;
+            icon.preserveAspect = true;
+            var rt = icon.rectTransform;
+            rt.anchorMin = rt.anchorMax = new Vector2(0f, 1f);
+            rt.pivot = new Vector2(0f, 1f);
+            rt.sizeDelta = size;
+            rt.anchoredPosition = pos;
         }
 
         // ───────── 능력치 단계 표시 (공격+2  스피드-1 …) ─────────
@@ -208,8 +298,6 @@ namespace PalRogue
             rt.sizeDelta = normalSize + new Vector2(extra, 0f);
             if (background != null) background.sprite = boss ? bossBackground : normalBackground;
             if (levelText != null) levelText.rectTransform.anchoredPosition = normalLevelPos + new Vector2(extra, 0f);
-            if (typeIcon1 != null) typeIcon1.rectTransform.anchoredPosition = normalType1Pos + new Vector2(extra, 0f);
-            if (typeIcon2 != null) typeIcon2.rectTransform.anchoredPosition = normalType2Pos + new Vector2(extra, 0f);
             if (hpFill != null)
             {
                 hpFill.texture = boss ? bossHpTexture : normalHpTexture;
