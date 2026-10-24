@@ -17,8 +17,10 @@ MonoBehaviour:
   englishName: Zerobus
   frontSprite: {fileID: 21300000, guid: 67666707621adbb44804dce581ca38b0, type: 3}
   backSprite: {fileID: 0}
-  frontScale: 0.8797654
-  backScale: 1
+  frontScale: 2.4
+  backScale: 2.25
+  sizeTune: 1
+  frontYOffset: -0.87
   frontAnimator: {fileID: 9100000, guid: 6935b58ce1e85db47aa43c46a5ede5c4, type: 2}
   backAnimator: {fileID: 0}
   primaryType: 9

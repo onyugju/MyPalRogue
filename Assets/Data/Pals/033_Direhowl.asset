@@ -17,7 +17,7 @@ MonoBehaviour:
   englishName: Direhowl
   frontSprite: {fileID: -7256901528613412634, guid: c212a49b3426a244c9edaeb28beeecf9, type: 3}
   backSprite: {fileID: 0}
-  frontScale: 0.6224066
+  frontScale: 0.602967
   backScale: 1
   frontAnimator: {fileID: 0}
   backAnimator: {fileID: 0}

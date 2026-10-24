@@ -17,8 +17,8 @@ MonoBehaviour:
   englishName: Fuack
   frontSprite: {fileID: 8169316656848313439, guid: f0a3424a6153f6449a4d1ab32828b694, type: 3}
   backSprite: {fileID: 3717900433586860938, guid: 6e70e42961f2822489d3d7c748ac2eb8, type: 3}
-  frontScale: 0.3194888
-  backScale: 0.3421728
+  frontScale: 0.37674934
+  backScale: 0.3472143
   frontAnimator: {fileID: 0}
   backAnimator: {fileID: 0}
   primaryType: 2

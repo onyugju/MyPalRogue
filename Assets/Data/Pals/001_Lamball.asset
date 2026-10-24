@@ -17,8 +17,9 @@ MonoBehaviour:
   englishName: Lamball
   frontSprite: {fileID: -1523769457046516952, guid: 19793e86d07ba74439f5f3a3a5248aa3, type: 3}
   backSprite: {fileID: -9059081434550803069, guid: f562d6372b2aa8e4eba5ffd1449641fb, type: 3}
-  frontScale: 0.7125891
-  backScale: 0.3809524
+  frontScale: 0.5510186
+  backScale: 0.2705383
+  sizeTune: 1
   frontAnimator: {fileID: 0}
   backAnimator: {fileID: 0}
   primaryType: 0

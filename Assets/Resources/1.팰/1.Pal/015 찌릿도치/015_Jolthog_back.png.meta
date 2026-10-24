@@ -121,12 +121,12 @@ TextureImporter:
       name: 015_Jolthog_back_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1415
-        height: 1001
+        x: 203
+        y: 38
+        width: 1160
+        height: 921
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -148,7 +148,7 @@ TextureImporter:
         width: 21
         height: 13
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -165,7 +165,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 6545cd77db12b9e40a88aa3899eb6f9f
     internalID: 0
     vertices: []
     indices: 

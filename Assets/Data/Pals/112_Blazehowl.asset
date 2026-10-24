@@ -17,7 +17,7 @@ MonoBehaviour:
   englishName: Blazehowl
   frontSprite: {fileID: 4767475094954352671, guid: a023e3d8042c1f74e880b8c700af2da3, type: 3}
   backSprite: {fileID: 0}
-  frontScale: 0.29296875
+  frontScale: 0.46729773
   backScale: 1
   frontAnimator: {fileID: 0}
   backAnimator: {fileID: 0}

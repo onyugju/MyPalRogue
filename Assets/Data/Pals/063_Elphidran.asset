@@ -17,8 +17,8 @@ MonoBehaviour:
   englishName: Elphidran
   frontSprite: {fileID: -8033175728029183470, guid: e4317c18cc7085c4dbba21259f674b6a, type: 3}
   backSprite: {fileID: -195763125868217647, guid: 8e33381d8b89b1e48b813d3bdbd60937, type: 3}
-  frontScale: 0.6833713
-  backScale: 0.3164557
+  frontScale: 0.6680432
+  backScale: 0.30553403
   frontAnimator: {fileID: 0}
   backAnimator: {fileID: 0}
   primaryType: 7

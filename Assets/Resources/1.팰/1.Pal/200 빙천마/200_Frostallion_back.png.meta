@@ -118,12 +118,12 @@ TextureImporter:
       name: 200_Frostallion_back_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 17
-        width: 1401
-        height: 1061
+        x: 70
+        y: 25
+        width: 1288
+        height: 949
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -140,7 +140,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: c3e2c568aca847643b82ae2dfafc5c45
     internalID: 0
     vertices: []
     indices: 

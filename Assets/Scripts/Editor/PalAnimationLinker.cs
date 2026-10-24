@@ -77,6 +77,22 @@ namespace PalRogue.EditorTools
                     log.Add($"{pal.palName} 뒷모습");
                     changed = true;
                 }
+                // 뒷모습 애니메이션은 없지만 폴더에 정지 그림 "…_back.png"가 있으면 그걸 뒷모습으로 연결한다
+                if (pal.backSprite == null && pal.backAnimator == null)
+                {
+                    var backPng = StillPng(dir, true);
+                    if (backPng != null)
+                    {
+                        pal.backSprite = PalSizing.Trim(backPng);
+                        log.Add($"{pal.palName} 뒷모습(정지 그림)");
+                        changed = true;
+                    }
+                }
+                if (pal.frontSprite == null && pal.frontAnimator == null)
+                {
+                    var frontPng = StillPng(dir, false);
+                    if (frontPng != null) { pal.frontSprite = PalSizing.Trim(frontPng); log.Add($"{pal.palName} 앞모습(정지 그림)"); changed = true; }
+                }
                 // 앞모습 그림이 지워졌는데(참조가 비었는데) 애니메이션이 있으면 첫 프레임으로 채운다
                 if (pal.frontSprite == null && pal.frontAnimator != null) { pal.frontSprite = FirstSprite(pal.frontAnimator); changed = true; }
                 if (pal.backSprite == null && pal.backAnimator != null) { pal.backSprite = FirstSprite(pal.backAnimator); changed = true; }
@@ -149,6 +165,25 @@ namespace PalRogue.EditorTools
             }
             if (built > 0) AssetDatabase.SaveAssets();
             return built;
+        }
+
+        /// <summary>팰 폴더 바로 아래의 정지 그림 PNG (back=true면 이름이 _back 으로 끝나는 것). 스프라이트로 안 들어와 있으면 맞춰서 불러온다</summary>
+        static Sprite StillPng(string dir, bool back)
+        {
+            var png = Directory.GetFiles(dir, "*.png").Select(p => p.Replace('\\', '/'))
+                .FirstOrDefault(p => Path.GetFileNameWithoutExtension(p).EndsWith("_back", StringComparison.OrdinalIgnoreCase) == back);
+            if (png == null) return null;
+            var sprite = PalDataBuilder.LoadSprite(png);
+            if (sprite != null) return sprite;
+            if (AssetImporter.GetAtPath(png) is not TextureImporter imp) return null;
+            imp.textureType = TextureImporterType.Sprite;
+            imp.spriteImportMode = SpriteImportMode.Single;
+            imp.filterMode = FilterMode.Point;
+            imp.mipmapEnabled = false;
+            imp.alphaIsTransparency = true;
+            imp.textureCompression = TextureImporterCompression.Uncompressed;
+            imp.SaveAndReimport();
+            return PalDataBuilder.LoadSprite(png);
         }
 
         static readonly EditorCurveBinding SpriteBinding = EditorCurveBinding.PPtrCurve("", typeof(SpriteRenderer), "m_Sprite");

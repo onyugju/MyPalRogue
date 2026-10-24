@@ -17,8 +17,8 @@ MonoBehaviour:
   englishName: Jolthog
   frontSprite: {fileID: -7620692747517258463, guid: 3cf8488c2e6f8ee418b9155de878bb94, type: 3}
   backSprite: {fileID: 1220323651060978504, guid: d759335451d8e91418e962a22fe8d36a, type: 3}
-  frontScale: 0.29296875
-  backScale: 0.28268552
+  frontScale: 0.3589318
+  backScale: 0.33958486
   frontAnimator: {fileID: 0}
   backAnimator: {fileID: 0}
   primaryType: 4

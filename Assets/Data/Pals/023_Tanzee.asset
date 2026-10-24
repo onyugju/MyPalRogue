@@ -17,7 +17,7 @@ MonoBehaviour:
   englishName: Tanzee
   frontSprite: {fileID: 8793035335290532143, guid: 68ca559bd99cb4249a1f35e433cb5299, type: 3}
   backSprite: {fileID: 0}
-  frontScale: 0.45385778
+  frontScale: 0.42837664
   backScale: 1
   frontAnimator: {fileID: 0}
   backAnimator: {fileID: 0}

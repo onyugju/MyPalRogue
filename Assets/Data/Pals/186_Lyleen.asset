@@ -16,9 +16,10 @@ MonoBehaviour:
   palName: "\uB9B4\uB9B0"
   englishName: Lyleen
   frontSprite: {fileID: -1764549198666392477, guid: c39ce16411248ae41845d4afe9202c4a, type: 3}
-  backSprite: {fileID: 0}
-  frontScale: 0.3318584
-  backScale: 1
+  backSprite: {fileID: 1059597545498078454, guid: fde07db92c7f37443b6e0bac021cae95, type: 3}
+  frontScale: 0.4579095
+  backScale: 0.4046318
+  sizeTune: 1
   frontAnimator: {fileID: 0}
   backAnimator: {fileID: 0}
   primaryType: 3

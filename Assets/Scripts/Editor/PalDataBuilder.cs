@@ -54,7 +54,7 @@ namespace PalRogue.EditorTools
             new("015","찌릿도치","Jolthog","015_Jolthog","015_Jolthog_back",PalType.Electric,null,Tier.Early,Role.Fast,190),
             new("029","파이호","Foxparks","029_Foxparks","029_Foxparks_back",PalType.Fire,null,Tier.Early,Role.Attacker,190),
             new("040","밀카우","Mozzarina","040_Mozzarina","040_Mozzarina_back",PalType.Neutral,null,Tier.Mid,Role.Tank,150),
-            new("058","불페르노","Arsox","058_Arsox",null,PalType.Fire,null,Tier.Mid,Role.Attacker,120),
+            new("058","불페르노","Arsox","058_Arsox","058_Arsox_back",PalType.Fire,null,Tier.Mid,Role.Attacker,120),
             new("063","실피아","Elphidran","063_Elphidran","063_Elphidran_back",PalType.Dragon,null,Tier.Mid,Role.Fast,100),
             new("079","캐티메이지","Katress","079_Katress","079_Katress_back",PalType.Dark,null,Tier.Mid,Role.Attacker,120),
             new("103","베비뇽","Chillet","103_Chillet","103_Chillet_back",PalType.Ice,PalType.Dragon,Tier.Mid,Role.Balanced,100),
@@ -62,14 +62,14 @@ namespace PalRogue.EditorTools
             new("140","세크메트","Sekhmet","140_Sekhmet","140_Sekhmet_back",PalType.Ground,null,Tier.Mid,Role.Balanced,100),  
             new("172","뇌운조","Dynamoff","172_Dynamoff","172_Dynamoff_back",PalType.Electric,null,Tier.Mid,Role.Tank,100),
             new("174","센코","Flaracle","174_Flaracle","174_Flaracle_back",PalType.Fire,null,Tier.Mid,Role.Attacker,100),
-            new("184","셀가드라","Aegidron","184_Aegidron",null,PalType.Ground,null,Tier.Late,Role.Tank,60),   
+            new("184","셀가드라","Aegidron","184_Aegidron","184_Aegidron_back",PalType.Ground,null,Tier.Late,Role.Tank,60),   
             new("185","일렉판다","Grizzbolt","185_Grizzbolt","185_Grizzbolt_back",PalType.Electric,null,Tier.Late,Role.Attacker,70),
-            new("186","릴린","Lyleen","186_Lyleen",null,PalType.Grass,null,Tier.Late,Role.Balanced,60),
+            new("186","릴린","Lyleen","186_Lyleen","186_Lyleen_back",PalType.Grass,null,Tier.Late,Role.Balanced,60),
             new("198","팔라디우스","Paladius","198_Paladius","198_Paladius_back",PalType.Neutral,null,Tier.Late,Role.Attacker,50),
             new("200","빙천마","Frostallion","200_Frostallion","200_Frostallion_back",PalType.Ice,null,Tier.Late,Role.Fast,50),
-            new("201","넵티오스","Neptilius","201_Neptilius",null,PalType.Water,null,Tier.Late,Role.Fast,50),
+            new("201","넵티오스","Neptilius","201_Neptilius","201_Neptilius_back",PalType.Water,null,Tier.Late,Role.Fast,50),
             new("202","제트래곤","Jetragon","202_Jetragon","202_Jetragon_back",PalType.Dragon,null,Tier.Boss,Role.Fast,10),
-            new("000","벨라루주","Bellanoir_Libero","000_Bellanoir Libero",null,PalType.Dark,null,Tier.Boss,Role.Attacker,5),
+            new("000","벨라루주","Bellanoir_Libero","000_Bellanoir Libero","000_Bellanoir Libero_back",PalType.Dark,null,Tier.Boss,Role.Attacker,5),
             new("000","제로버스","Zerobus","boss_Zerobus",null,PalType.Void,null,Tier.Boss,Role.Tank,0),   // catchRate 0 = 포획 불가
 
             // ── 추가 20종 (속성별 4~5종이 되도록. 원종만, 이벤트·콜라보·아종 제외) ──
@@ -127,7 +127,7 @@ namespace PalRogue.EditorTools
                 string dir = $"{PalRoot}/{r.id} {r.kor}";
                 LoadVisual(dir, r.front, "Frames", out var front, out var frontAnim);
                 Sprite back = null; RuntimeAnimatorController backAnim = null;
-                if (r.back != null) LoadVisual(dir, r.back, "Frames_back", out back, out backAnim);
+                LoadVisual(dir, r.back ?? r.front + "_back", "Frames_back", out back, out backAnim);
                 if (front == null) { Debug.LogWarning($"[PalRogue] 앞모습 없음: {dir}/{r.front}.png"); fail++; continue; }
 
                 pal.frontSprite = front;
@@ -179,7 +179,7 @@ namespace PalRogue.EditorTools
                 string dir = $"{PalRoot}/{r.id} {r.kor}";
                 LoadVisual(dir, r.front, "Frames", out var front, out var frontAnim);
                 Sprite back = null; RuntimeAnimatorController backAnim = null;
-                if (r.back != null) LoadVisual(dir, r.back, "Frames_back", out back, out backAnim);
+                LoadVisual(dir, r.back ?? r.front + "_back", "Frames_back", out back, out backAnim);
                 if (front == null) { waiting.Add(r.kor); missing++; continue; }   // 그림이 아직 없으면 만들지 않는다 (야생에 투명한 팰이 나오지 않게)
 
                 var pal = ScriptableObject.CreateInstance<PalData>();
@@ -202,6 +202,8 @@ namespace PalRogue.EditorTools
                 var w = Weights[(int)r.role];
                 int S(int i) => Mathf.Max(1, Mathf.RoundToInt(total / 6f * w[i]));
                 pal.baseHP = S(0); pal.baseAttack = S(1); pal.baseDefense = S(2); pal.baseSpeed = S(3);
+                pal.frontSprite = PalSizing.Trim(pal.frontSprite);   // AI 그림의 옅은 테두리 잘라내기 (떠 보이지 않게)
+                pal.backSprite = PalSizing.Trim(pal.backSprite);
                 PalSizing.Apply(pal);                         // 넓이·몸집 기준으로 크기 맞춤
 
                 AssetDatabase.CreateAsset(pal, assetPath);
@@ -261,7 +263,7 @@ namespace PalRogue.EditorTools
 
         // 이미지가 Multiple(자동 슬라이스)이라 서브 스프라이트를 꺼내야 한다
         // (자동 슬라이스가 본체 말고 작은 조각을 먼저 만드는 경우가 있어서 "가장 큰 스프라이트"를 고른다)
-        static Sprite LoadSprite(string path) =>
+        public static Sprite LoadSprite(string path) =>
             AssetDatabase.LoadAllAssetsAtPath(path).OfType<Sprite>()
                 .OrderByDescending(s => s.rect.width * s.rect.height).FirstOrDefault();
 

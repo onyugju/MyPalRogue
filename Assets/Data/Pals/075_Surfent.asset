@@ -17,7 +17,7 @@ MonoBehaviour:
   englishName: Surfent
   frontSprite: {fileID: -6031200093451214584, guid: c1128d8c26bd0514d97a3f10ae567e14, type: 3}
   backSprite: {fileID: 0}
-  frontScale: 0.5084746
+  frontScale: 0.7410482
   backScale: 1
   frontAnimator: {fileID: 0}
   backAnimator: {fileID: 0}

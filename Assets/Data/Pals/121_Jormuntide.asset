@@ -17,8 +17,9 @@ MonoBehaviour:
   englishName: Jormuntide
   frontSprite: {fileID: 1949461518270875455, guid: e5e7e1e56c2701e498f972d9c14ff5a6, type: 3}
   backSprite: {fileID: 0}
-  frontScale: 0.43923867
+  frontScale: 0.8271447
   backScale: 1
+  sizeTune: 1
   frontAnimator: {fileID: 0}
   backAnimator: {fileID: 0}
   primaryType: 7

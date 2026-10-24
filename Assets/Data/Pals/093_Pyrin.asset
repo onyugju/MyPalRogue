@@ -17,7 +17,7 @@ MonoBehaviour:
   englishName: Pyrin
   frontSprite: {fileID: 2516921007406095021, guid: 0dc4939b242c3ea4a995ab202248e54e, type: 3}
   backSprite: {fileID: 0}
-  frontScale: 0.29296875
+  frontScale: 0.4610759
   backScale: 1
   frontAnimator: {fileID: 0}
   backAnimator: {fileID: 0}

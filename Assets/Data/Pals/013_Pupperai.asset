@@ -17,8 +17,8 @@ MonoBehaviour:
   englishName: Pupperai
   frontSprite: {fileID: -2425492477933117473, guid: 463b36766f7bc2f4d85d661dc341516d, type: 3}
   backSprite: {fileID: 8540433894852341147, guid: fdb93000ea49adb45b0d39a481af29cd, type: 3}
-  frontScale: 0.36945814
-  backScale: 0.33030555
+  frontScale: 0.3646984
+  backScale: 0.39055297
   frontAnimator: {fileID: 0}
   backAnimator: {fileID: 0}
   primaryType: 5

@@ -17,8 +17,8 @@ MonoBehaviour:
   englishName: Sekhmet
   frontSprite: {fileID: 5862028998143869709, guid: 3669f0b4ba9976a4ca382c4a4f58e201, type: 3}
   backSprite: {fileID: 2790548788724135070, guid: 4a69366e0e13987429742fe423f768ae, type: 3}
-  frontScale: 0.7462687
-  backScale: 0.29133287
+  frontScale: 0.82258976
+  backScale: 0.46137586
   frontAnimator: {fileID: 0}
   backAnimator: {fileID: 0}
   primaryType: 5

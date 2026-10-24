@@ -17,8 +17,9 @@ MonoBehaviour:
   englishName: Jetragon
   frontSprite: {fileID: 4244386610091730031, guid: 105a65158b2442047837a258cc9d4cd5, type: 3}
   backSprite: {fileID: -3536812986454282311, guid: 17913d24521d09f43853177158db5dc6, type: 3}
-  frontScale: 0.67114097
-  backScale: 0.2768166
+  frontScale: 0.9616517
+  backScale: 0.4074387
+  sizeTune: 1
   frontAnimator: {fileID: 0}
   backAnimator: {fileID: 0}
   primaryType: 7

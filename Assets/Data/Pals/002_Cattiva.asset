@@ -17,8 +17,8 @@ MonoBehaviour:
   englishName: Cattiva
   frontSprite: {fileID: 8942906748434812891, guid: 3f4583570fd5a2c4aad586031e6c9e06, type: 3}
   backSprite: {fileID: -5214852943066125976, guid: dda6d74443d282545a42f3a3ea7e2bb0, type: 3}
-  frontScale: 0.7025761
-  backScale: 0.32128516
+  frontScale: 0.7421112
+  backScale: 0.33363497
   frontAnimator: {fileID: 0}
   backAnimator: {fileID: 0}
   primaryType: 0

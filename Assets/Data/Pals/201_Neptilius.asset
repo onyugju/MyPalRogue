@@ -16,9 +16,10 @@ MonoBehaviour:
   palName: "\uB135\uD2F0\uC624\uC2A4"
   englishName: Neptilius
   frontSprite: {fileID: -142133417131739677, guid: 5ebf032c2037bbc4c98e35e4c486c89b, type: 3}
-  backSprite: {fileID: 0}
-  frontScale: 0.37783375
-  backScale: 1
+  backSprite: {fileID: -6446040734278636731, guid: 9ca0bed4cc6cd3b4e9ea028ca20e6feb, type: 3}
+  frontScale: 0.52558064
+  backScale: 0.44361576
+  sizeTune: 1
   frontAnimator: {fileID: 0}
   backAnimator: {fileID: 0}
   primaryType: 2

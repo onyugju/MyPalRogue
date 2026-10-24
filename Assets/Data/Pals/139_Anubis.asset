@@ -17,8 +17,8 @@ MonoBehaviour:
   englishName: Anubis
   frontSprite: {fileID: -2142018462648096990, guid: 69bf59bfe8ecabb469341ba358544fb6, type: 3}
   backSprite: {fileID: 2944309769045795989, guid: 3007973fed61daf498b5a10182fd87ce, type: 3}
-  frontScale: 0.69284064
-  backScale: 0.32520324
+  frontScale: 0.81614465
+  backScale: 0.40269884
   frontAnimator: {fileID: 0}
   backAnimator: {fileID: 0}
   primaryType: 5

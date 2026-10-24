@@ -17,8 +17,9 @@ MonoBehaviour:
   englishName: Bellanoir Libero
   frontSprite: {fileID: 21300000, guid: b09483306ae9dfe448f5a43f9c76436b, type: 3}
   backSprite: {fileID: 21300000, guid: c338e166c1b4b824d9c092870af5346c, type: 3}
-  frontScale: 0.91463417
-  backScale: 1.2903227
+  frontScale: 1.3719512
+  backScale: 1.7990634
+  sizeTune: 1
   frontAnimator: {fileID: 9100000, guid: 52f82cb1856e9f942aaf4d3f56f5693b, type: 2}
   backAnimator: {fileID: 9100000, guid: 4faa27d17589f0241b674cb9433cf705, type: 2}
   primaryType: 8

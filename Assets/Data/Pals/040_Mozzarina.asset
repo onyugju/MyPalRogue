@@ -17,8 +17,8 @@ MonoBehaviour:
   englishName: Mozzarina
   frontSprite: {fileID: 9174319046874568080, guid: 7d1c307b6696a6b4e9f717c934cfed8e, type: 3}
   backSprite: {fileID: 1055675265444319656, guid: 79c1bb8c914cd1040b42e06ac1621ab0, type: 3}
-  frontScale: 0.47619045
-  backScale: 0.3058104
+  frontScale: 0.4668165
+  backScale: 0.37321758
   frontAnimator: {fileID: 0}
   backAnimator: {fileID: 0}
   primaryType: 0

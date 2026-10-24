@@ -16,9 +16,10 @@ MonoBehaviour:
   palName: "\uBD88\uD398\uB974\uB178"
   englishName: Arsox
   frontSprite: {fileID: -9042093700630042246, guid: 7db256bc7c4d7a14097f2bf51a1b042b, type: 3}
-  backSprite: {fileID: 0}
-  frontScale: 0.39011702
-  backScale: 1
+  backSprite: {fileID: 2311546616430906872, guid: 3488de43151afde40a120c2958cff2a9, type: 3}
+  frontScale: 0.35133383
+  backScale: 0.48385495
+  sizeTune: 1
   frontAnimator: {fileID: 0}
   backAnimator: {fileID: 0}
   primaryType: 1

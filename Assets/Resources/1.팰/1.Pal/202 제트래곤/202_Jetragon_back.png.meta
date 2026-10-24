@@ -118,12 +118,12 @@ TextureImporter:
       name: 202_Jetragon_back_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 14
-        width: 1445
-        height: 1018
+        x: 94
+        y: 17
+        width: 1339
+        height: 1012
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -140,7 +140,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5eb0ec35643d6ce469e109745b3f48ae
     internalID: 0
     vertices: []
     indices: 

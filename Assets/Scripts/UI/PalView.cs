@@ -64,7 +64,7 @@ namespace PalRogue
             // 스프라이트 중심이 기준이라, 발 끝 높이가 같도록 위치를 보정한다
             float height = sprite != null ? sprite.bounds.size.y * scale : 0f;
             var pos = transform.position;
-            pos.y = feetWorldY + height / 2f;
+            pos.y = feetWorldY + height / 2f + (back ? 0f : data.frontYOffset * scaleTune);
             transform.position = pos;
         }
 

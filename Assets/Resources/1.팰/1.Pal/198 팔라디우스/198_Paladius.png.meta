@@ -118,12 +118,12 @@ TextureImporter:
       name: 198_Paladius_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 44
-        width: 752
-        height: 980
+        x: 190
+        y: 46
+        width: 560
+        height: 911
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -140,7 +140,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 6297e9002b28b94428c8f5508eadd49d
     internalID: 0
     vertices: []
     indices: 

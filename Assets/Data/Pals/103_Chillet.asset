@@ -17,8 +17,8 @@ MonoBehaviour:
   englishName: Chillet
   frontSprite: {fileID: 1412658327375998167, guid: f75547d0c03d001498504120e3b17cc8, type: 3}
   backSprite: {fileID: 8134672896922152734, guid: c87e72bdac048f84c913a32d45924185, type: 3}
-  frontScale: 0.5504587
-  backScale: 0.33670032
+  frontScale: 0.60619843
+  backScale: 0.35933217
   frontAnimator: {fileID: 0}
   backAnimator: {fileID: 0}
   primaryType: 6

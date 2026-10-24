@@ -17,8 +17,9 @@ MonoBehaviour:
   englishName: Pengullet
   frontSprite: {fileID: 2151929691883307803, guid: f2d459f8e5a3e6345ac6a376328f116f, type: 3}
   backSprite: {fileID: 0}
-  frontScale: 0.63965887
+  frontScale: 0.50819755
   backScale: 1
+  sizeTune: 1
   frontAnimator: {fileID: 0}
   backAnimator: {fileID: 0}
   primaryType: 2

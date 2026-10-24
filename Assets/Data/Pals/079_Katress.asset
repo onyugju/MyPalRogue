@@ -17,8 +17,8 @@ MonoBehaviour:
   englishName: Katress
   frontSprite: {fileID: 1592755746608011532, guid: 3f69f78d5a7856e458eb0883d23149ff, type: 3}
   backSprite: {fileID: -4708851827923176753, guid: ec2039b0e5b6c6a429df7ee0b2c5c153, type: 3}
-  frontScale: 0.32258064
-  backScale: 0.28673837
+  frontScale: 0.3721466
+  backScale: 0.33397096
   frontAnimator: {fileID: 0}
   backAnimator: {fileID: 0}
   primaryType: 8

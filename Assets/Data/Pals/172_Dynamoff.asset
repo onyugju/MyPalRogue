@@ -17,8 +17,8 @@ MonoBehaviour:
   englishName: Dynamoff
   frontSprite: {fileID: -1505717081546569199, guid: 978a8cc6c88644c4884c4ef1abdbb376, type: 3}
   backSprite: {fileID: -4315146253236652419, guid: 03677e9f4e89e634ca45a1e8a13ab5bf, type: 3}
-  frontScale: 0.29296875
-  backScale: 0.31323412
+  frontScale: 0.42551407
+  backScale: 0.36090487
   frontAnimator: {fileID: 0}
   backAnimator: {fileID: 0}
   primaryType: 4

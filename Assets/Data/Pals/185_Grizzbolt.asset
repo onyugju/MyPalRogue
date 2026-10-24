@@ -17,8 +17,8 @@ MonoBehaviour:
   englishName: Grizzbolt
   frontSprite: {fileID: -5008327930031455535, guid: 59f890acb3899b34ba82f20c60b27a18, type: 3}
   backSprite: {fileID: 6309495908520979686, guid: 3976588e28087d0418eb0167db6e38ff, type: 3}
-  frontScale: 0.6944444
-  backScale: 0.26845637
+  frontScale: 0.68214417
+  backScale: 0.3455947
   frontAnimator: {fileID: 0}
   backAnimator: {fileID: 0}
   primaryType: 4

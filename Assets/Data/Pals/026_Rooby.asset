@@ -17,7 +17,7 @@ MonoBehaviour:
   englishName: Rooby
   frontSprite: {fileID: -7895788269703824650, guid: 39103139fec0a924ea271dda2d31109a, type: 3}
   backSprite: {fileID: 0}
-  frontScale: 0.6880734
+  frontScale: 0.6409487
   backScale: 1
   frontAnimator: {fileID: 0}
   backAnimator: {fileID: 0}

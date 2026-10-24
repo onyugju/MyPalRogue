@@ -118,12 +118,12 @@ TextureImporter:
       name: 079_Katress_back_0
       rect:
         serializedVersion: 2
-        x: 32
-        y: 88
-        width: 950
-        height: 1395
+        x: 143
+        y: 101
+        width: 801
+        height: 1379
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -140,7 +140,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: b170dc82585cab54eb1ed860a73c555f
     internalID: 0
     vertices: []
     indices: 
