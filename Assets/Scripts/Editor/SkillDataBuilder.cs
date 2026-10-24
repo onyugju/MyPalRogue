@@ -133,9 +133,111 @@ namespace PalRogue.EditorTools
             new(PalType.Dark,     30, "악몽의 빛줄기",   "Nightmare_Ray",     Atk, "000_Bellanoir_Libero"),
             new(PalType.Dark,     20, "화염 왈츠",       "Flame_Waltz",       Atk, "000_Bellanoir_Libero"),
 
+            // ── 새로 추가한 팰 20종 전용 스킬 (팰의 모습·특징에서 따온 팰로그 기술) ──
+            new(PalType.Dark,     4,  "우울한 독침",     "Gloomy_Sting",      Atk, "016_Depresso"),
+            new(PalType.Water,    4,  "펭귄 로켓",       "Penguin_Rocket",    Atk, "017_Pengullet"),
+            new(PalType.Grass,    4,  "덩굴 난타",       "Vine_Barrage",      Atk, "023_Tanzee"),
+            new(PalType.Fire,     4,  "불꽃 돌진",       "Ember_Dash",        Atk, "026_Rooby"),
+            new(PalType.Ground,   8,  "멧돼지 돌진",     "Boar_Rush",         Atk, "028_Rushoar"),
+            new(PalType.Neutral,  4,  "송곳니 습격",     "Fang_Raid",         Atk, "033_Direhowl"),
+            new(PalType.Electric, 4,  "정전기 할퀴기",   "Static_Scratch",    Atk, "042_Sparkit"),
+            new(PalType.Water,    8,  "서핑 슬래시",     "Surf_Slash",        Atk, "075_Surfent"),
+            new(PalType.Grass,    8,  "명궁의 화살",     "Hawkeye_Arrow",     Atk, "076_Robinquill"),
+            new(PalType.Dark,     16, "지옥의 급강하",   "Hell_Dive",         Atk, "080_Helzephyr"),
+            new(PalType.Grass,    16, "꽃잎 폭풍",       "Petal_Storm",       Atk, "084_Dinossom"),
+            new(PalType.Fire,     16, "화염 질주",       "Blaze_Gallop",      Atk, "093_Pyrin"),
+            new(PalType.Ice,      8,  "얼음 꼬리",       "Frost_Tail",        Atk, "095_Foxcicle"),
+            new(PalType.Electric, 16, "점핑 클로",       "Jumping_Claw",      Atk, "098_Rayhound"),
+            new(PalType.Grass,    20, "판다 라리아트",   "Panda_Lariat",      Atk, "102_Mossanda"),
+            new(PalType.Fire,     20, "지옥불 할퀴기",   "Inferno_Claw",      Atk, "112_Blazehowl"),
+            new(PalType.Dark,     16, "망령의 낫",       "Phantom_Scythe",    Atk, "117_Maraith"),
+            new(PalType.Water,    30, "대해일",          "Tidal_Wave",        Atk, "121_Jormuntide"),
+            new(PalType.Dragon,   20, "용의 급강하",     "Dragon_Dive",       Atk, "124_Quivern"),
+            new(PalType.Ice,      24, "빙산 낙하",       "Iceberg_Drop",      Atk, "134_Wumpo"),
+
             // ── 오리지널: 선제기 (전원 Lv1) ──
             new(PalType.Neutral,  2,  "기습",            "Quick_Strike",      Atk, AllPals, power: 35, priority: 1),
         };
+
+        // ───────── 34. 팰 전용 기술 추가 ─────────
+        /// <summary>전용 기술의 설명과 추가 효과 (상태이상 / 능력치 변화). 기술 에셋 이름 → 내용</summary>
+        static readonly Dictionary<string, (string desc, StatusCondition status, int statusChance, StatChange? change, int changeChance)> SignatureEffects =
+            new Dictionary<string, (string, StatusCondition, int, StatChange?, int)>
+        {
+            ["Gloomy_Sting"]   = ("축 처진 몸으로 독침을 찌른다. 30% 확률로 독.", StatusCondition.Poison, 30, null, 0),
+            ["Penguin_Rocket"] = ("몸을 로켓처럼 날려 부딪친다. 20% 확률로 상대 스피드 -1.", StatusCondition.None, 0, new StatChange(StatType.Speed, -1, false), 20),
+            ["Vine_Barrage"]   = ("덩굴을 휘둘러 마구 때린다.", StatusCondition.None, 0, null, 0),
+            ["Ember_Dash"]     = ("불꽃을 두르고 돌진한다. 20% 확률로 화상.", StatusCondition.Burn, 20, null, 0),
+            ["Boar_Rush"]      = ("흙먼지를 일으키며 들이받는다. 30% 확률로 상대 방어 -1.", StatusCondition.None, 0, new StatChange(StatType.Defense, -1, false), 30),
+            ["Fang_Raid"]      = ("날카로운 송곳니로 덮친다. 20% 확률로 자신의 스피드 +1.", StatusCondition.None, 0, new StatChange(StatType.Speed, 1, true), 20),
+            ["Static_Scratch"] = ("정전기가 흐르는 발톱으로 할퀸다. 30% 확률로 마비.", StatusCondition.Paralysis, 30, null, 0),
+            ["Surf_Slash"]     = ("파도를 타고 베어 낸다.", StatusCondition.None, 0, null, 0),
+            ["Hawkeye_Arrow"]  = ("빈틈을 노려 화살 세 발을 쏜다. 20% 확률로 상대 방어 -1.", StatusCondition.None, 0, new StatChange(StatType.Defense, -1, false), 20),
+            ["Hell_Dive"]      = ("하늘 높이 올라 지옥의 기운과 함께 내리꽂힌다. 20% 확률로 독.", StatusCondition.Poison, 20, null, 0),
+            ["Petal_Storm"]    = ("꽃잎 폭풍을 일으킨다. 30% 확률로 상대 공격 -1.", StatusCondition.None, 0, new StatChange(StatType.Attack, -1, false), 30),
+            ["Blaze_Gallop"]   = ("온몸을 불태우며 질주한다. 20% 확률로 화상.", StatusCondition.Burn, 20, null, 0),
+            ["Frost_Tail"]     = ("얼어붙은 꼬리로 후려친다. 15% 확률로 얼음.", StatusCondition.Freeze, 15, null, 0),
+            ["Jumping_Claw"]   = ("높이 뛰어올라 번개 발톱으로 내려친다. 20% 확률로 마비.", StatusCondition.Paralysis, 20, null, 0),
+            ["Panda_Lariat"]   = ("굵은 팔을 휘둘러 후려친다. 30% 확률로 상대 방어 -1.", StatusCondition.None, 0, new StatChange(StatType.Defense, -1, false), 30),
+            ["Inferno_Claw"]   = ("지옥불을 두른 발톱으로 할퀸다. 30% 확률로 화상.", StatusCondition.Burn, 30, null, 0),
+            ["Phantom_Scythe"] = ("망령의 낫으로 영혼을 벤다. 20% 확률로 상대 공격 -1.", StatusCondition.None, 0, new StatChange(StatType.Attack, -1, false), 20),
+            ["Tidal_Wave"]     = ("거대한 해일로 모든 것을 삼킨다. 30% 확률로 상대 스피드 -1.", StatusCondition.None, 0, new StatChange(StatType.Speed, -1, false), 30),
+            ["Dragon_Dive"]    = ("하늘에서 용의 힘을 싣고 내리꽂힌다. 20% 확률로 자신의 공격 +1.", StatusCondition.None, 0, new StatChange(StatType.Attack, 1, true), 20),
+            ["Iceberg_Drop"]   = ("거대한 빙산을 떨어뜨린다. 15% 확률로 얼음.", StatusCondition.Freeze, 15, null, 0),
+        };
+
+        /// <summary>
+        /// 메뉴 PalRogue/34. 팰 전용 기술 추가
+        ///  ① 표(Rows)에 있는데 아직 없는 기술 에셋을 만든다 (메뉴 4와 같음)
+        ///  ② 전용 기술에 설명·추가 효과를 넣는다
+        ///  ③ 이미 만든 팰의 학습 목록에 그 팰의 전용 기술이 없으면 더한다 (원래 습득 레벨로)
+        /// 여러 번 실행해도 안전하다. 그림이 아직 없는 팰은 나중에 추가될 때 메뉴 5 규칙으로 전용 기술을 같이 배운다.
+        /// </summary>
+        [MenuItem("PalRogue/34. 팰 전용 기술 추가 (새 팰 20종)")]
+        public static void AddSignatureSkills()
+        {
+            CreateSkills();
+            int effects = 0;
+            foreach (var kv in SignatureEffects)
+            {
+                var sk = AssetDatabase.LoadAssetAtPath<SkillData>($"{SkillDir}/{kv.Key}.asset");
+                if (sk == null) continue;
+                var e = kv.Value;
+                sk.description = e.desc;
+                sk.statusEffect = e.status;
+                sk.statusChance = e.statusChance;
+                sk.statChanges = e.change.HasValue ? new List<StatChange> { e.change.Value } : new List<StatChange>();
+                sk.statChangeChance = e.change.HasValue ? e.changeChance : 100;
+                EditorUtility.SetDirty(sk);
+                effects++;
+            }
+
+            int added = 0;
+            var names = new List<string>();
+            foreach (var guid in AssetDatabase.FindAssets("t:PalData", new[] { PalDir }))
+            {
+                var pal = AssetDatabase.LoadAssetAtPath<PalData>(AssetDatabase.GUIDToAssetPath(guid));
+                if (pal == null) continue;
+                pal.learnset ??= new List<LearnsetEntry>();
+                bool changed = false;
+                foreach (var r in Rows)
+                {
+                    if (r.owner != pal.name) continue;
+                    var sk = AssetDatabase.LoadAssetAtPath<SkillData>($"{SkillDir}/{r.eng}.asset");
+                    if (sk == null || pal.learnset.Any(e => e.skill == sk)) continue;
+                    pal.learnset.Add(new LearnsetEntry { level = GetBand(r.cd).level, skill = sk });
+                    names.Add($"{pal.palName}:{r.kor}");
+                    added++;
+                    changed = true;
+                }
+                if (!changed) continue;
+                pal.learnset = pal.learnset.OrderBy(e => e.level).ThenBy(e => e.skill != null ? e.skill.name : "").ToList();
+                EditorUtility.SetDirty(pal);
+            }
+            AssetDatabase.SaveAssets();
+            Debug.Log($"[전용 기술] 기술 {effects}개에 설명·추가 효과, 학습 목록에 {added}개 추가" +
+                      (names.Count > 0 ? $" ({string.Join(", ", names)})" : "") + ". (메뉴 22로 연출 확인)");
+        }
 
         // ───────── 6. 초기화 ─────────
         [MenuItem("PalRogue/6. 스킬·학습목록 초기화 (재생성용)")]
@@ -160,7 +262,7 @@ namespace PalRogue.EditorTools
 
         // ───────── 4. 스킬 에셋 생성 ─────────
         [MenuItem("PalRogue/4. SkillData 에셋 생성")]
-        static void CreateSkills()
+        public static void CreateSkills()
         {
             EnsureFolder("Assets/Data");
             EnsureFolder(SkillDir);

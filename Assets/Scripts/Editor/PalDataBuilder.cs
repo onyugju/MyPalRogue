@@ -236,7 +236,7 @@ namespace PalRogue.EditorTools
             int created = CreatePalAssets(report);
             if (created == 0 && !report) return;
             SkillDataBuilder.FillLearnsets();                  // 학습 목록이 빈(새) 팰만 채운다
-            if (AssetDatabase.IsValidFolder("Assets/Data/Skills")) SupportSkillBuilder.Build();
+            if (AssetDatabase.IsValidFolder("Assets/Data/Skills")) { SupportSkillBuilder.Build(); SkillDataBuilder.AddSignatureSkills(); }
             PalAnimationLinker.Run(false);
             bool sceneChanged = RefillWildPals(out int wild);
             Debug.Log($"[PalRogue] 새 팰 {created}종 추가 완료 (학습 기술·변화 기술·애니메이션 연결). 야생 팰 목록 {wild}종" +

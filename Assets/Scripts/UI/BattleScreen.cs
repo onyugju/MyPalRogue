@@ -87,6 +87,10 @@ namespace PalRogue
         [Header("끝난 뒤 다시 시작")]
         public Button restartButton;
 
+        [Header("스타팅 팰 선택")]
+        [Tooltip("켜면 모험을 시작할 때마다 스타팅 팰 선택 화면이 나온다. 끄면 위 playerParty(테스트 파티)로 바로 시작한다")]
+        public bool useStarterSelect = true;
+
         const float CharsPerSecond = 45f;
         const string SelectPrompt = "팰을 선택하세요.";   // 파티 화면 안내 문구
         const float LineHoldSeconds = 1.2f;    // 문장이 다 나온 뒤 자동으로 넘어가기까지 기다리는 시간
@@ -112,7 +116,7 @@ namespace PalRogue
             FillWildPals();                          // 에디터에서는 새로 추가한 팰까지 항상 야생 목록에 넣는다
 #endif
             bool hasPlayer = playerPal != null || playerParty.Any(m => m != null && m.pal != null);
-            if (!hasPlayer || WildPool().Count == 0)
+            if ((!hasPlayer && !useStarterSelect) || WildPool().Count == 0)
             {
                 Debug.LogWarning("[BattleScreen] 내 파티(playerParty 또는 playerPal)와 야생 팰 목록(wildPals 또는 enemyPal)에 PalData 에셋을 넣어주세요.");
                 enabled = false;
@@ -142,9 +146,9 @@ namespace PalRogue
                 int index = i;
                 Bind(skillButtons[i], () => OnSkill(index));
             }
-            Bind(restartButton, StartNewRun);
+            Bind(restartButton, () => { if (mode == Mode.Ended) StartCoroutine(BeginRun(false)); });
 
-            StartNewRun();
+            StartCoroutine(BeginRun(true));
         }
 
         void OnDestroy() => battle?.Detach();
@@ -183,14 +187,47 @@ namespace PalRogue
         Run run;
 
         /// <summary>새 모험을 처음부터 시작한다 (파티·스피어·돈 초기화, 웨이브 1)</summary>
-        void StartNewRun()
+        void StartNewRun(List<Pal> party)
         {
             var rng = seed >= 0 ? new System.Random(seed) : new System.Random();
-            run = new Run(BuildPlayerParty(), startingSpheres, rng);
+            run = new Run(party, startingSpheres, rng);
             if (partyScreen != null) partyScreen.OpenSummary = OpenSummary;   // 파티 화면 "능력치를 본다"
             spheres = run.Spheres;                     // 스피어 메뉴가 쓰는 배열 = 런이 가진 배열
             ApplyAreaScenery(true);                    // 첫 지역(초원) 배경으로 (게임 오버 후 다시 시작해도)
             StartWave(true);
+        }
+
+        // ───────── 스타팅 팰 선택 ─────────
+        StarterSelectScreen starterScreen;
+        StarterSelectScreen StarterScreen => starterScreen != null ? starterScreen : (starterScreen = StarterSelectScreen.Create(messageText.font));
+
+        /// <summary>
+        /// 새 모험 시작: 스타팅 팰 선택 화면에서 파티를 고른 뒤(코스트 합계 10 이하) 웨이브 1로.
+        /// 처음 켰을 때는 바로 선택 화면이 나오고, 게임 오버 뒤에는 검게 어두워졌다가 선택 화면으로.
+        /// </summary>
+        IEnumerator BeginRun(bool first)
+        {
+            mode = Mode.Busy;
+            restartButton.gameObject.SetActive(false);
+            if (!useStarterSelect)
+            {
+                StartNewRun(BuildPlayerParty());
+                yield break;
+            }
+
+            HidePanels();
+            if (!first) yield return Fade.FadeTo(1f, 0.4f);
+            var screen = StarterScreen;
+            screen.Open(WildPool());
+            if (!first) yield return Fade.FadeTo(0f, 0.3f);
+            yield return screen.Choose(WildPool());
+
+            yield return Fade.FadeTo(1f, 0.4f);
+            screen.Hide();
+            var party = screen.Result.Select(d => new Pal(d, GameConfig.StarterLevel)).ToList();
+            messageText.text = "";
+            StartNewRun(party);
+            yield return Fade.FadeTo(0f, 0.4f);
         }
 
         /// <summary>지금 웨이브의 상대를 만들고 전투를 시작한다</summary>
@@ -337,6 +374,8 @@ namespace PalRogue
         {
             mode = Mode.Busy;
             HidePanels();
+            if (battle.CaughtPal != null && PlayerSave.RecordCatch(battle.CaughtPal.Data))   // 처음 잡은 팰은 다음 모험부터 스타팅 팰로 고를 수 있다
+                yield return ShowMessage($"{Josa.I(PalName(battle.CaughtPal))} 스타팅 팰 목록에 등록되었다!");
             if (battle.PendingCatch != null) yield return ResolveCatch();
             run.SyncParty(battle.PlayerParty);
             foreach (var msg in run.UpdateSynergies()) yield return ShowMessage(msg);   // 파티가 바뀌면 속성 시너지도

@@ -593,6 +593,8 @@ namespace PalRogue
         /// 화면에서 "다른 팰을 놓아주시겠습니까?"를 물은 뒤 ReplaceWithCaught 또는 ReleaseCaught를 부른다.
         /// </summary>
         public Pal PendingCatch { get; private set; }
+        /// <summary>이번 전투에서 잡은 팰 (파티에 들어갔든, 응축·놓아주기를 기다리든). 못 잡았으면 null</summary>
+        public Pal CaughtPal { get; private set; }
 
         /// <summary>스피어를 던질 수 없는 이유. 던질 수 있으면 null (파티가 가득 차도 던질 수 있다, 포켓로그와 같음)</summary>
         public string CatchBlockReason()
@@ -690,6 +692,7 @@ namespace PalRogue
                 Log($"신난다! {Josa.Eul(name)} 잡았다!");
                 target.ResetBattleState();
                 target.CaughtSphere = sphere;                // 나중에 내보낼 때 이 스피어를 던진다
+                CaughtPal = target;
                 target.ClearBoss();
                 foreach (var pattern in target.Effects.OfType<BossPattern>().ToList()) target.RemoveEffect(pattern);   // 보스 패턴은 잡으면 사라진다
                 if (playerList.Count < MaxPartySize && CondenseTarget(target) == null)

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace PalRogue
@@ -185,5 +186,53 @@ namespace PalRogue
         public const int StartingMoney = 1000;
         /// <summary>웨이브를 이기면(잡아도) 받는 돈. 보스는 3배</summary>
         public static int WinMoney(int wave, bool boss) => (50 + 10 * wave) * (boss ? 3 : 1);
+
+        // ───── 스타팅 팰 선택 (포켓로그 "스타팅 포켓몬" 화면) ─────
+        /// <summary>파티에 넣을 수 있는 코스트 합계</summary>
+        public const int StarterBudget = 10;
+        /// <summary>모험을 시작할 때 팰의 레벨</summary>
+        public const int StarterLevel = 5;
+        public const int MaxPartySize = 6;
+        /// <summary>처음부터 열려 있는 스타팅 팰 5종 (코스트 3)</summary>
+        public static readonly string[] StarterAssets = { "004_Lifmunk", "029_Foxparks", "015_Jolthog", "013_Pupperai", "005_Fuack" };
+        public const int StarterPalCost = 3;
+
+        /// <summary>
+        /// 팰마다 스타팅 코스트 (에셋 이름 → 코스트). 원작 몸집·희귀도와 이 게임의 능력치 단계(초반/중반/후반/전설)로 정했다.
+        /// 여기 없는 팰은 능력치 합계로 정한다 (StarterCost 참고).
+        /// </summary>
+        static readonly Dictionary<string, int> StarterCosts = new Dictionary<string, int>
+        {
+            // 초반 (1~2)
+            ["001_Lamball"] = 1, ["002_Cattiva"] = 1,
+            ["016_Depresso"] = 2, ["017_Pengullet"] = 2, ["023_Tanzee"] = 2, ["026_Rooby"] = 2, ["028_Rushoar"] = 2, ["042_Sparkit"] = 2,
+            // 중반 (3~5)
+            ["040_Mozzarina"] = 3,
+            ["033_Direhowl"] = 4, ["058_Arsox"] = 4, ["075_Surfent"] = 4, ["076_Robinquill"] = 4, ["079_Katress"] = 4, ["084_Dinossom"] = 4,
+            ["095_Foxcicle"] = 4, ["103_Chillet"] = 4, ["117_Maraith"] = 4, ["140_Sekhmet"] = 4,
+            ["063_Elphidran"] = 5, ["093_Pyrin"] = 5, ["098_Rayhound"] = 5,
+            // 후반 (6~7)
+            ["080_Helzephyr"] = 6, ["102_Mossanda"] = 6, ["112_Blazehowl"] = 6, ["124_Quivern"] = 6, ["134_Wumpo"] = 6, ["139_Anubis"] = 6, ["185_Grizzbolt"] = 6,
+            ["121_Jormuntide"] = 7,
+            // 속성의 왕 (전설, 7~9)
+            ["174_Flaracle"] = 7, ["172_Dynamoff"] = 7,
+            ["198_Paladius"] = 8, ["186_Lyleen"] = 8, ["201_Neptilius"] = 8, ["200_Frostallion"] = 8, ["184_Aegidron"] = 8,
+            ["202_Jetragon"] = 9, ["000_Bellanoir_Libero"] = 9,
+        };
+
+        public static bool IsStarterPal(PalData d) => d != null && System.Array.IndexOf(StarterAssets, d.name) >= 0;
+
+        /// <summary>스타팅 선택 화면에 나올 수 있는 팰 (최종 보스 제로버스는 잡을 수 없어서 빠진다)</summary>
+        public static bool CanBeStarter(PalData d) => d != null && d.name != FinalBossAsset && (d.canBeCaught || IsLegendary(d));
+
+        public static int StarterCost(PalData d)
+        {
+            if (d == null) return 0;
+            if (IsStarterPal(d)) return StarterPalCost;
+            if (StarterCosts.TryGetValue(d.name, out var cost)) return cost;
+            if (IsLegendary(d)) return 8;
+            int total = d.baseHP + d.baseAttack + d.baseDefense + d.baseSpeed;   // 새로 추가한 팰: 능력치 합계로
+            return total < 340 ? 2 : total < 440 ? 4 : total < 560 ? 6 : 8;
+        }
     }
 }

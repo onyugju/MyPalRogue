@@ -20,6 +20,7 @@ MonoBehaviour:
   frontScale: 0.8271447
   backScale: 1
   sizeTune: 1
+  frontYOffset: 0
   frontAnimator: {fileID: 0}
   backAnimator: {fileID: 0}
   primaryType: 7
@@ -54,5 +55,7 @@ MonoBehaviour:
     skill: {fileID: 11400000, guid: e3c02a49df2c06546b47fc27dad4e3d1, type: 2}
   - level: 40
     skill: {fileID: 11400000, guid: 95b07380e9cab184d90078f63879c392, type: 2}
+  - level: 40
+    skill: {fileID: 11400000, guid: 01d974534c3c03d4e81339e63b10fc70, type: 2}
   canBeCaught: 1
   catchRate: 60

@@ -19,6 +19,8 @@ MonoBehaviour:
   backSprite: {fileID: 0}
   frontScale: 0.4610759
   backScale: 1
+  sizeTune: 1
+  frontYOffset: 0
   frontAnimator: {fileID: 0}
   backAnimator: {fileID: 0}
   primaryType: 1
@@ -43,6 +45,8 @@ MonoBehaviour:
     skill: {fileID: 11400000, guid: b4d1fc1d805ea1b42855e5625b9dcf93, type: 2}
   - level: 12
     skill: {fileID: 11400000, guid: c98f48158ebbe1a45bda5138515ccb71, type: 2}
+  - level: 20
+    skill: {fileID: 11400000, guid: 6a0b72195f93a674cb6e67fff22fed87, type: 2}
   - level: 20
     skill: {fileID: 11400000, guid: 7ebba5f2ee5b5b84988bf3ce0cf4e9e7, type: 2}
   - level: 40

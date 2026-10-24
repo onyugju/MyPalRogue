@@ -178,6 +178,28 @@ namespace PalRogue
             ["Void_Pulse"]     = Strike(Emp, Portal, VoidCol, 2.5f),
             ["Annihilate"]     = Strike(Portal, Nuke, VoidCol, 3f, cast: DarkCurse),
 
+            // ── 새 팰 20종 전용 기술 ──
+            ["Gloomy_Sting"]   = Proj(PoisonDart, PoisonHit, DarkPurple, impact2: PoisonCloud),                  // 뚱코알라: 독침 → 독 구름
+            ["Penguin_Rocket"] = Melee(HeavyHit, WaterSplash, Blue, 2.4f),                                        // 펭키: 몸통 로켓
+            ["Vine_Barrage"]   = Melee(MultiHit, Leaves, Green),                                                  // 몽지: 덩굴 연타
+            ["Ember_Dash"]     = Melee(HeavyHit, FireBurst),                                                      // 불꽃밤비: 불꽃 돌진
+            ["Boar_Rush"]      = Melee(HeavyHit, SandBurst, null, 2.5f),                                          // 돌진돼지: 흙먼지 박치기
+            ["Fang_Raid"]      = Melee(DoubleSlash, CritStar),                                                    // 다크울프: 송곳니
+            ["Static_Scratch"] = Melee(TripleClaw, ShockHit, Yellow),                                             // 번개냥: 전기 발톱
+            ["Surf_Slash"]     = Melee(WideCleave, WaterSplash, Blue, 2.5f),                                      // 씨무기: 파도 베기
+            ["Hawkeye_Arrow"]  = Proj(Arrow, Pierce, Green, count: 3, time: 0.22f, impact2: CritStar),           // 로빈몽: 화살 3연발
+            ["Hell_Dive"]      = Strike(DarkSlash, SmokeBurst, DarkPurple, 2.6f, cast: WindGust),                 // 헬가루다: 급강하
+            ["Petal_Storm"]    = Strike(Leaves, WindGust, C(0xffb0d8), 2.7f, cast: CastCircle),                   // 플로라디노: 꽃잎 폭풍
+            ["Blaze_Gallop"]   = Melee(PhoenixFlare, FireBurst, null, 2.6f),                                      // 파이린: 불꽃 질주
+            ["Frost_Tail"]     = Melee(IceSlash, IceShatter),                                                     // 빙호: 얼음 꼬리
+            ["Jumping_Claw"]   = Strike(TripleClaw, ThunderImpact, Yellow, 2.6f, cast: SparkBurst),               // 썬도그: 번개 발톱 내려찍기
+            ["Panda_Lariat"]   = Melee(HeavyHit, Shockwave, Green, 2.7f),                                         // 풀바오: 라리아트
+            ["Inferno_Claw"]   = Melee(FireSlash, BurningGround, null, 2.6f),                                     // 만티파이어: 지옥불 발톱
+            ["Phantom_Scythe"] = Strike(DarkSlash, DarkCurse, DarkPurple, 2.7f, cast: SmokePuff),                 // 고스호스: 망령의 낫
+            ["Tidal_Wave"]     = Strike(WaterSplash, PlasmaBlast, C(0x9fdcff), 3f, cast: Bubbles),                // 레비드라: 대해일
+            ["Dragon_Dive"]    = Melee(HeavyHit, PlasmaBlast, Purple, 2.7f),                                      // 페스키: 용의 급강하
+            ["Iceberg_Drop"]   = Rain(IceShard, IceShatter, Ice, count: 2, scale: 3f, impactScale: 3f),           // 움포: 빙산 낙하
+
             // ── 변화 기술 (버프·디버프·회복) ──
             ["Focus_Up"]       = Aura(ChargeUp, StarBurst, C(0xffb070)),
             ["Burning_Spirit"] = Aura(FireShield, EmberRise),
