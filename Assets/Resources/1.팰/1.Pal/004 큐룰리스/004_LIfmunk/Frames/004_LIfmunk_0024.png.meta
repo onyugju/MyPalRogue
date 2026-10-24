@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 008a6af1f7de2334089831c2b45a3614
+guid: 77a48834dc868fb448a46f2331585769
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 705531119397648709
-    second: 004_Lifmunk_0
+      213: 1775173212245137976
+    second: 004_LIfmunk_0024_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -115,13 +115,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 004_Lifmunk_0
+      name: 004_LIfmunk_0024_0
       rect:
         serializedVersion: 2
-        x: 48
-        y: 28
-        width: 398
-        height: 393
+        x: 51
+        y: 51
+        width: 480
+        height: 462
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -130,8 +130,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5493ea5a0dc8ac900800000000000000
-      internalID: 705531119397648709
+      spriteID: 83a19aa91aea2a810800000000000000
+      internalID: 1775173212245137976
       vertices: []
       indices: 
       edges: []
@@ -140,7 +140,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -150,7 +150,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      004_Lifmunk_0: 705531119397648709
+      004_LIfmunk_0024_0: 1775173212245137976
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
