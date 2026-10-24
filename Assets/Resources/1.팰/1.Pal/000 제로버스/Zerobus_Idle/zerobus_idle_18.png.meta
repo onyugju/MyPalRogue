@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: ffec8a3ead48f3f448de12c63dbd7ec1
+guid: 8aaf1e46bc6ecf645918ce579ed7536c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8753236834094489662
-    second: boss_Zerobus_0
+      213: -7539731086456738072
+    second: zerobus_idle_18_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -77,7 +77,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -115,13 +115,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: boss_Zerobus_0
+      name: zerobus_idle_18_0
       rect:
         serializedVersion: 2
-        x: 104
-        y: 92
-        width: 872
-        height: 612
+        x: 7
+        y: 3
+        width: 323
+        height: 238
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -130,8 +130,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2cfdeecd971468680800000000000000
-      internalID: -8753236834094489662
+      spriteID: 8eea6c9268e7d5790800000000000000
+      internalID: -7539731086456738072
       vertices: []
       indices: 
       edges: []
@@ -150,7 +150,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      boss_Zerobus_0: -8753236834094489662
+      zerobus_idle_18_0: -7539731086456738072
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
