@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4627a231d918ef54b8d936bce8e4f4c3, type: 3}
+  m_Name: 134_Wumpo
+  m_EditorClassIdentifier: Assembly-CSharp::PalRogue.PalData
+  palId: 134
+  palName: "\uC6C0\uD3EC"
+  englishName: Wumpo
+  frontSprite: {fileID: -8170624429402361465, guid: 60b1875bc2937e947832edf02e06653b, type: 3}
+  backSprite: {fileID: 0}
+  frontScale: 0.47783422
+  backScale: 1
+  sizeTune: 1
+  frontYOffset: 0
+  frontAnimator: {fileID: 0}
+  backAnimator: {fileID: 0}
+  primaryType: 6
+  hasSecondaryType: 0
+  secondaryType: 0
+  baseHP: 121
+  baseAttack: 61
+  baseDefense: 130
+  baseSpeed: 35
+  learnset:
+  - level: 1
+    skill: {fileID: 11400000, guid: a69689769d8d44a4083b43fedc00c4a5, type: 2}
+  - level: 1
+    skill: {fileID: 11400000, guid: c275580b7b1992c46aef32f5e46d6a06, type: 2}
+  - level: 1
+    skill: {fileID: 11400000, guid: d407d0d68ab1438448a66fe2ce0f5610, type: 2}
+  - level: 6
+    skill: {fileID: 11400000, guid: bc61e1ce82ffeec4c9fd4872c4706552, type: 2}
+  - level: 10
+    skill: {fileID: 11400000, guid: 7733c9c810a9d6847b2b91104cae41ff, type: 2}
+  - level: 12
+    skill: {fileID: 11400000, guid: d2545f591d729184fac8c797eebac0d1, type: 2}
+  - level: 12
+    skill: {fileID: 11400000, guid: c98f48158ebbe1a45bda5138515ccb71, type: 2}
+  - level: 20
+    skill: {fileID: 11400000, guid: 6d5eb2aa2b236e64fa678b7d3857ed97, type: 2}
+  - level: 34
+    skill: {fileID: 11400000, guid: 792df496b4744f347a75162a6fb888dd, type: 2}
+  - level: 40
+    skill: {fileID: 11400000, guid: e6b2f5a5639888f45b3f3ae0d3fa11cd, type: 2}
+  canBeCaught: 1
+  catchRate: 70

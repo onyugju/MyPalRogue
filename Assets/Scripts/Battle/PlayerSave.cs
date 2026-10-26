@@ -26,6 +26,9 @@ namespace PalRogue
             public int version = 1;
             public List<string> unlocked = new List<string>();
             public List<CaughtEntry> caught = new List<CaughtEntry>();
+            public int runsStarted;
+            public int lastSlotPlusOne;     // 마지막으로 플레이한 저장 슬롯 + 1 (0 = 없음)
+            public string lastBiome;        // 마지막으로 플레이한 지역 배경 (타이틀 배경)
         }
 
         static SaveFile data;
@@ -80,6 +83,28 @@ namespace PalRogue
             if (isNew) Data.unlocked.Add(d.name);
             Save();
             return isNew;
+        }
+
+        /// <summary>마지막으로 플레이한 저장 슬롯 (-1 = 없음). 타이틀의 "계속하기"가 이 슬롯을 연다</summary>
+        public static int LastSlot
+        {
+            get => Data.lastSlotPlusOne - 1;
+            set { if (Data.lastSlotPlusOne == value + 1) return; Data.lastSlotPlusOne = value + 1; Save(); }
+        }
+
+        /// <summary>마지막으로 플레이한 지역의 배경 이름 (예: snowy_forest). 타이틀 화면 배경으로 쓴다</summary>
+        public static string LastBiome
+        {
+            get => Data.lastBiome;
+            set { if (Data.lastBiome == value) return; Data.lastBiome = value; Save(); }
+        }
+
+        /// <summary>새 모험을 시작할 때마다 1씩 늘어나는 번호 (저장 슬롯에 "모험 34"처럼 보인다)</summary>
+        public static int NextRunNumber()
+        {
+            Data.runsStarted++;
+            Save();
+            return Data.runsStarted;
         }
 
         /// <summary>(테스트용) 팰을 바로 해금한다</summary>

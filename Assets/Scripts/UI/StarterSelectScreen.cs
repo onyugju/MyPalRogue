@@ -349,6 +349,8 @@ namespace PalRogue
             all = pals.Where(GameConfig.CanBeStarter).Distinct().ToList();
             party.RemoveAll(p => !all.Contains(p) || !PlayerSave.IsUnlocked(p));   // 지난번 파티는 그대로 남겨 둔다
             done = false;
+            BackRequested = false;
+            defaultHint = AllowBack ? "방향키: 이동   Enter: 선택\nEsc: 취소 · 타이틀로" : "방향키: 이동   Enter: 선택\nEsc: 취소";
             popupOpen = false;
             popup.SetActive(false);
             area = Area.Grid;
@@ -528,7 +530,17 @@ namespace PalRogue
                 party.RemoveAt(party.Count - 1);
                 Refresh();
             }
+            else if (AllowBack)          // 그 밖의 곳에서 Esc = 타이틀로 돌아가기
+            {
+                BackRequested = true;
+                done = true;
+            }
         }
+
+        /// <summary>Esc로 화면을 나갈 수 있는지 (타이틀에서 들어온 경우)</summary>
+        public bool AllowBack;
+        /// <summary>Esc로 나갔는지 (시작을 누른 게 아니라)</summary>
+        public bool BackRequested { get; private set; }
 
         // ═════════════════ 동작 ═════════════════
 

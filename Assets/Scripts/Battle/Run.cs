@@ -63,7 +63,14 @@ namespace PalRogue
         PalData lastEnemy;   // 같은 팰이 연달아 나오지 않게
 
         /// <summary>트레이너 ID (능력치 화면의 IDNo.). 모험마다 새로 정해진다</summary>
-        public int TrainerId { get; }
+        public int TrainerId { get; private set; }
+
+        /// <summary>저장 파일에서 되살릴 때: 웨이브·트레이너 ID</summary>
+        public void RestoreProgress(int wave, int trainerId)
+        {
+            Wave = Mathf.Max(1, wave);
+            if (trainerId > 0) TrainerId = trainerId;
+        }
 
         public Run(IEnumerable<Pal> party, int[] startingSpheres, System.Random rng = null)
         {

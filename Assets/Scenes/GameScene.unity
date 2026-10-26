@@ -3773,18 +3773,26 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 38025adbd6e2e524e88f4c98307b9b9b, type: 2}
   - {fileID: 11400000, guid: cdc93bcd574b3c14ea62e530ec3c3547, type: 2}
   - {fileID: 11400000, guid: d9c71100daf381b4f9e42ec8494a4ccd, type: 2}
+  - {fileID: 11400000, guid: 14bf1bb6cc3d43044839b26f7bf4e16e, type: 2}
   - {fileID: 11400000, guid: 38f4248988346a644804251f3c8245b9, type: 2}
   - {fileID: 11400000, guid: 4352681bf36d4584e8bd4ee3bc08fbc4, type: 2}
   - {fileID: 11400000, guid: ab863504725a4fa4b860b343df30c601, type: 2}
+  - {fileID: 11400000, guid: 0cb55c795f1bc0c45b65934a73b2b840, type: 2}
   - {fileID: 11400000, guid: a38e407724c4a104c9ab30c8757d2840, type: 2}
   - {fileID: 11400000, guid: 05e51e56e507d70499837f70d1edb2d3, type: 2}
   - {fileID: 11400000, guid: 9dadc8e2286004c429daf3ae4725c37e, type: 2}
   - {fileID: 11400000, guid: 2c2848aaed6408a41ab9dbfcba585bda, type: 2}
   - {fileID: 11400000, guid: caad16311d6b4094f8109908b76f926b, type: 2}
+  - {fileID: 11400000, guid: cce757dc97d9b2a41bbde2f2e65cd1c0, type: 2}
   - {fileID: 11400000, guid: 5ed21626a467b8741b7eaefe35479f68, type: 2}
+  - {fileID: 11400000, guid: a46177e5265aec84cb21fc9110abe7cb, type: 2}
+  - {fileID: 11400000, guid: ecb27d3135e66ac409a1f8e9671c8904, type: 2}
+  - {fileID: 11400000, guid: d60cc60c6bc154c49a7acf189371711c, type: 2}
   - {fileID: 11400000, guid: d430008203e7f7e42b7a664b4f98f20b, type: 2}
   - {fileID: 11400000, guid: b48d6a8d88c365446b05f987aad3d9f4, type: 2}
   - {fileID: 11400000, guid: 5b904f88adbddd14b8bb20f87fe1e468, type: 2}
+  - {fileID: 11400000, guid: cad6efce8d028194793d406b1fabf239, type: 2}
+  - {fileID: 11400000, guid: 6602e54252bef834e9dfb3aee2cc9caf, type: 2}
   - {fileID: 11400000, guid: e73f77aa134eb9a4ba9f0ae0461608a0, type: 2}
   - {fileID: 11400000, guid: 32ae73335659b194fa53ac625525621b, type: 2}
   - {fileID: 11400000, guid: 0a6bdd9bffe31374fa7128c06cbfd01e, type: 2}
@@ -3835,6 +3843,7 @@ MonoBehaviour:
   sphereMenu: {fileID: 1502008583}
   startingSpheres: 0a00000005000000030000000200000001000000i
   restartButton: {fileID: 1440650789}
+  useStarterSelect: 1
 --- !u!95 &493674878
 Animator:
   serializedVersion: 7

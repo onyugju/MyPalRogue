@@ -146,9 +146,36 @@ namespace PalRogue
                 int index = i;
                 Bind(skillButtons[i], () => OnSkill(index));
             }
-            Bind(restartButton, () => { if (mode == Mode.Ended) StartCoroutine(BeginRun(false)); });
+            Bind(restartButton, () =>
+            {
+                if (mode != Mode.Ended) return;
+                if (fromSession && GameSession.CanLoad(GameSession.TitleScene))
+                {
+                    mode = Mode.Busy;
+                    restartButton.gameObject.SetActive(false);
+                    GameSession.Go(GameSession.TitleScene, messageText.font);
+                }
+                else StartCoroutine(BeginRun(false));
+            });
 
-            StartCoroutine(BeginRun(true));
+            // 타이틀 → 팰 선택·저장 슬롯을 거쳐 들어온 경우 (씬 이동). 아니면(에디터에서 이 씬을 바로 플레이) 이 씬 안에서 팰 선택
+            if (GameSession.Loaded != null)
+            {
+                var save = GameSession.Loaded;
+                GameSession.Loaded = null;
+                fromSession = true;
+                StartLoadedRun(save);
+            }
+            else if (GameSession.NewParty != null && GameSession.NewParty.Count > 0)
+            {
+                var picked = GameSession.NewParty;
+                GameSession.NewParty = null;
+                fromSession = true;
+                runNumber = PlayerSave.NextRunNumber();
+                playSeconds = 0;
+                StartNewRun(picked.Select(d => new Pal(d, GameConfig.StarterLevel)).ToList());
+            }
+            else StartCoroutine(BeginRun(true));
         }
 
         void OnDestroy() => battle?.Detach();
@@ -156,6 +183,7 @@ namespace PalRogue
         // 선택이 사라져도(빈 곳 클릭 등) 키보드 조작이 끊기지 않게 마지막 항목을 다시 잡아준다
         void Update()
         {
+            if (run != null && mode != Mode.Ended) playSeconds += Time.unscaledDeltaTime;   // 저장 슬롯의 플레이 시간
             if (mode != Mode.Command && mode != Mode.Skill && mode != Mode.Ended) return;
             var es = EventSystem.current;
             if (es != null && es.currentSelectedGameObject == null && lastEntry != null && lastEntry.gameObject.activeInHierarchy)
@@ -190,10 +218,50 @@ namespace PalRogue
         void StartNewRun(List<Pal> party)
         {
             var rng = seed >= 0 ? new System.Random(seed) : new System.Random();
-            run = new Run(party, startingSpheres, rng);
+            BeginWithRun(new Run(party, startingSpheres, rng));
+        }
+
+        // ───────── 저장 / 불러오기 ─────────
+        /// <summary>타이틀을 거쳐 들어왔는지 (끝나면 타이틀로 돌아간다)</summary>
+        bool fromSession;
+        double playSeconds;
+        int runNumber;
+
+        /// <summary>저장 슬롯의 모험을 이어서 한다 (저장된 웨이브의 처음부터)</summary>
+        void StartLoadedRun(RunSave save)
+        {
+            playSeconds = save.playSeconds;
+            runNumber = save.runNumber;
+            var restored = SaveSlots.Restore(save, WildPool(), KnownSkills());
+            if (restored.Party.Count == 0)
+            {
+                Debug.LogError("[저장] 불러온 파티가 비어 있어서 새 모험을 시작합니다.");
+                StartCoroutine(BeginRun(true));
+                return;
+            }
+            BeginWithRun(restored);
+        }
+
+        /// <summary>웨이브가 시작될 때마다 그 슬롯에 자동 저장 (포켓로그처럼)</summary>
+        /// <summary>
+        /// 지금 런을 슬롯에 저장한다. 전투가 끝나고 보상을 받은 뒤(다음 웨이브로 넘어가기 직전)마다 저장하고 아이콘을 보여 준다.
+        /// 불러오면 그 다음 웨이브부터 이어서 한다.
+        /// </summary>
+        void AutoSave(bool showIcon)
+        {
+            if (GameSession.Slot < 0 || run == null) return;
+            SaveSlots.Save(GameSession.Slot, SaveSlots.Capture(run, playSeconds, runNumber));
+            PlayerSave.LastSlot = GameSession.Slot;            // 타이틀의 "계속하기"
+            if (showIcon) SaveIcon.Show();
+        }
+
+        void BeginWithRun(Run newRun)
+        {
+            run = newRun;
             if (partyScreen != null) partyScreen.OpenSummary = OpenSummary;   // 파티 화면 "능력치를 본다"
             spheres = run.Spheres;                     // 스피어 메뉴가 쓰는 배열 = 런이 가진 배열
             ApplyAreaScenery(true);                    // 첫 지역(초원) 배경으로 (게임 오버 후 다시 시작해도)
+            AutoSave(false);                           // 새 모험도 바로 슬롯에 남긴다 (타이틀의 "계속하기"용, 아이콘 없이)
             StartWave(true);
         }
 
@@ -430,6 +498,7 @@ namespace PalRogue
 
             string areaBefore = run.AreaName;
             run.NextWave();
+            AutoSave(true);                            // 보상까지 받은 뒤 자동 저장 (오른쪽 아래 아이콘 3초)
             if (run.AreaName != areaBefore) yield return ChangeArea();
             StartWave(false);
         }
@@ -447,6 +516,7 @@ namespace PalRogue
             string biome = GameConfig.AreaBiome(run.Wave);
             if (!force && biome == AreaScenery.Current) return;
             AreaScenery.Apply(enemyView.transform.parent, biome);
+            PlayerSave.LastBiome = biome;              // 타이틀 화면 배경 = 마지막으로 플레이한 지역
         }
 
         /// <summary>
@@ -667,6 +737,15 @@ namespace PalRogue
 
         IEnumerator EndRun()
         {
+            if (GameSession.Slot >= 0) SaveSlots.Delete(GameSession.Slot);   // 끝난 모험은 슬롯에서 지운다 (포켓로그와 같음)
+            if (fromSession && GameSession.CanLoad(GameSession.TitleScene))
+            {
+                yield return ShowMessage("화면을 클릭하면 타이틀로 돌아가요.");
+                mode = Mode.Ended;
+                restartButton.gameObject.SetActive(true);
+                Select(restartButton);
+                yield break;
+            }
             yield return ShowMessage("화면을 클릭하면 새 모험을 시작해요.");
             mode = Mode.Ended;
             restartButton.gameObject.SetActive(true);

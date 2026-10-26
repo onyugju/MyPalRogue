@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4627a231d918ef54b8d936bce8e4f4c3, type: 3}
+  m_Name: 084_Dinossom
+  m_EditorClassIdentifier: Assembly-CSharp::PalRogue.PalData
+  palId: 084
+  palName: "\uD50C\uB85C\uB77C\uB514\uB178"
+  englishName: Dinossom
+  frontSprite: {fileID: -5159330391667185939, guid: 0064b6f363ca1ca4fbf2abb4cb121db8, type: 3}
+  backSprite: {fileID: 0}
+  frontScale: 0.4090909
+  backScale: 1
+  sizeTune: 1
+  frontYOffset: 0
+  frontAnimator: {fileID: 0}
+  backAnimator: {fileID: 0}
+  primaryType: 3
+  hasSecondaryType: 1
+  secondaryType: 7
+  baseHP: 98
+  baseAttack: 49
+  baseDefense: 105
+  baseSpeed: 28
+  learnset:
+  - level: 1
+    skill: {fileID: 11400000, guid: a69689769d8d44a4083b43fedc00c4a5, type: 2}
+  - level: 1
+    skill: {fileID: 11400000, guid: d407d0d68ab1438448a66fe2ce0f5610, type: 2}
+  - level: 1
+    skill: {fileID: 11400000, guid: 30ebf53389775024982a1af258337e5a, type: 2}
+  - level: 6
+    skill: {fileID: 11400000, guid: 058f6f69b81bc2946acb1d50ad591c77, type: 2}
+  - level: 6
+    skill: {fileID: 11400000, guid: f0c58f160081aea4f82ca47d05c8c225, type: 2}
+  - level: 10
+    skill: {fileID: 11400000, guid: 62fb25d11fe464b47a407b1808c17b9e, type: 2}
+  - level: 12
+    skill: {fileID: 11400000, guid: 258d6f49a4c95df4b935e42499e0c983, type: 2}
+  - level: 12
+    skill: {fileID: 11400000, guid: c98f48158ebbe1a45bda5138515ccb71, type: 2}
+  - level: 20
+    skill: {fileID: 11400000, guid: daed68a6bef3ce647bbef3965a9ed12a, type: 2}
+  - level: 20
+    skill: {fileID: 11400000, guid: f3443ed1ea3eeae41ac3ca01bc16b7b5, type: 2}
+  - level: 22
+    skill: {fileID: 11400000, guid: de32601f01c8af54ea4c8439faf2c89e, type: 2}
+  - level: 28
+    skill: {fileID: 11400000, guid: 88e5913e1e2bc314eb1c84668a6e3dc2, type: 2}
+  - level: 40
+    skill: {fileID: 11400000, guid: baae0ac51ee3c6248ac17e7f9d5d6efb, type: 2}
+  canBeCaught: 1
+  catchRate: 110

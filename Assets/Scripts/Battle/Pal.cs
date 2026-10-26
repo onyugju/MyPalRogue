@@ -381,6 +381,18 @@ namespace PalRogue
             return Data.learnset.Where(e => e.skill != null && e.level == Level).Select(e => e.skill).ToList();
         }
 
+        /// <summary>저장 파일에서 되살릴 때: 레벨·경험치·개체값·별·HP·상태이상을 그대로 맞춘다 (효과를 다 붙인 뒤에 부를 것)</summary>
+        public void RestoreState(int level, int exp, int hp, StatusCondition status, int[] ivs, int stars)
+        {
+            Level = Mathf.Clamp(level, 1, GameConfig.MaxLevel);
+            Exp = Mathf.Max(0, exp);
+            if (ivs != null) for (int i = 0; i < IVs.Length && i < ivs.Length; i++) IVs[i] = Mathf.Clamp(ivs[i], 0, MaxIV);
+            Stars = Mathf.Clamp(stars, 0, GameConfig.MaxStars);
+            RecalculateStats();
+            CurrentHP = Mathf.Clamp(hp, 0, MaxHP);
+            Status = CurrentHP > 0 ? status : StatusCondition.None;
+        }
+
         // ───────── 효과 ─────────
         public void AddEffect(BattleEffect effect)
         {

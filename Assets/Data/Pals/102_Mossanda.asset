@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4627a231d918ef54b8d936bce8e4f4c3, type: 3}
+  m_Name: 102_Mossanda
+  m_EditorClassIdentifier: Assembly-CSharp::PalRogue.PalData
+  palId: 102
+  palName: "\uD480\uBC14\uC624"
+  englishName: Mossanda
+  frontSprite: {fileID: -6208345819964363404, guid: eb75ce0e1e86d544ba83f7142c1599f0, type: 3}
+  backSprite: {fileID: 0}
+  frontScale: 0.40615305
+  backScale: 1
+  sizeTune: 1
+  frontYOffset: 0
+  frontAnimator: {fileID: 0}
+  backAnimator: {fileID: 0}
+  primaryType: 3
+  hasSecondaryType: 0
+  secondaryType: 0
+  baseHP: 121
+  baseAttack: 61
+  baseDefense: 130
+  baseSpeed: 35
+  learnset:
+  - level: 1
+    skill: {fileID: 11400000, guid: a69689769d8d44a4083b43fedc00c4a5, type: 2}
+  - level: 1
+    skill: {fileID: 11400000, guid: d407d0d68ab1438448a66fe2ce0f5610, type: 2}
+  - level: 1
+    skill: {fileID: 11400000, guid: 30ebf53389775024982a1af258337e5a, type: 2}
+  - level: 6
+    skill: {fileID: 11400000, guid: f0c58f160081aea4f82ca47d05c8c225, type: 2}
+  - level: 10
+    skill: {fileID: 11400000, guid: 62fb25d11fe464b47a407b1808c17b9e, type: 2}
+  - level: 12
+    skill: {fileID: 11400000, guid: 258d6f49a4c95df4b935e42499e0c983, type: 2}
+  - level: 12
+    skill: {fileID: 11400000, guid: c98f48158ebbe1a45bda5138515ccb71, type: 2}
+  - level: 28
+    skill: {fileID: 11400000, guid: ddfcec0a788add04d89a65cefcd48d21, type: 2}
+  - level: 28
+    skill: {fileID: 11400000, guid: 88e5913e1e2bc314eb1c84668a6e3dc2, type: 2}
+  - level: 40
+    skill: {fileID: 11400000, guid: baae0ac51ee3c6248ac17e7f9d5d6efb, type: 2}
+  canBeCaught: 1
+  catchRate: 80
