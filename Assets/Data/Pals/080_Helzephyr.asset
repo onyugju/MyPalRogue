@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4627a231d918ef54b8d936bce8e4f4c3, type: 3}
+  m_Name: 080_Helzephyr
+  m_EditorClassIdentifier: Assembly-CSharp::PalRogue.PalData
+  palId: 080
+  palName: "\uD5EC\uAC00\uB8E8\uB2E4"
+  englishName: Helzephyr
+  frontSprite: {fileID: -5155743459587048080, guid: 6e1a5d2f2511cfb44bd5d32e234525e6, type: 3}
+  backSprite: {fileID: 0}
+  frontScale: 0.36017108
+  backScale: 1
+  sizeTune: 1
+  frontYOffset: 0
+  frontAnimator: {fileID: 0}
+  backAnimator: {fileID: 0}
+  primaryType: 8
+  hasSecondaryType: 0
+  secondaryType: 0
+  baseHP: 61
+  baseAttack: 95
+  baseDefense: 52
+  baseSpeed: 139
+  learnset:
+  - level: 1
+    skill: {fileID: 11400000, guid: a69689769d8d44a4083b43fedc00c4a5, type: 2}
+  - level: 1
+    skill: {fileID: 11400000, guid: 25db4b0a5b019bb4ba41c3d7da2a7b98, type: 2}
+  - level: 1
+    skill: {fileID: 11400000, guid: d407d0d68ab1438448a66fe2ce0f5610, type: 2}
+  - level: 6
+    skill: {fileID: 11400000, guid: 328d0a2f1e7b3d14db5c29964b72984e, type: 2}
+  - level: 10
+    skill: {fileID: 11400000, guid: e896dce952533b14f80d0d59baad4d07, type: 2}
+  - level: 12
+    skill: {fileID: 11400000, guid: b10d789dad3da514e94725c52277ae36, type: 2}
+  - level: 12
+    skill: {fileID: 11400000, guid: c98f48158ebbe1a45bda5138515ccb71, type: 2}
+  - level: 20
+    skill: {fileID: 11400000, guid: f4a1e9ae5c7a9ee4b8cdc271c4a09293, type: 2}
+  - level: 28
+    skill: {fileID: 11400000, guid: 8142907b58dd21e418815f56a9ca4747, type: 2}
+  - level: 40
+    skill: {fileID: 11400000, guid: fd80dce299cf53d468962ddebfc40e86, type: 2}
+  canBeCaught: 1
+  catchRate: 80

@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4627a231d918ef54b8d936bce8e4f4c3, type: 3}
+  m_Name: 016_Depresso
+  m_EditorClassIdentifier: Assembly-CSharp::PalRogue.PalData
+  palId: 016
+  palName: "\uB6B1\uCF54\uC54C\uB77C"
+  englishName: Depresso
+  frontSprite: {fileID: 2902231226539221026, guid: 200029f8a18400c40ab201b33daffbe4, type: 3}
+  backSprite: {fileID: 0}
+  frontScale: 0.40848184
+  backScale: 1
+  sizeTune: 1
+  frontYOffset: 0
+  frontAnimator: {fileID: 0}
+  backAnimator: {fileID: 0}
+  primaryType: 8
+  hasSecondaryType: 0
+  secondaryType: 0
+  baseHP: 70
+  baseAttack: 35
+  baseDefense: 75
+  baseSpeed: 20
+  learnset:
+  - level: 1
+    skill: {fileID: 11400000, guid: a69689769d8d44a4083b43fedc00c4a5, type: 2}
+  - level: 1
+    skill: {fileID: 11400000, guid: 25db4b0a5b019bb4ba41c3d7da2a7b98, type: 2}
+  - level: 1
+    skill: {fileID: 11400000, guid: d407d0d68ab1438448a66fe2ce0f5610, type: 2}
+  - level: 6
+    skill: {fileID: 11400000, guid: c45d100c1e7b5594397e2b214559d759, type: 2}
+  - level: 6
+    skill: {fileID: 11400000, guid: 328d0a2f1e7b3d14db5c29964b72984e, type: 2}
+  - level: 10
+    skill: {fileID: 11400000, guid: e896dce952533b14f80d0d59baad4d07, type: 2}
+  - level: 12
+    skill: {fileID: 11400000, guid: b10d789dad3da514e94725c52277ae36, type: 2}
+  - level: 12
+    skill: {fileID: 11400000, guid: c98f48158ebbe1a45bda5138515ccb71, type: 2}
+  - level: 28
+    skill: {fileID: 11400000, guid: 8142907b58dd21e418815f56a9ca4747, type: 2}
+  - level: 40
+    skill: {fileID: 11400000, guid: fd80dce299cf53d468962ddebfc40e86, type: 2}
+  canBeCaught: 1
+  catchRate: 190
