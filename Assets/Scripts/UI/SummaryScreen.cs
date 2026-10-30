@@ -587,16 +587,14 @@ namespace PalRogue
                 categoryIcon.texture = Resources.Load<Texture2D>(attack ? "Attack Icon" : "Status Icon");
                 categoryIcon.uvRect = CategoryUv;
                 categoryIcon.enabled = categoryIcon.texture != null;
-                string extra = d.statusEffect != StatusCondition.None && d.statusChance > 0
-                    ? $"\n{d.statusChance}% 확률로 상대를 {StatusRules.Korean(d.statusEffect)} 상태로 만든다."
-                    : "";
                 string swapHint = swapFrom >= 0 ? $"[r]{pal.Skills[swapFrom].Data.skillName}[/r]과(와) 자리를 바꿀 기술을 골라 주세요.\n" : "";
-                string desc = !string.IsNullOrEmpty(d.description) ? d.description
-                            : attack ? $"{PalTypeNames.Korean(d.type)} 속성의 공격 기술." : $"{PalTypeNames.Korean(d.type)} 속성의 변화 기술.";
-                moveDescription.Set(swapHint + desc + extra);
+                moveDescription.Set(swapHint + SkillDescription(d));
             }
             else moveDescription.Set(swapFrom >= 0 ? "자리 바꾸기를 그만둔다." : "능력치 화면을 닫는다.");
         }
+
+        /// <summary>기술 설명 (설명이 비어 있으면 속성·종류로) + 상태이상 확률. 전투 화면의 C 키 보기도 같이 쓴다</summary>
+        public static string SkillDescription(SkillData d) => SkillTexts.Describe(d);
 
         // ═════════════════ ① 강화 칸 내용 ═════════════════
 

@@ -193,6 +193,7 @@ namespace PalRogue
             if (run != null && mode != Mode.Ended) playSeconds += Time.unscaledDeltaTime;   // 저장 슬롯의 플레이 시간
             if (mode == Mode.Command && MenuKeys.Cancel && Time.unscaledTime - menuClosedAt > 0.2f && Time.unscaledTime - commandShownAt > 0.15f)
                 StartCoroutine(OpenGameMenu());
+            UpdateSkillPeek();
             if (mode != Mode.Command && mode != Mode.Skill && mode != Mode.Ended) return;
             var es = EventSystem.current;
             if (es != null && es.currentSelectedGameObject == null && lastEntry != null && lastEntry.gameObject.activeInHierarchy)
@@ -1436,9 +1437,19 @@ namespace PalRogue
                 bool has = i < pal.Skills.Count;
                 skillButtons[i].interactable = has;
                 skillTexts[i].text = has ? pal.Skills[i].Data.skillName : "-";
-                skillTexts[i].color = has && pal.Skills[i].HasPP ? Color.white : Dim;
+                skillTexts[i].color = !has || !pal.Skills[i].HasPP ? Dim : EffectivenessColor(pal.Skills[i].Data, battle.Enemy);
             }
             Select(skillButtons[0]);
+        }
+
+        // 기술 이름 색: 상대에게 효과가 굉장하면 파랑, 별로(또는 효과 없음)면 주황, 보통이거나 변화 기술이면 흰색
+        static readonly Color SuperEffective = new Color32(0x48, 0xa8, 0xf8, 0xff), NotEffective = new Color32(0xf8, 0x98, 0x30, 0xff);
+
+        static Color EffectivenessColor(SkillData data, Pal foe)
+        {
+            if (data == null || foe == null || data.category == SkillCategory.Status) return Color.white;
+            float m = TypeChart.GetMultiplier(data.type, foe.Data.primaryType, foe.Data.SecondaryType);
+            return m > 1f ? SuperEffective : m < 1f ? NotEffective : Color.white;
         }
 
         void ShowSkillInfo(int index)
@@ -1446,6 +1457,7 @@ namespace PalRogue
             var pal = battle.Player;
             if (index < 0 || index >= pal.Skills.Count)
             {
+                currentSkill = -1;
                 typeBadge.enabled = false;
                 typeFallbackText.text = "";
                 categoryBadge.gameObject.SetActive(false);
@@ -1473,6 +1485,7 @@ namespace PalRogue
             categoryBadge.color = icon != null ? Color.white : (isAttack ? AttackColor : StatusColor);
             categoryText.text = icon != null ? "" : (isAttack ? "공격" : "변화");
 
+            currentSkill = index;
             ppValueText.text = $"{inst.PP}/{inst.MaxPP}";
             powerValueText.text = data.power > 0 ? data.power.ToString() : "-";
             accuracyValueText.text = data.accuracy > 0 ? data.accuracy.ToString() : "-";
@@ -1485,6 +1498,69 @@ namespace PalRogue
             if (!battle.IsValidPlayerAction(action)) return;      // PP가 없는 스킬 등
             StartCoroutine(RunTurn(action));
         }
+
+        // ───────── C 키: 능력치·기술 설명 보기 (포켓로그) ─────────
+        // 기술을 고르는 동안 C를 누르고 있으면 → 내 정보창·상대 정보창 대신 공격·방어·스피드 단계, 기술 이름 칸 대신 고른 기술 설명.
+        // C를 누른 채 방향키로 기술을 옮기면 설명도 바뀐다. 떼면 원래대로 (짧게 서서히).
+        // 기술을 고르는 동안엔 상대 정보창 옆에 고른 기술의 상성 배율(0.5x · 2x …)이 나온다.
+        int currentSkill = -1;
+        TMP_Text skillDescText;
+        public static bool DebugPeek;                 // (테스트) 메뉴 PalRogue/41: C를 누르고 있는 것처럼
+        float peekFade;
+
+        void UpdateSkillPeek()
+        {
+            bool skillMode = mode == Mode.Skill && battle != null && battle.Player != null;
+            var kb = UnityEngine.InputSystem.Keyboard.current;
+            bool peek = skillMode && ((kb != null && kb.cKey.isPressed) || DebugPeek);
+
+            playerInfo.SetPeek(peek, battle?.Player, battle?.Enemy);
+            enemyInfo.SetPeek(peek && enemyInfo.gameObject.activeSelf, battle?.Enemy, battle?.Player);
+
+            // 상성 배율
+            SkillData data = skillMode && currentSkill >= 0 && currentSkill < battle.Player.Skills.Count ? battle.Player.Skills[currentSkill].Data : null;
+            var foe = battle?.Enemy;
+            if (data != null && foe != null && data.category != SkillCategory.Status && enemyInfo.gameObject.activeSelf)
+                enemyInfo.SetEffectiveness(TypeChart.GetMultiplier(data.type, foe.Data.primaryType, foe.Data.SecondaryType));
+            else enemyInfo.SetEffectiveness(null);
+
+            // 기술 이름 칸 ↔ 기술 설명
+            if (!skillMode) { if (peekFade > 0f) SetSkillPeekFade(0f, null); return; }
+            float target = peek ? 1f : 0f;
+            if (peekFade != target || peek)
+                SetSkillPeekFade(Mathf.MoveTowards(peekFade, target, Time.unscaledDeltaTime * 8f), data);
+        }
+
+        void SetSkillPeekFade(float a, SkillData data)
+        {
+            peekFade = a;
+            if (skillDescText == null)
+            {
+                var panel = (RectTransform)skillPanel.transform;
+                var go = new GameObject("SkillDesc", typeof(RectTransform));
+                var rt = (RectTransform)go.transform;
+                rt.SetParent(panel, false);
+                rt.anchorMin = Vector2.zero; rt.anchorMax = Vector2.one;
+                rt.offsetMin = new Vector2(SkillDescPadX, SkillDescPadY); rt.offsetMax = new Vector2(-SkillDescPadX, -SkillDescPadY);
+                skillDescText = go.AddComponent<TextMeshProUGUI>();
+                skillDescText.font = messageText.font;
+                skillDescText.fontSize = messageText.fontSize;
+                skillDescText.enableAutoSizing = true;
+                skillDescText.fontSizeMin = messageText.fontSize * 0.6f;
+                skillDescText.fontSizeMax = messageText.fontSize;
+                skillDescText.lineSpacing = messageText.lineSpacing;
+                skillDescText.alignment = TextAlignmentOptions.TopLeft;
+                skillDescText.textWrappingMode = TextWrappingModes.Normal;
+                skillDescText.color = messageText.color;
+                skillDescText.raycastTarget = false;
+            }
+            if (data != null) skillDescText.text = SummaryScreen.SkillDescription(data);
+            skillDescText.alpha = a;
+            for (int i = 0; i < skillTexts.Length; i++) skillTexts[i].alpha = 1f - a;
+            if (skillCursor != null) { var c = skillCursor.color; c.a = 1f - a; skillCursor.color = c; }
+        }
+
+        const float SkillDescPadX = 8f, SkillDescPadY = 5f;
 
         // ───────── 턴 진행 ─────────
         IEnumerator RunTurn(BattleAction action)

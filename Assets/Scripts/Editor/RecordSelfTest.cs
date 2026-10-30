@@ -37,6 +37,13 @@ namespace PalRogue.EditorTools
             Debug.Log("[캡처] " + path);
         }
 
+        [MenuItem("PalRogue/41. (테스트) C 키 능력치 보기 켜기·끄기 _F8")]
+        static void TogglePeek()
+        {
+            BattleScreen.DebugPeek = !BattleScreen.DebugPeek;
+            Debug.Log("[C 키 보기] " + (BattleScreen.DebugPeek ? "켬" : "끔"));
+        }
+
         [MenuItem("PalRogue/38. 밸런스 표 (웨이브별 상대 레벨·경험치)")]
         static void BalanceTable()
         {

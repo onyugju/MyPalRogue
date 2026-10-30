@@ -255,6 +255,7 @@ namespace PalRogue
     {
         readonly float extraChance;
         public CritPerk(float extraChance) { this.extraChance = extraChance; }
+        public float ExtraChance => extraChance;
         public override void ModifyOutgoingDamage(Pal self, DamageInfo info)
         {
             if (info.IsCritical || UnityEngine.Random.value >= extraChance) return;

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -140,6 +141,281 @@ namespace PalRogue
             rt.pivot = new Vector2(0f, 1f);
             rt.sizeDelta = size;
             rt.anchoredPosition = pos;
+        }
+
+        // ───────── C 키 능력치 보기 (포켓로그처럼: 기술을 고르는 중 C를 누르고 있으면 정보창 대신 능력치 단계) ─────────
+        // 포켓로그의 능력치 창 그림(pbinfo_*_stats)을 정보창과 같은 자리·크기로 덮는다 (모양이 정보창과 똑같다).
+        // 내 정보창은 아래 경험치 줄이 그대로 보인다. 단계 숫자는 포켓로그 그림(pbinfo_stat_numbers: +1~+6 빨강, -1~-6 파랑, 0은 -)
+        static Texture2D statNumbers;
+        static readonly Dictionary<string, Sprite> statBacks = new Dictionary<string, Sprite>();
+        RectTransform peek;
+        CanvasGroup peekGroup;
+        Image peekBack;
+        RawImage[] peekValues;
+        float peekAlpha, peekTarget;
+        // 상성 배율 칸 (상대 정보창 바로 오른쪽, 기술을 고르는 동안)
+        static Sprite effWindow;
+        RectTransform effBox;
+        TMP_Text effText;
+
+        const float PeekFont = 11f, NumW = 9f, NumH = 8f, ValueGap = 3f, ColumnGap = 14f;
+
+        static Sprite StatBack(string name)
+        {
+            if (statBacks.TryGetValue(name, out var sp) && sp != null) return sp;
+            var tex = Resources.Load<Texture2D>("UI/" + name);
+            if (tex == null) return null;
+            tex.filterMode = FilterMode.Point;
+            sp = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f), 100f);
+            statBacks[name] = sp;
+            return sp;
+        }
+
+        /// <summary>
+        /// on이면 정보창 위에 능력치 창을 덮어 보여 준다 (서서히 나타나고 사라진다). foe = 맞은편 팰 (행동 순서 비교용)
+        ///  [공격 ±n / 방어 ±n]  [스피드 ±n / 급소 n%]  [선공·후공 / 실드·힘 모으기·각성]
+        /// </summary>
+        public void SetPeek(bool on, Pal pal, Pal foe = null)
+        {
+            if (on && pal != null && EnsurePeek())
+            {
+                SetStageNumber(peekValues[0], pal.GetStage(StatType.Attack));
+                SetStageNumber(peekValues[1], pal.GetStage(StatType.Defense));
+                SetStageNumber(peekValues[2], pal.GetStage(StatType.Speed));
+
+                int crit = Mathf.RoundToInt(CritChance(pal) * 100f);
+                SetText(peekCrit, crit + "%", crit > Mathf.RoundToInt(BattleCalc.CritChance * 100f) ? PeekGold : UiKit.White);
+
+                // 행동 순서 (같은 우선도 기술끼리): 스피드가 높으면 먼저
+                if (foe != null && !foe.IsFainted)
+                {
+                    int me = pal.GetStat(StatType.Speed), them = foe.GetStat(StatType.Speed);
+                    if (me > them) SetText(peekTags[0], "선공", PeekGreen);
+                    else if (me < them) SetText(peekTags[0], "후공", PeekGrey);
+                    else SetText(peekTags[0], "동속", UiKit.White);
+                }
+                else SetText(peekTags[0], "", UiKit.White);
+
+                // 특별한 상태 하나: 보스 실드 > 힘 모으기 > 각성
+                var awaken = pal.Effects.OfType<Awakening>().FirstOrDefault();
+                if (pal.IsBoss && pal.ShieldsLeft > 0) SetText(peekTags[1], $"실드 {pal.ShieldsLeft}", PeekGold);
+                else if (Battle.IsCharging(pal)) SetText(peekTags[1], "힘 모으기", PeekRed);
+                else if (awaken != null) SetText(peekTags[1], awaken.Active ? (awaken.IsTrue ? "진각성" : "각성 중") : "각성 대기", awaken.Active ? PeekGold : PeekGrey);
+                else SetText(peekTags[1], "", UiKit.White);
+
+                LayoutPeek();
+                // 속성 화살표·상성 칸은 능력치 창 위에
+                peek.SetAsLastSibling();
+                if (typeIcon1 != null && typeIcon1.gameObject.activeSelf) typeIcon1.transform.SetAsLastSibling();
+                if (typeIcon2 != null && typeIcon2.gameObject.activeSelf) typeIcon2.transform.SetAsLastSibling();
+                if (effBox != null) effBox.SetAsLastSibling();
+            }
+            peekTarget = on && peek != null ? 1f : 0f;
+        }
+
+        static readonly Color PeekGold = new Color32(0xf8, 0xd0, 0x30, 0xff), PeekGreen = new Color32(0x78, 0xe0, 0x70, 0xff),
+                              PeekGrey = new Color32(0x9a, 0x9a, 0xae, 0xff), PeekRed = new Color32(0xff, 0x5a, 0x4a, 0xff);
+
+        /// <summary>급소율: 기본 1/16에 급소 아이템·강화(크리티컬커터 등)가 겹친다</summary>
+        static float CritChance(Pal p)
+        {
+            float miss = 1f - BattleCalc.CritChance;
+            foreach (var c in p.Effects.OfType<CritPerk>()) miss *= 1f - c.ExtraChance;
+            return 1f - miss;
+        }
+
+        static void SetText((TMP_Text main, TMP_Text shadow) t, string text, Color color)
+        {
+            t.main.text = t.shadow.text = text;
+            t.main.color = color;
+        }
+
+        // 이름 4개(공격·방어·스피드·급소) + 단계 숫자 3개 + 급소율 + 표시 2개
+        (TMP_Text main, TMP_Text shadow)[] peekLabels;
+        (TMP_Text main, TMP_Text shadow) peekCrit;
+        (TMP_Text main, TMP_Text shadow)[] peekTags;
+
+        bool EnsurePeek()
+        {
+            bool player = expFill != null;
+            string backName = player ? "pbinfo_player_stats" : bossMode ? "pbinfo_enemy_boss_stats" : "pbinfo_enemy_mini_stats";
+            var back = StatBack(backName);
+            if (back == null) { Debug.LogWarning("[PalInfoBox] Resources/UI 에 능력치 창 그림이 없습니다. (메뉴 PalRogue/18 실행)"); return false; }
+            if (statNumbers == null) { statNumbers = Resources.Load<Texture2D>("UI/pbinfo_stat_numbers"); if (statNumbers != null) statNumbers.filterMode = FilterMode.Point; }
+
+            if (peek == null)
+            {
+                var font = nameText.font;
+                peek = new GameObject("StatPeek", typeof(RectTransform)).GetComponent<RectTransform>();
+                peek.SetParent(transform, false);
+                peek.anchorMin = Vector2.zero; peek.anchorMax = Vector2.one;      // 정보창 그림과 같은 자리·크기
+                peek.offsetMin = peek.offsetMax = Vector2.zero;
+                peekBack = peek.gameObject.AddComponent<Image>();
+                peekBack.raycastTarget = false;
+                peekGroup = peek.gameObject.AddComponent<CanvasGroup>();
+                peekGroup.blocksRaycasts = false;
+                peekGroup.interactable = false;
+
+                string[] names = { "공격", "방어", "스피드", "급소" };
+                peekLabels = new (TMP_Text, TMP_Text)[names.Length];
+                for (int i = 0; i < names.Length; i++) { peekLabels[i] = ShadowLabel(font, "Name" + i); SetText(peekLabels[i], names[i], Color.white); }
+                peekValues = new RawImage[3];
+                for (int i = 0; i < peekValues.Length; i++)
+                {
+                    var v = new GameObject("Value" + i, typeof(RectTransform)).AddComponent<RawImage>();
+                    v.rectTransform.SetParent(peek, false);
+                    v.rectTransform.anchorMin = v.rectTransform.anchorMax = new Vector2(0f, 1f);
+                    v.rectTransform.pivot = new Vector2(0f, 0.5f);
+                    v.rectTransform.sizeDelta = new Vector2(NumW, NumH);
+                    v.texture = statNumbers;
+                    v.raycastTarget = false;
+                    peekValues[i] = v;
+                }
+                peekCrit = ShadowLabel(font, "Crit");
+                peekTags = new[] { ShadowLabel(font, "Tag0"), ShadowLabel(font, "Tag1") };
+                peekGroup.alpha = 0f;
+                peek.gameObject.SetActive(false);
+            }
+            peekBack.sprite = back;
+            return true;
+        }
+
+        (TMP_Text, TMP_Text) ShadowLabel(TMP_FontAsset font, string name)
+        {
+            var shadow = PeekLabel(font, name + "Shadow", new Color32(0x5a, 0x5a, 0x6a, 0xff));
+            var main = PeekLabel(font, name, Color.white);
+            return (main, shadow);
+        }
+
+        TMP_Text PeekLabel(TMP_FontAsset font, string name, Color color)
+        {
+            var t = new GameObject(name, typeof(RectTransform)).AddComponent<TextMeshProUGUI>();
+            var rt = t.rectTransform;
+            rt.SetParent(peek, false);
+            rt.anchorMin = rt.anchorMax = new Vector2(0f, 1f);
+            rt.pivot = new Vector2(0f, 0.5f);
+            rt.sizeDelta = new Vector2(40f, 12f);
+            t.font = font;
+            t.fontSize = expFill != null ? PeekFont : PeekFont - 1.5f;   // 상대 정보창은 키가 작아서 작게
+            t.alignment = TextAlignmentOptions.MidlineLeft;
+            t.textWrappingMode = TextWrappingModes.NoWrap;
+            t.overflowMode = TextOverflowModes.Overflow;
+            t.raycastTarget = false;
+            t.color = color;
+            return t;
+        }
+
+        static float W(TMP_Text t) => string.IsNullOrEmpty(t.text) ? 0f : t.GetPreferredValues(t.text).x;
+
+        /// <summary>
+        /// 세 칸 × 두 줄을 정보창 몸통(속성 화살표 쪽 제외) 가운데에 맞춘다.
+        /// 몸통 범위는 그림 기준 픽셀 (상대 0~118 · 위아래 2~24 / 보스 0~166 / 나 6~130 · 위아래 4~37)
+        /// </summary>
+        void LayoutPeek()
+        {
+            bool player = expFill != null;
+            float left = player ? 8f : 2f, right = player ? 126f : (bossMode ? 166f : 116f);
+            float top = player ? 4f : 2f, bottom = player ? 37f : 24f;
+            float mid = (top + bottom) / 2f, row = (bottom - top) / 4f;
+            float y0 = mid - row, y1 = mid + row;
+
+            float n1 = Mathf.Max(W(peekLabels[0].main), W(peekLabels[1].main));
+            float n2 = Mathf.Max(W(peekLabels[2].main), W(peekLabels[3].main));
+            float col1 = n1 + ValueGap + NumW;
+            float col2 = n2 + ValueGap + Mathf.Max(NumW, W(peekCrit.main));
+            float col3 = Mathf.Max(W(peekTags[0].main), W(peekTags[1].main));
+            float avail = right - left, sum = col1 + col2 + col3;
+            float gap = Mathf.Clamp((avail - sum) / 4f, 3f, ColumnGap);
+            float x = Mathf.Round(left + (avail - sum - gap * (col3 > 0 ? 2f : 1f)) / 2f);
+
+            PlaceLabel(peekLabels[0], x, y0); PlaceValue(peekValues[0], x + n1 + ValueGap, y0);
+            PlaceLabel(peekLabels[1], x, y1); PlaceValue(peekValues[1], x + n1 + ValueGap, y1);
+            x += col1 + gap;
+            PlaceLabel(peekLabels[2], x, y0); PlaceValue(peekValues[2], x + n2 + ValueGap, y0);
+            PlaceLabel(peekLabels[3], x, y1); PlaceLabel(peekCrit, x + n2 + ValueGap, y1);
+            x += col2 + gap;
+            PlaceLabel(peekTags[0], x, y0);
+            PlaceLabel(peekTags[1], x, y1);
+        }
+
+        static void PlaceLabel((TMP_Text main, TMP_Text shadow) t, float x, float y)
+        {
+            t.main.rectTransform.anchoredPosition = new Vector2(x, -y);
+            t.shadow.rectTransform.anchoredPosition = new Vector2(x + 0.7f, -y - 0.7f);
+        }
+
+        static void PlaceValue(RawImage v, float x, float y) => v.rectTransform.anchoredPosition = new Vector2(Mathf.Round(x), -Mathf.Round(y));
+
+        /// <summary>pbinfo_stat_numbers(118x8): 9칸씩 +1~+6, -1~-6, 마지막 10칸이 0(-)</summary>
+        static void SetStageNumber(RawImage img, int stage)
+        {
+            if (statNumbers == null) { img.enabled = false; return; }
+            img.enabled = true;
+            int idx = stage > 0 ? Mathf.Min(stage, 6) - 1 : stage < 0 ? 5 + Mathf.Min(-stage, 6) : 12;
+            float x = idx * 9f, w = idx == 12 ? 10f : 9f, tw = statNumbers.width, th = statNumbers.height;
+            img.uvRect = new Rect(x / tw, 0f, w / tw, 1f);
+            img.rectTransform.sizeDelta = new Vector2(w, th);
+        }
+
+        /// <summary>상대 정보창 바로 오른쪽(속성 화살표 다음) 가운데에 상성 배율 창. mult가 null이면 숨긴다 (변화 기술 등)</summary>
+        public void SetEffectiveness(float? mult)
+        {
+            if (mult == null) { if (effBox != null) effBox.gameObject.SetActive(false); return; }
+            if (effBox == null)
+            {
+                if (effWindow == null)
+                {
+                    var tex = Resources.Load<Texture2D>("UI/window_1_xthin");
+                    if (tex != null)
+                    {
+                        tex.filterMode = FilterMode.Point;
+                        effWindow = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f), 100f, 0, SpriteMeshType.FullRect, new Vector4(5, 5, 5, 5));
+                    }
+                }
+                effBox = new GameObject("Effectiveness", typeof(RectTransform)).GetComponent<RectTransform>();
+                effBox.SetParent(transform, false);
+                effBox.anchorMin = effBox.anchorMax = new Vector2(0f, 1f);
+                effBox.pivot = new Vector2(0f, 0.5f);
+                effBox.sizeDelta = new Vector2(EffW, EffH);
+                var b = effBox.gameObject.AddComponent<Image>();
+                b.raycastTarget = false;
+                if (effWindow != null) { b.sprite = effWindow; b.type = Image.Type.Sliced; }
+                else b.color = UiKit.FrameRed;
+                effText = new GameObject("Text", typeof(RectTransform)).AddComponent<TextMeshProUGUI>();
+                effText.rectTransform.SetParent(effBox, false);
+                effText.rectTransform.anchorMin = Vector2.zero; effText.rectTransform.anchorMax = Vector2.one;
+                effText.rectTransform.offsetMin = new Vector2(0.5f, 0f); effText.rectTransform.offsetMax = new Vector2(0.5f, 0.5f);
+                effText.font = nameText.font;
+                effText.fontSize = 11f;
+                effText.alignment = TextAlignmentOptions.Center;
+                effText.textWrappingMode = TextWrappingModes.NoWrap;
+                effText.raycastTarget = false;
+                effText.color = UiKit.White;
+            }
+            float m = mult.Value;
+            // 정보창 몸통의 세로 가운데 (그림 기준 위에서 13), 속성 화살표 오른쪽 끝 + 2
+            var box = (RectTransform)transform;
+            float right = box.rect.width - (bossMode ? 12f : 12f);
+            if (typeIcon1 != null && typeIcon1.gameObject.activeSelf)
+            {
+                var ic = typeIcon1.rectTransform;
+                right = ic.anchoredPosition.x + ic.sizeDelta.x;
+                if (typeIcon2 != null && typeIcon2.gameObject.activeSelf) right = Mathf.Max(right, typeIcon2.rectTransform.anchoredPosition.x + typeIcon2.rectTransform.sizeDelta.x);
+            }
+            effBox.anchoredPosition = new Vector2(Mathf.Round(right + EffGap), -EffCenterY);
+            effText.text = (Mathf.Approximately(m, Mathf.Round(m)) ? m.ToString("0") : m.ToString("0.##")) + "x";
+            effBox.gameObject.SetActive(true);
+        }
+
+        const float EffW = 26f, EffH = 18f, EffGap = 2f, EffCenterY = 13f;
+
+        void LateUpdate()
+        {
+            if (peekGroup == null) return;
+            if (peekAlpha == peekTarget) return;
+            peekAlpha = Mathf.MoveTowards(peekAlpha, peekTarget, Time.unscaledDeltaTime * 8f);   // 0.12초쯤에 바뀐다
+            peekGroup.alpha = peekAlpha;
+            peek.gameObject.SetActive(peekAlpha > 0f);
         }
 
         // ───────── 능력치 단계 표시 (공격+2  스피드-1 …) ─────────

@@ -19,7 +19,8 @@ namespace PalRogue.EditorTools
         // 아이템 말고 게임 중에 불러 쓰는 포켓로그 UI 그림 (보스 정보창 등)
         const string UiSourceDir = "Assets/palrogue_assets_core/images/ui";
         const string UiTargetDir = "Assets/Resources/UI";
-        static readonly string[] UiFiles = { "pbinfo_enemy_boss", "overlay_hp_boss" };
+        static readonly string[] UiFiles = { "pbinfo_enemy_boss", "overlay_hp_boss",
+            "pbinfo_player_stats", "pbinfo_enemy_mini_stats", "pbinfo_enemy_boss_stats", "pbinfo_stat_numbers", "windows/window_1_xthin" };   // C 키 능력치 보기·상성 배율 창
 
         [InitializeOnLoadMethod]
         static void AutoCopy() => EditorApplication.delayCall += () => CopyIcons(false);
@@ -50,7 +51,7 @@ namespace PalRogue.EditorTools
             if (!AssetDatabase.IsValidFolder(UiTargetDir)) AssetDatabase.CreateFolder("Assets/Resources", "UI");
             foreach (var name in UiFiles)
             {
-                string to = $"{UiTargetDir}/{name}.png";
+                string to = $"{UiTargetDir}/{Path.GetFileName(name)}.png";
                 if (File.Exists(to)) continue;
                 string from = $"{UiSourceDir}/{name}.png";
                 if (!File.Exists(from)) { missing.Add(name); continue; }
