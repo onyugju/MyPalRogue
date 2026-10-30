@@ -20,6 +20,23 @@ namespace PalRogue.EditorTools
             if (screen != null) screen.DebugShowResult();
         }
 
+        [MenuItem("PalRogue/39. (테스트) 아이템 줄 채우기 (플레이 중)")]
+        static void FillItems()
+        {
+            if (!EditorApplication.isPlaying) { EditorUtility.DisplayDialog("플레이 중에 실행", "전투 중에 실행해 주세요.", "확인"); return; }
+            var screen = Object.FindAnyObjectByType<BattleScreen>();
+            if (screen != null) screen.DebugFillItems(6);
+        }
+
+        [MenuItem("PalRogue/40. 게임 화면 캡처 (Captures 폴더) _F9")]
+        static void Capture()
+        {
+            System.IO.Directory.CreateDirectory("Captures");
+            string path = $"Captures/shot_{System.DateTime.Now:HHmmss}.png";
+            ScreenCapture.CaptureScreenshot(path);
+            Debug.Log("[캡처] " + path);
+        }
+
         [MenuItem("PalRogue/38. 밸런스 표 (웨이브별 상대 레벨·경험치)")]
         static void BalanceTable()
         {

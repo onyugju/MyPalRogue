@@ -489,6 +489,11 @@ namespace PalRogue
                 icon.raycastTarget = false;
                 icon.texture = def != null ? Resources.Load<Texture2D>(def.IconPath) : null;
                 icon.enabled = icon.texture != null;
+                // 마우스를 올리면 아이템 설명 (아이템 줄과 같은 말풍선)
+                string itemName = held[i].Key, itemDesc = def?.Description ?? held[i].First().Description;
+                var tipColor = def != null ? ItemTiers.Color(def.Tier) : Color.white;
+                var hover = Box("Hover", itemRoot, ix, iy, 16, 16).gameObject;
+                ItemTooltip.Attach(hover, font, () => (itemName, tipColor, itemDesc));
                 var count = Text(itemRoot, ix - 1, iy + 8, 10, 9, FontTiny, TextAlignmentOptions.BottomLeft, true);
                 count.Set(held[i].Count().ToString());
             }

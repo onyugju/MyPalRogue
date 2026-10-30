@@ -47,6 +47,8 @@ namespace PalRogue
         public int[] spheres;
         public int amuletCoins, expShareCount, candyJars, berryPouches, extraRewards;
         public int caughtCount, bossesDefeated;
+        public List<string> runItemIds = new List<string>();
+        public List<int> runItemCounts = new List<int>();
         public float expBonus;
         public double playSeconds;
         public long savedAtTicks;
@@ -128,6 +130,7 @@ namespace PalRogue
                 savedAtTicks = DateTime.Now.Ticks,
             };
             foreach (var p in run.Party) s.party.Add(CapturePal(p));
+            foreach (var kv in run.RunItems) { s.runItemIds.Add(kv.Key); s.runItemCounts.Add(kv.Value); }
             return s;
         }
 
@@ -174,6 +177,8 @@ namespace PalRogue
             run.AmuletCoins = s.amuletCoins; run.ExpShareCount = s.expShareCount; run.CandyJars = s.candyJars;
             run.BerryPouches = s.berryPouches; run.ExtraRewards = s.extraRewards; run.ExpBonus = s.expBonus;
             run.CaughtCount = s.caughtCount; run.BossesDefeated = s.bossesDefeated;
+            if (s.runItemIds != null)
+                for (int i = 0; i < s.runItemIds.Count && i < (s.runItemCounts?.Count ?? 0); i++) run.RunItems[s.runItemIds[i]] = s.runItemCounts[i];
 
             foreach (var (pal, ps) in restoreLater)
             {

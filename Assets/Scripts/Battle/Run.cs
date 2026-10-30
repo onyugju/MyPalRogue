@@ -50,6 +50,10 @@ namespace PalRogue
         /// <summary>황금 스피어로 늘어난 보상 선택지 수</summary>
         public int ExtraRewards { get; set; }
 
+        /// <summary>얻은 파티 전체 아이템 (경험부적·학습장치 등) 아이템 Id → 개수. 화면 왼쪽 위 아이템 줄</summary>
+        public Dictionary<string, int> RunItems { get; } = new Dictionary<string, int>();
+        public void NoteRunItem(string id) => RunItems[id] = RunItems.TryGetValue(id, out var n) ? n + 1 : 1;
+
         // ───── 이번 모험의 기록 (결과 화면) ─────
         /// <summary>이번 모험에서 잡은 팰 수</summary>
         public int CaughtCount { get; set; }

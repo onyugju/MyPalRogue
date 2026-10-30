@@ -138,6 +138,11 @@ namespace PalRogue
             ItemCatalog.SetSkillPool(KnownSkills());          // 기술머신 아이템 목록 만들기
             if (areaText == null) areaText = FindLabel("AreaText");
             if (moneyText == null) moneyText = FindLabel("MoneyText");
+            // 아이템 줄: 왼쪽 위 = 내 아이템 / 오른쪽 위 = 상대가 지닌 아이템 (상대 정보창이 보일 때만)
+            itemBar = ItemBar.Create(messageText.font, () => run,
+                () => battle != null && enemyInfo.gameObject.activeSelf && battle.Enemy != null && !battle.Enemy.IsFainted ? battle.Enemy : null,
+                areaText, moneyText,
+                () => (partyScreen != null && partyScreen.IsOpen) || (summaryScreen != null && summaryScreen.gameObject.activeSelf));   // 파티·능력치 화면에서는 숨김
 
             Bind(fightButton, OnFight);
             Bind(sphereButton, OnSphere);
@@ -771,6 +776,20 @@ namespace PalRogue
         RunResultScreen resultScreen;
 
 #if UNITY_EDITOR
+        /// <summary>(테스트) 아이템 줄 확인용: 파티 전체 아이템·몇 웨이브짜리·지닌 아이템을 나와 상대에게 잔뜩 준다 (메뉴 PalRogue/39)</summary>
+        public void DebugFillItems(int heldPerPal)
+        {
+            if (run == null || battle == null) return;
+            var rng = new System.Random();
+            foreach (var id in new[] { "exp_charm", "exp_charm", "exp_share", "amulet_coin", "candy_jar", "berry_pouch", "x_attack", "dire_hit" })
+                ItemCatalog.Get(id)?.Apply(new ItemContext { Run = run });
+            var held = ItemCatalog.All.Where(d => d.IsHeld && d.Id != "mini_black_hole").ToList();
+            foreach (var pal in run.Party.Concat(new[] { battle.Enemy }))
+                for (int i = 0; i < heldPerPal; i++)
+                    held[rng.Next(held.Count)].Apply(new ItemContext { Run = run, Target = pal });
+            Debug.Log($"[아이템 줄] 파티 전체 아이템 {run.RunItems.Count}종, 팰마다 지닌 아이템 {heldPerPal}개씩 (상대 포함)");
+        }
+
         /// <summary>(테스트) 결과 화면만 미리 본다 — 기록·저장은 건드리지 않는다 (메뉴 PalRogue/37)</summary>
         public void DebugShowResult()
         {
@@ -895,6 +914,8 @@ namespace PalRogue
             pendingSynergyMessages = null;
             ShowCommand();
         }
+
+        ItemBar itemBar;
 
         // ───────── 게임 중 메뉴 (Esc) ─────────
         GameMenu gameMenu;

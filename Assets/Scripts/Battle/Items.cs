@@ -303,7 +303,29 @@ namespace PalRogue
         }
 
         // ═════════════════ 아이템 목록 ═════════════════
-        public static readonly List<ItemDef> All = Build();
+        /// <summary>파티 전체에 계속 남는 아이템 (화면 왼쪽 위 아이템 줄에 개수로 보인다). All보다 먼저 만들어져야 한다</summary>
+        public static readonly HashSet<string> RunItemIds = new HashSet<string>
+        {
+            "exp_charm", "super_exp_charm", "golden_exp_charm", "exp_share", "amulet_coin", "candy_jar", "berry_pouch", "pb_gold",
+        };
+
+        public static readonly List<ItemDef> All = TrackRunItems(Build());
+
+        /// <summary>파티 전체 아이템은 쓸 때마다 런에 개수를 기록한다 (어디서 쓰든)</summary>
+        static List<ItemDef> TrackRunItems(List<ItemDef> list)
+        {
+            foreach (var d in list)
+            {
+                if (!RunItemIds.Contains(d.Id) || d.Apply == null) continue;
+                var apply = d.Apply;
+                var id = d.Id;
+                d.Apply = c => { var r = apply(c); c.Run?.NoteRunItem(id); return r; };
+            }
+            return list;
+        }
+
+        /// <summary>지닌 아이템 이름으로 아이템 정의 찾기</summary>
+        public static ItemDef ByName(string name) => All.FirstOrDefault(d => d.Name == name);
 
         static List<ItemDef> Build()
         {
