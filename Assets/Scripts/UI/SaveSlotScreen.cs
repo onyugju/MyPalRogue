@@ -167,14 +167,14 @@ namespace PalRogue
             if (dialog.gameObject.activeSelf)
             {
                 int h = MenuKeys.Horizontal + MenuKeys.Vertical;
-                if (h != 0) { dialogIndex = (dialogIndex + h + 2) % 2; RefreshDialog(); }
+                if (h != 0) { dialogIndex = (dialogIndex + h + 2) % 2; GameAudio.Se("select"); RefreshDialog(); }
                 if (MenuKeys.Confirm) dialogAnswer = dialogIndex;
                 else if (MenuKeys.Cancel) dialogAnswer = 1;
                 return;
             }
             if (!CanInput) return;
             int v = MenuKeys.Vertical;
-            if (v != 0) { cursor = (cursor + v + saves.Length) % saves.Length; Refresh(); }
+            if (v != 0) { cursor = (cursor + v + saves.Length) % saves.Length; GameAudio.Se("select"); Refresh(); }
             if (MenuKeys.Confirm) StartCoroutine(Pick());
             else if (MenuKeys.Cancel) { Result = -1; done = true; }
         }
@@ -182,6 +182,7 @@ namespace PalRogue
         IEnumerator Pick()
         {
             if (done) yield break;
+            GameAudio.Se("select");
             var save = saves[cursor];
             if (!forSave)
             {
@@ -201,6 +202,7 @@ namespace PalRogue
 
         void Flash(string text)
         {
+            GameAudio.Se("error");
             header.text = text;
             header.color = UiKit.Gold;
             headerUntil = Time.unscaledTime + 2f;

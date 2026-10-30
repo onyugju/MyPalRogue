@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,11 +26,17 @@ namespace PalRogue
         const int Stripes = 16;
         const float FieldH = 132f;          // 위쪽 그림 영역 (아래 48픽셀은 메시지 판)
         const float LogoW = 236f;
-        const float MenuX = 244f, MenuY = 128f, MenuW = 72f, RowH = 17f;
+        const float MenuX = 244f, MenuW = 72f;
+        float RowH = 17f;          // 메뉴가 많으면 줄 간격을 좁혀서 로고를 가리지 않게
 
-        enum Item { Continue, NewGame, Load }
+        enum Item { Continue, NewGame, Load, Records, Settings }
         readonly System.Collections.Generic.List<Item> items = new System.Collections.Generic.List<Item>();
-        static string Label(Item i) => i switch { Item.Continue => "계속하기", Item.NewGame => "새 게임", _ => "불러오기" };
+        static string Label(Item i) => i switch { Item.Continue => "계속하기", Item.NewGame => "새 게임", Item.Load => "불러오기", Item.Records => "기록", _ => "설정" };
+        SettingsPanel settings;
+        RecordsScreen records;
+
+        [Tooltip("기록 화면의 팰 아이콘용 (메뉴 35가 채운다. 에디터에서는 자동)")]
+        public System.Collections.Generic.List<PalData> allPals = new System.Collections.Generic.List<PalData>();
         int continueSlot = -1;
 
         RectTransform root;
@@ -48,6 +55,7 @@ namespace PalRogue
         void Start()
         {
             Time.timeScale = 1f;
+            GameAudio.Ensure();
             GameSession.Clear();
             Build();
             StartCoroutine(Intro());
@@ -95,6 +103,9 @@ namespace PalRogue
             if (last >= 0 && SaveSlots.Exists(last)) { continueSlot = last; items.Add(Item.Continue); }
             items.Add(Item.NewGame);
             items.Add(Item.Load);
+            items.Add(Item.Records);
+            items.Add(Item.Settings);
+            RowH = items.Count > 4 ? 14f : 17f;
             float menuH = 10 + RowH * items.Count;
             menu = UiKit.Frame(root, "Menu", MenuX, 176 - menuH, MenuW, menuH, UiKit.FrameRed, UiKit.FrameFill, out var menuInner);
             itemTexts = new TMP_Text[items.Count];
@@ -139,6 +150,7 @@ namespace PalRogue
             }
             SetStripes(0f);
             loadingBox.gameObject.SetActive(false);
+            GameAudio.Bgm("title");
 
             // ③ 메뉴 → 로고
             yield return new WaitForSecondsRealtime(0.15f);
@@ -177,7 +189,9 @@ namespace PalRogue
             if (messageUntil > 0 && Time.unscaledTime > messageUntil) { messageUntil = 0; messageText.text = ""; }
             if (!ready || leaving) return;
             int v = MenuKeys.Vertical;
-            if (v != 0) { index = (index + v + items.Count) % items.Count; Refresh(); }
+            if (settings != null && (settings.IsOpen || Time.unscaledTime - settings.ClosedAt < 0.15f)) return;
+            if (records != null && (records.IsOpen || Time.unscaledTime - records.ClosedAt < 0.15f)) return;
+            if (v != 0) { index = (index + v + items.Count) % items.Count; GameAudio.Se("select"); Refresh(); }
             if (MenuKeys.Confirm) Choose();
         }
 
@@ -192,7 +206,28 @@ namespace PalRogue
         void Choose()
         {
             if (leaving) return;
+            if (settings != null && settings.IsOpen) return;
+            if (records != null && records.IsOpen) return;
             var item = items[index];
+            GameAudio.Se("select");
+            if (item == Item.Records)
+            {
+#if UNITY_EDITOR
+                if (allPals.Count == 0)
+                    allPals = UnityEditor.AssetDatabase.FindAssets("t:PalData")
+                        .Select(g => UnityEditor.AssetDatabase.LoadAssetAtPath<PalData>(UnityEditor.AssetDatabase.GUIDToAssetPath(g)))
+                        .Where(p => p != null).ToList();
+#endif
+                if (records == null) records = RecordsScreen.Create(font, allPals);
+                StartCoroutine(records.Open());
+                return;
+            }
+            if (item == Item.Settings)
+            {
+                if (settings == null) settings = SettingsPanel.Create(font, 150);
+                StartCoroutine(settings.Open());
+                return;
+            }
             if (item == Item.Continue)
             {
                 var save = SaveSlots.Load(continueSlot);
@@ -211,6 +246,7 @@ namespace PalRogue
             }
             if (item == Item.Load && !SaveSlots.AnyExists)
             {
+                GameAudio.Se("error");
                 messageText.text = "불러올 모험이 없어요.\n새 게임으로 시작해 주세요!";
                 messageUntil = Time.unscaledTime + 2.5f;
                 return;

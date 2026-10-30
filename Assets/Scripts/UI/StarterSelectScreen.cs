@@ -381,7 +381,7 @@ namespace PalRogue
             var dir = ReadDirection();
             if (popupOpen)
             {
-                if (dir.y != 0) { popupIndex = (popupIndex - dir.y + popupItems.Count) % popupItems.Count; RefreshPopup(); }
+                if (dir.y != 0) { popupIndex = (popupIndex - dir.y + popupItems.Count) % popupItems.Count; GameAudio.Se("select"); RefreshPopup(); }
                 if (Keys.Confirm) PickPopup();
                 else if (Keys.Cancel) ClosePopup();
                 return;
@@ -437,6 +437,7 @@ namespace PalRogue
 
         void Move(Vector2Int d)     // d.y: 위 = +1
         {
+            GameAudio.Se("select");
             switch (area)
             {
                 case Area.Bar:
@@ -484,6 +485,7 @@ namespace PalRogue
 
         void Confirm()
         {
+            GameAudio.Se("select");
             switch (area)
             {
                 case Area.Bar:
@@ -635,6 +637,7 @@ namespace PalRogue
 
         void PickPopup()
         {
+            GameAudio.Se("select");
             var action = popupItems[popupIndex].action;
             ClosePopup();
             action?.Invoke();
@@ -648,6 +651,7 @@ namespace PalRogue
 
         void ShowMessage(string text)
         {
+            GameAudio.Se("error");
             hintText.text = text;
             hintText.color = Gold;
             messageUntil = Time.unscaledTime + 2.5f;

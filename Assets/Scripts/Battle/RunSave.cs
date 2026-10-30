@@ -46,6 +46,7 @@ namespace PalRogue
         public int wave, money, trainerId;
         public int[] spheres;
         public int amuletCoins, expShareCount, candyJars, berryPouches, extraRewards;
+        public int caughtCount, bossesDefeated;
         public float expBonus;
         public double playSeconds;
         public long savedAtTicks;
@@ -122,6 +123,7 @@ namespace PalRogue
                 spheres = run.Spheres.ToArray(),
                 amuletCoins = run.AmuletCoins, expShareCount = run.ExpShareCount, candyJars = run.CandyJars,
                 berryPouches = run.BerryPouches, extraRewards = run.ExtraRewards, expBonus = run.ExpBonus,
+                caughtCount = run.CaughtCount, bossesDefeated = run.BossesDefeated,
                 playSeconds = playSeconds,
                 savedAtTicks = DateTime.Now.Ticks,
             };
@@ -171,6 +173,7 @@ namespace PalRogue
             run.Money = s.money;
             run.AmuletCoins = s.amuletCoins; run.ExpShareCount = s.expShareCount; run.CandyJars = s.candyJars;
             run.BerryPouches = s.berryPouches; run.ExtraRewards = s.extraRewards; run.ExpBonus = s.expBonus;
+            run.CaughtCount = s.caughtCount; run.BossesDefeated = s.bossesDefeated;
 
             foreach (var (pal, ps) in restoreLater)
             {

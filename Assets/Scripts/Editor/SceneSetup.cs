@@ -65,6 +65,7 @@ namespace PalRogue.EditorTools
             {
                 var title = root.AddComponent<TitleScreen>();
                 title.font = font;
+                title.allPals = pals;
             });
             MakeScene(GameSession.StarterScene, font, moduleType, root =>
             {

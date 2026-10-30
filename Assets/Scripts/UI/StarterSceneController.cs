@@ -28,6 +28,7 @@ namespace PalRogue
                 .Select(g => UnityEditor.AssetDatabase.LoadAssetAtPath<PalData>(UnityEditor.AssetDatabase.GUIDToAssetPath(g)))
                 .Where(p => p != null).OrderBy(p => p.name).ToList();
 #endif
+            GameAudio.Bgm("menu");
             var starter = StarterSelectScreen.Create(font);
             starter.AllowBack = true;
             var slots = SaveSlotScreen.Create(font);

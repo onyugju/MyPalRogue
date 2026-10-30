@@ -545,13 +545,13 @@ namespace PalRogue
             participants.Clear();
             if (!Player.IsFainted) participants.Add(Player);            // 다음 상대를 위해 지금 팰부터 다시 센다
             int total = GameConfig.ExpYield(defeated.Data, defeated.Level);
-            ShareExp(receivers, total);
+            ShareExp(receivers, total, defeated.Level);
             if (receivers.Count == 0) return;
 
             float baseShare = (float)total / receivers.Count * ExpMultiplier;
             foreach (var pal in receivers)
             {
-                float palMult = 1f;
+                float palMult = GameConfig.ExpLevelScale(defeated.Level, pal.Level);   // 레벨이 낮을수록 더 많이
                 foreach (var e in pal.Effects) palMult *= e.ExpMultiplier;      // 행복의알 등
                 int share = Mathf.Max(1, Mathf.RoundToInt(baseShare * palMult));
                 Log($"{Josa.Eun(pal.Data.palName)} {share} 경험치를 얻었다!");
@@ -568,7 +568,7 @@ namespace PalRogue
         }
 
         /// <summary>학습장치: 싸움에 나가지 않은(기절하지 않은) 팰들도 경험치의 일부를 받는다</summary>
-        void ShareExp(List<Pal> fighters, int total)
+        void ShareExp(List<Pal> fighters, int total, int defeatedLevel)
         {
             if (ExpShareRatio <= 0f) return;
             var others = playerList.Where(p => !fighters.Contains(p) && !p.IsFainted && !p.IsMaxLevel).ToList();
@@ -576,7 +576,7 @@ namespace PalRogue
             Log("학습장치로 다른 팰들도 경험치를 얻었다!");
             foreach (var pal in others)
             {
-                float palMult = 1f;
+                float palMult = GameConfig.ExpLevelScale(defeatedLevel, pal.Level);
                 foreach (var e in pal.Effects) palMult *= e.ExpMultiplier;
                 int amount = Mathf.Max(1, Mathf.RoundToInt(total * ExpShareRatio * ExpMultiplier * palMult));
                 foreach (var (level, skills) in pal.GainExp(amount))

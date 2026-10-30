@@ -91,7 +91,7 @@ namespace PalRogue
         [Tooltip("켜면 모험을 시작할 때마다 스타팅 팰 선택 화면이 나온다. 끄면 위 playerParty(테스트 파티)로 바로 시작한다")]
         public bool useStarterSelect = true;
 
-        const float CharsPerSecond = 45f;
+        static float CharsPerSecond => GameSettings.CharsPerSecond;   // 설정의 대사 속도
         const string SelectPrompt = "팰을 선택하세요.";   // 파티 화면 안내 문구
         const float LineHoldSeconds = 1.2f;    // 문장이 다 나온 뒤 자동으로 넘어가기까지 기다리는 시간
         const float SkipGuardSeconds = 0.25f;  // 메시지가 뜬 직후 이 시간 동안은 눌러도 넘기지 않음
@@ -112,6 +112,8 @@ namespace PalRogue
 
         void Start()
         {
+            GameAudio.Ensure();
+            AchievementToast.Font = messageText != null ? messageText.font : null;
 #if UNITY_EDITOR
             FillWildPals();                          // 에디터에서는 새로 추가한 팰까지 항상 야생 목록에 넣는다
 #endif
@@ -184,6 +186,8 @@ namespace PalRogue
         void Update()
         {
             if (run != null && mode != Mode.Ended) playSeconds += Time.unscaledDeltaTime;   // 저장 슬롯의 플레이 시간
+            if (mode == Mode.Command && MenuKeys.Cancel && Time.unscaledTime - menuClosedAt > 0.2f && Time.unscaledTime - commandShownAt > 0.15f)
+                StartCoroutine(OpenGameMenu());
             if (mode != Mode.Command && mode != Mode.Skill && mode != Mode.Ended) return;
             var es = EventSystem.current;
             if (es != null && es.currentSelectedGameObject == null && lastEntry != null && lastEntry.gameObject.activeInHierarchy)
@@ -252,12 +256,13 @@ namespace PalRogue
             if (GameSession.Slot < 0 || run == null) return;
             SaveSlots.Save(GameSession.Slot, SaveSlots.Capture(run, playSeconds, runNumber));
             PlayerSave.LastSlot = GameSession.Slot;            // 타이틀의 "계속하기"
-            if (showIcon) SaveIcon.Show();
+            if (showIcon) { SaveIcon.Show(); GameAudio.Se("save", 0.6f); }
         }
 
         void BeginWithRun(Run newRun)
         {
             run = newRun;
+            Achievements.StartRun();
             if (partyScreen != null) partyScreen.OpenSummary = OpenSummary;   // 파티 화면 "능력치를 본다"
             spheres = run.Spheres;                     // 스피어 메뉴가 쓰는 배열 = 런이 가진 배열
             ApplyAreaScenery(true);                    // 첫 지역(초원) 배경으로 (게임 오버 후 다시 시작해도)
@@ -286,6 +291,7 @@ namespace PalRogue
             HidePanels();
             if (!first) yield return Fade.FadeTo(1f, 0.4f);
             var screen = StarterScreen;
+            GameAudio.Bgm("menu");
             screen.Open(WildPool());
             if (!first) yield return Fade.FadeTo(0f, 0.3f);
             yield return screen.Choose(WildPool());
@@ -305,6 +311,7 @@ namespace PalRogue
             var synergyNews = run.UpdateSynergies();             // 첫 웨이브: 시작 파티의 속성 시너지
             if (synergyNews.Count > 0) pendingSynergyMessages = synergyNews;
             var enemy = run.CreateEnemy(WildPool());
+            GameAudio.Bgm(GameAudio.AreaBgm(run.Wave, run.EnemyKind));      // 지역 음악 / 보스 음악 / 최종 보스 음악
             battle = new Battle(run.Party, new List<Pal> { enemy }, run.Rng, null, firstWave, run.EnemyKind);
             run.SyncParty(battle.PlayerParty);         // 쓰러진 팰 대신 다른 팰이 앞으로 나왔을 수 있다
             battle.ExpMultiplier = run.ExpMultiplier;  // 경험부적
@@ -442,10 +449,27 @@ namespace PalRogue
         {
             mode = Mode.Busy;
             HidePanels();
-            if (battle.CaughtPal != null && PlayerSave.RecordCatch(battle.CaughtPal.Data))   // 처음 잡은 팰은 다음 모험부터 스타팅 팰로 고를 수 있다
-                yield return ShowMessage($"{Josa.I(PalName(battle.CaughtPal))} 스타팅 팰 목록에 등록되었다!");
+            if (battle.CaughtPal != null)
+            {
+                bool newStarter = PlayerSave.RecordCatch(battle.CaughtPal.Data);   // 처음 잡은 팰은 다음 모험부터 스타팅 팰로 고를 수 있다
+                run.CaughtCount++;
+                Achievements.CheckCatch(GameConfig.IsLegendary(battle.CaughtPal.Data));
+                if (newStarter)
+                {
+                    GameAudio.Se("achv");
+                    yield return ShowMessage($"{Josa.I(PalName(battle.CaughtPal))} 스타팅 팰 목록에 등록되었다!");
+                }
+            }
+            if (!fled && run.EnemyKind != BossKind.None)                       // 보스·전설을 쓰러뜨리거나 잡음
+            {
+                bool legend = run.EnemyKind == BossKind.Legend || run.EnemyKind == BossKind.Final;
+                run.BossesDefeated++;
+                PlayerSave.AddBossDefeat(legend);
+                Achievements.CheckBoss(legend);
+            }
             if (battle.PendingCatch != null) yield return ResolveCatch();
             run.SyncParty(battle.PlayerParty);
+            Achievements.CheckParty(run.Party.Count);
             foreach (var msg in run.UpdateSynergies()) yield return ShowMessage(msg);   // 파티가 바뀌면 속성 시너지도
 
             // 상대가 사라졌으니 상대 정보창·스피어도 치운다
@@ -465,6 +489,8 @@ namespace PalRogue
 
             if (run.Wave >= GameConfig.FinalWave)
             {
+                GameAudio.Bgm("end");
+                Achievements.Cleared();
                 yield return ShowMessage("공허의 왕을 쓰러뜨리고 모든 웨이브를 돌파했다!");
                 yield return ShowMessage($"웨이브 {GameConfig.FinalWave} 클리어! 모험 성공!");
                 yield return EndRun();
@@ -491,6 +517,7 @@ namespace PalRogue
                 if (GameConfig.HealAfterBoss && run.IsBossWave)
                 {
                     run.HealAll();
+                    GameAudio.Se("heal");
                     playerInfo.Refresh(battle.Player);
                     yield return ShowMessage("보스를 물리쳤다!\n파티의 팰들이 모두 기운을 되찾았다!");
                 }
@@ -498,6 +525,7 @@ namespace PalRogue
 
             string areaBefore = run.AreaName;
             run.NextWave();
+            Achievements.CheckWave(run.Wave);
             AutoSave(true);                            // 보상까지 받은 뒤 자동 저장 (오른쪽 아래 아이콘 3초)
             if (run.AreaName != areaBefore) yield return ChangeArea();
             StartWave(false);
@@ -526,6 +554,7 @@ namespace PalRogue
         IEnumerator ChangeArea()
         {
             HidePanels();
+            GameAudio.StopBgm(AreaFadeOut);                 // 검게 닫히는 동안 음악도 잦아들고, 다음 웨이브에 새 지역 음악
             yield return Fade.FadeTo(1f, AreaFadeOut);
             ApplyAreaScenery();
             UpdateHud();
@@ -599,6 +628,7 @@ namespace PalRogue
                 {
                     if (run.Money < rerollCost) { yield return RewardError("돈이 부족하다!"); continue; }
                     run.Money -= rerollCost;
+                    GameAudio.Se("buy");
                     rerolls++;
                     UpdateHud();
                     rewards = ItemCatalog.RollRewards(run, ItemCatalog.RewardCount(run), run.Rng);
@@ -631,6 +661,7 @@ namespace PalRogue
                     if (itemUsed)
                     {
                         run.Money -= price;
+                        GameAudio.Se("buy");
                         UpdateHud();
                     }
                     continue;                                       // 사도 보상 화면은 계속된다
@@ -658,6 +689,7 @@ namespace PalRogue
 
         IEnumerator RewardError(string text)
         {
+            GameAudio.Se("error");
             rewardScreen.SetMessage(text);
             yield return new WaitForSecondsRealtime(RewardErrorSeconds);
         }
@@ -731,19 +763,55 @@ namespace PalRogue
 
         IEnumerator GameOver()
         {
+            GameAudio.StopBgm(1.2f);
             yield return ShowMessage($"웨이브 {run.Wave}에서 모험이 끝났다...");
             yield return EndRun();
         }
 
+        RunResultScreen resultScreen;
+
+#if UNITY_EDITOR
+        /// <summary>(테스트) 결과 화면만 미리 본다 — 기록·저장은 건드리지 않는다 (메뉴 PalRogue/37)</summary>
+        public void DebugShowResult()
+        {
+            if (run == null || mode != Mode.Command) { Debug.LogWarning("[결과 화면] 명령을 고르는 화면에서 실행해 주세요."); return; }
+            StartCoroutine(DebugResult());
+        }
+
+        IEnumerator DebugResult()
+        {
+            mode = Mode.Busy;
+            HidePanels();
+            if (resultScreen == null) resultScreen = RunResultScreen.Create(messageText.font);
+            yield return resultScreen.Show(run, false, playSeconds, false, "Enter 또는 클릭: 닫기 (미리보기)");
+            ShowCommand();
+        }
+#endif
+
         IEnumerator EndRun()
         {
             if (GameSession.Slot >= 0) SaveSlots.Delete(GameSession.Slot);   // 끝난 모험은 슬롯에서 지운다 (포켓로그와 같음)
-            if (fromSession && GameSession.CanLoad(GameSession.TitleScene))
+
+            // 플레이 이력에 남기고 결과 화면
+            bool cleared = !run.IsWiped && run.Wave >= GameConfig.FinalWave;
+            var record = new PlayerSave.RunRecord
             {
-                yield return ShowMessage("화면을 클릭하면 타이틀로 돌아가요.");
-                mode = Mode.Ended;
-                restartButton.gameObject.SetActive(true);
-                Select(restartButton);
+                runNumber = runNumber, wave = Mathf.Min(run.Wave, GameConfig.FinalWave), cleared = cleared,
+                caught = run.CaughtCount, bosses = run.BossesDefeated, endedTicks = System.DateTime.Now.Ticks,
+                playSeconds = playSeconds, area = run.AreaName,
+            };
+            foreach (var p in run.Party) record.party.Add(new PlayerSave.RecordPal { pal = p.Data.name, level = p.Level, fainted = p.IsFainted });
+            bool best = PlayerSave.AddHistory(record);
+            bool toTitle = fromSession && GameSession.CanLoad(GameSession.TitleScene);
+            HidePanels();
+            if (resultScreen == null) resultScreen = RunResultScreen.Create(messageText.font);
+            yield return resultScreen.Show(run, cleared, playSeconds, best, toTitle ? "Enter 또는 클릭: 타이틀로" : "Enter 또는 클릭: 새 모험");
+
+            if (toTitle)
+            {
+                mode = Mode.Busy;
+                GameAudio.StopBgm(0.4f);
+                GameSession.Go(GameSession.TitleScene, messageText.font);
                 yield break;
             }
             yield return ShowMessage("화면을 클릭하면 새 모험을 시작해요.");
@@ -757,6 +825,7 @@ namespace PalRogue
             if (run == null) return;
             if (areaText != null) areaText.text = $"{run.AreaName} - {run.Wave}";
             if (moneyText != null) moneyText.text = $"{run.Money:N0} G";
+            Achievements.CheckMoney(run.Money);
         }
 
         // ───────── 도망간다 ─────────
@@ -772,6 +841,7 @@ namespace PalRogue
             mode = Mode.Busy;
             HidePanels();
             battle.Detach();
+            GameAudio.Se("flee");
             yield return ShowMessage("무사히 도망쳤다!");
             yield return FinishWave(true);            // 도망쳐도 다음 웨이브로 넘어간다 (경험치·돈은 없음)
         }
@@ -826,10 +896,46 @@ namespace PalRogue
             ShowCommand();
         }
 
+        // ───────── 게임 중 메뉴 (Esc) ─────────
+        GameMenu gameMenu;
+        float menuClosedAt;
+
+        IEnumerator OpenGameMenu()
+        {
+            mode = Mode.Busy;
+            if (EventSystem.current != null) EventSystem.current.SetSelectedGameObject(null);   // 전투 메뉴가 키를 받지 않게
+            bool canTitle = GameSession.CanLoad(GameSession.TitleScene);
+            if (gameMenu == null) gameMenu = GameMenu.Create(messageText.font, canTitle);
+            yield return gameMenu.Open();
+            menuClosedAt = Time.unscaledTime;
+            switch (gameMenu.Result)
+            {
+                case GameMenu.Choice.Title:
+                    GameAudio.StopBgm(0.4f);
+                    GameSession.Go(GameSession.TitleScene, messageText.font);
+                    yield break;
+                case GameMenu.Choice.Quit:
+                    GameAudio.StopBgm(0.3f);
+                    yield return new WaitForSecondsRealtime(0.3f);
+#if UNITY_EDITOR
+                    UnityEditor.EditorApplication.isPlaying = false;
+#else
+                    Application.Quit();
+#endif
+                    yield break;
+                default:
+                    ShowCommand();
+                    break;
+            }
+        }
+
         // ───────── 커맨드 ─────────
+        float commandShownAt;
+
         void ShowCommand()
         {
             mode = Mode.Command;
+            commandShownAt = Time.unscaledTime;     // 기술 창에서 Esc로 돌아온 그 순간에 메뉴가 열리지 않게
             skillPanel.SetActive(false);
             skillInfoPanel.SetActive(false);
             commandBox.SetActive(true);
@@ -1133,6 +1239,7 @@ namespace PalRogue
                     yield return ShowMessage($"{Josa.Eul(name)} 응축했다!\n별 {target.Stars}개: 모든 능력치 +{Mathf.RoundToInt(target.Stars * GameConfig.StarStatBonus * 100)}%");
                     if (moved.Count > 0) yield return ShowMessage($"{Josa.Eul(string.Join(", ", moved))} 함께 넘겨받았다!");
                     if (target == battle.Player) playerInfo.Refresh(target);
+                    Achievements.CheckStars(target.Stars);
                     RestoreMessage(normal);
                     if (target.Stars >= GameConfig.MaxStars && GameConfig.BonusPerkAtMaxStars)
                         yield return ChoosePerk(target, $"{PalName(target)}의 별이 가득 찼다!", PerkRarity.Epic);
@@ -1411,6 +1518,7 @@ namespace PalRogue
                         // 여러 능력치가 한꺼번에 같은 쪽으로 바뀌면 화살표는 한 번만
                         bool sameBurst = before != null && before.Type == BattleEventType.StatStage && before.Pal == ev.Pal
                                          && (before.Count > 0) == (ev.Count > 0);
+                        if (!sameBurst) GameAudio.Se(ev.Count > 0 ? "stat_up" : "stat_down", 0.7f);
                         if (!sameBurst && view.IsVisible) yield return Fx.PlayStatStage(view, ev.Count > 0);
                         break;
                     }
@@ -1438,32 +1546,43 @@ namespace PalRogue
                         var targetView = ev.IsPlayerSide ? enemyView : playerView;
                         if (view.IsVisible && targetView.IsVisible)
                             yield return Fx.Play(ev.Skill, view, targetView, ev.Missed, ev.Critical, ev.Effectiveness);
+                        // 맞는 소리 (포켓로그처럼 상성에 따라: 굉장 = 강한 소리, 별로 = 약한 소리)
+                        if (!ev.Missed && ev.Skill != null && ev.Skill.category != SkillCategory.Status)
+                            GameAudio.Se(ev.Effectiveness > 1f ? "hit_strong" : ev.Effectiveness < 1f ? "hit_weak" : "hit");
                         break;
                     }
                     case BattleEventType.SphereThrown:
+                        GameAudio.Se("pb_throw");
                         yield return PlayThrow(ev.Sphere);
                         break;
                     case BattleEventType.SphereShakes:
+                        GameAudio.Se("pb_bounce_1");
                         yield return PlayShakes(ev.Count);
                         break;
                     case BattleEventType.SphereCaught:
+                        GameAudio.Se("pb_catch");
                         sphereView.ShowCaught();
                         enemyInfo.gameObject.SetActive(false);        // 잡히면 상대 정보창이 사라진다 (포켓로그와 같음)
                         break;
                     case BattleEventType.SphereBroke:
+                        GameAudio.Se("pb_rel");
                         yield return PlayBreakFree();
                         break;
                     case BattleEventType.ExpBar:
-                        if (ev.Pal == battle.Player) yield return playerInfo.AnimateExp(ev.FromRatio, ev.ToRatio);
+                        if (ev.Pal == battle.Player) { GameAudio.Se("exp", 0.6f); yield return playerInfo.AnimateExp(ev.FromRatio, ev.ToRatio); }
                         break;
                     case BattleEventType.LevelUp:
+                        GameAudio.Se("level_up");
+                        if (ev.IsPlayerSide) Achievements.CheckLevel(ev.Level);
                         yield return PlayLevelUp(ev.Pal, ev.Level, ev.NewSkills);
                         break;
                     case BattleEventType.Fainted:
+                        GameAudio.Se("faint");
                         box.ShowFainted();
                         yield return view.PlayFaint();
                         break;
                     case BattleEventType.ShieldBroken:
+                        GameAudio.Se("hit_strong");
                         box.SetShields(ev.Pal);                        // 깨진 실드의 경계선이 사라진다
                         yield return ShakeBox((RectTransform)box.transform);
                         break;
@@ -1471,11 +1590,13 @@ namespace PalRogue
                         yield return PlayRecall();
                         break;
                     case BattleEventType.Awakened:
+                        GameAudio.Se("shine");
+                        if (ev.IsPlayerSide) Achievements.Awakened();
                         yield return view.PlayAwaken();                 // 금빛으로 번쩍이며 각성
                         yield return ShakeBox((RectTransform)box.transform);
                         break;
                     case BattleEventType.SentOut:
-                        if (ev.IsPlayerSide) yield return PlaySendOut(ev.Pal);   // 스피어를 던져서 내보낸다
+                        if (ev.IsPlayerSide) { GameAudio.Se("pb_rel"); yield return PlaySendOut(ev.Pal); }   // 스피어를 던져서 내보낸다
                         else
                         {
                             view.Show(ev.Pal.Data, false);
@@ -1576,8 +1697,10 @@ namespace PalRogue
         void Select(Button button)
         {
             if (EventSystem.current == null) return;
+            MenuEntry.Quiet = true;                                        // 코드로 고른 건 소리 없이
             EventSystem.current.SetSelectedGameObject(null);               // 같은 항목을 다시 골라도 커서가 갱신되게
             EventSystem.current.SetSelectedGameObject(button.gameObject);
+            MenuEntry.Quiet = false;
         }
 
         static string PalName(Pal pal) => string.IsNullOrEmpty(pal.Data.palName) ? pal.Data.name : pal.Data.palName;

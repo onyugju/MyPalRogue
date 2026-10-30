@@ -13,7 +13,14 @@ namespace PalRogue
         public event Action<MenuEntry> Selected;
         public event Action Cancelled;
 
-        public void OnSelect(BaseEventData eventData) => Selected?.Invoke(this);
+        /// <summary>코드로 항목을 고를 때 잠깐 켜서 커서 소리를 끈다</summary>
+        public static bool Quiet;
+
+        public void OnSelect(BaseEventData eventData)
+        {
+            if (!Quiet) GameAudio.Se("select");                 // 커서가 움직이는 소리
+            Selected?.Invoke(this);
+        }
 
         public void OnPointerEnter(PointerEventData eventData)
         {

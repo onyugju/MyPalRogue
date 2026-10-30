@@ -20,6 +20,27 @@ namespace PalRogue
             public int count;
         }
 
+        /// <summary>끝난 모험 하나의 기록 (플레이 이력)</summary>
+        [Serializable]
+        public class RunRecord
+        {
+            public int runNumber, wave, caught, bosses;
+            public bool cleared;
+            public long endedTicks;
+            public double playSeconds;
+            public string area;
+            public List<RecordPal> party = new List<RecordPal>();
+            public DateTime EndedAt => new DateTime(endedTicks);
+        }
+
+        [Serializable]
+        public class RecordPal
+        {
+            public string pal;
+            public int level;
+            public bool fainted;
+        }
+
         [Serializable]
         class SaveFile
         {
@@ -29,6 +50,9 @@ namespace PalRogue
             public int runsStarted;
             public int lastSlotPlusOne;     // 마지막으로 플레이한 저장 슬롯 + 1 (0 = 없음)
             public string lastBiome;        // 마지막으로 플레이한 지역 배경 (타이틀 배경)
+            public List<string> achievements = new List<string>();
+            public int bossesDefeated, legendsDefeated, bestWave;
+            public List<RunRecord> history = new List<RunRecord>();
         }
 
         static SaveFile data;
@@ -51,6 +75,8 @@ namespace PalRogue
                 data ??= new SaveFile();
                 data.unlocked ??= new List<string>();
                 data.caught ??= new List<CaughtEntry>();
+                data.achievements ??= new List<string>();
+                data.history ??= new List<RunRecord>();
                 return data;
             }
         }
@@ -105,6 +131,48 @@ namespace PalRogue
             Data.runsStarted++;
             Save();
             return Data.runsStarted;
+        }
+
+        // ───── 업적 · 누적 기록 · 플레이 이력 ─────
+        public const int MaxHistory = 30;
+
+        public static bool HasAchievement(string id) => Data.achievements.Contains(id);
+        /// <summary>업적을 달성 처리한다. 이번에 처음이면 true</summary>
+        public static bool UnlockAchievement(string id)
+        {
+            if (Data.achievements.Contains(id)) return false;
+            Data.achievements.Add(id);
+            Save();
+            return true;
+        }
+        public static int AchievementCount => Data.achievements.Count;
+
+        /// <summary>지금까지 잡은 팰 수 (같은 팰 여러 번 포함) / 서로 다른 팰 종류 수</summary>
+        public static int TotalCaught { get { int n = 0; foreach (var c in Data.caught) n += c.count; return n; } }
+        public static int DistinctCaught => Data.caught.Count;
+
+        public static int BossesDefeated => Data.bossesDefeated;
+        public static int LegendsDefeated => Data.legendsDefeated;
+        public static int BestWave => Data.bestWave;
+
+        public static void AddBossDefeat(bool legend)
+        {
+            Data.bossesDefeated++;
+            if (legend) Data.legendsDefeated++;
+            Save();
+        }
+
+        public static IReadOnlyList<RunRecord> History => Data.history;
+
+        /// <summary>끝난 모험을 이력에 남긴다 (최근 MaxHistory개). 최고 기록이면 true</summary>
+        public static bool AddHistory(RunRecord r)
+        {
+            Data.history.Insert(0, r);
+            if (Data.history.Count > MaxHistory) Data.history.RemoveRange(MaxHistory, Data.history.Count - MaxHistory);
+            bool best = r.wave > Data.bestWave;
+            if (best) Data.bestWave = r.wave;
+            Save();
+            return best;
         }
 
         /// <summary>(테스트용) 팰을 바로 해금한다</summary>

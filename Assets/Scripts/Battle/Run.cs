@@ -50,6 +50,12 @@ namespace PalRogue
         /// <summary>황금 스피어로 늘어난 보상 선택지 수</summary>
         public int ExtraRewards { get; set; }
 
+        // ───── 이번 모험의 기록 (결과 화면) ─────
+        /// <summary>이번 모험에서 잡은 팰 수</summary>
+        public int CaughtCount { get; set; }
+        /// <summary>이번 모험에서 쓰러뜨리거나 잡은 보스 수 (보스·전설)</summary>
+        public int BossesDefeated { get; set; }
+
         /// <summary>보스가 나오는 웨이브인지 (보스·전설·최종 보스 모두 포함)</summary>
         public bool IsBossWave => GameConfig.IsBossWave(Wave);
         /// <summary>CreateEnemy로 만든 이번 상대의 종류</summary>
@@ -151,7 +157,10 @@ namespace PalRogue
             List<PalData> candidates;
             if (IsBossWave)
             {
-                var ranked = normal.OrderByDescending(StatTotal).ToList();
+                // 그 웨이브의 야생 범위(조금 넓게) 안에서 능력치가 높은 1/3 (초반 보스가 후반 팰로 나오지 않게)
+                var byTotal = normal.OrderBy(StatTotal).ToList();
+                int poolCount = Mathf.Clamp(Mathf.CeilToInt(byTotal.Count * Mathf.Min(1f, GameConfig.WildPoolShare(Wave) + GameConfig.BossPoolExtraShare)), Mathf.Min(3, byTotal.Count), byTotal.Count);
+                var ranked = byTotal.Take(poolCount).OrderByDescending(StatTotal).ToList();
                 candidates = ranked.Take(Mathf.Max(1, ranked.Count / 3)).ToList();
             }
             else
@@ -178,7 +187,7 @@ namespace PalRogue
                 MetWave = Wave, MetArea = AreaName, MetAsBoss = kind != BossKind.None,   // 잡으면 트레이너 메모에 나온다
             };
             if (kind == BossKind.Legend)
-                pal.AddEffect(new BossAura("전설의 기운", GameConfig.LegendStatMultiplier, GameConfig.LegendHpMultiplier));
+                pal.AddEffect(new BossAura("전설의 기운", GameConfig.LegendStat(Wave), GameConfig.LegendHp(Wave)));
             else if (kind == BossKind.Final)
                 pal.AddEffect(new BossAura("공허의 기운", GameConfig.FinalBossStatMultiplier, GameConfig.FinalBossHpMultiplier));
             pal.SetStars(GameConfig.EnemyStars(Wave, kind));    // 깊은 웨이브의 상대는 응축 ★을 달고 나온다
