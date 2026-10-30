@@ -16,9 +16,9 @@ MonoBehaviour:
   palName: "\uBD88\uAF43\uBC24\uBE44"
   englishName: Rooby
   frontSprite: {fileID: -7895788269703824650, guid: 39103139fec0a924ea271dda2d31109a, type: 3}
-  backSprite: {fileID: 0}
+  backSprite: {fileID: -7394504307370047306, guid: 83b0cb4d22475f44f99a0d50b7443d4b, type: 3}
   frontScale: 0.6409487
-  backScale: 1
+  backScale: 0.32022244
   sizeTune: 1
   frontYOffset: 0
   frontAnimator: {fileID: 0}

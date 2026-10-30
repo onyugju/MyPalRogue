@@ -16,9 +16,9 @@ MonoBehaviour:
   palName: "\uD30C\uC774\uB9B0"
   englishName: Pyrin
   frontSprite: {fileID: 2516921007406095021, guid: 0dc4939b242c3ea4a995ab202248e54e, type: 3}
-  backSprite: {fileID: 0}
+  backSprite: {fileID: 6505156924606002923, guid: 76cf1b5e8d0bcbe43ba603f1a89bf5d6, type: 3}
   frontScale: 0.4610759
-  backScale: 1
+  backScale: 0.28467408
   sizeTune: 1
   frontYOffset: 0
   frontAnimator: {fileID: 0}

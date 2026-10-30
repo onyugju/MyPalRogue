@@ -16,9 +16,9 @@ MonoBehaviour:
   palName: "\uB2E4\uD06C\uC6B8\uD504"
   englishName: Direhowl
   frontSprite: {fileID: -7256901528613412634, guid: c212a49b3426a244c9edaeb28beeecf9, type: 3}
-  backSprite: {fileID: 0}
+  backSprite: {fileID: -2129457668900115383, guid: b645e79364a83a24099a8e9de0fc53a9, type: 3}
   frontScale: 0.602967
-  backScale: 1
+  backScale: 0.2993839
   sizeTune: 1
   frontYOffset: 0
   frontAnimator: {fileID: 0}

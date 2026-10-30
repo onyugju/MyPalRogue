@@ -16,9 +16,9 @@ MonoBehaviour:
   palName: "\uD5EC\uAC00\uB8E8\uB2E4"
   englishName: Helzephyr
   frontSprite: {fileID: -5155743459587048080, guid: 6e1a5d2f2511cfb44bd5d32e234525e6, type: 3}
-  backSprite: {fileID: 0}
+  backSprite: {fileID: -4582480491100975316, guid: ac897533db5c0c940b17dd59743d907b, type: 3}
   frontScale: 0.36017108
-  backScale: 1
+  backScale: 0.6024022
   sizeTune: 1
   frontYOffset: 0
   frontAnimator: {fileID: 0}

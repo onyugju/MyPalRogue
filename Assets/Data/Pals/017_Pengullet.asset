@@ -16,9 +16,9 @@ MonoBehaviour:
   palName: "\uD3AD\uD0A4"
   englishName: Pengullet
   frontSprite: {fileID: 2151929691883307803, guid: f2d459f8e5a3e6345ac6a376328f116f, type: 3}
-  backSprite: {fileID: 0}
+  backSprite: {fileID: -163218948149458335, guid: 82eced77807fc2b4fbd4434f634281dd, type: 3}
   frontScale: 0.50819755
-  backScale: 1
+  backScale: 0.27829123
   sizeTune: 1
   frontYOffset: 0
   frontAnimator: {fileID: 0}

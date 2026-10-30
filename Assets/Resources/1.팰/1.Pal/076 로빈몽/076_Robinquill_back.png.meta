@@ -1,0 +1,1068 @@
+fileFormatVersion: 2
+guid: 04cc8f4c1acbcbc4e938254db21aaf4e
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -4647451226009119324
+    second: 076_Robinquill_back_0
+  - first:
+      213: 3414612381316719664
+    second: 076_Robinquill_back_1
+  - first:
+      213: 1382799645064079549
+    second: 076_Robinquill_back_2
+  - first:
+      213: -7043185778325133334
+    second: 076_Robinquill_back_3
+  - first:
+      213: -853217697730390369
+    second: 076_Robinquill_back_4
+  - first:
+      213: 7379342587603710338
+    second: 076_Robinquill_back_5
+  - first:
+      213: -4517907350091988915
+    second: 076_Robinquill_back_6
+  - first:
+      213: 35183741977212421
+    second: 076_Robinquill_back_7
+  - first:
+      213: -5905258613070153663
+    second: 076_Robinquill_back_8
+  - first:
+      213: -6485823867052779747
+    second: 076_Robinquill_back_9
+  - first:
+      213: -962415834363179882
+    second: 076_Robinquill_back_10
+  - first:
+      213: -1006067691414720893
+    second: 076_Robinquill_back_11
+  - first:
+      213: 8816706666160971129
+    second: 076_Robinquill_back_12
+  - first:
+      213: 5167507929095030683
+    second: 076_Robinquill_back_13
+  - first:
+      213: -8173541944125258726
+    second: 076_Robinquill_back_14
+  - first:
+      213: -5418995728988847481
+    second: 076_Robinquill_back_15
+  - first:
+      213: -1036087611670726833
+    second: 076_Robinquill_back_16
+  - first:
+      213: 4874283434815877069
+    second: 076_Robinquill_back_17
+  - first:
+      213: -1262368578497629267
+    second: 076_Robinquill_back_18
+  - first:
+      213: -3004930202561360614
+    second: 076_Robinquill_back_19
+  - first:
+      213: -4013096817782170861
+    second: 076_Robinquill_back_20
+  - first:
+      213: 7851657484604405978
+    second: 076_Robinquill_back_21
+  - first:
+      213: 5331372939598931546
+    second: 076_Robinquill_back_22
+  - first:
+      213: 5868019714367919210
+    second: 076_Robinquill_back_23
+  - first:
+      213: -3006822894235395952
+    second: 076_Robinquill_back_24
+  - first:
+      213: 7395119483482003294
+    second: 076_Robinquill_back_25
+  - first:
+      213: -4938422191559104808
+    second: 076_Robinquill_back_26
+  - first:
+      213: -582965139108830809
+    second: 076_Robinquill_back_27
+  - first:
+      213: -4214845280426730184
+    second: 076_Robinquill_back_28
+  - first:
+      213: -3069174566563857124
+    second: 076_Robinquill_back_29
+  - first:
+      213: -6124206080532494360
+    second: 076_Robinquill_back_30
+  - first:
+      213: -3878822133261425956
+    second: 076_Robinquill_back_31
+  - first:
+      213: 7900777372018956691
+    second: 076_Robinquill_back_32
+  - first:
+      213: -881950321736865587
+    second: 076_Robinquill_back_33
+  - first:
+      213: -7080796117595875776
+    second: 076_Robinquill_back_34
+  - first:
+      213: -470626442691047605
+    second: 076_Robinquill_back_35
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: 076_Robinquill_back_0
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 1511
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4a5d5c2bbbfe08fb0800000000000000
+      internalID: -4647451226009119324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 076_Robinquill_back_1
+      rect:
+        serializedVersion: 2
+        x: 266
+        y: 1498
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 034a8029ed3236f20800000000000000
+      internalID: 3414612381316719664
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 076_Robinquill_back_2
+      rect:
+        serializedVersion: 2
+        x: 426
+        y: 1421
+        width: 151
+        height: 109
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db8a49763f0b03310800000000000000
+      internalID: 1382799645064079549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 076_Robinquill_back_3
+      rect:
+        serializedVersion: 2
+        x: 604
+        y: 1381
+        width: 227
+        height: 137
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae7e8dbd9d3914e90800000000000000
+      internalID: -7043185778325133334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 076_Robinquill_back_4
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 85
+        width: 743
+        height: 1344
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9614b24603c824f0800000000000000
+      internalID: -853217697730390369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 076_Robinquill_back_5
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 1487
+        width: 7
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 281f70a6cf0b86660800000000000000
+      internalID: 7379342587603710338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 076_Robinquill_back_6
+      rect:
+        serializedVersion: 2
+        x: 286
+        y: 1487
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4004a5b33b2d41c0800000000000000
+      internalID: -4517907350091988915
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 076_Robinquill_back_7
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 1453
+        width: 33
+        height: 55
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 506bb6a4d6ffc7000800000000000000
+      internalID: 35183741977212421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 076_Robinquill_back_8
+      rect:
+        serializedVersion: 2
+        x: 366
+        y: 1484
+        width: 19
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 148332d249e4c0ea0800000000000000
+      internalID: -5905258613070153663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 076_Robinquill_back_9
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 1495
+        width: 19
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d1791986e89bdf5a0800000000000000
+      internalID: -6485823867052779747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 076_Robinquill_back_10
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 1494
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 69c4292d5efc4a2f0800000000000000
+      internalID: -962415834363179882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 076_Robinquill_back_11
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 1475
+        width: 7
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 38e6a39d3cab902f0800000000000000
+      internalID: -1006067691414720893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 076_Robinquill_back_12
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 1432
+        width: 27
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 97dd75dfffb3b5a70800000000000000
+      internalID: 8816706666160971129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 076_Robinquill_back_13
+      rect:
+        serializedVersion: 2
+        x: 268
+        y: 1431
+        width: 23
+        height: 35
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9749b7351da6b740800000000000000
+      internalID: 5167507929095030683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 076_Robinquill_back_14
+      rect:
+        serializedVersion: 2
+        x: 530
+        y: 1409
+        width: 45
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a1488a738eeb19e80800000000000000
+      internalID: -8173541944125258726
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 076_Robinquill_back_15
+      rect:
+        serializedVersion: 2
+        x: 956
+        y: 791
+        width: 11
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 782c246781cdbc4b0800000000000000
+      internalID: -5418995728988847481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 076_Robinquill_back_16
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 709
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f47fe2e7ec31f91f0800000000000000
+      internalID: -1036087611670726833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 076_Robinquill_back_17
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 597
+        width: 49
+        height: 43
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dcf65ca75fee4a340800000000000000
+      internalID: 4874283434815877069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 076_Robinquill_back_18
+      rect:
+        serializedVersion: 2
+        x: 856
+        y: 479
+        width: 71
+        height: 145
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da3b807577a2b7ee0800000000000000
+      internalID: -1262368578497629267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 076_Robinquill_back_19
+      rect:
+        serializedVersion: 2
+        x: 902
+        y: 607
+        width: 25
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a1dcc7dc6e75c46d0800000000000000
+      internalID: -3004930202561360614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 076_Robinquill_back_20
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 564
+        width: 27
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 31bd7ded4bd9e48c0800000000000000
+      internalID: -4013096817782170861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 076_Robinquill_back_21
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 553
+        width: 15
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad8f1e3e1e0b6fc60800000000000000
+      internalID: 7851657484604405978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 076_Robinquill_back_22
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 523
+        width: 9
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a56ace51177dcf940800000000000000
+      internalID: 5331372939598931546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 076_Robinquill_back_23
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 533
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a6493e117d46f6150800000000000000
+      internalID: 5868019714367919210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 076_Robinquill_back_24
+      rect:
+        serializedVersion: 2
+        x: 934
+        y: 469
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 098569e228e9546d0800000000000000
+      internalID: -3006822894235395952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 076_Robinquill_back_25
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 405
+        width: 5
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e57d38c3dfdb0a660800000000000000
+      internalID: 7395119483482003294
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 076_Robinquill_back_26
+      rect:
+        serializedVersion: 2
+        x: 866
+        y: 318
+        width: 29
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d6a6318e23377bb0800000000000000
+      internalID: -4938422191559104808
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 076_Robinquill_back_27
+      rect:
+        serializedVersion: 2
+        x: 910
+        y: 287
+        width: 23
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a16bfe6b44e8e7f0800000000000000
+      internalID: -582965139108830809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 076_Robinquill_back_28
+      rect:
+        serializedVersion: 2
+        x: 935
+        y: 287
+        width: 8
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83ddee47c8cd185c0800000000000000
+      internalID: -4214845280426730184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 076_Robinquill_back_29
+      rect:
+        serializedVersion: 2
+        x: 904
+        y: 223
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1d3c4e2ef91865d0800000000000000
+      internalID: -3069174566563857124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 076_Robinquill_back_30
+      rect:
+        serializedVersion: 2
+        x: 926
+        y: 225
+        width: 27
+        height: 45
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e7c2966403720ba0800000000000000
+      internalID: -6124206080532494360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 076_Robinquill_back_31
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 97
+        width: 9
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd2a70812d7ab2ac0800000000000000
+      internalID: -3878822133261425956
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 076_Robinquill_back_32
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 67
+        width: 13
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 39952a4e82335ad60800000000000000
+      internalID: 7900777372018956691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 076_Robinquill_back_33
+      rect:
+        serializedVersion: 2
+        x: 878
+        y: 67
+        width: 25
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc8255beadea2c3f0800000000000000
+      internalID: -881950321736865587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 076_Robinquill_back_34
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 47
+        width: 13
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0469bbb5275fbbd90800000000000000
+      internalID: -7080796117595875776
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 076_Robinquill_back_35
+      rect:
+        serializedVersion: 2
+        x: 596
+        y: 29
+        width: 17
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4f8e7d6ebff779f0800000000000000
+      internalID: -470626442691047605
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 2f5b6af467af250469b6ecfb494ae32e
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      076_Robinquill_back_0: -4647451226009119324
+      076_Robinquill_back_1: 3414612381316719664
+      076_Robinquill_back_10: -962415834363179882
+      076_Robinquill_back_11: -1006067691414720893
+      076_Robinquill_back_12: 8816706666160971129
+      076_Robinquill_back_13: 5167507929095030683
+      076_Robinquill_back_14: -8173541944125258726
+      076_Robinquill_back_15: -5418995728988847481
+      076_Robinquill_back_16: -1036087611670726833
+      076_Robinquill_back_17: 4874283434815877069
+      076_Robinquill_back_18: -1262368578497629267
+      076_Robinquill_back_19: -3004930202561360614
+      076_Robinquill_back_2: 1382799645064079549
+      076_Robinquill_back_20: -4013096817782170861
+      076_Robinquill_back_21: 7851657484604405978
+      076_Robinquill_back_22: 5331372939598931546
+      076_Robinquill_back_23: 5868019714367919210
+      076_Robinquill_back_24: -3006822894235395952
+      076_Robinquill_back_25: 7395119483482003294
+      076_Robinquill_back_26: -4938422191559104808
+      076_Robinquill_back_27: -582965139108830809
+      076_Robinquill_back_28: -4214845280426730184
+      076_Robinquill_back_29: -3069174566563857124
+      076_Robinquill_back_3: -7043185778325133334
+      076_Robinquill_back_30: -6124206080532494360
+      076_Robinquill_back_31: -3878822133261425956
+      076_Robinquill_back_32: 7900777372018956691
+      076_Robinquill_back_33: -881950321736865587
+      076_Robinquill_back_34: -7080796117595875776
+      076_Robinquill_back_35: -470626442691047605
+      076_Robinquill_back_4: -853217697730390369
+      076_Robinquill_back_5: 7379342587603710338
+      076_Robinquill_back_6: -4517907350091988915
+      076_Robinquill_back_7: 35183741977212421
+      076_Robinquill_back_8: -5905258613070153663
+      076_Robinquill_back_9: -6485823867052779747
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

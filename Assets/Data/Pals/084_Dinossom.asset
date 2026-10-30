@@ -16,9 +16,9 @@ MonoBehaviour:
   palName: "\uD50C\uB85C\uB77C\uB514\uB178"
   englishName: Dinossom
   frontSprite: {fileID: -5159330391667185939, guid: 0064b6f363ca1ca4fbf2abb4cb121db8, type: 3}
-  backSprite: {fileID: 0}
+  backSprite: {fileID: 2564232683099910819, guid: b1f60d145ff335f4698f135955a81fae, type: 3}
   frontScale: 0.4090909
-  backScale: 1
+  backScale: 0.3293112
   sizeTune: 1
   frontYOffset: 0
   frontAnimator: {fileID: 0}

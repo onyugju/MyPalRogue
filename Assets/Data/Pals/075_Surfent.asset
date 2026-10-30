@@ -16,9 +16,9 @@ MonoBehaviour:
   palName: "\uC528\uBB34\uAE30"
   englishName: Surfent
   frontSprite: {fileID: -6031200093451214584, guid: c1128d8c26bd0514d97a3f10ae567e14, type: 3}
-  backSprite: {fileID: 0}
+  backSprite: {fileID: -160069986978331032, guid: b3e27f62003c20c438c2c06d30b3f0ef, type: 3}
   frontScale: 0.7410482
-  backScale: 1
+  backScale: 0.28944558
   sizeTune: 1
   frontYOffset: 0
   frontAnimator: {fileID: 0}

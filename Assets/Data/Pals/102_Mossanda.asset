@@ -16,9 +16,9 @@ MonoBehaviour:
   palName: "\uD480\uBC14\uC624"
   englishName: Mossanda
   frontSprite: {fileID: -6208345819964363404, guid: eb75ce0e1e86d544ba83f7142c1599f0, type: 3}
-  backSprite: {fileID: 0}
+  backSprite: {fileID: 9090974568282362879, guid: 47f4a010dfbae4e49b000706faa92b2b, type: 3}
   frontScale: 0.40615305
-  backScale: 1
+  backScale: 0.32145038
   sizeTune: 1
   frontYOffset: 0
   frontAnimator: {fileID: 0}

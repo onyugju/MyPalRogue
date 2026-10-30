@@ -16,9 +16,9 @@ MonoBehaviour:
   palName: "\uC36C\uB3C4\uADF8"
   englishName: Rayhound
   frontSprite: {fileID: -3085954325028346202, guid: 23b12fe783001e149af2c77f883a0814, type: 3}
-  backSprite: {fileID: 0}
+  backSprite: {fileID: -5337112768302920816, guid: e6f55ec1eede3c1459d34d0612d78083, type: 3}
   frontScale: 0.42292172
-  backScale: 1
+  backScale: 0.32307377
   sizeTune: 1
   frontYOffset: 0
   frontAnimator: {fileID: 0}

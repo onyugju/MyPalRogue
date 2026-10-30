@@ -16,9 +16,9 @@ MonoBehaviour:
   palName: "\uB85C\uBE48\uBABD"
   englishName: Robinquill
   frontSprite: {fileID: 2641688893739890206, guid: a091457602416284dbb5dbfd02cc49f2, type: 3}
-  backSprite: {fileID: 0}
+  backSprite: {fileID: -853217697730390369, guid: 04cc8f4c1acbcbc4e938254db21aaf4e, type: 3}
   frontScale: 0.46067572
-  backScale: 1
+  backScale: 0.35124737
   sizeTune: 1
   frontYOffset: 0
   frontAnimator: {fileID: 0}

@@ -1,0 +1,1016 @@
+fileFormatVersion: 2
+guid: b1f60d145ff335f4698f135955a81fae
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 2564232683099910819
+    second: 084_Dinossom_back_0
+  - first:
+      213: 2346458236073347368
+    second: 084_Dinossom_back_1
+  - first:
+      213: -9057529503252662172
+    second: 084_Dinossom_back_2
+  - first:
+      213: -841996313026485675
+    second: 084_Dinossom_back_3
+  - first:
+      213: 6958054457077402382
+    second: 084_Dinossom_back_4
+  - first:
+      213: 8256691399246717590
+    second: 084_Dinossom_back_5
+  - first:
+      213: 480887355493662381
+    second: 084_Dinossom_back_6
+  - first:
+      213: 1601973950028858422
+    second: 084_Dinossom_back_7
+  - first:
+      213: -4375026829212694678
+    second: 084_Dinossom_back_8
+  - first:
+      213: -6726731233381453726
+    second: 084_Dinossom_back_9
+  - first:
+      213: -6079871783878364981
+    second: 084_Dinossom_back_10
+  - first:
+      213: 3607184896429272866
+    second: 084_Dinossom_back_11
+  - first:
+      213: 8472888202795024257
+    second: 084_Dinossom_back_12
+  - first:
+      213: -4787441402966275191
+    second: 084_Dinossom_back_13
+  - first:
+      213: 7819677687064850379
+    second: 084_Dinossom_back_14
+  - first:
+      213: -6098488268736223362
+    second: 084_Dinossom_back_15
+  - first:
+      213: -8286897885938988756
+    second: 084_Dinossom_back_16
+  - first:
+      213: 3910655817631351823
+    second: 084_Dinossom_back_17
+  - first:
+      213: 1901086741038208762
+    second: 084_Dinossom_back_18
+  - first:
+      213: -213827309658593482
+    second: 084_Dinossom_back_19
+  - first:
+      213: -4680368851137087654
+    second: 084_Dinossom_back_20
+  - first:
+      213: 971049112666348622
+    second: 084_Dinossom_back_21
+  - first:
+      213: -2033372568716439476
+    second: 084_Dinossom_back_22
+  - first:
+      213: 8518595528897594396
+    second: 084_Dinossom_back_23
+  - first:
+      213: 8330480436656621962
+    second: 084_Dinossom_back_24
+  - first:
+      213: -3737897385443022200
+    second: 084_Dinossom_back_25
+  - first:
+      213: 34297533369778658
+    second: 084_Dinossom_back_26
+  - first:
+      213: -1280057554175456744
+    second: 084_Dinossom_back_27
+  - first:
+      213: 1457901575939692615
+    second: 084_Dinossom_back_28
+  - first:
+      213: 7594434534306468705
+    second: 084_Dinossom_back_29
+  - first:
+      213: 1549352070194988919
+    second: 084_Dinossom_back_30
+  - first:
+      213: 3200977541904168088
+    second: 084_Dinossom_back_31
+  - first:
+      213: 3105419914676660087
+    second: 084_Dinossom_back_32
+  - first:
+      213: 3324933364786109882
+    second: 084_Dinossom_back_33
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: 084_Dinossom_back_0
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 15
+        width: 860
+        height: 1321
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a2fd951a0cf59320800000000000000
+      internalID: 2564232683099910819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 084_Dinossom_back_1
+      rect:
+        serializedVersion: 2
+        x: 1026
+        y: 1145
+        width: 9
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8290179655b409020800000000000000
+      internalID: 2346458236073347368
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 084_Dinossom_back_2
+      rect:
+        serializedVersion: 2
+        x: 1030
+        y: 1135
+        width: 17
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4683108d7e03d4280800000000000000
+      internalID: -9057529503252662172
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 084_Dinossom_back_3
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 1095
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5522edb70d0a054f0800000000000000
+      internalID: -841996313026485675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 084_Dinossom_back_4
+      rect:
+        serializedVersion: 2
+        x: 119
+        y: 1099
+        width: 19
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e0b0ce1d9a9ff8060800000000000000
+      internalID: 6958054457077402382
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 084_Dinossom_back_5
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 989
+        width: 13
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 692af10f419a59270800000000000000
+      internalID: 8256691399246717590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 084_Dinossom_back_6
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 990
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dae3d2180847ca600800000000000000
+      internalID: 480887355493662381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 084_Dinossom_back_7
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 947
+        width: 27
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63446e6e1da5b3610800000000000000
+      internalID: 1601973950028858422
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 084_Dinossom_back_8
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 966
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a6749f95748c843c0800000000000000
+      internalID: -4375026829212694678
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 084_Dinossom_back_9
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 864
+        width: 7
+        height: 74
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 260f5ce3599d5a2a0800000000000000
+      internalID: -6726731233381453726
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 084_Dinossom_back_10
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 888
+        width: 10
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc0720a33d4ff9ba0800000000000000
+      internalID: -6079871783878364981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 084_Dinossom_back_11
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 884
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22f22d63d8b4f0230800000000000000
+      internalID: 3607184896429272866
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 084_Dinossom_back_12
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 885
+        width: 17
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18ff13dddeeb59570800000000000000
+      internalID: 8472888202795024257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 084_Dinossom_back_13
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 893
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 98b8231b8679f8db0800000000000000
+      internalID: -4787441402966275191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 084_Dinossom_back_14
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 872
+        width: 11
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bcf6c8b0d63158c60800000000000000
+      internalID: 7819677687064850379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 084_Dinossom_back_15
+      rect:
+        serializedVersion: 2
+        x: 1088
+        y: 871
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7727131b31dd5ba0800000000000000
+      internalID: -6098488268736223362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 084_Dinossom_back_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 795
+        width: 6
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c29cba257460ffc80800000000000000
+      internalID: -8286897885938988756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 084_Dinossom_back_17
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 841
+        width: 8
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f044bb02fb0754630800000000000000
+      internalID: 3910655817631351823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 084_Dinossom_back_18
+      rect:
+        serializedVersion: 2
+        x: 1096
+        y: 839
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af699ce8154026a10800000000000000
+      internalID: 1901086741038208762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 084_Dinossom_back_19
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 793
+        width: 18
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 637a58cd135580df0800000000000000
+      internalID: -213827309658593482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 084_Dinossom_back_20
+      rect:
+        serializedVersion: 2
+        x: 1026
+        y: 805
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a57bb2ad35dfb0fb0800000000000000
+      internalID: -4680368851137087654
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 084_Dinossom_back_21
+      rect:
+        serializedVersion: 2
+        x: 1048
+        y: 805
+        width: 15
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4c9febe50cd97d00800000000000000
+      internalID: 971049112666348622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 084_Dinossom_back_22
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 757
+        width: 46
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4012a90c6208c3e0800000000000000
+      internalID: -2033372568716439476
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 084_Dinossom_back_23
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 759
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c140c250081283670800000000000000
+      internalID: 8518595528897594396
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 084_Dinossom_back_24
+      rect:
+        serializedVersion: 2
+        x: 1048
+        y: 761
+        width: 9
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a89424302dfcb9370800000000000000
+      internalID: 8330480436656621962
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 084_Dinossom_back_25
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 713
+        width: 20
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 88aaec5d122502cc0800000000000000
+      internalID: -3737897385443022200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 084_Dinossom_back_26
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 732
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e18d25cc69d97000800000000000000
+      internalID: 34297533369778658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 084_Dinossom_back_27
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 678
+        width: 26
+        height: 39
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81a015fbf625c3ee0800000000000000
+      internalID: -1280057554175456744
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 084_Dinossom_back_28
+      rect:
+        serializedVersion: 2
+        x: 1000
+        y: 668
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7481e5f42c18b3410800000000000000
+      internalID: 1457901575939692615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 084_Dinossom_back_29
+      rect:
+        serializedVersion: 2
+        x: 1040
+        y: 677
+        width: 7
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 163db4fc8f9d46960800000000000000
+      internalID: 7594434534306468705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 084_Dinossom_back_30
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 642
+        width: 18
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7770dffbf77608510800000000000000
+      internalID: 1549352070194988919
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 084_Dinossom_back_31
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 577
+        width: 52
+        height: 43
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89473376d182c6c20800000000000000
+      internalID: 3200977541904168088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 084_Dinossom_back_32
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 525
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 777e9bc85faa81b20800000000000000
+      internalID: 3105419914676660087
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 084_Dinossom_back_33
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 104
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: abd9bed6749842e20800000000000000
+      internalID: 3324933364786109882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 692c874bc7bd10341a9767da174f20b6
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      084_Dinossom_back_0: 2564232683099910819
+      084_Dinossom_back_1: 2346458236073347368
+      084_Dinossom_back_10: -6079871783878364981
+      084_Dinossom_back_11: 3607184896429272866
+      084_Dinossom_back_12: 8472888202795024257
+      084_Dinossom_back_13: -4787441402966275191
+      084_Dinossom_back_14: 7819677687064850379
+      084_Dinossom_back_15: -6098488268736223362
+      084_Dinossom_back_16: -8286897885938988756
+      084_Dinossom_back_17: 3910655817631351823
+      084_Dinossom_back_18: 1901086741038208762
+      084_Dinossom_back_19: -213827309658593482
+      084_Dinossom_back_2: -9057529503252662172
+      084_Dinossom_back_20: -4680368851137087654
+      084_Dinossom_back_21: 971049112666348622
+      084_Dinossom_back_22: -2033372568716439476
+      084_Dinossom_back_23: 8518595528897594396
+      084_Dinossom_back_24: 8330480436656621962
+      084_Dinossom_back_25: -3737897385443022200
+      084_Dinossom_back_26: 34297533369778658
+      084_Dinossom_back_27: -1280057554175456744
+      084_Dinossom_back_28: 1457901575939692615
+      084_Dinossom_back_29: 7594434534306468705
+      084_Dinossom_back_3: -841996313026485675
+      084_Dinossom_back_30: 1549352070194988919
+      084_Dinossom_back_31: 3200977541904168088
+      084_Dinossom_back_32: 3105419914676660087
+      084_Dinossom_back_33: 3324933364786109882
+      084_Dinossom_back_4: 6958054457077402382
+      084_Dinossom_back_5: 8256691399246717590
+      084_Dinossom_back_6: 480887355493662381
+      084_Dinossom_back_7: 1601973950028858422
+      084_Dinossom_back_8: -4375026829212694678
+      084_Dinossom_back_9: -6726731233381453726
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

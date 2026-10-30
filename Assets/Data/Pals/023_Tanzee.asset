@@ -16,9 +16,9 @@ MonoBehaviour:
   palName: "\uBABD\uC9C0"
   englishName: Tanzee
   frontSprite: {fileID: 8793035335290532143, guid: 68ca559bd99cb4249a1f35e433cb5299, type: 3}
-  backSprite: {fileID: 0}
+  backSprite: {fileID: -6325190150398571862, guid: 2fc0c6f5bcac16d4da1564212a71ec2c, type: 3}
   frontScale: 0.42837664
-  backScale: 1
+  backScale: 0.29838526
   sizeTune: 1
   frontYOffset: 0
   frontAnimator: {fileID: 0}

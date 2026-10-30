@@ -1,0 +1,600 @@
+fileFormatVersion: 2
+guid: 0574f47ea4b98ce4aa357405b8fc295b
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 6696627741154935782
+    second: 016_Depresso_back_0
+  - first:
+      213: 6062253462493483924
+    second: 016_Depresso_back_1
+  - first:
+      213: -1337633061239824275
+    second: 016_Depresso_back_2
+  - first:
+      213: -2869237951466231657
+    second: 016_Depresso_back_3
+  - first:
+      213: 418591571537039728
+    second: 016_Depresso_back_4
+  - first:
+      213: 2943179349098856913
+    second: 016_Depresso_back_5
+  - first:
+      213: 3561954078790215655
+    second: 016_Depresso_back_6
+  - first:
+      213: -5240780290247611266
+    second: 016_Depresso_back_7
+  - first:
+      213: -7249096675444430005
+    second: 016_Depresso_back_8
+  - first:
+      213: -7147661264111093109
+    second: 016_Depresso_back_9
+  - first:
+      213: 5528003804134536290
+    second: 016_Depresso_back_10
+  - first:
+      213: -158075745639101071
+    second: 016_Depresso_back_11
+  - first:
+      213: -4038889196929122740
+    second: 016_Depresso_back_12
+  - first:
+      213: -2980207426633216857
+    second: 016_Depresso_back_13
+  - first:
+      213: -3590003379924978503
+    second: 016_Depresso_back_14
+  - first:
+      213: -6658198075532566248
+    second: 016_Depresso_back_15
+  - first:
+      213: 6525671734980468169
+    second: 016_Depresso_back_16
+  - first:
+      213: -6961787846536386873
+    second: 016_Depresso_back_17
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: 016_Depresso_back_0
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 64
+        width: 819
+        height: 1277
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e3019843733fec50800000000000000
+      internalID: 6696627741154935782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 016_Depresso_back_1
+      rect:
+        serializedVersion: 2
+        x: 735
+        y: 1356
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4935e4aa763712450800000000000000
+      internalID: 6062253462493483924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 016_Depresso_back_2
+      rect:
+        serializedVersion: 2
+        x: 841
+        y: 1349
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d606bf061d5cf6de0800000000000000
+      internalID: -1337633061239824275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 016_Depresso_back_3
+      rect:
+        serializedVersion: 2
+        x: 719
+        y: 1335
+        width: 15
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79829c6f84b6e28d0800000000000000
+      internalID: -2869237951466231657
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 016_Depresso_back_4
+      rect:
+        serializedVersion: 2
+        x: 1066
+        y: 1151
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 071107701d22fc500800000000000000
+      internalID: 418591571537039728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 016_Depresso_back_5
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 986
+        width: 101
+        height: 112
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d18d4d360648d820800000000000000
+      internalID: 2943179349098856913
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 016_Depresso_back_6
+      rect:
+        serializedVersion: 2
+        x: 1088
+        y: 1054
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e76b84dc5a9e6130800000000000000
+      internalID: 3561954078790215655
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 016_Depresso_back_7
+      rect:
+        serializedVersion: 2
+        x: 1096
+        y: 1054
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7c2ce5c7120547b0800000000000000
+      internalID: -5240780290247611266
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 016_Depresso_back_8
+      rect:
+        serializedVersion: 2
+        x: 1003
+        y: 696
+        width: 38
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4b6ba52bf8066b90800000000000000
+      internalID: -7249096675444430005
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 016_Depresso_back_9
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 645
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8ab6d143f76ecc90800000000000000
+      internalID: -7147661264111093109
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 016_Depresso_back_10
+      rect:
+        serializedVersion: 2
+        x: 1006
+        y: 543
+        width: 23
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2647276db2a67bc40800000000000000
+      internalID: 5528003804134536290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 016_Depresso_back_11
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 473
+        width: 5
+        height: 49
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 17d839562f66ecdf0800000000000000
+      internalID: -158075745639101071
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 016_Depresso_back_12
+      rect:
+        serializedVersion: 2
+        x: 177
+        y: 473
+        width: 7
+        height: 51
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4e70e1acabf2f7c0800000000000000
+      internalID: -4038889196929122740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 016_Depresso_back_13
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 251
+        width: 6
+        height: 49
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7accb82a22d24a6d0800000000000000
+      internalID: -2980207426633216857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 016_Depresso_back_14
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 244
+        width: 9
+        height: 61
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b4be1552febd2ec0800000000000000
+      internalID: -3590003379924978503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 016_Depresso_back_15
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 15
+        width: 16
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81121bf70245993a0800000000000000
+      internalID: -6658198075532566248
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 016_Depresso_back_16
+      rect:
+        serializedVersion: 2
+        x: 238
+        y: 21
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9cd51545ed7df8a50800000000000000
+      internalID: 6525671734980468169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 016_Depresso_back_17
+      rect:
+        serializedVersion: 2
+        x: 246
+        y: 15
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c62195b6d2c26f90800000000000000
+      internalID: -6961787846536386873
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 02fe6b28926242140ad4e6ba829edcd2
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      016_Depresso_back_0: 6696627741154935782
+      016_Depresso_back_1: 6062253462493483924
+      016_Depresso_back_10: 5528003804134536290
+      016_Depresso_back_11: -158075745639101071
+      016_Depresso_back_12: -4038889196929122740
+      016_Depresso_back_13: -2980207426633216857
+      016_Depresso_back_14: -3590003379924978503
+      016_Depresso_back_15: -6658198075532566248
+      016_Depresso_back_16: 6525671734980468169
+      016_Depresso_back_17: -6961787846536386873
+      016_Depresso_back_2: -1337633061239824275
+      016_Depresso_back_3: -2869237951466231657
+      016_Depresso_back_4: 418591571537039728
+      016_Depresso_back_5: 2943179349098856913
+      016_Depresso_back_6: 3561954078790215655
+      016_Depresso_back_7: -5240780290247611266
+      016_Depresso_back_8: -7249096675444430005
+      016_Depresso_back_9: -7147661264111093109
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -16,9 +16,9 @@ MonoBehaviour:
   palName: "\uD398\uC2A4\uD0A4"
   englishName: Quivern
   frontSprite: {fileID: 6734396106099581569, guid: 5c7e6824cb2fa0c43a27a0c56cec2515, type: 3}
-  backSprite: {fileID: 0}
+  backSprite: {fileID: -5388153458047275984, guid: 3e113ff71747e1c45b0f918e8efa46bc, type: 3}
   frontScale: 0.52749866
-  backScale: 1
+  backScale: 0.31554285
   sizeTune: 1
   frontYOffset: 0
   frontAnimator: {fileID: 0}

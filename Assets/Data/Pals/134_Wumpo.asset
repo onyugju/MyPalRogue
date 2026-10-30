@@ -16,9 +16,9 @@ MonoBehaviour:
   palName: "\uC6C0\uD3EC"
   englishName: Wumpo
   frontSprite: {fileID: -8170624429402361465, guid: 60b1875bc2937e947832edf02e06653b, type: 3}
-  backSprite: {fileID: 0}
+  backSprite: {fileID: -5836248936474771481, guid: 77002475808259644951ed862d5850fe, type: 3}
   frontScale: 0.47783422
-  backScale: 1
+  backScale: 0.32418033
   sizeTune: 1
   frontYOffset: 0
   frontAnimator: {fileID: 0}

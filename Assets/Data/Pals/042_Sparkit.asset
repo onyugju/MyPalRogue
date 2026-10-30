@@ -16,9 +16,9 @@ MonoBehaviour:
   palName: "\uBC88\uAC1C\uB0E5"
   englishName: Sparkit
   frontSprite: {fileID: 1754972994200440289, guid: 4a43b285553843e45a0bfe43c2dba5fe, type: 3}
-  backSprite: {fileID: 0}
+  backSprite: {fileID: 5840206037646714531, guid: 4f984de8fd6539841a948587c0037d78, type: 3}
   frontScale: 0.4656972
-  backScale: 1
+  backScale: 0.29128793
   sizeTune: 1
   frontYOffset: 0
   frontAnimator: {fileID: 0}

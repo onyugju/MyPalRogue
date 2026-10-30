@@ -1,0 +1,522 @@
+fileFormatVersion: 2
+guid: 4af94bbb579160d4f85a165b5c9c5fd1
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8304516445858808681
+    second: 112_Blazehowl_back_0
+  - first:
+      213: 1250036488806733095
+    second: 112_Blazehowl_back_1
+  - first:
+      213: 3059306237825274050
+    second: 112_Blazehowl_back_2
+  - first:
+      213: 7541184615783041714
+    second: 112_Blazehowl_back_3
+  - first:
+      213: 4590128062828182324
+    second: 112_Blazehowl_back_4
+  - first:
+      213: -926004507151291658
+    second: 112_Blazehowl_back_5
+  - first:
+      213: 3007364146700694037
+    second: 112_Blazehowl_back_6
+  - first:
+      213: -5223116139825329074
+    second: 112_Blazehowl_back_7
+  - first:
+      213: -2058760263377472218
+    second: 112_Blazehowl_back_8
+  - first:
+      213: 3264481681316642437
+    second: 112_Blazehowl_back_9
+  - first:
+      213: -4626508279662854042
+    second: 112_Blazehowl_back_10
+  - first:
+      213: 1892856861863477151
+    second: 112_Blazehowl_back_11
+  - first:
+      213: -1379695026811618454
+    second: 112_Blazehowl_back_12
+  - first:
+      213: -3712341456174824032
+    second: 112_Blazehowl_back_13
+  - first:
+      213: 2853768633153012412
+    second: 112_Blazehowl_back_14
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: 112_Blazehowl_back_0
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 61
+        width: 1438
+        height: 818
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79c323daa4e60cc80800000000000000
+      internalID: -8304516445858808681
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 112_Blazehowl_back_1
+      rect:
+        serializedVersion: 2
+        x: 716
+        y: 920
+        width: 24
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7251a974095095110800000000000000
+      internalID: 1250036488806733095
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 112_Blazehowl_back_2
+      rect:
+        serializedVersion: 2
+        x: 811
+        y: 913
+        width: 9
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c056bc70d6d47a20800000000000000
+      internalID: 3059306237825274050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 112_Blazehowl_back_3
+      rect:
+        serializedVersion: 2
+        x: 879
+        y: 903
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ba8361047ba7a860800000000000000
+      internalID: 7541184615783041714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 112_Blazehowl_back_4
+      rect:
+        serializedVersion: 2
+        x: 1014
+        y: 905
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 43bfc62572963bf30800000000000000
+      internalID: 4590128062828182324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 112_Blazehowl_back_5
+      rect:
+        serializedVersion: 2
+        x: 1022
+        y: 905
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6fa26d29ecb2623f0800000000000000
+      internalID: -926004507151291658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 112_Blazehowl_back_6
+      rect:
+        serializedVersion: 2
+        x: 1213
+        y: 877
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 512375af1cd4cb920800000000000000
+      internalID: 3007364146700694037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 112_Blazehowl_back_7
+      rect:
+        serializedVersion: 2
+        x: 1217
+        y: 877
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4c0a194b83c387b0800000000000000
+      internalID: -5223116139825329074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 112_Blazehowl_back_8
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 700
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62532bfb270dd63e0800000000000000
+      internalID: -2058760263377472218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 112_Blazehowl_back_9
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 710
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 58ef5ae0bc4cd4d20800000000000000
+      internalID: 3264481681316642437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 112_Blazehowl_back_10
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 690
+        width: 10
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 660ca406b375bcfb0800000000000000
+      internalID: -4626508279662854042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 112_Blazehowl_back_11
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 682
+        width: 20
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9f780e7947c44a10800000000000000
+      internalID: 1892856861863477151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 112_Blazehowl_back_12
+      rect:
+        serializedVersion: 2
+        x: 1535
+        y: 678
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a6b358cdea65adce0800000000000000
+      internalID: -1379695026811618454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 112_Blazehowl_back_13
+      rect:
+        serializedVersion: 2
+        x: 1529
+        y: 474
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a54ebb4d1d1b7cc0800000000000000
+      internalID: -3712341456174824032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 112_Blazehowl_back_14
+      rect:
+        serializedVersion: 2
+        x: 1525
+        y: 148
+        width: 18
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cb2cc32b37f9a9720800000000000000
+      internalID: 2853768633153012412
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: e2302237955621a46aeb55b0eccf9599
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      112_Blazehowl_back_0: -8304516445858808681
+      112_Blazehowl_back_1: 1250036488806733095
+      112_Blazehowl_back_10: -4626508279662854042
+      112_Blazehowl_back_11: 1892856861863477151
+      112_Blazehowl_back_12: -1379695026811618454
+      112_Blazehowl_back_13: -3712341456174824032
+      112_Blazehowl_back_14: 2853768633153012412
+      112_Blazehowl_back_2: 3059306237825274050
+      112_Blazehowl_back_3: 7541184615783041714
+      112_Blazehowl_back_4: 4590128062828182324
+      112_Blazehowl_back_5: -926004507151291658
+      112_Blazehowl_back_6: 3007364146700694037
+      112_Blazehowl_back_7: -5223116139825329074
+      112_Blazehowl_back_8: -2058760263377472218
+      112_Blazehowl_back_9: 3264481681316642437
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

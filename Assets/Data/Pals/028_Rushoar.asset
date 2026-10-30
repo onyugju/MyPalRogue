@@ -16,9 +16,9 @@ MonoBehaviour:
   palName: "\uB3CC\uC9C4\uB3FC\uC9C0"
   englishName: Rushoar
   frontSprite: {fileID: -2353664042873593420, guid: 78162da120672e7469504f57c4fef38d, type: 3}
-  backSprite: {fileID: 0}
+  backSprite: {fileID: -7846954145737333893, guid: a8b84190eefaa60489b40d10a3aa5a2b, type: 3}
   frontScale: 0.38872105
-  backScale: 1
+  backScale: 0.28635672
   sizeTune: 1
   frontYOffset: 0
   frontAnimator: {fileID: 0}

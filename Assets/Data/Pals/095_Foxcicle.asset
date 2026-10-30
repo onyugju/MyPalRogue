@@ -16,9 +16,9 @@ MonoBehaviour:
   palName: "\uBE59\uD638"
   englishName: Foxcicle
   frontSprite: {fileID: -7700774998201496271, guid: 517cf8c4a24e4624a92a588176eabb63, type: 3}
-  backSprite: {fileID: 0}
+  backSprite: {fileID: 802061554244196641, guid: 4b646050df16cc84f93ed737f919911e, type: 3}
   frontScale: 0.35393593
-  backScale: 1
+  backScale: 0.29490218
   sizeTune: 1
   frontYOffset: 0
   frontAnimator: {fileID: 0}

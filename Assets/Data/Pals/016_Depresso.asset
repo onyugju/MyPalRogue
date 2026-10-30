@@ -16,9 +16,9 @@ MonoBehaviour:
   palName: "\uB6B1\uCF54\uC54C\uB77C"
   englishName: Depresso
   frontSprite: {fileID: 2902231226539221026, guid: 200029f8a18400c40ab201b33daffbe4, type: 3}
-  backSprite: {fileID: 0}
+  backSprite: {fileID: 6696627741154935782, guid: 0574f47ea4b98ce4aa357405b8fc295b, type: 3}
   frontScale: 0.40848184
-  backScale: 1
+  backScale: 0.34321776
   sizeTune: 1
   frontYOffset: 0
   frontAnimator: {fileID: 0}

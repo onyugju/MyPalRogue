@@ -16,9 +16,9 @@ MonoBehaviour:
   palName: "\uACE0\uC2A4\uD638\uC2A4"
   englishName: Maraith
   frontSprite: {fileID: -5238480778616377950, guid: d2814a5a07e5ef7439324b8c0a97807d, type: 3}
-  backSprite: {fileID: 0}
+  backSprite: {fileID: 735746804784810211, guid: 88be1366010a2fa4c9ca1b0a57d95e16, type: 3}
   frontScale: 0.38040167
-  backScale: 1
+  backScale: 0.3092588
   sizeTune: 1
   frontYOffset: 0
   frontAnimator: {fileID: 0}
