@@ -34,7 +34,7 @@ namespace PalRogue
             ApplyBossLayout(pal);
             nameText.text = string.IsNullOrEmpty(pal.Data.palName) ? pal.Data.name : pal.Data.palName;
             StarIcons.Show(nameText, pal.Stars);                       // 응축 ★
-            levelText.text = $"Lv.{pal.Level}";
+            levelText.text = expFill != null ? GameConfig.LevelText(pal.Level) : $"Lv.{pal.Level}";   // 내 팰: 한도에 닿으면 빨간 숫자
             if (hpText != null) hpText.text = $"{pal.CurrentHP}/{pal.MaxHP}";
             SetHp(pal.MaxHP > 0 ? (float)pal.CurrentHP / pal.MaxHP : 0f);
             SetExp(pal.ExpRatio);
@@ -636,9 +636,9 @@ namespace PalRogue
         }
 
         /// <summary>HP바를 from → to 로 부드럽게 줄이거나 늘린다 (코루틴으로 실행)</summary>
-        public System.Collections.IEnumerator AnimateHp(Pal pal, int from, int to)
+        public System.Collections.IEnumerator AnimateHp(Pal pal, int from, int to, int maxHp = 0)
         {
-            int max = Mathf.Max(1, pal.MaxHP);
+            int max = Mathf.Max(1, maxHp > 0 ? maxHp : pal.MaxHP);
             float duration = Mathf.Clamp(Mathf.Abs(to - from) / (float)max * 1.2f, 0.25f, 1.0f);
             for (float t = 0f; t < duration; t += Time.unscaledDeltaTime)
             {
@@ -676,7 +676,7 @@ namespace PalRogue
         }
 
         /// <summary>레벨 글자만 바꾼다 (레벨업 연출 중간)</summary>
-        public void SetLevel(int level) => levelText.text = $"Lv.{level}";
+        public void SetLevel(int level) => levelText.text = expFill != null ? GameConfig.LevelText(level) : $"Lv.{level}";
 
         /// <summary>HP 숫자와 바를 지금 값으로 (레벨업으로 최대 HP가 바뀌었을 때)</summary>
         public void RefreshHp(Pal pal)

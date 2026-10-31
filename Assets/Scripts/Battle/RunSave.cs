@@ -30,6 +30,7 @@ namespace PalRogue
         public string pal;
         public int level, exp, hp, status, stars, sphere;
         public int[] ivs;
+        public int[] stages;               // 기술로 올리고 내린 능력치 랭크 (공격·방어·스피드). 10웨이브마다·교체할 때 풀린다
         public int metWave, metLevel;
         public string metArea;
         public bool metAsBoss;
@@ -47,6 +48,7 @@ namespace PalRogue
         public int[] spheres;
         public int amuletCoins, expShareCount, candyJars, berryPouches, extraRewards;
         public int caughtCount, bossesDefeated;
+        public string lastEnemy;           // 지난 웨이브 상대 (이어하기에서도 같은 상대가 나오게)
         public List<string> runItemIds = new List<string>();
         public List<int> runItemCounts = new List<int>();
         public float expBonus;
@@ -125,7 +127,7 @@ namespace PalRogue
                 spheres = run.Spheres.ToArray(),
                 amuletCoins = run.AmuletCoins, expShareCount = run.ExpShareCount, candyJars = run.CandyJars,
                 berryPouches = run.BerryPouches, extraRewards = run.ExtraRewards, expBonus = run.ExpBonus,
-                caughtCount = run.CaughtCount, bossesDefeated = run.BossesDefeated,
+                caughtCount = run.CaughtCount, bossesDefeated = run.BossesDefeated, lastEnemy = run.LastEnemyName,
                 playSeconds = playSeconds,
                 savedAtTicks = DateTime.Now.Ticks,
             };
@@ -139,7 +141,7 @@ namespace PalRogue
             var s = new PalSave
             {
                 pal = p.Data.name, level = p.Level, exp = p.Exp, hp = p.CurrentHP, status = (int)p.Status,
-                stars = p.Stars, sphere = (int)p.CaughtSphere, ivs = p.IVs.ToArray(),
+                stars = p.Stars, sphere = (int)p.CaughtSphere, ivs = p.IVs.ToArray(), stages = Battle.StageSnapshot(p),
                 metWave = p.MetWave, metLevel = p.MetLevel, metArea = p.MetArea, metAsBoss = p.MetAsBoss,
             };
             foreach (var sk in p.Skills)
@@ -147,9 +149,14 @@ namespace PalRogue
             foreach (var e in p.Effects)
             {
                 if (e is Awakening a) s.effects.Add(new EffectSave { kind = "awaken", id = a.Def.Id, flag = a.IsTrue });
+                // 몇 웨이브짜리 효과(플러스파워·크리티컬커터·응원 호루라기): 종류와 남은 웨이브
+                else if (e is TempStatBoost ts) s.effects.Add(new EffectSave { kind = "timed", id = "stat:" + ts.Stat, rank = ts.WavesLeft });
+                else if (e is TempCritBoost tc) s.effects.Add(new EffectSave { kind = "timed", id = "crit", rank = tc.WavesLeft });
+                else if (e is TempTypeBoost tt) s.effects.Add(new EffectSave { kind = "timed", id = "type:" + tt.Type, rank = tt.WavesLeft });
                 else if (e.HeldItemId != null) s.effects.Add(new EffectSave { kind = "held", id = e.HeldItemId });
                 else if (e.PerkId != null && PerkCatalog.Get(e.PerkId) != null) s.effects.Add(new EffectSave { kind = "perk", id = e.PerkId, rank = e.PerkRank });
-                // 속성 시너지는 웨이브마다 다시 계산되고, 랭크업 같은 기간 효과는 저장하지 않는다
+                else if (e.UsedItemId != null) s.effects.Add(new EffectSave { kind = "item", id = e.UsedItemId });
+                // 속성 시너지는 웨이브마다 다시 계산하므로 저장하지 않는다
             }
             return s;
         }
@@ -176,7 +183,7 @@ namespace PalRogue
             run.Money = s.money;
             run.AmuletCoins = s.amuletCoins; run.ExpShareCount = s.expShareCount; run.CandyJars = s.candyJars;
             run.BerryPouches = s.berryPouches; run.ExtraRewards = s.extraRewards; run.ExpBonus = s.expBonus;
-            run.CaughtCount = s.caughtCount; run.BossesDefeated = s.bossesDefeated;
+            run.CaughtCount = s.caughtCount; run.BossesDefeated = s.bossesDefeated; run.LastEnemyName = s.lastEnemy;
             if (s.runItemIds != null)
                 for (int i = 0; i < s.runItemIds.Count && i < (s.runItemCounts?.Count ?? 0); i++) run.RunItems[s.runItemIds[i]] = s.runItemCounts[i];
 
@@ -202,6 +209,18 @@ namespace PalRogue
                             var def = AwakeningCatalog.Get(e.id);
                             if (def != null) pal.AddEffect(new Awakening(def, e.flag));
                             break;
+                        case "timed":
+                            BattleEffect timed = null;
+                            if (e.id == "crit") timed = new TempCritBoost { WavesLeft = e.rank };
+                            else if (e.id.StartsWith("stat:") && Enum.TryParse<StatType>(e.id.Substring(5), out var st)) timed = new TempStatBoost(st) { WavesLeft = e.rank };
+                            else if (e.id.StartsWith("type:") && Enum.TryParse<PalType>(e.id.Substring(5), out var pt)) timed = new TempTypeBoost(pt) { WavesLeft = e.rank };
+                            if (timed != null && e.rank > 0) pal.AddEffect(timed);
+                            break;
+                        case "item":
+                            var used = ItemCatalog.Get(e.id);
+                            if (used != null) used.Apply(new ItemContext { Run = run, Target = pal });
+                            else Debug.LogWarning($"[저장] 사용한 아이템을 찾지 못했습니다: {e.id}");
+                            break;
                         case "held":
                             var item = ItemCatalog.All.FirstOrDefault(d => d.IsHeld && d.Name == e.id);
                             if (item != null) item.Apply(new ItemContext { Run = run, Target = pal });
@@ -209,7 +228,13 @@ namespace PalRogue
                             break;
                     }
                 }
+            }
+            // 속성 시너지(최대 HP +% 등)를 먼저 붙인 뒤 HP를 맞춘다 → 저장할 때와 최대 HP가 같다
+            Synergies.Apply(party);
+            foreach (var (pal, ps) in restoreLater)
+            {
                 pal.RestoreState(ps.level, ps.exp, ps.hp, (StatusCondition)ps.status, ps.ivs, ps.stars);
+                pal.SetStages(ps.stages);                           // 기술로 올린 능력치 랭크도 이어진다
                 pal.CaughtSphere = (SphereType)ps.sphere;
                 pal.MetWave = ps.metWave; pal.MetLevel = ps.metLevel; pal.MetArea = ps.metArea; pal.MetAsBoss = ps.metAsBoss;
             }

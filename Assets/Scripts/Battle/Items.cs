@@ -316,10 +316,24 @@ namespace PalRogue
         {
             foreach (var d in list)
             {
-                if (!RunItemIds.Contains(d.Id) || d.Apply == null) continue;
+                if (d.Apply == null) continue;
                 var apply = d.Apply;
                 var id = d.Id;
-                d.Apply = c => { var r = apply(c); c.Run?.NoteRunItem(id); return r; };
+                if (RunItemIds.Contains(d.Id)) d.Apply = c => { var r = apply(c); c.Run?.NoteRunItem(id); return r; };
+                else if (d.Target == ItemTarget.Pal && !d.IsHeld)
+                {
+                    // 팰에게 영구히 붙는 효과(영양제·영혼·임플란트·로터스·열매…)는 어떤 아이템인지 적어 둔다 → 저장·불러오기
+                    d.Apply = c =>
+                    {
+                        var before = c.Target != null ? new HashSet<BattleEffect>(c.Target.Effects) : null;
+                        var r = apply(c);
+                        if (c.Target != null)
+                            foreach (var e in c.Target.Effects)
+                                if (!before.Contains(e) && e.PerkId == null && e.HeldItemId == null && e.UsedItemId == null && !(e is ITimedEffect) && !(e is Awakening))
+                                    e.UsedItemId = id;
+                        return r;
+                    };
+                }
             }
             return list;
         }
@@ -1274,13 +1288,15 @@ namespace PalRogue
         public const int MaxItems = 8;
         /// <summary>이 웨이브마다 지니는 아이템 수가 평균 1개씩 는다</summary>
         public const float WavesPerItem = 30f;
+        /// <summary>이 웨이브부터 야생 팰도 아이템을 지니기 시작한다 (보스는 처음부터 +1)</summary>
+        public static int ItemsFromWave = 10;
         static readonly HashSet<string> Excluded = new() { "lucky_egg", "mini_black_hole" };
         static readonly HashSet<string> Vitamins = new() { "hp_up", "protein", "iron", "carbos", "calcium", "zinc" };
         static readonly string[] PermanentPrefixes = { "soul_", "implant_", "lotus_", "pendant_", "fruit_" };
 
         public static int ItemCount(int wave, BossKind kind, System.Random rng)
         {
-            float expected = wave / WavesPerItem;
+            float expected = Mathf.Max(0, wave - ItemsFromWave) / WavesPerItem;   // 초반 야생 팰은 아이템을 거의 안 지닌다
             int count = Mathf.FloorToInt(expected) + (rng.NextDouble() < expected - Mathf.Floor(expected) ? 1 : 0);
             count += kind switch { BossKind.Boss => 1, BossKind.Legend => 2, BossKind.Final => 3, _ => 0 };
             return Mathf.Clamp(count, 0, MaxItems);

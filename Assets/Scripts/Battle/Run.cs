@@ -71,6 +71,9 @@ namespace PalRogue
         public bool IsWiped => Party.All(p => p.IsFainted);
 
         PalData lastEnemy;   // 같은 팰이 연달아 나오지 않게
+        /// <summary>지난 웨이브 상대의 에셋 이름 (저장용: 이어하기에서도 같은 상대가 나오게)</summary>
+        public string LastEnemyName { get => lastEnemy != null ? lastEnemy.name : lastEnemyName; set { lastEnemy = null; lastEnemyName = value; } }
+        string lastEnemyName;
 
         /// <summary>트레이너 ID (능력치 화면의 IDNo.). 모험마다 새로 정해진다</summary>
         public int TrainerId { get; private set; }
@@ -120,9 +123,15 @@ namespace PalRogue
             }
         }
 
+        /// <summary>지금 웨이브의 레벨 한도 (싸워서 얻는 경험치로는 여기까지만)</summary>
+        public int LevelCap => GameConfig.LevelCapForWave(Wave);
+
         public void NextWave()
         {
             Wave++;
+            // 10웨이브(보스)를 지나면 내 팰들이 기술로 올리고 내린 능력치 랭크가 처음으로 돌아간다
+            if ((Wave - 1) % GameConfig.BossWaveStep == 0)
+                foreach (var pal in Party) pal.ResetBattleState();
             foreach (var pal in Party)
                 foreach (var boost in pal.Effects.OfType<ITimedEffect>().ToList())
                     if (--boost.WavesLeft <= 0) pal.RemoveEffect((BattleEffect)boost);
@@ -138,20 +147,22 @@ namespace PalRogue
         /// </summary>
         public Pal CreateEnemy(IReadOnlyList<PalData> pool)
         {
-            var all = pool.Where(d => d != null).Distinct().ToList();
+            // 웨이브마다 정해진 난수 (트레이너 ID + 웨이브) → 저장 후 이어하기를 해도 같은 상대가 나온다 (다시 하기로 상대 바꾸기 방지)
+            var rng = new System.Random(unchecked(TrainerId * 92821 + Wave * 486187739));
+            var all = pool.Where(d => d != null).Distinct().OrderBy(d => d.name).ToList();
             if (all.Count == 0) return null;
 
             // ① 최종 보스 / 속성의 왕
             if (Wave >= GameConfig.FinalWave)
             {
                 var final = all.FirstOrDefault(d => d.name == GameConfig.FinalBossAsset);
-                if (final != null) return MakeEnemy(final, BossKind.Final);
+                if (final != null) return MakeEnemy(final, BossKind.Final, rng);
             }
             string legendAsset = GameConfig.LegendAssetFor(Wave);
-            if (legendAsset != null && Rng.NextDouble() < GameConfig.LegendChance)
+            if (legendAsset != null && rng.NextDouble() < GameConfig.LegendChance)
             {
                 var legend = all.FirstOrDefault(d => d.name == legendAsset);
-                if (legend != null) return MakeEnemy(legend, BossKind.Legend);
+                if (legend != null) return MakeEnemy(legend, BossKind.Legend, rng);
             }
 
             // ② 일반 보스 / 야생 팰 (전설 팰은 빼고)
@@ -159,7 +170,16 @@ namespace PalRogue
             if (normal.Count == 0) normal = all;
 
             List<PalData> candidates;
-            if (IsBossWave)
+            if (IsBossWave && Wave < GameConfig.EarlyBossUntil)
+            {
+                // 초반 보스(웨이브 10): 그 웨이브 야생 범위 안에서 능력치가 높은 절반
+                var wildRange = normal.Where(d => d.canBeCaught).OrderBy(StatTotal).ToList();
+                if (wildRange.Count == 0) wildRange = normal.OrderBy(StatTotal).ToList();
+                int n = Mathf.Clamp(Mathf.CeilToInt(wildRange.Count * GameConfig.WildPoolShare(Wave)), Mathf.Min(3, wildRange.Count), wildRange.Count);
+                var top = wildRange.Take(n).OrderByDescending(StatTotal).ToList();
+                candidates = top.Take(Mathf.Max(1, top.Count / 2)).ToList();
+            }
+            else if (IsBossWave)
             {
                 // 그 웨이브의 야생 범위(조금 넓게) 안에서 능력치가 높은 1/3 (초반 보스가 후반 팰로 나오지 않게)
                 var byTotal = normal.OrderBy(StatTotal).ToList();
@@ -176,17 +196,18 @@ namespace PalRogue
                 var areaType = GameConfig.AreaType(Wave);
                 candidates.AddRange(candidates.Where(d => d.HasType(areaType)).ToList());   // 지역 속성은 2배
             }
-            if (candidates.Distinct().Count() > 1 && lastEnemy != null) candidates.RemoveAll(d => d == lastEnemy);
+            string last = LastEnemyName;
+            if (candidates.Distinct().Count() > 1 && last != null) candidates.RemoveAll(d => d.name == last);
 
-            var pick = candidates[Rng.Next(candidates.Count)];
-            return MakeEnemy(pick, IsBossWave ? BossKind.Boss : BossKind.None);
+            var pick = candidates[rng.Next(candidates.Count)];
+            return MakeEnemy(pick, IsBossWave ? BossKind.Boss : BossKind.None, rng);
         }
 
-        Pal MakeEnemy(PalData data, BossKind kind)
+        Pal MakeEnemy(PalData data, BossKind kind, System.Random rng)
         {
             lastEnemy = data;
             EnemyKind = kind;
-            var pal = new Pal(data, GameConfig.EnemyLevel(Wave, kind, Rng), Rng)
+            var pal = new Pal(data, GameConfig.EnemyLevel(Wave, kind, rng), rng)
             {
                 MetWave = Wave, MetArea = AreaName, MetAsBoss = kind != BossKind.None,   // 잡으면 트레이너 메모에 나온다
             };
@@ -197,7 +218,7 @@ namespace PalRogue
             pal.SetStars(GameConfig.EnemyStars(Wave, kind));    // 깊은 웨이브의 상대는 응축 ★을 달고 나온다
             if (kind == BossKind.Legend || kind == BossKind.Final)                     // 전설·최종 보스는 각성한다
                 pal.AddEffect(new Awakening(AwakeningCatalog.ForEnemy(pal), kind == BossKind.Final));
-            EnemyLoadout.Equip(pal, this, Wave, kind, Rng);   // 웨이브가 깊을수록 아이템을 많이·강하게 지닌다
+            EnemyLoadout.Equip(pal, this, Wave, kind, rng);   // 웨이브가 깊을수록 아이템을 많이·강하게 지닌다
             pal.Heal(pal.MaxHP);                             // 최대 HP가 늘어난 만큼 채운다
             if (kind != BossKind.None) pal.MakeBoss(GameConfig.BossSegments(kind, pal.Level));
             BossPattern.Attach(pal, kind, Wave);             // 보스 패턴: 힘 모으기·분노·속성별 고유 패턴

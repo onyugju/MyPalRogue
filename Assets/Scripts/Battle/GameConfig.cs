@@ -6,7 +6,10 @@ namespace PalRogue
     /// <summary>게임 전체 설정값. 밸런스 조절은 여기서.</summary>
     public static class GameConfig
     {
-        public const int MaxLevel = 100;
+        /// <summary>팰의 최대 레벨 (190웨이브를 클리어하면 레벨 한도가 여기까지 풀린다)</summary>
+        public const int MaxLevel = 200;
+        /// <summary>상대 팰 레벨의 끝 (최종 보스는 무조건 이 레벨)</summary>
+        public const int EnemyMaxLevel = 200;
         /// <summary>능력치 화면 "어버이/" 뒤에 나오는 트레이너 이름</summary>
         public const string PlayerName = "트레이너";
 
@@ -19,8 +22,10 @@ namespace PalRogue
         {
             BossKind.Legend or BossKind.Final => 1f,
             BossKind.Boss => 0.95f,
-            _ => Mathf.Clamp(0.3f + wave / 150f, 0.3f, 0.9f),
+            _ => Mathf.Clamp(WildSmartStart + wave / 150f, WildSmartStart, 0.9f),
         };
+        /// <summary>웨이브 1 야생 팰의 똑똑함 (초반엔 아무 기술이나 자주 쓴다)</summary>
+        public static float WildSmartStart = 0.15f;
 
         // ───── 강화 효과(퍽) ─────
         /// <summary>이 간격의 레벨(10, 20, … 100)에 도달하면 강화 효과 3개 중 1개를 고른다</summary>
@@ -62,18 +67,23 @@ namespace PalRogue
         // 레벨 차이 보정 (포켓몬 5세대 방식): ((2×상대Lv + 10) ÷ (상대Lv + 내Lv + 10))^ExpLevelPower
         //  - 상대보다 낮으면 더 많이 받아서 금방 따라잡고, 높으면 적게 받아서 혼자 너무 앞서가지 않는다
         //  - 같은 레벨이면 1배. 초반(Lv5, 총합 200)은 한 마리에 1~2레벨쯤 오른다
-        public const float ExpYieldDivisor = 8f;
+        public static float ExpYieldDivisor = 8f;
         public const float ExpLevelPower = 4f;
         public const float ExpLevelScaleMin = 0.15f, ExpLevelScaleMax = 3f;
 
         public static int ExpToNext(int level) => level >= MaxLevel ? 0 : ExpBase + ExpPerLevel * level;
 
         /// <summary>쓰러뜨린 상대가 주는 기본 경험치 (레벨 차이 보정 전)</summary>
-        public static int ExpYield(PalData defeated, int defeatedLevel)
+        public static int ExpYield(PalData defeated, int defeatedLevel, int wave = 0)
         {
             int statTotal = defeated.baseHP + defeated.baseAttack + defeated.baseDefense + defeated.baseSpeed;
-            return Mathf.Max(1, Mathf.RoundToInt(statTotal * defeatedLevel / ExpYieldDivisor));
+            return Mathf.Max(1, Mathf.RoundToInt(statTotal * defeatedLevel / ExpYieldDivisor * EarlyExpMultiplier(wave)));
         }
+
+        /// <summary>초반 경험치 보너스: 웨이브 1에서 +EarlyExpBonus, EarlyExpUntil 웨이브까지 서서히 줄어든다 (초반 상대 레벨이 낮은 만큼 보충)</summary>
+        public static float EarlyExpBonus = 0.6f;
+        public static int EarlyExpUntil = 30;
+        public static float EarlyExpMultiplier(int wave) => wave <= 0 ? 1f : 1f + EarlyExpBonus * Mathf.Clamp01(1f - (wave - 1f) / EarlyExpUntil);
 
         /// <summary>받는 팰의 레벨에 따른 경험치 배율</summary>
         public static float ExpLevelScale(int defeatedLevel, int receiverLevel)
@@ -116,7 +126,9 @@ namespace PalRogue
         /// 일반 웨이브에 나올 수 있는 팰의 범위 (능력치 총합이 낮은 순서로 앞에서부터 이 비율만큼).
         /// 웨이브 1: 하위 40% → 웨이브 60부터: 전체
         /// </summary>
-        public static float WildPoolShare(int wave) => Mathf.Clamp01(0.4f + 0.6f * (wave - 1) / 59f);
+        public static float WildPoolShare(int wave) => Mathf.Clamp01(WildShareStart + (1f - WildShareStart) * (wave - 1) / 59f);
+        /// <summary>웨이브 1에 나오는 팰 범위 (능력치 총합 하위 몇 %). 초반엔 약한 팰 위주</summary>
+        public static float WildShareStart = 0.25f;
 
         // ───── 전설 팰 (속성의 왕) ─────
         // 20웨이브마다 LegendChance 확률로 그 웨이브의 보스가 속성의 왕으로 바뀐다.
@@ -157,33 +169,88 @@ namespace PalRogue
         public static float LegendHp(int wave) => 1f + (LegendHpMultiplier - 1f) * LegendStrength(wave);
         public const float FinalBossStatMultiplier = 1.35f, FinalBossHpMultiplier = 2f;
 
-        // 적 레벨 = 3 + 웨이브 × 0.5 (+ 웨이브 30부터는 웨이브마다 0.15씩 더 빨리) + (0 ~ EnemyLevelSpread 무작위)
-        //          보스 + BossLevelBonus(웨이브), 전설 + LegendLevelBonus(웨이브), 최종 보스는 MaxLevel
-        // (웨이브 1: Lv.4~6, 웨이브 10 보스: Lv.9~11, 웨이브 20 전설: Lv.14~16, 웨이브 60 전설: Lv.43~45, 웨이브 100: Lv.64~66)
-        // 시뮬레이션으로 맞춘 값: 초반은 내 팰이 상대보다 3~6레벨 높게 여유 있게, 웨이브 30부터 조금씩 따라잡힌다
         public const int EnemyLevelBase = 3;
         public const float EnemyLevelPerWave = 0.5f;
         public const float EnemyLevelLateAccel = 0.15f;
         public const int EnemyLevelLateFrom = 30;
         public const int EnemyLevelSpread = 2;
 
-        /// <summary>보스 레벨 보너스: 웨이브 10 +1, 20~30 +3, 40부터 +5</summary>
-        public static int BossLevelBonus(int wave) => wave < 20 ? 1 : wave < 40 ? 3 : 5;
+        /// <summary>보스 레벨 보너스: 웨이브 10 +0, 20~90 +2 (중반은 너그럽게), 100~140 +4, 150부터 +6 (후반은 점점 세게)</summary>
+        public static int BossLevelBonus(int wave) => wave < 20 ? EarlyBossBonus : wave < 100 ? 2 : wave < 150 ? 4 : 6;
+        public static int EarlyBossBonus = 0;
         /// <summary>전설 레벨 보너스: 웨이브 20 +1, 40 +3, 60 +5, … 최대 +10</summary>
         public static int LegendLevelBonus(int wave) => Mathf.Clamp((wave - 10) / 10, 0, 10);
 
+        /// <summary>(예전 공식용, 지금은 레벨 곡선에 이미 들어 있다)</summary>
+        public static float EarlyLevelDiscount = 3f;
+        public static int EarlyDiscountUntil = 40;
+        /// <summary>이 웨이브 전까지는 무작위로 더해지는 레벨이 0~1 (그 뒤 0~EnemyLevelSpread)</summary>
+        public static int EarlySpreadUntil = 15;
+
+        // ───── 상대 레벨 곡선 (웨이브 → 기본 레벨, 사이는 직선으로 잇는다) ─────
+        // 초반~중반(웨이브 1~90)은 완만하게, 중후반(100~)부터 점점 가파르게 올라 웨이브 189에 Lv.180대, 최종 보스는 Lv.200.
+        // 실제 레벨 = 기본 레벨 + 0~1(웨이브 15 전) / 0~2 무작위 + 보스·전설 보너스
+        static readonly (int wave, float level)[] EnemyLevelCurve =
+        {
+            (1, 1f), (10, 6f), (20, 11.5f), (30, 17f), (40, 24f), (50, 31f), (60, 38f), (70, 45.5f), (80, 53f), (90, 61f),
+            (100, 70f), (110, 79.5f), (120, 89.5f), (130, 100f), (140, 111f), (150, 122.5f), (160, 135f), (170, 148.5f), (180, 163f), (190, 180f),
+        };
+
+        public static float EnemyBaseLevel(int wave)
+        {
+            var c = EnemyLevelCurve;
+            if (wave <= c[0].wave) return c[0].level;
+            for (int i = 1; i < c.Length; i++)
+                if (wave <= c[i].wave)
+                    return Mathf.Lerp(c[i - 1].level, c[i].level, (wave - c[i - 1].wave) / (float)(c[i].wave - c[i - 1].wave));
+            return c[c.Length - 1].level;
+        }
+
         public static int EnemyLevel(int wave, BossKind kind, System.Random rng)
         {
-            if (kind == BossKind.Final) return MaxLevel;
-            float baseLevel = EnemyLevelBase + wave * EnemyLevelPerWave + Mathf.Max(0, wave - EnemyLevelLateFrom) * EnemyLevelLateAccel;
-            int level = Mathf.RoundToInt(baseLevel) + rng.Next(0, EnemyLevelSpread + 1);
+            if (kind == BossKind.Final) return EnemyMaxLevel;                 // 최종 보스는 무조건 Lv.200
+            int spread = wave < EarlySpreadUntil ? 1 : EnemyLevelSpread;
+            int level = Mathf.FloorToInt(EnemyBaseLevel(wave) + 0.5f) + rng.Next(0, spread + 1);
             if (kind == BossKind.Boss) level += BossLevelBonus(wave);
             if (kind == BossKind.Legend) level += LegendLevelBonus(wave);
-            return Mathf.Clamp(level, 1, MaxLevel);
+            return Mathf.Clamp(level, 1, EnemyMaxLevel);
         }
+
+        // ───── 레벨 한도 (포켓로그처럼) ─────
+        // 싸워서 얻는 경험치로는 한도 레벨까지만 오르고, 경험치는 "다음 레벨 직전"에서 멈춘다.
+        // 10웨이브마다 보스를 이기면 한도가 오른다. 한도 = 다음 보스 웨이브 상대의 기본 레벨 + 여유.
+        //  여유: 다음 보스 레벨보다 웨이브 80까지 +6 (너그럽게) → 웨이브 170에 +2 (점점 빡빡하게)
+        //  웨이브 180 보스를 이기면 한도가 Lv.200(만렙)으로 풀린다 → 마지막 10웨이브 동안 만렙을 찍고 최종 보스(Lv.200)와 싸운다
+        //  (마지막 구간은 경험치가 파티 전원에게 크게 들어간다: EndgameExp)
+        // 이상한사탕·수련의 서처럼 레벨을 올려 주는 아이템은 한도를 무시한다.
+        public static int LevelCapForWave(int wave)
+        {
+            int stage = Mathf.Max(0, (wave - 1) / BossWaveStep);              // 지금까지 이긴 보스 수
+            if (wave > FinalWave || stage >= FinalWave / BossWaveStep - 1) return MaxLevel;   // 웨이브 181부터 만렙 한도
+            int nextBoss = (stage + 1) * BossWaveStep;
+            float margin = Mathf.Lerp(LevelCapMargin, LateLevelCapMargin, Mathf.Clamp01((stage - 7) / 9f));
+            // 다음 보스(보스 레벨 보너스 포함)보다 margin만큼 높게
+            return Mathf.Clamp(Mathf.FloorToInt(EnemyBaseLevel(nextBoss) + BossLevelBonus(nextBoss) + 0.5f + margin), StarterLevel + 5, MaxLevel);
+        }
+        public static float LevelCapMargin = 6f;
+        public static float LateLevelCapMargin = 2f;
+
+        /// <summary>마지막 구간(웨이브 181~): 상대를 쓰러뜨리면 살아 있는 파티 전원이 경험치를 나누지 않고 이 배율로 받는다 → 최종 보스 전에 만렙</summary>
+        public const int EndgameFromWave = 181;
+        public static float EndgameExpMultiplier = 1.15f;
+
+        /// <summary>지금 모험의 레벨 한도 (화면 표시용: 한도에 닿은 레벨은 빨간 숫자). 전투 화면이 웨이브마다 맞춘다</summary>
+        public static int ActiveLevelCap = MaxLevel;
+
+        /// <summary>"Lv.12" 글자. 레벨 한도에 닿았으면 숫자를 빨갛게</summary>
+        public static string LevelText(int level) => level >= ActiveLevelCap ? $"Lv.<color=#f85838>{level}</color>" : $"Lv.{level}";
 
         /// <summary>일반 보스 후보: 그 웨이브 야생 범위보다 조금 넓은 곳에서 능력치 총합 상위 1/3 (초반 보스가 후반 팰이 되지 않게)</summary>
         public const float BossPoolExtraShare = 0.1f;
+        /// <summary>이 웨이브 전의 보스(웨이브 10)는 야생 범위의 위쪽 절반에서 고르고, 힘 모으기도 약하다</summary>
+        public static int EarlyBossUntil = 60;
+        /// <summary>실드가 깨질 때 보스 능력치가 오르는 것은 이 웨이브부터 (중반까지는 너그럽게)</summary>
+        public static int ShieldBoostFromWave = 80;
 
         // ───── 보스 실드 (HP바 칸 수) ─────
         // 보스: Lv.24까지 2칸, Lv.25~49 3칸, Lv.50 이상 4칸 / 전설: 한 칸 더 (최대 5) / 최종 보스: 5칸
@@ -207,6 +274,14 @@ namespace PalRogue
 
         /// <summary>보스 웨이브(10, 20, …)를 이기면 다음 웨이브로 가기 전에 파티를 완전히 회복한다</summary>
         public const bool HealAfterBoss = true;
+
+        /// <summary>
+        /// 초반 휴식: 웨이브를 이기면 살아 있는 팰이 최대 HP의 이 비율만큼 회복한다 (웨이브 1에서 RestHealStart → RestHealUntil 웨이브에 0).
+        /// 초반에 회복약이 부족해서 한 번 다치면 그대로 무너지는 걸 막는다
+        /// </summary>
+        public static float RestHealStart = 0.35f;
+        public static int RestHealUntil = 20;
+        public static float RestHeal(int wave) => RestHealStart * Mathf.Clamp01(1f - (wave - 1f) / RestHealUntil);
 
         // ───── 돈 ─────
         public const int StartingMoney = 1000;

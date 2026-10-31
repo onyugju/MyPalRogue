@@ -430,7 +430,7 @@ namespace PalRogue
             PlaceStars(starRow, pal.Stars, nameText.main.rectTransform.anchoredPosition.x + nameText.PreferredWidth + 2f, 130f);
             sphereIcon.sprite = PalSpheres.LoadSprite(pal.CaughtSphere);
             sphereIcon.enabled = sphereIcon.sprite != null;
-            levelText.Set($"Lv.{pal.Level}");
+            levelText.Set(pal.Level >= GameConfig.ActiveLevelCap ? $"Lv.[r]{pal.Level}[/r]" : $"Lv.{pal.Level}");   // 레벨 한도에 닿으면 빨간 숫자
             string badge = pal.IsFainted ? StatusRules.FaintedBadgeName : StatusRules.BadgeName(pal.Status);
             var badgeTex = badge != null ? Resources.Load<Texture2D>($"statuses/{badge}") : null;
             statusBar.gameObject.SetActive(badgeTex != null);

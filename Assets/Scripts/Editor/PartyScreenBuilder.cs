@@ -138,7 +138,7 @@ namespace PalRogue.EditorTools
             cancelLabel.fontSizeMin = 6f;
             cancelLabel.fontSizeMax = CancelFont;
 
-            // ── 메뉴 창 (교체한다 / 능력치를 본다 / 팰 도감 / 닉네임 바꾸기 / 그만둔다) ──
+            // ── 메뉴 창 (교체한다 / 능력치를 본다 / 팰 도감 / 그만둔다) ──
             var options = TopLeft(panel, "OptionsBox", OptionsPos, OptionsSize);
             var optWin = options.gameObject.AddComponent<Image>();
             optWin.sprite = AssetDatabase.LoadAssetAtPath<Sprite>($"{UiDir}/windows/window_1.png");

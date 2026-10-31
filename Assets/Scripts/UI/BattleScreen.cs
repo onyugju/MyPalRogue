@@ -324,6 +324,8 @@ namespace PalRogue
             battle.ExpShareRatio = run.ExpShareRatio;  // 학습장치
             battle.PlayerBerrySave = run.BerrySave;     // 열매 주머니
             battle.EnemySmartness = GameConfig.EnemySmartness(run.Wave, run.EnemyKind);   // 상대 AI
+            battle.LevelCap = run.LevelCap;            // 레벨 한도 (10웨이브 보스를 이길 때마다 오른다)
+            GameConfig.ActiveLevelCap = run.LevelCap;  // 한도에 닿은 레벨은 빨간 숫자
 
             // 내 팰을 새로 내보내면 (첫 웨이브 등) 스피어를 던지는 연출 전까지 숨겨 둔다
             if (battle.PlayerSentOutAtStart)
@@ -519,6 +521,21 @@ namespace PalRogue
                 // 이기거나 잡으면 보상 아이템 하나를 고른다 (도망치면 없음)
                 yield return RewardPhase();
 
+                // 초반 휴식: 살아 있는 팰이 최대 HP의 조금을 회복한다 (보스 웨이브는 아래에서 완전 회복)
+                float rest = GameConfig.RestHeal(run.Wave);
+                if (rest > 0f && !(GameConfig.HealAfterBoss && run.IsBossWave))
+                {
+                    int healed = 0;
+                    foreach (var p in run.Party)
+                        if (!p.IsFainted) healed += p.Heal(Mathf.Max(1, Mathf.RoundToInt(p.MaxHP * rest)));
+                    if (healed > 0)
+                    {
+                        playerInfo.Refresh(battle.Player);
+                        GameAudio.Se("heal");
+                        yield return ShowMessage("잠시 숨을 골랐다!\n팰들의 HP가 조금 회복되었다.");
+                    }
+                }
+
                 // 보스(10웨이브마다)를 이기면 파티 완전 회복
                 if (GameConfig.HealAfterBoss && run.IsBossWave)
                 {
@@ -530,7 +547,16 @@ namespace PalRogue
             }
 
             string areaBefore = run.AreaName;
+            int capBefore = run.LevelCap;
             run.NextWave();
+            if (run.LevelCap > capBefore)
+            {
+                GameConfig.ActiveLevelCap = run.LevelCap;
+                GameAudio.Se("level_up");
+                yield return ShowMessage($"보스를 쓰러뜨렸다!\n팰들의 최대 레벨이 {Josa.Ro("Lv." + run.LevelCap)} 올랐다!");
+                if (run.LevelCap >= GameConfig.MaxLevel)
+                    yield return ShowMessage("최종 결전이 다가온다!\n이제부터 상대를 쓰러뜨리면 파티 전원이 경험치를 크게 받는다.");
+            }
             Achievements.CheckWave(run.Wave);
             AutoSave(true);                            // 보상까지 받은 뒤 자동 저장 (오른쪽 아래 아이콘 3초)
             if (run.AreaName != areaBefore) yield return ChangeArea();
@@ -994,6 +1020,8 @@ namespace PalRogue
                 playerInfo.SetExp(0f);
             }
             yield return ShowMessage($"{Josa.Eun(PalName(pal))} {Josa.Ro("Lv." + level)} 올랐다!");
+            if (level >= GameConfig.ActiveLevelCap && level < GameConfig.MaxLevel && active)
+                yield return ShowMessage($"{PalName(pal)}의 레벨이 최대 레벨에 닿았다!\n다음 보스를 쓰러뜨리면 더 오를 수 있다.");
 
             if (newSkills != null)
                 foreach (var skill in newSkills)
@@ -1632,7 +1660,7 @@ namespace PalRogue
                         break;
                     case BattleEventType.HpChanged:
                         if (ev.From <= 0 && ev.To > 0) box.SetStatus(StatusCondition.None);   // 부활하면 기절 뱃지 지움
-                        yield return box.AnimateHp(ev.Pal, ev.From, ev.To);
+                        yield return box.AnimateHp(ev.Pal, ev.From, ev.To, ev.MaxHp);
                         break;
                     case BattleEventType.StatusChanged:
                         box.SetStatus(ev.Status);

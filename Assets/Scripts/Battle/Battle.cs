@@ -17,6 +17,7 @@ namespace PalRogue
         public Pal Pal;               // HpChanged / Fainted / SentOut
         public bool IsPlayerSide;     // 어느 쪽 팰인지
         public int From, To;          // HpChanged
+        public int MaxHp;             // HpChanged: 그 순간의 최대 HP (나중에 레벨업해도 그때 기준으로 그린다)
         public StatusCondition Status; // StatusChanged (None이면 풀림)
         public SphereType Sphere;      // SphereThrown: 던진 스피어
         public int Count;              // SphereShakes: 흔들린 횟수 (0~3)
@@ -74,6 +75,8 @@ namespace PalRogue
         public float ExpShareRatio { get; set; }
         /// <summary>열매 주머니: 내 팰의 열매가 먹어도 남을 확률 (Run.BerrySave)</summary>
         public float PlayerBerrySave { get; set; }
+        /// <summary>싸워서 얻는 경험치로 오를 수 있는 레벨 한도 (Run.LevelCap)</summary>
+        public int LevelCap { get; set; } = GameConfig.MaxLevel;
 
         /// <summary>어느 쪽이든 팰이 쓰러질 때 호출 (경험치 지급 등에 사용)</summary>
         public event Action<Pal> PalFainted;
@@ -99,6 +102,7 @@ namespace PalRogue
             Emit(new BattleEvent { Type = BattleEventType.ShieldBroken, Pal = p, IsPlayerSide = IsPlayerPal(p), Count = count });
             Log(count > 1 ? $"{p.Data.palName}의 실드가 {count}개 한꺼번에 깨졌다!" : $"{p.Data.palName}의 실드가 깨졌다!");
             if (p.IsFainted) return;
+            if (p.MetWave > 0 && p.MetWave < GameConfig.ShieldBoostFromWave) return;   // 초반 보스는 실드가 깨져도 강해지지 않는다
             int boosts = count + (p.ShieldsLeft == 0 ? 1 : 0);
             var stats = (StatType[])Enum.GetValues(typeof(StatType));
             for (int i = 0; i < boosts; i++)
@@ -123,7 +127,7 @@ namespace PalRogue
         public static bool IsCharging(Pal p) => p.Effects.OfType<ChargeStrike>().Any(c => c.Charged);
 
         void OnHpChanged(Pal p, int from, int to) =>
-            Emit(new BattleEvent { Type = BattleEventType.HpChanged, Pal = p, IsPlayerSide = IsPlayerPal(p), From = from, To = to });
+            Emit(new BattleEvent { Type = BattleEventType.HpChanged, Pal = p, IsPlayerSide = IsPlayerPal(p), From = from, To = to, MaxHp = p.MaxHP });
 
         /// <summary>팰의 HP 이벤트 구독을 끊는다. 전투가 끝나거나 화면이 사라질 때 호출 (여러 번 불러도 안전).</summary>
         public void Detach()
@@ -210,7 +214,8 @@ namespace PalRogue
             }
             foreach (var p in PlayerParty.Concat(EnemyParty))
             {
-                p.ResetBattleState();
+                // 내 팰의 능력치 랭크는 전투가 바뀌어도 이어진다 (교체·쓰러짐·10웨이브마다 초기화). 상대는 새로
+                if (!IsPlayerPal(p)) p.ResetBattleState();
                 foreach (var e in p.EffectsSnapshot()) e.OnBattleStart(p, Ctx);
             }
             string enemyName = Enemy.Data.palName;
@@ -541,22 +546,26 @@ namespace PalRogue
         /// </summary>
         void AwardExp(Pal defeated)
         {
-            var receivers = playerList.Where(p => participants.Contains(p) && !p.IsFainted && !p.IsMaxLevel).ToList();
+            // 마지막 구간(웨이브 181~): 살아 있는 파티 전원이 나누지 않고 크게 받는다 → 최종 보스 전에 모두 만렙
+            bool endgame = defeated.MetWave >= GameConfig.EndgameFromWave;
+            var receivers = playerList.Where(p => (endgame || participants.Contains(p)) && !p.IsFainted && !p.IsMaxLevel && p.Level < LevelCap).ToList();
             participants.Clear();
             if (!Player.IsFainted) participants.Add(Player);            // 다음 상대를 위해 지금 팰부터 다시 센다
-            int total = GameConfig.ExpYield(defeated.Data, defeated.Level);
-            ShareExp(receivers, total, defeated.Level);
+            int total = GameConfig.ExpYield(defeated.Data, defeated.Level, defeated.MetWave);
+            if (!endgame) ShareExp(receivers, total, defeated.Level);
             if (receivers.Count == 0) return;
 
-            float baseShare = (float)total / receivers.Count * ExpMultiplier;
+            float baseShare = endgame ? total * ExpMultiplier * GameConfig.EndgameExpMultiplier
+                                      : (float)total / receivers.Count * ExpMultiplier;
             foreach (var pal in receivers)
             {
                 float palMult = GameConfig.ExpLevelScale(defeated.Level, pal.Level);   // 레벨이 낮을수록 더 많이
                 foreach (var e in pal.Effects) palMult *= e.ExpMultiplier;      // 행복의알 등
                 int share = Mathf.Max(1, Mathf.RoundToInt(baseShare * palMult));
-                Log($"{Josa.Eun(pal.Data.palName)} {share} 경험치를 얻었다!");
                 float from = pal.ExpRatio;
-                var ups = pal.GainExp(share);
+                int before = pal.TotalExp;
+                var ups = pal.GainExp(share, LevelCap);                         // 레벨 한도에서 멈춘다 (넘친 경험치는 버린다)
+                Log($"{Josa.Eun(pal.Data.palName)} {Mathf.Max(0, pal.TotalExp - before)} 경험치를 얻었다!");
                 foreach (var (level, skills) in ups)
                 {
                     Emit(new BattleEvent { Type = BattleEventType.ExpBar, Pal = pal, IsPlayerSide = true, FromRatio = from, ToRatio = 1f });
@@ -571,7 +580,7 @@ namespace PalRogue
         void ShareExp(List<Pal> fighters, int total, int defeatedLevel)
         {
             if (ExpShareRatio <= 0f) return;
-            var others = playerList.Where(p => !fighters.Contains(p) && !p.IsFainted && !p.IsMaxLevel).ToList();
+            var others = playerList.Where(p => !fighters.Contains(p) && !p.IsFainted && !p.IsMaxLevel && p.Level < LevelCap).ToList();
             if (others.Count == 0) return;
             Log("학습장치로 다른 팰들도 경험치를 얻었다!");
             foreach (var pal in others)
@@ -579,7 +588,7 @@ namespace PalRogue
                 float palMult = GameConfig.ExpLevelScale(defeatedLevel, pal.Level);
                 foreach (var e in pal.Effects) palMult *= e.ExpMultiplier;
                 int amount = Mathf.Max(1, Mathf.RoundToInt(total * ExpShareRatio * ExpMultiplier * palMult));
-                foreach (var (level, skills) in pal.GainExp(amount))
+                foreach (var (level, skills) in pal.GainExp(amount, LevelCap))
                     Emit(new BattleEvent { Type = BattleEventType.LevelUp, Pal = pal, IsPlayerSide = true, Level = level, NewSkills = skills });
             }
         }

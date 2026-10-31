@@ -272,13 +272,14 @@ namespace PalRogue
 
             foreach (var p in party)
             {
-                foreach (var old in p.Effects.OfType<SynergyEffect>().ToList()) p.RemoveEffect(old);
+                var add = new List<BattleEffect>();
                 foreach (var kv in now)
                 {
                     if (!p.Data.HasType(kv.Key)) continue;
                     var def = Def(kv.Key).Value;
-                    p.AddEffect(new SynergyEffect(kv.Key, kv.Value, def.make(kv.Value), def.describe(kv.Value)));
+                    add.Add(new SynergyEffect(kv.Key, kv.Value, def.make(kv.Value), def.describe(kv.Value)));
                 }
+                p.ChangeEffects(p.Effects.OfType<SynergyEffect>().ToList(), add);   // 한 번에 바꿔서 HP가 흔들리지 않게
             }
 
             foreach (var kv in now.OrderBy(kv => kv.Key))

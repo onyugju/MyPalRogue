@@ -29,8 +29,8 @@ namespace PalRogue
         public Image optionCursor;
 
         /// <summary>메뉴 창 항목 (순서 = 번호). 메뉴 14가 이 글자로 창을 만든다</summary>
-        public static readonly string[] OptionLabels = { "교체한다", "능력치를 본다", "팰 도감", "닉네임 바꾸기", "그만둔다" };
-        public const int OptionSwitch = 0, OptionSummary = 1, OptionCancel = 4;
+        public static readonly string[] OptionLabels = { "교체한다", "능력치를 본다", "팰 도감", "그만둔다" };
+        public const int OptionSwitch = 0, OptionSummary = 1, OptionCancel = 3;
 
         /// <summary>"능력치를 본다"를 고르면 부른다 (파티, 칸 번호). BattleScreen이 능력치 화면을 연결한다</summary>
         public Func<IReadOnlyList<Pal>, int, IEnumerator> OpenSummary;
@@ -68,6 +68,7 @@ namespace PalRogue
                     entry.Cancelled += OnCancel;
                 }
             }
+            RemoveRetiredOptions();
             for (int i = 0; optionButtons != null && i < optionButtons.Length; i++)
             {
                 int index = i;
@@ -79,12 +80,58 @@ namespace PalRogue
                     entry.Cancelled += OnCancel;
                 }
             }
+            // 방향키 이동은 아래 Update에서 직접 한다 (유니티 자동 이동은 큰 칸·작은 칸 배치에서 가끔 멈추거나 엉뚱한 칸으로 간다)
+            foreach (var b in slotButtons) b.navigation = new Navigation { mode = Navigation.Mode.None };
+            cancelButton.navigation = new Navigation { mode = Navigation.Mode.None };
             cancelButton.onClick.AddListener(OnCancel);
             var cancelEntry = cancelButton.GetComponent<MenuEntry>();
             if (cancelEntry != null)
             {
                 cancelEntry.Selected += _ => OnHighlight(-1);
                 cancelEntry.Cancelled += OnCancel;
+            }
+        }
+
+        /// <summary>
+        /// 없앤 메뉴 항목(닉네임 바꾸기)이 씬에 남아 있으면 지우고, 아래 항목을 한 줄씩 올리고 창을 줄인다
+        /// (씬을 다시 만들지 않아도 되게). optionButtons 순서 = OptionLabels 순서가 된다.
+        /// </summary>
+        void RemoveRetiredOptions()
+        {
+            if (optionButtons == null) return;
+            var keep = new List<Button>();
+            float step = 0f;
+            int removed = 0;
+            for (int i = 0; i < optionButtons.Length; i++)
+            {
+                var b = optionButtons[i];
+                var label = b.GetComponentInChildren<TMP_Text>(true);
+                if (i > 0 && step == 0f)
+                    step = ((RectTransform)optionButtons[i - 1].transform).anchoredPosition.y - ((RectTransform)b.transform).anchoredPosition.y;
+                if (label != null && label.text.Contains("닉네임"))
+                {
+                    b.gameObject.SetActive(false);
+                    removed++;
+                    continue;
+                }
+                if (removed > 0) ((RectTransform)b.transform).anchoredPosition += new Vector2(0f, step * removed);
+                keep.Add(b);
+            }
+            if (removed == 0) return;
+            optionButtons = keep.ToArray();
+            for (int i = 0; i < optionButtons.Length; i++)                 // 위아래 이동도 남은 항목끼리 (끝에서 처음으로 돈다)
+                optionButtons[i].navigation = new Navigation
+                {
+                    mode = Navigation.Mode.Explicit,
+                    selectOnUp = optionButtons[(i + optionButtons.Length - 1) % optionButtons.Length],
+                    selectOnDown = optionButtons[(i + 1) % optionButtons.Length],
+                };
+            if (optionsBox != null)
+            {
+                var box = (RectTransform)optionsBox.transform;
+                box.sizeDelta -= new Vector2(0f, step * removed);
+                foreach (RectTransform child in box)                       // 창 안쪽 칸(테두리 안)도 같이 줄인다
+                    if (child.GetComponent<Button>() == null && child.sizeDelta.y > step * 2) child.sizeDelta -= new Vector2(0f, step * removed);
             }
         }
 
@@ -106,7 +153,13 @@ namespace PalRogue
             inOptions = false;
             Result = -1;
 
-            Select(slotButtons[0]);
+            // 처음 커서: 고를 수 있는 첫 칸 (쓰러져서 교체할 때 쓰러진 팰에 커서가 가 있지 않게)
+            int start = 0;
+            if (validate != null)
+                for (int i = 0; i < party.Count && i < slotButtons.Length; i++)
+                    if (string.IsNullOrEmpty(validate(i))) { start = i; break; }
+            lastRight = start >= 1 ? start : 1;
+            Select(slotButtons[start]);
             while (true)
             {
                 messageText.text = prompt;
@@ -139,12 +192,43 @@ namespace PalRogue
             if (EventSystem.current != null) EventSystem.current.SetSelectedGameObject(null);
         }
 
+        int lastRight = 1;   // 오른쪽 줄에서 마지막으로 있던 칸 (왼쪽 큰 칸에서 → 를 누르면 돌아간다)
+
         void Update()
         {
+            MoveCursor();
             // 빈 곳을 클릭해서 선택이 사라져도 키보드 조작이 끊기지 않게
             var es = EventSystem.current;
             if (es != null && es.currentSelectedGameObject == null && lastSelected != null && lastSelected.activeInHierarchy)
                 es.SetSelectedGameObject(lastSelected);
+        }
+
+        /// <summary>
+        /// 방향키: 왼쪽 큰 칸(0) ↔ 오른쪽 줄(1~5), 오른쪽 줄 안에서 위아래, 맨 아래에서 ↓ = 그만둔다 버튼
+        /// </summary>
+        void MoveCursor()
+        {
+            if (party == null || inOptions || showingError || !gameObject.activeInHierarchy) return;
+            int h = MenuKeys.Horizontal, v = MenuKeys.Vertical;
+            if (h == 0 && v == 0) return;
+            int count = Mathf.Min(party.Count, slotButtons.Length);
+            int cur = selected, next = cur;
+            if (h > 0 && cur == 0 && count > 1) next = Mathf.Clamp(lastRight, 1, count - 1);
+            else if (h < 0 && cur != 0) next = 0;
+            else if (v != 0)
+            {
+                if (cur == 0) { if (v > 0 && canCancel) next = -1; }
+                else if (cur >= 1)
+                {
+                    next = cur + v;
+                    if (next < 1) next = 1;
+                    if (next >= count) next = canCancel ? -1 : count - 1;
+                }
+                else if (v < 0) next = count > 1 ? count - 1 : 0;      // 그만둔다 → 위
+            }
+            if (next == cur) return;
+            if (next >= 1) lastRight = next;
+            Select(next < 0 ? cancelButton : slotButtons[next]);
         }
 
         void OnClick(int index)

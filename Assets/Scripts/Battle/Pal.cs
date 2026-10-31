@@ -146,9 +146,10 @@ namespace PalRogue
         public void RecalculateStats()
         {
             int oldMax = MaxHP;
-            float hpMult = StarMultiplier;
+            // 배율을 double로 곱하고 아주 작은 여유를 더한다 → 효과가 붙은 순서(저장·불러오기)가 달라도 같은 값
+            double hpMult = StarMultiplier;
             foreach (var e in Effects) hpMult *= e.MaxHpMultiplier;
-            MaxHP = Mathf.Max(1, Mathf.RoundToInt(CalcHP(Data.baseHP, HpIV, Level) * hpMult));
+            MaxHP = Math.Max(1, (int)Math.Round(CalcHP(Data.baseHP, HpIV, Level) * hpMult + 1e-6, MidpointRounding.AwayFromZero));
             rawStats[StatType.Attack]    = CalcOther(Data.baseAttack, IV(StatType.Attack), Level);
             rawStats[StatType.Defense]   = CalcOther(Data.baseDefense, IV(StatType.Defense), Level);
             rawStats[StatType.Speed]     = CalcOther(Data.baseSpeed, IV(StatType.Speed), Level);
@@ -162,11 +163,11 @@ namespace PalRogue
         {
             int stage = stages[stat];
             float stageMult = stage >= 0 ? (2f + stage) / 2f : 2f / (2f - stage);
-            float effectMult = StarMultiplier;
+            double effectMult = StarMultiplier;
             foreach (var e in EffectsSnapshot()) effectMult *= e.StatMultiplier(stat);
-            if (stat == StatType.Attack && Status == StatusCondition.Burn) effectMult *= 0.5f;      // 화상: 공격 절반
-            if (stat == StatType.Speed && Status == StatusCondition.Paralysis) effectMult *= 0.5f; // 마비: 속도 절반
-            return Mathf.Max(1, Mathf.FloorToInt(rawStats[stat] * stageMult * effectMult));
+            if (stat == StatType.Attack && Status == StatusCondition.Burn) effectMult *= 0.5;      // 화상: 공격 절반
+            if (stat == StatType.Speed && Status == StatusCondition.Paralysis) effectMult *= 0.5; // 마비: 속도 절반
+            return Math.Max(1, (int)Math.Floor(rawStats[stat] * (double)stageMult * effectMult + 1e-6));
         }
 
         public int GetStage(StatType stat) => stages[stat];
@@ -195,9 +196,18 @@ namespace PalRogue
             return any;
         }
 
+        /// <summary>능력치 랭크를 모두 0으로 (교체해서 들어갈 때, 쓰러질 때, 10웨이브마다)</summary>
         public void ResetBattleState()
         {
             foreach (StatType t in Enum.GetValues(typeof(StatType))) stages[t] = 0;
+        }
+
+        /// <summary>저장 파일에서 랭크를 되살린다 (StatType 순서)</summary>
+        public void SetStages(int[] values)
+        {
+            if (values == null) return;
+            var types = (StatType[])Enum.GetValues(typeof(StatType));
+            for (int i = 0; i < types.Length && i < values.Length; i++) stages[types[i]] = Mathf.Clamp(values[i], MinStage, MaxStage);
         }
 
         // ───────── HP ─────────
@@ -307,7 +317,8 @@ namespace PalRogue
         }
 
         /// <summary>쓰러졌을 때 상태이상을 조용히 지운다 (화면에는 기절 뱃지가 대신 나온다)</summary>
-        public void ClearStatusOnFaint() => Status = StatusCondition.None;
+        /// <summary>쓰러지면 상태이상과 능력치 랭크가 풀린다</summary>
+        public void ClearStatusOnFaint() { Status = StatusCondition.None; ResetBattleState(); }
 
         // ───────── 스킬 ─────────
         /// <summary>현재 레벨까지 배운 스킬 중 최근에 배운 4개를 장착 (포켓몬 방식)</summary>
@@ -358,20 +369,26 @@ namespace PalRogue
         /// 경험치를 얻는다. 오른 레벨마다 (새 레벨, 그 레벨에 배울 수 있는 스킬들)을 돌려준다.
         /// 스킬 장착이나 강화 효과 고르기는 부른 쪽(화면)에서 처리한다.
         /// </summary>
-        public List<(int level, List<SkillData> newSkills)> GainExp(int amount)
+        /// <param name="cap">레벨 한도. 이 레벨에 닿으면 더 오르지 않고 경험치도 더 쌓이지 않는다 (아이템은 한도 없이 MaxLevel)</param>
+        public List<(int level, List<SkillData> newSkills)> GainExp(int amount, int cap = GameConfig.MaxLevel)
         {
             var ups = new List<(int, List<SkillData>)>();
-            if (amount <= 0 || IsMaxLevel) return ups;
+            cap = Mathf.Clamp(cap, 1, GameConfig.MaxLevel);
+            if (amount <= 0 || IsMaxLevel || Level >= cap) return ups;
             Exp += amount;
-            while (!IsMaxLevel && Exp >= ExpToNext)
+            while (Level < cap && !IsMaxLevel && Exp >= ExpToNext)
             {
                 Exp -= ExpToNext;
                 var skills = LevelUp();
                 ups.Add((Level, skills));
             }
             if (IsMaxLevel) Exp = 0;
+            else if (Level >= cap) Exp = Mathf.Min(Exp, ExpToNext - 1);   // 한도에서 멈춘다 (한도가 풀리면 다음 경험치부터 다시)
             return ups;
         }
+
+        /// <summary>레벨 한도에 닿았는지</summary>
+        public bool AtLevelCap(int cap) => Level >= Mathf.Min(cap, GameConfig.MaxLevel);
 
         public List<SkillData> LevelUp()
         {
@@ -404,6 +421,19 @@ namespace PalRogue
         public void RemoveEffect(BattleEffect effect)
         {
             if (Effects.Remove(effect)) RecalculateStats();
+        }
+
+        /// <summary>
+        /// 효과 여러 개를 한 번에 바꾼다 (속성 시너지 다시 계산 등). 최대 HP는 마지막에 한 번만 다시 계산해서
+        /// 하나씩 떼고 붙이는 도중에 HP가 1로 깎였다가 늘어나는 일이 없게 한다.
+        /// </summary>
+        public void ChangeEffects(IEnumerable<BattleEffect> remove, IEnumerable<BattleEffect> add)
+        {
+            int oldMax = MaxHP, hp = CurrentHP;
+            foreach (var e in remove.ToList()) Effects.Remove(e);
+            foreach (var e in add) if (e != null) Effects.Add(e);
+            RecalculateStats();
+            if (oldMax > 0 && hp > 0) CurrentHP = Mathf.Clamp(hp + (MaxHP - oldMax), 1, MaxHP);
         }
 
         /// <summary>훅 실행 중에 효과가 추가/제거돼도 안전하도록 복사본을 돌린다</summary>

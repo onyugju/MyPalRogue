@@ -44,6 +44,29 @@ namespace PalRogue.EditorTools
             Debug.Log("[C 키 보기] " + (BattleScreen.DebugPeek ? "켬" : "끔"));
         }
 
+        [MenuItem("PalRogue/43. (테스트) 지금 UI 선택 상태 출력 _F7")]
+        static void DumpUi()
+        {
+            var es = UnityEngine.EventSystems.EventSystem.current;
+            var sel = es != null ? es.currentSelectedGameObject : null;
+            var sb = new StringBuilder();
+            sb.AppendLine("[UI 상태] 선택: " + (sel != null ? Path(sel.transform) + (sel.activeInHierarchy ? "" : " (꺼짐)") : "없음"));
+            if (sel != null && sel.TryGetComponent<UnityEngine.UI.Selectable>(out var s)) sb.AppendLine("  interactable=" + s.interactable + " nav=" + s.navigation.mode);
+            foreach (var ps in Object.FindObjectsByType<PartyScreen>(FindObjectsInactive.Include))
+            {
+                var t = typeof(PartyScreen);
+                string F(string n) => t.GetField(n, System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)?.GetValue(ps)?.ToString() ?? "null";
+                sb.AppendLine($"  PartyScreen active={ps.gameObject.activeInHierarchy} inOptions={F("inOptions")} clicked={F("clicked")} optionClicked={F("optionClicked")} showingError={F("showingError")} lastSelected={F("lastSelected")}");
+                sb.AppendLine("  slots interactable: " + string.Join(",", ps.slotButtons.Select(b => b.interactable + (b.gameObject.activeInHierarchy ? "" : "(꺼짐)"))));
+                sb.AppendLine("  optionsBox active=" + (ps.optionsBox != null && ps.optionsBox.activeSelf));
+            }
+            Debug.Log(sb.ToString());
+            System.IO.Directory.CreateDirectory("Captures");
+            System.IO.File.WriteAllText("Captures/ui_state.txt", sb.ToString());
+        }
+
+        static string Path(Transform t) => t.parent == null ? t.name : Path(t.parent) + "/" + t.name;
+
         [MenuItem("PalRogue/38. 밸런스 표 (웨이브별 상대 레벨·경험치)")]
         static void BalanceTable()
         {

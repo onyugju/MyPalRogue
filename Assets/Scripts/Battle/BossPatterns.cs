@@ -46,9 +46,9 @@ namespace PalRogue
             switch (kind)
             {
                 case BossKind.Boss:
-                    pal.AddEffect(new ChargeStrike(3, 1.5f));
-                    if (wave >= 50) pal.AddEffect(new Enrage(1f / 3f, "분노", (StatType.Attack, 1), (StatType.Speed, 1)));
-                    if (wave >= 100) pal.AddEffect(new ShieldPurify("실드 정화"));
+                    pal.AddEffect(wave < GameConfig.EarlyBossUntil ? new ChargeStrike(4, 1.3f) : new ChargeStrike(3, 1.5f));   // 웨이브 10 보스는 약하게
+                    if (wave >= 100) pal.AddEffect(new Enrage(1f / 3f, "분노", (StatType.Attack, 1), (StatType.Speed, 1)));
+                    if (wave >= 130) pal.AddEffect(new ShieldPurify("실드 정화"));
                     break;
 
                 case BossKind.Legend:
