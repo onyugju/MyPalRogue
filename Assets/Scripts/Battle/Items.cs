@@ -265,6 +265,10 @@ namespace PalRogue
         }
 
         /// <summary>팰에게 지니게 하는 아이템 (효과 = BattleEffect, 이름은 아이템 이름)</summary>
+        /// <summary>이 팰이 이 아이템(UsedItemId가 prefix로 시작)을 몇 번 썼는지</summary>
+        static int UsedCount(Pal p, string idPrefix) => p.Effects.Count(e => e.UsedItemId != null && e.UsedItemId.StartsWith(idPrefix));
+        static string Limit(Pal p, string idPrefix, int max, string what) => UsedCount(p, idPrefix) >= max ? $"{what}은(는) 한 팰에게 {max}번까지만 쓸 수 있다." : null;
+
         static ItemOutcome Hold(ItemContext c, string itemName, BattleEffect effect, string description)
         {
             effect.PerkName = itemName;
@@ -520,11 +524,12 @@ namespace PalRogue
                 Add(new ItemDef
                 {
                     Id = id, Name = name, Tier = ItemTier.Giga, Target = ItemTarget.Pal,
-                    Description = $"팰 1마리의 {Josa.I(statName)} 영구히 10% 오른다.",
+                    Description = $"팰 1마리의 {Josa.I(statName)} 영구히 8% 오른다. (한 팰에 3번까지)",
                     Weight = _ => 0.75f,
+                    CannotUse = p => Limit(p, id, 3, name),
                     Apply = c =>
                     {
-                        c.Target.AddEffect(new StatPerk(stat, 1.1f) { PerkName = name, PerkDescription = $"{statName} +10%" });
+                        c.Target.AddEffect(new StatPerk(stat, 1.08f) { PerkName = name, PerkDescription = $"{statName} +8%" });
                         return ItemOutcome.Say($"{N(c.Target)}의 {Josa.I(statName)} 올랐다!");
                     },
                 });
@@ -532,11 +537,12 @@ namespace PalRogue
             Add(new ItemDef
             {
                 Id = "hp_up", Name = "맥스업", Tier = ItemTier.Giga, Target = ItemTarget.Pal,
-                Description = "팰 1마리의 최대 HP가 영구히 10% 오른다.",
+                Description = "팰 1마리의 최대 HP가 영구히 8% 오른다. (한 팰에 3번까지)",
                 Weight = _ => 0.75f,
+                CannotUse = p => Limit(p, "hp_up", 3, "맥스업"),
                 Apply = c =>
                 {
-                    c.Target.AddEffect(new MaxHpPerk(1.1f) { PerkName = "맥스업", PerkDescription = "최대 HP +10%" });
+                    c.Target.AddEffect(new MaxHpPerk(1.08f) { PerkName = "맥스업", PerkDescription = "최대 HP +8%" });
                     return ItemOutcome.Say($"{N(c.Target)}의 최대 HP가 올랐다!");
                 },
             });
@@ -595,8 +601,8 @@ namespace PalRogue
             Add(new ItemDef
             {
                 Id = "lucky_egg", Name = "행복의알", Tier = ItemTier.Hyper, Target = ItemTarget.Pal, IsHeld = true,
-                Description = "지니게 하면 그 팰이 받는 경험치가 50% 늘어난다.",
-                Weight = _ => 4, Apply = c => Hold(c, "행복의알", new ExpBoostItem(1.5f), "받는 경험치 +50%"),
+                Description = "지니게 하면 그 팰이 받는 경험치가 30% 늘어난다.",
+                Weight = _ => 4, Apply = c => Hold(c, "행복의알", new ExpBoostItem(1.3f), "받는 경험치 +30%"),
             });
             Add(new ItemDef
             {
@@ -700,11 +706,11 @@ namespace PalRogue
                     Apply = c => Hold(c, name, new PinchBerry(name, stat), $"위기 때 {statName} +1랭크 (1회)"),
                 });
             }
-            AddSoul("dawn_stone", "작은 팰 영혼", ItemTier.Common, 0.03f);
+            AddSoul("dawn_stone", "작은 팰 영혼", ItemTier.Giga, 0.02f);
             AddManual("scroll_of_waters", "수련의 서 S", ItemTier.Common, 0.5f);
-            AddImplant("medichamite", "용감", ItemTier.Common, "공격 +10%", 0.7f, atk: 1.1f);
-            AddImplant("aggronite", "단단한 피부", ItemTier.Common, "방어 +10%", 0.7f, def: 1.1f);
-            AddImplant("manectite", "재빠름", ItemTier.Common, "스피드 +10%", 0.7f, spd: 1.1f);
+            AddImplant("medichamite", "용감", ItemTier.Common, "공격 +6%", 0.7f, atk: 1.06f);
+            AddImplant("aggronite", "단단한 피부", ItemTier.Common, "방어 +6%", 0.7f, def: 1.06f);
+            AddImplant("manectite", "재빠름", ItemTier.Common, "스피드 +6%", 0.7f, spd: 1.06f);
 
             // ────────────── 기가 ──────────────
             Add(new ItemDef
@@ -732,9 +738,9 @@ namespace PalRogue
                 CannotUseSkill = s => s.PpUps >= SkillInstance.MaxPpUps ? "더 이상 늘릴 수 없다." : null,
                 Apply = c => RaisePp(c.Target.Skills[c.SkillIndex], 1),
             });
-            AddSoul("dusk_stone", "중간 팰 영혼", ItemTier.Giga, 0.05f);
+            AddSoul("dusk_stone", "중간 팰 영혼", ItemTier.Hyper, 0.03f);
             AddManual("scroll_of_waters", "수련의 서 M", ItemTier.Giga, 1f);
-            AddImplant("gyaradosite", "사나움", ItemTier.Giga, "공격 +20%", 1f, atk: 1.2f);
+            AddImplant("gyaradosite", "사나움", ItemTier.Giga, "공격 +12%", 1f, atk: 1.12f);
             foreach (var (gem, type) in new[]
                      {
                          ("normal_gem", PalType.Neutral), ("fire_gem", PalType.Fire), ("water_gem", PalType.Water),
@@ -795,26 +801,26 @@ namespace PalRogue
                     return ItemOutcome.Say("기절한 팰들이 모두 다시 일어섰다!");
                 },
             });
-            AddSoul("shiny_stone", "대형 팰 영혼", ItemTier.Hyper, 0.08f);
+            AddSoul("shiny_stone", "대형 팰 영혼", ItemTier.Ultimate, 0.05f);
             AddManual("scroll_of_darkness", "수련의 서 L", ItemTier.Hyper, 2f);
-            AddLotus("mint_spdef", "라이프 로터스", "최대 HP", 0.8f, hp: 1.15f);
-            AddLotus("mint_atk", "파워 로터스", "공격", 0.8f, atk: 1.15f);
-            AddLotus("mint_spd", "스피드 로터스", "스피드", 0.8f, spd: 1.15f);
-            AddImplant("garchompite", "귀신", ItemTier.Hyper, "공격 +30%, 방어 +5%", 0.8f, atk: 1.3f, def: 1.05f);
-            AddImplant("metagrossite", "다이아몬드 보디", ItemTier.Hyper, "방어 +30%", 0.8f, def: 1.3f);
-            AddImplant("salamencite", "신속", ItemTier.Hyper, "스피드 +30%", 0.8f, spd: 1.3f);
+            AddLotus("mint_spdef", "라이프 로터스", "최대 HP", 0.8f, hp: 1.1f);
+            AddLotus("mint_atk", "파워 로터스", "공격", 0.8f, atk: 1.1f);
+            AddLotus("mint_spd", "스피드 로터스", "스피드", 0.8f, spd: 1.1f);
+            AddImplant("garchompite", "귀신", ItemTier.Hyper, "공격 +18%, 방어 +5%", 0.8f, atk: 1.18f, def: 1.05f);
+            AddImplant("metagrossite", "다이아몬드 보디", ItemTier.Hyper, "방어 +18%", 0.8f, def: 1.18f);
+            AddImplant("salamencite", "신속", ItemTier.Hyper, "스피드 +18%", 0.8f, spd: 1.18f);
             AddImplant("gengarite", "흡혈귀", ItemTier.Hyper, "준 데미지의 1/10 흡수", 0.8f, drain: 10);
-            AddPendant("venusaurite", "생명의 펜던트", "최대 HP", hp: 1.2f);
-            AddPendant("charizardite_x", "공격의 펜던트", "공격", atk: 1.2f);
-            AddPendant("blastoisinite", "방어의 펜던트", "방어", def: 1.2f);
+            AddPendant("venusaurite", "생명의 펜던트", "최대 HP", hp: 1.15f);
+            AddPendant("charizardite_x", "공격의 펜던트", "공격", atk: 1.15f);
+            AddPendant("blastoisinite", "방어의 펜던트", "방어", def: 1.15f);
 
             // ────────────── 얼티밋 ──────────────
-            AddSoul("sun_stone", "극한 팰 영혼", ItemTier.Ultimate, 0.12f);
+            AddSoul("sun_stone", "극한 팰 영혼", ItemTier.Ultimate, 0.08f);
             AddManual("scroll_of_darkness", "수련의 서 XL", ItemTier.Ultimate, 4f);
-            AddFruit("grass_tera_shard", "생명의 열매", "최대 HP", hp: 1.25f);
-            AddFruit("fire_tera_shard", "괴력의 열매", "공격", atk: 1.25f);
-            AddFruit("rock_tera_shard", "견고의 열매", "방어", def: 1.25f);
-            AddImplant("mewtwonite_x", "전설", ItemTier.Ultimate, "공격 +20%, 방어 +20%, 스피드 +15%", 2f, atk: 1.2f, def: 1.2f, spd: 1.15f);
+            AddFruit("grass_tera_shard", "생명의 열매", "최대 HP", hp: 1.18f);
+            AddFruit("fire_tera_shard", "괴력의 열매", "공격", atk: 1.18f);
+            AddFruit("rock_tera_shard", "견고의 열매", "방어", def: 1.18f);
+            AddImplant("mewtwonite_x", "전설", ItemTier.Ultimate, "공격 +12%, 방어 +12%, 스피드 +10%", 1f, atk: 1.12f, def: 1.12f, spd: 1.1f);
 
             // ────────────── 엑조틱 ──────────────
             Add(new ItemDef
@@ -872,13 +878,16 @@ namespace PalRogue
 
             // ───── 위 아이템들을 만드는 도우미 ─────
             // 팰 영혼(팰월드): 팰 1마리 모든 능력치(HP·공격·방어·스피드)가 영구히 오른다
+            const int MaxSouls = 4;
+            static int Pct(float a, float b, float c) => Mathf.RoundToInt((Mathf.Max(a, Mathf.Max(b, c)) - 1f) * 100f);
             void AddSoul(string icon, string name, ItemTier tier, float bonus)
             {
                 Add(new ItemDef
                 {
                     Id = "soul_" + icon, Icon = icon, Name = name, Tier = tier, Target = ItemTarget.Pal,
-                    Description = $"(팰월드) 팰 1마리의 모든 능력치가 영구히 {Mathf.RoundToInt(bonus * 100)}% 오른다.",
-                    Weight = _ => 2,
+                    Description = $"(팰월드) 팰 1마리의 모든 능력치가 영구히 {Mathf.RoundToInt(bonus * 100)}% 오른다. (팰 영혼은 한 팰에 모두 합쳐 {MaxSouls}개까지)",
+                    Weight = _ => 1,
+                    CannotUse = p => UsedCount(p, "soul_") >= MaxSouls ? $"팰 영혼은 한 팰에게 {MaxSouls}개까지만 쓸 수 있다." : null,
                     Apply = c =>
                     {
                         c.Target.AddEffect(new StatBundle(1f + bonus, 1f + bonus, 1f + bonus, 1f + bonus) { PerkName = name, PerkDescription = $"모든 능력치 +{Mathf.RoundToInt(bonus * 100)}%" });
@@ -934,11 +943,12 @@ namespace PalRogue
                 Add(new ItemDef
                 {
                     Id = "lotus_" + icon, Icon = icon, Name = name, Tier = ItemTier.Hyper, Target = ItemTarget.Pal,
-                    Description = $"(팰월드) 팰 1마리의 {Josa.I(statName)} 영구히 15% 오른다.",
+                    Description = $"(팰월드) 팰 1마리의 {Josa.I(statName)} 영구히 {Pct(hp, atk, spd)}% 오른다. (한 팰에 2번까지)",
                     Weight = _ => weight,
+                    CannotUse = p => Limit(p, "lotus_" + icon, 2, name),
                     Apply = c =>
                     {
-                        c.Target.AddEffect(new StatBundle(hp, atk, 1f, spd) { PerkName = name, PerkDescription = $"{statName} +15%" });
+                        c.Target.AddEffect(new StatBundle(hp, atk, 1f, spd) { PerkName = name, PerkDescription = $"{statName} +{Pct(hp, atk, spd)}%" });
                         return ItemOutcome.Say($"{N(c.Target)}의 {Josa.I(statName)} 올랐다!");
                     },
                 });
@@ -950,10 +960,10 @@ namespace PalRogue
                 Add(new ItemDef
                 {
                     Id = "pendant_" + icon, Icon = icon, Name = name, Tier = ItemTier.Hyper, Target = ItemTarget.Pal, IsHeld = true,
-                    Description = $"(팰월드) 지니게 하면 {Josa.I(statName)} 20% 오른다.",
+                    Description = $"(팰월드) 지니게 하면 {Josa.I(statName)} {Pct(hp, atk, def)}% 오른다.",
                     Weight = _ => 0.7f,
                     CannotUse = p => p.Effects.Any(e => e.PerkName == name) ? "이미 지니고 있다." : null,
-                    Apply = c => Hold(c, name, new StatBundle(hp, atk, def, 1f), $"{statName} +20%"),
+                    Apply = c => Hold(c, name, new StatBundle(hp, atk, def, 1f), $"{statName} +{Pct(hp, atk, def)}%"),
                 });
             }
 
@@ -963,11 +973,12 @@ namespace PalRogue
                 Add(new ItemDef
                 {
                     Id = "fruit_" + icon, Icon = icon, Name = name, Tier = ItemTier.Ultimate, Target = ItemTarget.Pal,
-                    Description = $"(팰월드) 팰 1마리의 {Josa.I(statName)} 영구히 25% 오른다.",
+                    Description = $"(팰월드) 팰 1마리의 {Josa.I(statName)} 영구히 {Pct(hp, atk, def)}% 오른다. (한 팰에 1번)",
                     Weight = _ => 1,
+                    CannotUse = p => Limit(p, "fruit_" + icon, 1, name),
                     Apply = c =>
                     {
-                        c.Target.AddEffect(new StatBundle(hp, atk, def, 1f) { PerkName = name, PerkDescription = $"{statName} +25%" });
+                        c.Target.AddEffect(new StatBundle(hp, atk, def, 1f) { PerkName = name, PerkDescription = $"{statName} +{Pct(hp, atk, def)}%" });
                         return ItemOutcome.Say($"{N(c.Target)}의 {Josa.I(statName)} 크게 올랐다!");
                     },
                 });

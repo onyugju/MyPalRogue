@@ -23,7 +23,8 @@ namespace PalRogue
         public int Count;              // SphereShakes: 흔들린 횟수 (0~3)
         public float FromRatio, ToRatio;          // ExpBar: 지금 레벨 안에서 EXP바가 채워지는 구간 (0~1)
         public int Level;                         // LevelUp: 새 레벨
-        public List<SkillData> NewSkills;         // LevelUp: 이 레벨에 배울 수 있는 스킬
+        public List<SkillData> NewSkills;         // LevelUp: 이 레벨에 배울 수 있는 스킬 (여러 레벨이면 그 사이 전부)
+        public int FromLevel;                     // LevelUp: 오르기 전 레벨 (한꺼번에 여러 레벨이 오르면 Level까지 한 번에 보여 준다)
         public SkillData Skill;                   // SkillAnim: 쓴 기술 (Pal = 쓴 팰, IsPlayerSide = 쓴 쪽)
         public bool Missed, Critical;             // SkillAnim: 빗나감 / 급소
         public float Effectiveness = 1f;          // SkillAnim: 상성 배율 (연출 세기)
@@ -564,17 +565,25 @@ namespace PalRogue
                 int share = Mathf.Max(1, Mathf.RoundToInt(baseShare * palMult));
                 float from = pal.ExpRatio;
                 int before = pal.TotalExp;
+                int fromLevel = pal.Level;
                 var ups = pal.GainExp(share, LevelCap);                         // 레벨 한도에서 멈춘다 (넘친 경험치는 버린다)
                 Log($"{Josa.Eun(pal.Data.palName)} {Mathf.Max(0, pal.TotalExp - before)} 경험치를 얻었다!");
-                foreach (var (level, skills) in ups)
+                if (ups.Count > 0)
                 {
+                    // 여러 레벨이 올라도 EXP바 한 번 + 레벨업 한 번 (화면이 "Lv.a → Lv.b" 한 줄로 보여 준다)
                     Emit(new BattleEvent { Type = BattleEventType.ExpBar, Pal = pal, IsPlayerSide = true, FromRatio = from, ToRatio = 1f });
-                    Emit(new BattleEvent { Type = BattleEventType.LevelUp, Pal = pal, IsPlayerSide = true, Level = level, NewSkills = skills });
+                    Emit(LevelUpEvent(pal, fromLevel, ups));
                     from = 0f;
                 }
                 Emit(new BattleEvent { Type = BattleEventType.ExpBar, Pal = pal, IsPlayerSide = true, FromRatio = from, ToRatio = pal.ExpRatio });
             }
         }
+
+        static BattleEvent LevelUpEvent(Pal pal, int fromLevel, List<(int level, List<SkillData> newSkills)> ups) => new BattleEvent
+        {
+            Type = BattleEventType.LevelUp, Pal = pal, IsPlayerSide = true, FromLevel = fromLevel, Level = ups[ups.Count - 1].level,
+            NewSkills = ups.Where(u => u.newSkills != null).SelectMany(u => u.newSkills).Distinct().ToList(),
+        };
 
         /// <summary>학습장치: 싸움에 나가지 않은(기절하지 않은) 팰들도 경험치의 일부를 받는다</summary>
         void ShareExp(List<Pal> fighters, int total, int defeatedLevel)
@@ -588,8 +597,9 @@ namespace PalRogue
                 float palMult = GameConfig.ExpLevelScale(defeatedLevel, pal.Level);
                 foreach (var e in pal.Effects) palMult *= e.ExpMultiplier;
                 int amount = Mathf.Max(1, Mathf.RoundToInt(total * ExpShareRatio * ExpMultiplier * palMult));
-                foreach (var (level, skills) in pal.GainExp(amount, LevelCap))
-                    Emit(new BattleEvent { Type = BattleEventType.LevelUp, Pal = pal, IsPlayerSide = true, Level = level, NewSkills = skills });
+                int fromLevel = pal.Level;
+                var ups = pal.GainExp(amount, LevelCap);
+                if (ups.Count > 0) Emit(LevelUpEvent(pal, fromLevel, ups));
             }
         }
 

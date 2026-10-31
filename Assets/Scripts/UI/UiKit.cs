@@ -73,6 +73,41 @@ namespace PalRogue
             return outer;
         }
 
+        /// <summary>
+        /// 한 줄 글자의 세로 가운데 맞춤을 글꼴의 줄 높이(위·아래 여백이 달라 글자가 아래로 쏠린다) 대신
+        /// 실제 글자 모양의 가운데(Midline)로 바꾼다. 위/아래 맞춤(TopLeft 등)은 그대로 둔다.
+        /// </summary>
+        public static TextAlignmentOptions Mid(TextAlignmentOptions align)
+        {
+            switch (align)
+            {
+                case TextAlignmentOptions.Left: return TextAlignmentOptions.MidlineLeft;
+                case TextAlignmentOptions.Center: return TextAlignmentOptions.Midline;
+                case TextAlignmentOptions.Right: return TextAlignmentOptions.MidlineRight;
+                case TextAlignmentOptions.Justified: return TextAlignmentOptions.MidlineJustified;
+                default: return align;
+            }
+        }
+
+        /// <summary>장면에 미리 만들어 둔 글자(에디터 빌더로 만든 화면)도 처음 불러올 때 한 번 같은 기준으로 맞춘다</summary>
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+        static void HookAlignFix()
+        {
+            FixSceneAlignment();
+            SceneManager.sceneLoaded -= OnSceneLoadedAlign;
+            SceneManager.sceneLoaded += OnSceneLoadedAlign;
+        }
+        static void OnSceneLoadedAlign(Scene s, LoadSceneMode m) => FixSceneAlignment();
+        static void FixSceneAlignment()
+        {
+            foreach (var t in UnityEngine.Object.FindObjectsByType<TMP_Text>(FindObjectsInactive.Include))
+            {
+                if (t.textWrappingMode != TextWrappingModes.NoWrap) continue;   // 여러 줄로 감기는 글은 줄 기준이 맞다
+                var a = Mid(t.alignment);
+                if (a != t.alignment) t.alignment = a;
+            }
+        }
+
         public static TMP_Text Label(Transform parent, TMP_FontAsset font, string name, float x, float y, float w, float h, float size,
                                      TextAlignmentOptions align, Color color)
         {
@@ -80,7 +115,7 @@ namespace PalRogue
             var t = rt.gameObject.AddComponent<TextMeshProUGUI>();
             if (font != null) t.font = font;
             t.fontSize = size;
-            t.alignment = align;
+            t.alignment = UiKit.Mid(align);
             t.textWrappingMode = TextWrappingModes.NoWrap;
             t.overflowMode = TextOverflowModes.Overflow;
             t.color = color;

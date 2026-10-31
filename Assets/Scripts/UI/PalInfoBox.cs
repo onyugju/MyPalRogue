@@ -387,7 +387,7 @@ namespace PalRogue
                 effText.rectTransform.offsetMin = new Vector2(0.5f, 0f); effText.rectTransform.offsetMax = new Vector2(0.5f, 0.5f);
                 effText.font = nameText.font;
                 effText.fontSize = 11f;
-                effText.alignment = TextAlignmentOptions.Center;
+                effText.alignment = TextAlignmentOptions.Midline;
                 effText.textWrappingMode = TextWrappingModes.NoWrap;
                 effText.raycastTarget = false;
                 effText.color = UiKit.White;
@@ -473,7 +473,7 @@ namespace PalRogue
             trt.offsetMin = new Vector2(3f, 0f); trt.offsetMax = Vector2.zero;
             stageText.font = nameText.font;
             stageText.fontSize = 7f;
-            stageText.alignment = TextAlignmentOptions.Left;
+            stageText.alignment = TextAlignmentOptions.MidlineLeft;
             stageText.textWrappingMode = TextWrappingModes.NoWrap;
             stageText.richText = true;
             stageText.raycastTarget = false;

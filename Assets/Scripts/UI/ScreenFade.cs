@@ -62,7 +62,7 @@ namespace PalRogue
             rt.anchoredPosition = new Vector2(0f, y);
             if (font != null) t.font = font;
             t.fontSize = size;
-            t.alignment = TextAlignmentOptions.Center;
+            t.alignment = TextAlignmentOptions.Midline;
             t.textWrappingMode = TextWrappingModes.NoWrap;
             t.color = new Color(1f, 1f, 1f, 0f);
             t.raycastTarget = false;

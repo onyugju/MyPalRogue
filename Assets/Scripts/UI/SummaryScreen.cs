@@ -765,7 +765,7 @@ namespace PalRogue
             var t = rt.gameObject.AddComponent<TextMeshProUGUI>();
             if (font != null) t.font = font;
             t.fontSize = size;
-            t.alignment = align;
+            t.alignment = wrap ? align : UiKit.Mid(align);
             t.textWrappingMode = wrap ? TextWrappingModes.Normal : TextWrappingModes.NoWrap;
             t.overflowMode = TextOverflowModes.Overflow;
             t.lineSpacing = wrap ? -8f : 0f;

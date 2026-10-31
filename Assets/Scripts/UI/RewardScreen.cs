@@ -33,7 +33,9 @@ namespace PalRogue
         const float SphereIconSize = 18f;          // 스피어 보상은 다른 아이템 그림과 비슷한 크기로 줄인다
         const float BallSize = 14f;                // 떨어지는 팰 스피어 크기
         const float OneRowY = 68f;                 // 보상이 한 줄일 때 아이콘 중심
-        const float TwoRowY1 = 62f, TwoRowY2 = 96f;// 두 줄일 때
+        const float TwoRowY1 = 61f, TwoRowY2 = 91f;// 두 줄일 때 (아이콘을 작게 해서 위 상점 띠·아래 갱신/파티 확인 줄과 겹치지 않게)
+        /// <summary>보상이 많아 두 줄이 되면 아이콘·이름을 이만큼 줄인다 (보상 수에 따라 더 작게)</summary>
+        static float RewardScale(int n) => n <= 4 ? 1f : n <= 6 ? 0.78f : 0.7f;
         const float RewardNameOffset = 16f;        // 아이콘 중심 → 이름 중심
         const float BottomRowY = 113f;             // 갱신 / 파티 확인
         float CenterX => root.rect.width > 0f ? root.rect.width / 2f : 160f;   // 화면 가운데 (기준 320 → 160)
@@ -457,6 +459,8 @@ namespace PalRogue
             }
         }
 
+        float iconSize = RewardIconSize;                  // 지금 보상 아이콘 크기 (보상이 많으면 작아진다)
+
         void BuildRewards()
         {
             ClearChildren(rewardRoot);
@@ -465,6 +469,9 @@ namespace PalRogue
             rewardLabels.Clear();
             int n = rewards.Count;
             int firstRow = n <= 4 ? n : Mathf.CeilToInt(n / 2f);
+            float k = RewardScale(n);
+            iconSize = RewardIconSize * k;
+            float nameOffset = RewardNameOffset * k, nameFont = n <= 4 ? FontName : FontName - 2f;
             for (int i = 0; i < n; i++)
             {
                 int rowCount = i >= firstRow ? n - firstRow : firstRow;
@@ -472,20 +479,20 @@ namespace PalRogue
                 var center = IconCenter(i);
 
                 var item = rewards[i];
-                var cell = Box($"Reward{i}", rewardRoot, center.x - step / 2f, center.y - RewardIconSize / 2f, step, RewardIconSize + 12f);
+                var cell = Box($"Reward{i}", rewardRoot, center.x - step / 2f, center.y - iconSize / 2f, step, iconSize + nameOffset - 4f);
                 var button = MakeButton(cell);
                 // 그림 칸은 가운데 기준 (등장할 때 커졌다 작아지는 연출, 스피어 그림은 작게)
-                var iconRt = Box("Icon", cell, step / 2f, RewardIconSize / 2f, RewardIconSize, RewardIconSize);
+                var iconRt = Box("Icon", cell, step / 2f, iconSize / 2f, iconSize, iconSize);
                 iconRt.pivot = new Vector2(0.5f, 0.5f);
                 var icon = iconRt.gameObject.AddComponent<RawImage>();
-                SetIcon(icon, item, RewardIconSize, SphereIconSize);
+                SetIcon(icon, item, iconSize, SphereIconSize * k);
                 rewardIcons.Add(iconRt);
-                var label = Label(Box("Name", cell, -6f, RewardIconSize / 2f + RewardNameOffset - 5f, step + 12f, 10), FontName,
+                var label = Label(Box("Name", cell, -4f, iconSize / 2f + nameOffset - 5f, step + 8f, 10), nameFont,
                                   TextAlignmentOptions.Center, ItemTiers.Color(item.Tier));
                 label.text = item.Name;
                 label.enableAutoSizing = true;                 // "기술머신: 다이아몬드 폴"처럼 긴 이름은 글자를 줄인다
-                label.fontSizeMax = FontName;
-                label.fontSizeMin = 6f;
+                label.fontSizeMax = nameFont;
+                label.fontSizeMin = 5f;
                 rewardLabels.Add(label.gameObject);
 
                 int index = i;
@@ -570,7 +577,7 @@ namespace PalRogue
                     pos = TopLeftOf(rt) + new Vector2(rt.rect.width / 2f - ShopIconSize / 2f - 7f, -(ShopIconY - 2f));
                     break;
                 case Pick.Reward:
-                    pos = TopLeftOf(rt) + new Vector2(rt.rect.width / 2f - RewardIconSize / 2f - 6f, -RewardIconSize / 2f);
+                    pos = TopLeftOf(rt) + new Vector2(rt.rect.width / 2f - iconSize / 2f - 6f, -iconSize / 2f);
                     break;
                 case Pick.Reroll:
                     pos = TopLeftOf(rt) + new Vector2(-6f, -rt.rect.height / 2f);
@@ -641,7 +648,7 @@ namespace PalRogue
             var t = rt.gameObject.AddComponent<TextMeshProUGUI>();
             if (font != null) t.font = font;
             t.fontSize = size;
-            t.alignment = align;
+            t.alignment = UiKit.Mid(align);
             t.color = color;
             t.textWrappingMode = TextWrappingModes.NoWrap;
             t.overflowMode = TextOverflowModes.Overflow;

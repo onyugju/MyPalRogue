@@ -81,33 +81,33 @@ namespace PalRogue
             var list = new List<Perk>
             {
                 // ───── 일반 (Lv.3까지) ─────
-                P("atk_up", "힘 단련",   PerkRarity.Common, 3, r => $"공격이 {r * 10}% 올라간다.",    r => new StatPerk(StatType.Attack, 1f + 0.1f * r)),
-                P("def_up", "철갑",      PerkRarity.Common, 3, r => $"방어가 {r * 10}% 올라간다.",    r => new StatPerk(StatType.Defense, 1f + 0.1f * r)),
-                P("spd_up", "질풍",      PerkRarity.Common, 3, r => $"스피드가 {r * 10}% 올라간다.",  r => new StatPerk(StatType.Speed, 1f + 0.1f * r)),
-                P("hp_up",  "튼튼한 몸", PerkRarity.Common, 3, r => $"최대 HP가 {r * 10}% 늘어난다.", r => new MaxHpPerk(1f + 0.1f * r)),
+                P("atk_up", "힘 단련",   PerkRarity.Common, 3, r => $"공격이 {r * 7}% 올라간다.",    r => new StatPerk(StatType.Attack, 1f + 0.07f * r)),
+                P("def_up", "철갑",      PerkRarity.Common, 3, r => $"방어가 {r * 7}% 올라간다.",    r => new StatPerk(StatType.Defense, 1f + 0.07f * r)),
+                P("spd_up", "질풍",      PerkRarity.Common, 3, r => $"스피드가 {r * 7}% 올라간다.",  r => new StatPerk(StatType.Speed, 1f + 0.07f * r)),
+                P("hp_up",  "튼튼한 몸", PerkRarity.Common, 3, r => $"최대 HP가 {r * 7}% 늘어난다.", r => new MaxHpPerk(1f + 0.07f * r)),
 
                 // ───── 희귀 ─────
                 P("regen", "재생",        PerkRarity.Rare, 3, r => $"턴이 끝날 때마다 최대 HP의 1/{Regen(r)}을 회복한다.", r => new RegenPerk(Regen(r))),
-                P("crit",  "급소 노리기", PerkRarity.Rare, 3, r => $"급소에 맞힐 확률이 {r * 8}% 늘어난다.",              r => new CritPerk(0.08f * r)),
+                P("crit",  "급소 노리기", PerkRarity.Rare, 3, r => $"급소에 맞힐 확률이 {r * 6}% 늘어난다.",              r => new CritPerk(0.06f * r)),
                 P("drain", "흡혈",        PerkRarity.Rare, 3, r => $"공격으로 준 데미지의 1/{Drain(r)}만큼 회복한다.",     r => new DrainPerk(Drain(r))),
-                P("guard", "방어 태세",   PerkRarity.Rare, 3, r => $"받는 데미지가 {r * 7}% 줄어든다.",                   r => new DamageTakenPerk(1f - 0.07f * r)),
-                P("last",  "배수의 진",   PerkRarity.Rare, 2, r => $"HP가 절반 이하면 주는 데미지가 {r * 25}% 늘어난다.",  r => new LowHpPowerPerk(1f + 0.25f * r)),
+                P("guard", "방어 태세",   PerkRarity.Rare, 3, r => $"받는 데미지가 {r * 5}% 줄어든다.",                   r => new DamageTakenPerk(1f - 0.05f * r)),
+                P("last",  "배수의 진",   PerkRarity.Rare, 2, r => $"HP가 절반 이하면 주는 데미지가 {r * 20}% 늘어난다.",  r => new LowHpPowerPerk(1f + 0.2f * r)),
 
                 // ───── 영웅 ─────
-                P("stab",     "적응력",     PerkRarity.Epic, 2, r => $"자기 속성 기술의 위력이 {r * 20}% 늘어난다.",          r => new StabPerk(1f + 0.2f * r)),
-                P("allstat",  "균형",       PerkRarity.Epic, 2, r => $"공격·방어·스피드가 모두 {r * 8}% 올라간다.",            r => new AllStatPerk(1f + 0.08f * r)),
+                P("stab",     "적응력",     PerkRarity.Epic, 2, r => $"자기 속성 기술의 위력이 {r * 15}% 늘어난다.",          r => new StabPerk(1f + 0.15f * r)),
+                P("allstat",  "균형",       PerkRarity.Epic, 2, r => $"공격·방어·스피드가 모두 {r * 6}% 올라간다.",            r => new AllStatPerk(1f + 0.06f * r)),
                 P("followup", "추격",       PerkRarity.Epic, 2, r => $"공격한 뒤 {(r == 1 ? 25 : 40)}% 확률로 1/3 위력의 추가타를 넣는다.", r => new FollowUpPerk(r == 1 ? 0.25f : 0.4f)),
-                P("weak",     "약점 간파",  PerkRarity.Epic, 2, r => $"효과가 굉장한 공격의 데미지가 {r * 25}% 늘어난다.",     r => new SuperEffectivePerk(1f + 0.25f * r)),
+                P("weak",     "약점 간파",  PerkRarity.Epic, 2, r => $"효과가 굉장한 공격의 데미지가 {r * 20}% 늘어난다.",     r => new SuperEffectivePerk(1f + 0.2f * r)),
                 P("endure",   "버티기",     PerkRarity.Epic, 1, _ => "전투마다 한 번, 쓰러질 공격을 HP 1로 버틴다.",          _ => new EndurePerk()),
                 P("heat",     "전투의 열기", PerkRarity.Epic, 1, _ => "공격을 맞히면 공격이 1랭크 오른다. (전투마다 2번까지)", _ => new BattleHeatPerk(2)),
                 P("accel",    "가속",       PerkRarity.Epic, 1, _ => "턴이 끝날 때마다 스피드가 1랭크 오른다.",               _ => new AccelPerk()),
 
                 // ───── 전설 (Lv.40부터) ─────
                 P("phoenix",  "불사조",     PerkRarity.Legendary, 1, _ => "전투마다 한 번, 쓰러지면 최대 HP의 절반으로 되살아난다.", _ => new PhoenixPerk()),
-                P("berserk",  "광전사",     PerkRarity.Legendary, 1, _ => "공격이 35% 오르지만 방어가 10% 내려간다.",            _ => new StatBundle(1f, 1.35f, 0.9f, 1f)),
+                P("berserk",  "광전사",     PerkRarity.Legendary, 1, _ => "공격이 25% 오르지만 방어가 10% 내려간다.",            _ => new StatBundle(1f, 1.25f, 0.9f, 1f)),
                 P("vampire",  "흡혈귀",     PerkRarity.Legendary, 1, _ => "공격으로 준 데미지의 1/3만큼 회복한다.",              _ => new DrainPerk(3)),
-                P("blood",    "전설의 피",  PerkRarity.Legendary, 1, _ => "최대 HP와 공격·방어·스피드가 모두 15% 올라간다.",      _ => new StatBundle(1.15f, 1.15f, 1.15f, 1.15f)),
-                P("first",    "선수필승",   PerkRarity.Legendary, 1, _ => "전투에서 처음 하는 공격의 데미지가 2배가 된다.",       _ => new FirstStrikePerk(2f)),
+                P("blood",    "전설의 피",  PerkRarity.Legendary, 1, _ => "최대 HP와 공격·방어·스피드가 모두 10% 올라간다.",      _ => new StatBundle(1.1f, 1.1f, 1.1f, 1.1f)),
+                P("first",    "선수필승",   PerkRarity.Legendary, 1, _ => "전투에서 처음 하는 공격의 데미지가 1.6배가 된다.",       _ => new FirstStrikePerk(1.6f)),
                 P("intim",    "위압",       PerkRarity.Legendary, 1, _ => "전투 첫 턴에 나와 있으면 상대의 공격을 1랭크 떨어뜨린다.", _ => new IntimidatePerk()),
             };
 
@@ -120,8 +120,8 @@ namespace PalRogue
             })
             {
                 string typeName = PalTypeNames.Korean(type);
-                list.Add(P($"power_{type}", name, PerkRarity.Common, 3, r => $"{typeName} 속성 기술의 위력이 {r * 15}% 늘어난다.",
-                           r => new TypePowerPerk(type, 1f + 0.15f * r), type));
+                list.Add(P($"power_{type}", name, PerkRarity.Common, 3, r => $"{typeName} 속성 기술의 위력이 {r * 10}% 늘어난다.",
+                           r => new TypePowerPerk(type, 1f + 0.1f * r), type));
             }
 
             // ───── 속성 전용: 특색 있는 효과 (희귀, Lv.2까지) ─────

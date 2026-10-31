@@ -786,9 +786,9 @@ namespace PalRogue
             UpdateHud();
             playerInfo.Refresh(battle.Player);
             if (outcome != null && !string.IsNullOrEmpty(outcome.Message)) yield return ShowMessage(outcome.Message);
-            if (outcome?.LevelUps != null)
-                foreach (var (level, newSkills) in outcome.LevelUps)
-                    yield return PlayLevelUp(ctx.Target, level, newSkills);
+            if (outcome?.LevelUps != null && outcome.LevelUps.Count > 0)            // 여러 레벨이 올라도 한 번에
+                yield return PlayLevelUps(ctx.Target, outcome.LevelUps[0].level - 1, outcome.LevelUps[outcome.LevelUps.Count - 1].level,
+                                          outcome.LevelUps.Where(u => u.newSkills != null).SelectMany(u => u.newSkills).ToList());
         }
 
         const float PpMenuWidth = 140f;
@@ -1010,33 +1010,42 @@ namespace PalRogue
         const float WidePromptWidth = 300f;          // 질문이 길 때 메시지 칸을 넓게 쓴다
         const float SkillMenuWidth = 120f;
 
-        IEnumerator PlayLevelUp(Pal pal, int level, List<SkillData> newSkills)
+        IEnumerator PlayLevelUp(Pal pal, int level, List<SkillData> newSkills) => PlayLevelUps(pal, level - 1, level, newSkills);
+
+        /// <summary>
+        /// 레벨업 한 번에 처리: 여러 레벨이 한꺼번에 올라도 "Lv.5 → Lv.8로 올랐다!" 한 줄.
+        /// 그 사이에 배울 기술·강화 레벨(10단위)·진각성은 순서대로 한 번씩만 묻는다.
+        /// </summary>
+        IEnumerator PlayLevelUps(Pal pal, int fromLevel, int toLevel, List<SkillData> newSkills)
         {
+            if (toLevel <= fromLevel) yield break;
             bool active = pal == battle.Player;
             if (active)
             {
-                playerInfo.SetLevel(level);
+                playerInfo.SetLevel(toLevel);
                 playerInfo.RefreshHp(pal);
                 playerInfo.SetExp(0f);
             }
-            yield return ShowMessage($"{Josa.Eun(PalName(pal))} {Josa.Ro("Lv." + level)} 올랐다!");
-            if (level >= GameConfig.ActiveLevelCap && level < GameConfig.MaxLevel && active)
-                yield return ShowMessage($"{PalName(pal)}의 레벨이 최대 레벨에 닿았다!\n다음 보스를 쓰러뜨리면 더 오를 수 있다.");
+            GameAudio.Se("level_up");
+            yield return ShowMessage(toLevel - fromLevel > 1
+                ? $"{Josa.Eun(PalName(pal))} Lv.{fromLevel} → {Josa.Ro("Lv." + toLevel)} 올랐다!"
+                : $"{Josa.Eun(PalName(pal))} {Josa.Ro("Lv." + toLevel)} 올랐다!");
 
             if (newSkills != null)
-                foreach (var skill in newSkills)
+                foreach (var skill in newSkills.Distinct())
                     yield return LearnSkill(pal, skill);
 
-            if (GameConfig.IsPerkLevel(level))
+            for (int lv = fromLevel + 1; lv <= toLevel; lv++)
             {
+                if (!GameConfig.IsPerkLevel(lv)) continue;
                 // Lv.50부터는 아직 각성이 없으면 강화 효과 대신 각성을 고른다
-                if (level >= GameConfig.AwakenLevel && AwakeningCatalog.Of(pal) == null) yield return ChooseAwakening(pal);
-                else yield return ChoosePerk(pal, $"{Josa.I(PalName(pal))} Lv.{level}에 도달했다!");
+                if (lv >= GameConfig.AwakenLevel && AwakeningCatalog.Of(pal) == null) yield return ChooseAwakening(pal);
+                else yield return ChoosePerk(pal, $"{Josa.I(PalName(pal))} Lv.{lv}에 도달했다!");
             }
 
             // Lv.100: 각성이 진각성이 된다
             var awakening = AwakeningCatalog.Of(pal);
-            if (level >= GameConfig.TrueAwakenLevel && awakening != null && !awakening.IsTrue)
+            if (toLevel >= GameConfig.TrueAwakenLevel && awakening != null && !awakening.IsTrue)
             {
                 awakening.SetTrue(true);
                 yield return ShowMessage($"{PalName(pal)}의 {Josa.I(awakening.Def.Name)} 진각성으로 거듭났다!\n" +
@@ -1697,9 +1706,8 @@ namespace PalRogue
                         if (ev.Pal == battle.Player) { GameAudio.Se("exp", 0.6f); yield return playerInfo.AnimateExp(ev.FromRatio, ev.ToRatio); }
                         break;
                     case BattleEventType.LevelUp:
-                        GameAudio.Se("level_up");
                         if (ev.IsPlayerSide) Achievements.CheckLevel(ev.Level);
-                        yield return PlayLevelUp(ev.Pal, ev.Level, ev.NewSkills);
+                        yield return PlayLevelUps(ev.Pal, ev.FromLevel > 0 ? ev.FromLevel : ev.Level - 1, ev.Level, ev.NewSkills);
                         break;
                     case BattleEventType.Fainted:
                         GameAudio.Se("faint");

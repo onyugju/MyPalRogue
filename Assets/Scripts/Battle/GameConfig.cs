@@ -45,8 +45,8 @@ namespace PalRogue
         public const int TrueAwakenLevel = 100;
         /// <summary>HP가 이 비율 이하가 되면 각성한다 (전투마다 한 번)</summary>
         public const float AwakenHpRatio = 0.5f;
-        public const float AwakenStatMultiplier = 1.2f;
-        public const float TrueAwakenStatMultiplier = 1.35f;
+        public const float AwakenStatMultiplier = 1.15f;
+        public const float TrueAwakenStatMultiplier = 1.25f;
 
         // ───── 응축 ★ (진화 대신, 팰월드 팰 응축) ─────
         public const int MaxStars = 4;
@@ -67,7 +67,7 @@ namespace PalRogue
         // 레벨 차이 보정 (포켓몬 5세대 방식): ((2×상대Lv + 10) ÷ (상대Lv + 내Lv + 10))^ExpLevelPower
         //  - 상대보다 낮으면 더 많이 받아서 금방 따라잡고, 높으면 적게 받아서 혼자 너무 앞서가지 않는다
         //  - 같은 레벨이면 1배. 초반(Lv5, 총합 200)은 한 마리에 1~2레벨쯤 오른다
-        public static float ExpYieldDivisor = 8f;
+        public static float ExpYieldDivisor = 10f;
         public const float ExpLevelPower = 4f;
         public const float ExpLevelScaleMin = 0.15f, ExpLevelScaleMax = 3f;
 
@@ -81,7 +81,7 @@ namespace PalRogue
         }
 
         /// <summary>초반 경험치 보너스: 웨이브 1에서 +EarlyExpBonus, EarlyExpUntil 웨이브까지 서서히 줄어든다 (초반 상대 레벨이 낮은 만큼 보충)</summary>
-        public static float EarlyExpBonus = 0.6f;
+        public static float EarlyExpBonus = 0.45f;
         public static int EarlyExpUntil = 30;
         public static float EarlyExpMultiplier(int wave) => wave <= 0 ? 1f : 1f + EarlyExpBonus * Mathf.Clamp01(1f - (wave - 1f) / EarlyExpUntil);
 
@@ -114,6 +114,9 @@ namespace PalRogue
         /// </summary>
         public static readonly string[] AreaBiomes =
             { "plains", "volcano", "forest", "sea", "snowy_forest", "desert", "mountain", "wasteland", "abyss", "space" };
+
+        /// <summary>이 간격(5, 10, 15 …웨이브)을 지나면 기술로 올린 능력치 랭크가 풀린다</summary>
+        public const int StageResetWaves = 5;
 
         public static bool IsBossWave(int wave) => wave > 0 && wave % BossWaveStep == 0;
 
@@ -219,7 +222,7 @@ namespace PalRogue
         // ───── 레벨 한도 (포켓로그처럼) ─────
         // 싸워서 얻는 경험치로는 한도 레벨까지만 오르고, 경험치는 "다음 레벨 직전"에서 멈춘다.
         // 10웨이브마다 보스를 이기면 한도가 오른다. 한도 = 다음 보스 웨이브 상대의 기본 레벨 + 여유.
-        //  여유: 다음 보스 레벨보다 웨이브 80까지 +6 (너그럽게) → 웨이브 170에 +2 (점점 빡빡하게)
+        //  여유: 다음 보스 레벨보다 웨이브 80까지 +3 → 웨이브 170에 +1 (보스와 레벨 차이가 크게 나지 않게)
         //  웨이브 180 보스를 이기면 한도가 Lv.200(만렙)으로 풀린다 → 마지막 10웨이브 동안 만렙을 찍고 최종 보스(Lv.200)와 싸운다
         //  (마지막 구간은 경험치가 파티 전원에게 크게 들어간다: EndgameExp)
         // 이상한사탕·수련의 서처럼 레벨을 올려 주는 아이템은 한도를 무시한다.
@@ -232,12 +235,12 @@ namespace PalRogue
             // 다음 보스(보스 레벨 보너스 포함)보다 margin만큼 높게
             return Mathf.Clamp(Mathf.FloorToInt(EnemyBaseLevel(nextBoss) + BossLevelBonus(nextBoss) + 0.5f + margin), StarterLevel + 5, MaxLevel);
         }
-        public static float LevelCapMargin = 6f;
-        public static float LateLevelCapMargin = 2f;
+        public static float LevelCapMargin = 4f;
+        public static float LateLevelCapMargin = 1f;
 
         /// <summary>마지막 구간(웨이브 181~): 상대를 쓰러뜨리면 살아 있는 파티 전원이 경험치를 나누지 않고 이 배율로 받는다 → 최종 보스 전에 만렙</summary>
         public const int EndgameFromWave = 181;
-        public static float EndgameExpMultiplier = 1.15f;
+        public static float EndgameExpMultiplier = 1.4f;
 
         /// <summary>지금 모험의 레벨 한도 (화면 표시용: 한도에 닿은 레벨은 빨간 숫자). 전투 화면이 웨이브마다 맞춘다</summary>
         public static int ActiveLevelCap = MaxLevel;

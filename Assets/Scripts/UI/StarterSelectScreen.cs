@@ -890,7 +890,7 @@ namespace PalRogue
             var t = rt.gameObject.AddComponent<TextMeshProUGUI>();
             if (font != null) t.font = font;
             t.fontSize = size;
-            t.alignment = align == TextAlignmentOptions.Left ? TextAlignmentOptions.MidlineLeft : align;
+            t.alignment = UiKit.Mid(align);
             t.textWrappingMode = TextWrappingModes.NoWrap;
             t.overflowMode = TextOverflowModes.Overflow;
             t.color = color;

@@ -129,8 +129,9 @@ namespace PalRogue
         public void NextWave()
         {
             Wave++;
-            // 10웨이브(보스)를 지나면 내 팰들이 기술로 올리고 내린 능력치 랭크가 처음으로 돌아간다
-            if ((Wave - 1) % GameConfig.BossWaveStep == 0)
+            // 5웨이브마다(웨이브 5, 10, 15 …가 시작될 때) 내 팰들이 기술로 올리고 내린 능력치 랭크가 처음으로 돌아간다
+            // → 10웨이브 보스는 항상 랭크 0에서 시작 (미리 쌓아 두고 보스를 쉽게 잡지 못하게)
+            if (Wave % GameConfig.StageResetWaves == 0)
                 foreach (var pal in Party) pal.ResetBattleState();
             foreach (var pal in Party)
                 foreach (var boost in pal.Effects.OfType<ITimedEffect>().ToList())
