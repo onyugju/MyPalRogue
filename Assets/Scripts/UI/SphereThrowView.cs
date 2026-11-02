@@ -44,7 +44,7 @@ namespace PalRogue
             gameObject.SetActive(true);
 
             Vector3 start = from ?? new Vector3((ThrowFromPx.x - 160f) / PxPerUnit, (90f - ThrowFromPx.y) / PxPerUnit, 0f);
-            for (float t = 0f; t < duration; t += Time.unscaledDeltaTime)
+            for (float t = 0f; t < duration; t += BattleTime.Dt)
             {
                 float k = t / duration;
                 var p = Vector3.Lerp(start, target, k);
@@ -61,7 +61,7 @@ namespace PalRogue
         public IEnumerator Drop(Vector3 ground, float duration = 0.35f)
         {
             Vector3 from = transform.position;
-            for (float t = 0f; t < duration; t += Time.unscaledDeltaTime)
+            for (float t = 0f; t < duration; t += BattleTime.Dt)
             {
                 float k = t / duration;
                 var p = Vector3.Lerp(from, ground, k * k);
@@ -75,14 +75,14 @@ namespace PalRogue
         /// <summary>좌우로 한 번 흔들린다</summary>
         public IEnumerator Shake(float duration = 0.45f)
         {
-            for (float t = 0f; t < duration; t += Time.unscaledDeltaTime)
+            for (float t = 0f; t < duration; t += BattleTime.Dt)
             {
                 float k = t / duration;
                 transform.rotation = Quaternion.Euler(0, 0, Mathf.Sin(k * Mathf.PI * 2f) * 25f);
                 yield return null;
             }
             transform.rotation = Quaternion.identity;
-            yield return new WaitForSecondsRealtime(0.35f);
+            yield return BattleTime.Wait(0.35f);
         }
 
         /// <summary>포획 성공: 살짝 어두워지며 멈춘다</summary>

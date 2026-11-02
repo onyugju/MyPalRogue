@@ -39,9 +39,56 @@ namespace PalRogue
         const int SortingOrder = 80;               // RewardScreen(50), 웨이브·돈 글자(60)보다 위
         const string NotReadyText = "아직 준비 중인 기능이에요!";
 
-        /// <summary>마지막으로 고른 파티 번호. 취소했으면 -1</summary>
+        /// <summary>마지막으로 고른 파티 번호. 취소했으면 -1, 모드 버튼(건넨다/버리기)을 눌렀으면 ModeToggled</summary>
         public int Result { get; private set; } = -1;
+        public const int ModeToggled = -2;
         public bool IsOpen => gameObject.activeSelf;
+
+        /// <summary>true면 파티 화면이 보이기만 하고 입력은 받지 않는다 (위에 다른 선택 창이 떠 있을 때)</summary>
+        public bool Suspended { get; set; }
+
+        /// <summary>파티 화면 아래 메시지창 글자를 바꾼다</summary>
+        public void SetMessage(string text) { if (messageText != null) messageText.text = text; }
+
+        // 왼쪽 큰 칸 아래 모드 버튼 (지닌 도구 관리: 건넨다 ↔ 버리기). 그만둔다 버튼을 복사해서 만든다
+        Button modeButton;
+        RawImage modeFrame;
+        TMP_Text modeText;
+        string modeHint, currentPrompt;
+        static readonly Vector2 ModeButtonPos = new Vector2(34f, 86f);   // 화면 왼쪽 위 기준 (큰 칸 아래 가운데)
+
+        void EnsureModeButton()
+        {
+            if (modeButton != null || cancelButton == null) return;
+            var go = Instantiate(cancelButton.gameObject, cancelButton.transform.parent, false);
+            go.name = "ModeButton";
+            var rt = (RectTransform)go.transform;
+            rt.anchorMin = rt.anchorMax = rt.pivot = new Vector2(0f, 1f);
+            rt.anchoredPosition = new Vector2(ModeButtonPos.x, -ModeButtonPos.y);
+            modeButton = go.GetComponent<Button>();
+            modeButton.onClick.RemoveAllListeners();
+            modeButton.onClick.AddListener(() => { if (!showingError && !inOptions && !Suspended && modeLabelOn) clicked = -3; });
+            modeButton.navigation = new Navigation { mode = Navigation.Mode.None };
+            modeFrame = cancelFrame == null ? null : FindSame(cancelButton.transform, cancelFrame.transform, go.transform)?.GetComponent<RawImage>();
+            modeText = go.GetComponentInChildren<TMP_Text>(true);
+            var entry = go.GetComponent<MenuEntry>();
+            if (entry != null)
+            {
+                entry.Selected += _ => OnHighlight(-2);
+                entry.Cancelled += OnCancel;
+            }
+        }
+        bool modeLabelOn;
+
+        /// <summary>원본(from) 안에서 target이 있는 자리와 같은 자리의 오브젝트를 복사본(to)에서 찾는다</summary>
+        static Transform FindSame(Transform from, Transform target, Transform to)
+        {
+            var path = new List<int>();
+            for (var t = target; t != null && t != from; t = t.parent) path.Insert(0, t.GetSiblingIndex());
+            var cur = to;
+            foreach (int i in path) { if (i >= cur.childCount) return null; cur = cur.GetChild(i); }
+            return cur;
+        }
 
         IReadOnlyList<Pal> party;
         int selected = -1;
@@ -137,10 +184,26 @@ namespace PalRogue
 
         /// <summary>파티 화면을 열고 한 칸을 고를 때까지 기다린다. 결과는 Result.</summary>
         /// <param name="actionLabel">메뉴 창 첫 항목 글자. 비우면 "교체한다" (놓아줄 때는 "놓아준다")</param>
+        /// <param name="direct">true면 칸을 고르면 메뉴 창 없이 바로 그 칸이 결과가 된다</param>
+        /// <param name="keepOpen">true면 고른 뒤에도 파티 화면을 닫지 않는다 (이어서 다른 창을 띄울 때)</param>
+        /// <param name="modeLabel">왼쪽 큰 칸 아래 모드 버튼 글자 (null이면 버튼 없음). 누르면 Result = ModeToggled</param>
+        /// <param name="modeHint">모드 버튼에 커서를 올렸을 때 메시지창 설명</param>
         public IEnumerator Choose(IReadOnlyList<Pal> party, bool canCancel, string prompt, Func<int, string> validate,
-                                  string actionLabel = null)
+                                  string actionLabel = null, bool direct = false, bool keepOpen = false,
+                                  string modeLabel = null, string modeHint = null, int startSlot = -1)
         {
             Bind();
+            Suspended = false;
+            currentPrompt = prompt;
+            this.modeHint = modeHint;
+            modeLabelOn = modeLabel != null;
+            if (modeLabelOn) EnsureModeButton();
+            if (modeButton != null)
+            {
+                modeButton.gameObject.SetActive(modeLabelOn);
+                modeButton.interactable = true;
+                if (modeText != null && modeLabelOn) modeText.text = modeLabel;
+            }
             SetActionLabel(string.IsNullOrEmpty(actionLabel) ? OptionLabels[OptionSwitch] : actionLabel);
             this.party = party;
             this.canCancel = canCancel;
@@ -158,8 +221,10 @@ namespace PalRogue
             if (validate != null)
                 for (int i = 0; i < party.Count && i < slotButtons.Length; i++)
                     if (string.IsNullOrEmpty(validate(i))) { start = i; break; }
+            if (startSlot >= 0 && startSlot < party.Count) start = startSlot;
+            else if (startSlot == ModeToggled && modeLabelOn) start = -2;
             lastRight = start >= 1 ? start : 1;
-            Select(slotButtons[start]);
+            Select(start == -2 ? modeButton : slotButtons[start]);
             while (true)
             {
                 messageText.text = prompt;
@@ -168,10 +233,11 @@ namespace PalRogue
                 while (clicked == -2) yield return null;
 
                 if (clicked == -1) { Result = -1; break; }
+                if (clicked == -3) { Result = ModeToggled; break; }
                 int slot = clicked;
 
                 // 칸을 고르면 바로 교체하지 않고 메뉴 창을 띄운다
-                if (optionsBox != null)
+                if (optionsBox != null && !direct)
                 {
                     yield return ChooseOption(slot);
                     if (optionClicked != OptionSwitch) { Select(slotButtons[slot]); continue; }   // 그만둔다 → 다시 칸 고르기
@@ -188,8 +254,17 @@ namespace PalRogue
                 Select(slotButtons[slot]);
             }
 
-            gameObject.SetActive(false);
+            if (!keepOpen) Close();
+            else Suspended = true;
             if (EventSystem.current != null) EventSystem.current.SetSelectedGameObject(null);
+        }
+
+        /// <summary>keepOpen으로 열어 둔 파티 화면을 닫는다</summary>
+        public void Close()
+        {
+            Suspended = false;
+            if (modeButton != null) modeButton.gameObject.SetActive(false);
+            gameObject.SetActive(false);
         }
 
         int lastRight = 1;   // 오른쪽 줄에서 마지막으로 있던 칸 (왼쪽 큰 칸에서 → 를 누르면 돌아간다)
@@ -208,16 +283,18 @@ namespace PalRogue
         /// </summary>
         void MoveCursor()
         {
-            if (party == null || inOptions || showingError || !gameObject.activeInHierarchy) return;
+            if (party == null || inOptions || showingError || Suspended || !gameObject.activeInHierarchy) return;
             int h = MenuKeys.Horizontal, v = MenuKeys.Vertical;
             if (h == 0 && v == 0) return;
             int count = Mathf.Min(party.Count, slotButtons.Length);
             int cur = selected, next = cur;
-            if (h > 0 && cur == 0 && count > 1) next = Mathf.Clamp(lastRight, 1, count - 1);
-            else if (h < 0 && cur != 0) next = 0;
+            if (h > 0 && (cur == 0 || cur == -2) && count > 1) next = Mathf.Clamp(lastRight, 1, count - 1);
+            else if (h < 0 && cur != 0 && cur != -2) next = 0;
+            else if (v != 0 && cur == -2) next = v < 0 ? 0 : (canCancel ? -1 : -2);   // 모드 버튼: 위 = 큰 칸, 아래 = 그만둔다
+            else if (v != 0 && cur == -1 && v < 0 && modeLabelOn && count <= 1) next = -2;
             else if (v != 0)
             {
-                if (cur == 0) { if (v > 0 && canCancel) next = -1; }
+                if (cur == 0) { if (v > 0) next = modeLabelOn ? -2 : canCancel ? -1 : 0; }
                 else if (cur >= 1)
                 {
                     next = cur + v;
@@ -228,18 +305,18 @@ namespace PalRogue
             }
             if (next == cur) return;
             if (next >= 1) lastRight = next;
-            Select(next < 0 ? cancelButton : slotButtons[next]);
+            Select(next == -2 ? modeButton : next < 0 ? cancelButton : slotButtons[next]);
         }
 
         void OnClick(int index)
         {
-            if (showingError || party == null || index >= party.Count) return;
+            if (showingError || Suspended || party == null || index >= party.Count) return;
             clicked = index;
         }
 
         void OnCancel()
         {
-            if (showingError) return;
+            if (showingError || Suspended) return;
             if (inOptions) { optionClicked = OptionCancel; return; }   // 메뉴 창만 닫는다
             if (!canCancel) return;
             clicked = -1;
@@ -311,9 +388,12 @@ namespace PalRogue
 
         void OnHighlight(int index)
         {
-            if (inOptions) return;
+            if (inOptions || Suspended) return;
             selected = index;
-            lastSelected = index >= 0 ? slotButtons[index].gameObject : cancelButton.gameObject;
+            lastSelected = index >= 0 ? slotButtons[index].gameObject : index == -2 && modeButton != null ? modeButton.gameObject : cancelButton.gameObject;
+            // 모드 버튼에 커서가 있으면 그 설명, 아니면 원래 안내 문구
+            if (modeLabelOn && !showingError && messageText != null)
+                messageText.text = index == -2 && modeHint != null ? modeHint : currentPrompt;
             Refresh();
         }
 
@@ -325,6 +405,8 @@ namespace PalRogue
 
             if (cancelFrame != null)
                 cancelFrame.uvRect = new Rect(0f, selected == -1 ? 0f : 0.5f, 1f, 0.5f);   // 위 칸=기본, 아래 칸=선택
+            if (modeFrame != null && modeLabelOn)
+                modeFrame.uvRect = new Rect(0f, selected == -2 ? 0f : 0.5f, 1f, 0.5f);
         }
 
         void Select(Button button)

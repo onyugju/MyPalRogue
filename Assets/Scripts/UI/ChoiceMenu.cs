@@ -25,6 +25,14 @@ namespace PalRogue
         /// <summary>커서가 다른 줄로 옮겨갈 때 (줄 번호). 설명 문구를 바꾸는 데 쓴다</summary>
         public event System.Action<int> Highlighted;
 
+        /// <summary>창이 떠 있을 때 ◀ ▶ 를 누르면 부른다 (커서 줄, -1/+1). 수량 바꾸기 등에 쓴다. 쓰지 않으면 null</summary>
+        public System.Action<int, int> HorizontalPressed;
+
+        /// <summary>떠 있는 창의 한 줄 글자를 바꾼다</summary>
+        public void SetLabel(int row, string text) { if (row >= 0 && row < labels.Length && labels[row] != null) labels[row].text = text; }
+
+        int currentRow;
+
         const float DefaultWidth = 92f, RowX = 8f, TextX = 12f;
 
         int clicked = -2;
@@ -82,6 +90,11 @@ namespace PalRogue
 
         void Update()
         {
+            if (HorizontalPressed != null && clicked == -2)
+            {
+                int h = MenuKeys.Horizontal;
+                if (h != 0) HorizontalPressed(currentRow, h);
+            }
             var es = EventSystem.current;
             if (es != null && es.currentSelectedGameObject == null && lastSelected != null && lastSelected.activeInHierarchy)
                 es.SetSelectedGameObject(lastSelected);
@@ -100,6 +113,7 @@ namespace PalRogue
 
         void OnHighlight(int row, MenuEntry entry)
         {
+            currentRow = row;
             Highlighted?.Invoke(row);
             lastSelected = entry.gameObject;
             if (cursor != null)

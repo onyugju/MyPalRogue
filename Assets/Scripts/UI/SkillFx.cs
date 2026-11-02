@@ -341,7 +341,7 @@ namespace PalRogue
                 if (i >= frames.Length) break;
                 if (i != last) { sr.sprite = frames[i]; last = i; }
                 yield return null;
-                t += Time.unscaledDeltaTime;
+                t += BattleTime.Dt;
             }
             Destroy(sr.gameObject);
         }
@@ -356,7 +356,7 @@ namespace PalRogue
             bool flip = dir.x < 0f;                                         // 왼쪽으로 날아갈 때 그림이 뒤집히지 않게
             var sr = Spawn(frames[0], from, scale, tint, angle, flip);
             float height = arc ? Mathf.Max(1f, dir.magnitude * 0.25f) : 0f;
-            for (float t = 0f; t < duration; t += Time.unscaledDeltaTime)
+            for (float t = 0f; t < duration; t += BattleTime.Dt)
             {
                 float k = t / duration;
                 Vector3 p = Vector3.Lerp(from, to, k) + Vector3.up * (height * 4f * k * (1f - k));
@@ -388,15 +388,15 @@ namespace PalRogue
             for (int i = 0; i < n; i++)
             {
                 parts.Add(Spawn(frames[i % frames.Length], from + dir * ((i + 0.5f) / n), scale, tint, angle, flip));
-                yield return new WaitForSecondsRealtime(0.018f);
+                yield return BattleTime.Wait(0.018f);
             }
-            for (float t = 0f; t < hold; t += Time.unscaledDeltaTime)
+            for (float t = 0f; t < hold; t += BattleTime.Dt)
             {
                 int f = Mathf.FloorToInt(t * TravelFps);
                 for (int i = 0; i < parts.Count; i++) parts[i].sprite = frames[(f + i) % frames.Length];
                 yield return null;
             }
-            for (float t = 0f; t < 0.12f; t += Time.unscaledDeltaTime)
+            for (float t = 0f; t < 0.12f; t += BattleTime.Dt)
             {
                 foreach (var p in parts) { var c = p.color; c.a = 1f - t / 0.12f; p.color = c; }
                 yield return null;
@@ -409,7 +409,7 @@ namespace PalRogue
             var cam = Camera.main;
             if (cam == null) yield break;
             Vector3 home = cam.transform.position;
-            for (float t = 0f; t < duration; t += Time.unscaledDeltaTime)
+            for (float t = 0f; t < duration; t += BattleTime.Dt)
             {
                 float k = 1f - t / duration;
                 cam.transform.position = home + new Vector3(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f), 0f) * strength * k;
@@ -457,20 +457,20 @@ namespace PalRogue
                     break;
 
                 case Kind.Projectile:
-                    if (d.cast != null) yield return new WaitForSecondsRealtime(0.15f);
+                    if (d.cast != null) yield return BattleTime.Wait(0.15f);
                     for (int i = 0; i < d.count; i++)
                     {
                         Vector3 jitter = d.count > 1 ? new Vector3(UnityEngine.Random.Range(-0.3f, 0.3f), UnityEngine.Random.Range(-0.35f, 0.35f), 0f) : Vector3.zero;
                         Vector3 end = to + jitter;
                         Run(Fly(d.travel, from + jitter * 0.3f, end, d.travelTime, d.travelScale, d.tint, d.arc, () => Impact(end)));
-                        if (i < d.count - 1) yield return new WaitForSecondsRealtime(Mathf.Min(0.1f, d.travelTime * 0.45f));
+                        if (i < d.count - 1) yield return BattleTime.Wait(Mathf.Min(0.1f, d.travelTime * 0.45f));
                     }
-                    yield return new WaitForSecondsRealtime(d.travelTime);
+                    yield return BattleTime.Wait(d.travelTime);
                     break;
 
                 case Kind.Beam:
                     Run(BeamTo(d.travel, from, to, d.travelScale, d.tint, 0.3f));
-                    yield return new WaitForSecondsRealtime(0.22f);
+                    yield return BattleTime.Wait(0.22f);
                     Impact(to);
                     break;
 
@@ -491,7 +491,7 @@ namespace PalRogue
                     Run(PlayOnce(d.impact, p, d.impactScale, tint, 14f));
                     if (d.impact2 != null) Run(DelayThen(0.15f, PlayOnce(d.impact2, p, d.impactScale * 0.8f, tint, 14f)));
                     if (!self && !missed) Run(DelayThen(0.1f, at.Flash(new Color(0.75f, 0.6f, 1f), 2)));
-                    yield return new WaitForSecondsRealtime(0.3f);
+                    yield return BattleTime.Wait(0.3f);
                     break;
                 }
 
@@ -502,9 +502,9 @@ namespace PalRogue
                         Vector3 end = (missed ? to : target.Center) + new Vector3(x, UnityEngine.Random.Range(-0.3f, 0.2f), 0f);
                         Vector3 start = end + new Vector3(-1.2f, 6f, 0f);
                         Run(Fly(d.travel, start, end, 0.24f, d.travelScale, d.tint, false, () => Impact(end)));
-                        yield return new WaitForSecondsRealtime(0.11f);
+                        yield return BattleTime.Wait(0.11f);
                     }
-                    yield return new WaitForSecondsRealtime(0.24f);
+                    yield return BattleTime.Wait(0.24f);
                     break;
             }
 
@@ -557,7 +557,7 @@ namespace PalRogue
                     Run(PlayOnce(ChargeUp, boss.Center, 2.8f, ChargeGlow, 14f));
                     Run(DelayThen(0.2f, PlayOnce(ChargeUp, boss.Center, 2.2f, ChargeGlow, 14f)));
                     Run(CameraShake(0.06f, 0.5f));
-                    yield return new WaitForSecondsRealtime(0.35f);
+                    yield return BattleTime.Wait(0.35f);
                     boss.SetGlow(ChargeGlow);
                     break;
                 case BossFx.Release:                      // 모은 힘이 터진다: 상대 자리에 충격파 + 큰 흔들림
@@ -604,7 +604,7 @@ namespace PalRogue
 
         IEnumerator DelayThen(float seconds, IEnumerator then)
         {
-            yield return new WaitForSecondsRealtime(seconds);
+            yield return BattleTime.Wait(seconds);
             yield return then;
         }
     }

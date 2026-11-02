@@ -94,7 +94,8 @@ namespace PalRogue
         static float CharsPerSecond => GameSettings.CharsPerSecond;   // 설정의 대사 속도
         const string SelectPrompt = "팰을 선택하세요.";   // 파티 화면 안내 문구
         const float LineHoldSeconds = 1.2f;    // 문장이 다 나온 뒤 자동으로 넘어가기까지 기다리는 시간
-        const float SkipGuardSeconds = 0.25f;  // 메시지가 뜬 직후 이 시간 동안은 눌러도 넘기지 않음
+        const float SkipGuardSeconds = 0.25f;
+        const float HeldLineSeconds = 0.3f;    // 넘기기 키를 누르고 있을 때 한 문장을 보여 주는 최소 시간 (읽을 틈은 남긴다)  // 메시지가 뜬 직후 이 시간 동안은 눌러도 넘기지 않음
         static readonly Color Dim = new Color(0.55f, 0.55f, 0.55f);
         static readonly Color AttackColor = new Color(0.85f, 0.33f, 0.18f);
         static readonly Color StatusColor = new Color(0.4f, 0.5f, 0.75f);
@@ -249,8 +250,10 @@ namespace PalRogue
                 StartCoroutine(BeginRun(true));
                 return;
             }
+            resumeNote = $"{restored.AreaName} - 웨이브 {restored.Wave}부터 이어서 모험한다!";
             BeginWithRun(restored);
         }
+        string resumeNote;          // 이어하기로 시작했을 때 첫 웨이브에 한 번 보여 주는 문구
 
         /// <summary>웨이브가 시작될 때마다 그 슬롯에 자동 저장 (포켓로그처럼)</summary>
         /// <summary>
@@ -260,9 +263,9 @@ namespace PalRogue
         void AutoSave(bool showIcon)
         {
             if (GameSession.Slot < 0 || run == null) return;
-            SaveSlots.Save(GameSession.Slot, SaveSlots.Capture(run, playSeconds, runNumber));
+            bool ok = SaveSlots.Save(GameSession.Slot, SaveSlots.Capture(run, playSeconds, runNumber));
             PlayerSave.LastSlot = GameSession.Slot;            // 타이틀의 "계속하기"
-            if (showIcon) { SaveIcon.Show(); GameAudio.Se("save", 0.6f); }
+            if (showIcon || !ok) { SaveIcon.Show(ok, messageText.font); if (ok) GameAudio.Se("save", 0.6f); }
         }
 
         void BeginWithRun(Run newRun)
@@ -382,7 +385,7 @@ namespace PalRogue
         {
             SaveHomes();
             Vector3 enemyHome = enemyView.transform.position;
-            for (float t = 0f; t < SlideSeconds; t += Time.unscaledDeltaTime)
+            for (float t = 0f; t < SlideSeconds; t += BattleTime.Dt)
             {
                 float k = t / SlideSeconds;
                 float off = (1f - k) * (1f - k) * (1f - k) * SlideDistance;    // 빠르게 들어와서 천천히 멈춘다
@@ -432,7 +435,7 @@ namespace PalRogue
         {
             Vector2 home = box.anchoredPosition;
             const float duration = 0.3f;
-            for (float t = 0f; t < duration; t += Time.unscaledDeltaTime)
+            for (float t = 0f; t < duration; t += BattleTime.Dt)
             {
                 float k = t / duration;
                 box.anchoredPosition = home + new Vector2(Mathf.Sin(k * Mathf.PI * 8f) * 2f * (1f - k), 0f);
@@ -443,7 +446,7 @@ namespace PalRogue
 
                 IEnumerator SlideBox(RectTransform box, Vector2 home, float fromDx)
         {
-            for (float t = 0f; t < BoxSlideSeconds; t += Time.unscaledDeltaTime)
+            for (float t = 0f; t < BoxSlideSeconds; t += BattleTime.Dt)
             {
                 float k = t / BoxSlideSeconds;
                 box.anchoredPosition = home + Vector2.right * (fromDx * (1f - k) * (1f - k));
@@ -642,6 +645,7 @@ namespace PalRogue
             float normalWidth = WidenMessage();
             SetInfoBoxFaded(true);                            // 내 팰 정보창도 뒤로 어둡게
             int lastPick = 0;
+            var focus = RewardScreen.Pick.None;               // 지닌 도구 관리·파티 확인에서 돌아오면 그 버튼에 커서
             bool reveal = true;                               // 처음 열 때와 갱신했을 때는 스피어가 떨어지는 연출
 
             while (true)
@@ -652,7 +656,8 @@ namespace PalRogue
                 BringHudToFront();
                 if (reveal) yield return rewardScreen.PlayReveal();
                 reveal = false;
-                yield return rewardScreen.Choose(lastPick);
+                yield return rewardScreen.Choose(lastPick, focus);
+                focus = RewardScreen.Pick.None;
                 var kind = rewardScreen.ResultKind;
                 int index = rewardScreen.ResultIndex;
 
@@ -673,6 +678,16 @@ namespace PalRogue
                     if (partyScreen == null) continue;
                     rewardScreen.Hide();
                     yield return partyScreen.Choose(run.Party, true, "파티의 상태를 확인하세요.", null, "닫는다");
+                    focus = RewardScreen.Pick.Party;
+                    continue;
+                }
+                if (kind == RewardScreen.Pick.HeldItems)
+                {
+                    // 지닌 도구 관리는 웨이브를 클리어한 뒤 이 보상 화면에서만 할 수 있다
+                    if (partyScreen == null) continue;
+                    rewardScreen.Hide();
+                    yield return ManageHeldItems();
+                    focus = RewardScreen.Pick.HeldItems;
                     continue;
                 }
                 if (kind == RewardScreen.Pick.Skip)
@@ -935,6 +950,7 @@ namespace PalRogue
             HidePanels();
             messageText.text = "";
             yield return EnemyEntrance(firstWave);
+            if (resumeNote != null) { var note = resumeNote; resumeNote = null; yield return ShowMessage(note); }
             yield return PlayEvents();
             if (pendingSynergyMessages != null)
                 foreach (var msg in pendingSynergyMessages) yield return ShowMessage(msg);
@@ -1740,6 +1756,132 @@ namespace PalRogue
             }
         }
 
+        // ───────── 지닌 도구 관리 (웨이브 클리어 후 보상 화면에서만) ─────────
+        const string HeldModeHint = "지닌 도구 관리 모드를 바꿀 수 있습니다.";
+        const int HeldMenuPage = 4;                  // 도구 종류가 많으면 한 번에 4개씩 (+ 다음 / 그만둔다)
+        const float HeldMenuWidth = 124f;
+        const float HeldNoticeSeconds = 1.1f;
+
+        /// <summary>팰이 지닌 도구를 이름별로 묶는다 (같은 도구 여러 개 = 수량)</summary>
+        static List<(string name, List<BattleEffect> items)> HeldGroups(Pal pal) =>
+            pal.Effects.Where(e => e.HeldItemId != null).GroupBy(e => e.HeldItemId)
+               .Select(g => (g.Key, g.ToList())).ToList();
+
+        /// <summary>
+        /// 포켓로그의 "지닌 도구 관리": 팰이 지닌 도구를 다른 팰에게 건네주거나 버린다.
+        /// 파티 화면 왼쪽 아래 버튼으로 건넨다 ↔ 버리기 모드를 바꾼다. 그만둔다(Esc)로 보상 화면에 돌아간다.
+        /// </summary>
+        IEnumerator ManageHeldItems()
+        {
+            if (choiceMenu == null || partyScreen == null) yield break;
+            bool toss = false;
+            int startSlot = -1;
+            RewardScreen.EnsureOwnCanvas(choiceMenu.gameObject, 90, true);   // 선택 창이 파티 화면(80) 위에 보이게
+            while (true)
+            {
+                string prompt = toss ? "도구를 버릴 팰을 선택하세요." : "도구를 옮길 팰을 선택하세요.";
+                yield return partyScreen.Choose(run.Party, true, prompt,
+                    i => HeldGroups(run.Party[i]).Count == 0 ? $"{Josa.Eun(run.Party[i].Data.palName)} 지닌 도구가 없다." : null,
+                    null, direct: true, keepOpen: true, modeLabel: toss ? "버리기" : "건넨다", modeHint: HeldModeHint, startSlot: startSlot);
+                int r = partyScreen.Result;
+                if (r == PartyScreen.ModeToggled) { toss = !toss; startSlot = PartyScreen.ModeToggled; GameAudio.Se("select"); continue; }
+                if (r < 0) break;
+                startSlot = r;
+                var src = run.Party[r];
+
+                // ── 도구 고르기 (◀ ▶ 로 수량) ──
+                var groups = HeldGroups(src);
+                int pickIndex = -1, qty = 0;
+                yield return ChooseHeldItem(groups, toss, (i, q) => { pickIndex = i; qty = q; });
+                if (pickIndex < 0) continue;
+                var (itemName, items) = groups[pickIndex];
+
+                if (toss)
+                {
+                    partyScreen.SetMessage("이 도구를 정말로 버리시겠습니까?");
+                    yield return choiceMenu.Choose(YesNo, 0);
+                    if (choiceMenu.Result != 0) continue;
+                    for (int k = 0; k < qty; k++) src.RemoveEffect(items[k]);
+                    GameAudio.Se("select");
+                    yield return PartyNotice($"{src.Data.palName}의 {Josa.Eul(qty > 1 ? $"{itemName} {qty}개" : itemName)} 버렸다.");
+                    continue;
+                }
+
+                // ── 받을 팰 고르기 ──
+                var def = ItemCatalog.ByName(itemName);
+                yield return partyScreen.Choose(run.Party, true, $"{Josa.Eul(itemName)} 누구에게 건네줄까요?",
+                    i => i == r ? "같은 팰에게는 건넬 수 없다."
+                       : def?.CannotUse?.Invoke(run.Party[i]) is string why ? $"{run.Party[i].Data.palName}: {why}" : null,
+                    null, direct: true, keepOpen: true);
+                int to = partyScreen.Result;
+                if (to < 0) continue;
+                var dst = run.Party[to];
+                int moved = 0;
+                for (int k = 0; k < qty; k++)
+                {
+                    if (moved > 0 && def?.CannotUse?.Invoke(dst) != null) break;   // 한 개만 지닐 수 있는 도구
+                    src.RemoveEffect(items[k]);
+                    dst.AddEffect(items[k]);
+                    moved++;
+                }
+                GameAudio.Se("select");
+                yield return PartyNotice($"{src.Data.palName}의 {Josa.Eul(moved > 1 ? $"{itemName} {moved}개" : itemName)} {dst.Data.palName}에게 건넸다!");
+            }
+            partyScreen.Close();
+        }
+
+        /// <summary>도구 목록 창 (팰 화면 위). 고르면 done(번호, 수량), 그만두면 done(-1, 0)</summary>
+        IEnumerator ChooseHeldItem(List<(string name, List<BattleEffect> items)> groups, bool toss, System.Action<int, int> done)
+        {
+            var counts = groups.Select(_ => 1).ToArray();   // 처음 수량 = 1개 (좌우 방향키로 가진 만큼까지 늘린다)
+            int page = 0, pages = groups.Count <= HeldMenuPage + 1 ? 1 : Mathf.CeilToInt(groups.Count / (float)HeldMenuPage);
+            int perPage = pages == 1 ? groups.Count : HeldMenuPage;
+            string hint = (toss ? "버릴" : "건네줄") + " 도구를 고르세요.\n좌우 방향키로 수량을 바꿀 수 있습니다.";
+            string Label(int g) => counts[g] > 1 || groups[g].items.Count > 1 ? $"{groups[g].name} ×{counts[g]}" : groups[g].name;
+
+            while (true)
+            {
+                int first = page * perPage, shown = Mathf.Min(perPage, groups.Count - first);
+                var labels = new List<string>();
+                for (int i = 0; i < shown; i++) labels.Add(Label(first + i));
+                bool hasNext = pages > 1;
+                if (hasNext) labels.Add($"다음 ({page + 1}/{pages})");
+                labels.Add("그만둔다");
+
+                partyScreen.SetMessage(hint);
+                choiceMenu.HorizontalPressed = (row, dir) =>
+                {
+                    if (row < 0 || row >= shown) return;
+                    int g = first + row, max = groups[g].items.Count;
+                    int next = Mathf.Clamp(counts[g] + dir, 1, max);
+                    if (next == counts[g]) return;
+                    counts[g] = next;
+                    choiceMenu.SetLabel(row, Label(g));
+                    GameAudio.Se("select");
+                };
+                yield return choiceMenu.Choose(labels.ToArray(), 0, HeldMenuWidth);
+                choiceMenu.HorizontalPressed = null;
+                int pick = choiceMenu.Result;
+                if (pick >= 0 && pick < shown) { done(first + pick, counts[first + pick]); yield break; }
+                if (hasNext && pick == shown) { page = (page + 1) % pages; continue; }
+                done(-1, 0);
+                yield break;
+            }
+        }
+
+        /// <summary>파티 화면 메시지창에 잠깐 알림을 띄운다 (누르면 바로 넘어감)</summary>
+        IEnumerator PartyNotice(string text)
+        {
+            partyScreen.SetMessage(text);
+            float t = 0f;
+            while (t < HeldNoticeSeconds)
+            {
+                yield return null;
+                t += Time.unscaledDeltaTime;
+                if (t > 0.25f && AdvancePressed()) break;
+            }
+        }
+
         // ───────── 메시지 (한 글자씩 나오는 효과) ─────────
         IEnumerator ShowMessage(string text)
         {
@@ -1756,19 +1898,22 @@ namespace PalRogue
                 yield return null;
                 elapsed += Time.unscaledDeltaTime;
                 if (elapsed >= SkipGuardSeconds && AdvancePressed()) break;
-                shown += CharsPerSecond * Time.unscaledDeltaTime;
+                // 넘기기 키를 누르고 있으면 글자가 바로 다 나온다 (빨리 넘기기)
+                if (elapsed >= SkipGuardSeconds && BattleTime.AdvanceHeld) break;
+                shown += CharsPerSecond * BattleTime.Multiplier * Time.unscaledDeltaTime;
                 messageText.maxVisibleCharacters = Mathf.Min(total, Mathf.FloorToInt(shown));
             }
             messageText.maxVisibleCharacters = 9999;
 
-            // 다 나온 뒤에는 잠깐 기다렸다가 넘어간다 (누르면 바로 넘어감)
+            // 다 나온 뒤에는 잠깐 기다렸다가 넘어간다 (누르면 바로 넘어감, 누르고 있으면 아주 짧게만 보여 주고 넘어감)
             float hold = 0f;
             while (hold < LineHoldSeconds)
             {
                 yield return null;
-                hold += Time.unscaledDeltaTime;
+                hold += BattleTime.Dt;
                 elapsed += Time.unscaledDeltaTime;
                 if (elapsed >= SkipGuardSeconds * 2f && AdvancePressed()) break;
+                if (BattleTime.AdvanceHeld && elapsed >= HeldLineSeconds) break;
             }
         }
 

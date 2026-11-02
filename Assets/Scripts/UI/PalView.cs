@@ -81,7 +81,7 @@ namespace PalRogue
             if (sr == null) Awake();
             Vector3 home = transform.position, scale = transform.localScale;
             sr.enabled = true;
-            for (float t = 0f; t < duration; t += Time.unscaledDeltaTime)
+            for (float t = 0f; t < duration; t += BattleTime.Dt)
             {
                 float k = t / duration;
                 float ease = 1f - (1f - k) * (1f - k);
@@ -120,7 +120,7 @@ namespace PalRogue
             if (sr == null) Awake();
             savedPos = transform.position;
             savedScale = transform.localScale;
-            for (float t = 0f; t < duration; t += Time.unscaledDeltaTime)
+            for (float t = 0f; t < duration; t += BattleTime.Dt)
             {
                 float k = t / duration;
                 transform.position = Vector3.Lerp(savedPos, point, k);
@@ -136,7 +136,7 @@ namespace PalRogue
         {
             if (sr == null) Awake();
             sr.enabled = true;
-            for (float t = 0f; t < duration; t += Time.unscaledDeltaTime)
+            for (float t = 0f; t < duration; t += BattleTime.Dt)
             {
                 float k = t / duration;
                 transform.position = Vector3.Lerp(point, savedPos, k);
@@ -160,10 +160,10 @@ namespace PalRogue
             {
                 sr.color = gold;
                 transform.localScale = start * 1.08f;
-                yield return new WaitForSecondsRealtime(0.09f);
+                yield return BattleTime.Wait(0.09f);
                 sr.color = Color.white;
                 transform.localScale = start;
-                yield return new WaitForSecondsRealtime(0.09f);
+                yield return BattleTime.Wait(0.09f);
             }
             sr.color = AwakenTint;
             baseTint = AwakenTint;
@@ -182,9 +182,9 @@ namespace PalRogue
             for (int i = 0; i < times; i++)
             {
                 sr.color = color;
-                yield return new WaitForSecondsRealtime(each);
+                yield return BattleTime.Wait(each);
                 sr.color = baseTint;
-                yield return new WaitForSecondsRealtime(each);
+                yield return BattleTime.Wait(each);
             }
         }
 
@@ -227,7 +227,7 @@ namespace PalRogue
             Vector3 dir = (target - home); dir.z = 0f;
             Vector3 peak = home + dir.normalized * Mathf.Min(distance, dir.magnitude * 0.8f);
             float half = duration * 0.4f;
-            for (float t = 0f; t < half; t += Time.unscaledDeltaTime)
+            for (float t = 0f; t < half; t += BattleTime.Dt)
             {
                 float k = t / half;
                 transform.position = Vector3.Lerp(home, peak, k * k);
@@ -236,7 +236,7 @@ namespace PalRogue
             transform.position = peak;
             atPeak?.Invoke();
             float back = duration - half;
-            for (float t = 0f; t < back; t += Time.unscaledDeltaTime)
+            for (float t = 0f; t < back; t += BattleTime.Dt)
             {
                 transform.position = Vector3.Lerp(peak, home, t / back);
                 yield return null;
@@ -251,7 +251,7 @@ namespace PalRogue
             Vector3 home = transform.position;
             Vector3 dir = target - home; dir.z = 0f;
             Vector3 back = home - dir.normalized * 0.25f;
-            for (float t = 0f; t < duration; t += Time.unscaledDeltaTime)
+            for (float t = 0f; t < duration; t += BattleTime.Dt)
             {
                 float k = Mathf.Sin(t / duration * Mathf.PI);
                 transform.position = Vector3.Lerp(home, back, k);
@@ -272,10 +272,10 @@ namespace PalRogue
             {
                 sr.enabled = false;
                 transform.position = home + Vector3.right * amp * (i % 2 == 0 ? 1f : -1f);
-                yield return new WaitForSecondsRealtime(0.045f);
+                yield return BattleTime.Wait(0.045f);
                 sr.enabled = true;
                 transform.position = home;
-                yield return new WaitForSecondsRealtime(0.045f);
+                yield return BattleTime.Wait(0.045f);
             }
             transform.position = home;
         }
@@ -288,7 +288,7 @@ namespace PalRogue
             if (sr == null) Awake();
             Vector3 start = transform.position;
             const float duration = 0.5f;
-            for (float t = 0f; t < duration; t += Time.unscaledDeltaTime)
+            for (float t = 0f; t < duration; t += BattleTime.Dt)
             {
                 float k = t / duration;
                 transform.position = start + Vector3.down * (k * 0.6f);

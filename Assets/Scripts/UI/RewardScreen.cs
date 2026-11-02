@@ -12,14 +12,14 @@ namespace PalRogue
     /// 포켓로그식 웨이브 보상 화면 (화면 크기 320×180 기준 좌표).
     ///  ┌ 위 띠: 상점 (돈으로 사는 회복 아이템, 이름 + 가격)
     ///  ├ 가운데: 보상 아이템 3~8개 (이름 색 = 등급 색), 5개부터는 두 줄
-    ///  ├ 아래: "갱신 ○○G" (돈을 내고 보상 다시 뽑기) / "파티 확인"
+    ///  ├ 아래: "갱신 ○○G" (돈을 내고 보상 다시 뽑기) / "지닌 도구 관리" / "파티 확인"
     ///  └ 메시지창 위 이름표 + 메시지창에 설명
     /// 씬에 미리 만들 필요 없이 BattleScreen이 처음 쓸 때 코드로 만든다 (Create).
     /// 입력: 마우스 / 방향키 + Enter·Space·Z / Esc(보상 건너뛰기)
     /// </summary>
     public class RewardScreen : MonoBehaviour
     {
-        public enum Pick { None, Reward, Shop, Reroll, Party, Skip }
+        public enum Pick { None, Reward, Shop, Reroll, Party, Skip, HeldItems }
 
         /// <summary>마지막으로 고른 것의 종류와 번호 (보상·상점 칸 번호)</summary>
         public Pick ResultKind { get; private set; }
@@ -37,7 +37,8 @@ namespace PalRogue
         /// <summary>보상이 많아 두 줄이 되면 아이콘·이름을 이만큼 줄인다 (보상 수에 따라 더 작게)</summary>
         static float RewardScale(int n) => n <= 4 ? 1f : n <= 6 ? 0.78f : 0.7f;
         const float RewardNameOffset = 16f;        // 아이콘 중심 → 이름 중심
-        const float BottomRowY = 113f;             // 갱신 / 파티 확인
+        const float BottomRowY = 113f;             // 갱신 / 지닌 도구 관리 / 파티 확인
+        const float HeldWidth = 70f, HeldGap = 8f;  // "지닌 도구 관리" 칸 (파티 확인 왼쪽)
         float CenterX => root.rect.width > 0f ? root.rect.width / 2f : 160f;   // 화면 가운데 (기준 320 → 160)
         const float FontSmall = 7f, FontName = 9f, FontMain = 11f;
 
@@ -55,7 +56,7 @@ namespace PalRogue
         TMP_Text description;                       // 전투 화면 메시지창 글자 (설명을 여기에 쓴다)
         RectTransform root, shopRoot, rewardRoot;
         Image cursor;
-        Button rerollButton, partyButton;
+        Button rerollButton, partyButton, heldButton;
         TMP_Text rerollText;
         RectTransform nameTag;
         Image dim;
@@ -105,7 +106,10 @@ namespace PalRogue
             rerollButton = TextButton("Reroll", 10, BottomRowY, 90, TextAlignmentOptions.MidlineLeft, out rerollText);
             partyButton = TextButton("Party", 320 - 10 - 60, BottomRowY, 60, TextAlignmentOptions.MidlineRight, out var partyText);
             partyText.text = "파티 확인";
+            heldButton = TextButton("HeldItems", 320 - 10 - 60 - HeldGap - HeldWidth, BottomRowY, HeldWidth, TextAlignmentOptions.MidlineRight, out var heldText);
+            heldText.text = "지닌 도구 관리";
             Hook(rerollButton, () => Choose(Pick.Reroll, 0), () => Highlight(Pick.Reroll, 0));
+            Hook(heldButton, () => Choose(Pick.HeldItems, 0), () => Highlight(Pick.HeldItems, 0));
             Hook(partyButton, () => Choose(Pick.Party, 0), () => Highlight(Pick.Party, 0));
 
             // 메시지창 위에 걸치는 이름표 (아이콘 + 이름)
@@ -149,6 +153,8 @@ namespace PalRogue
             // "파티 확인"은 화면 오른쪽 끝에 붙인다 (화면 비율이 달라도)
             var partyRt = (RectTransform)partyButton.transform;
             partyRt.anchoredPosition = new Vector2(root.rect.width - 10f - partyRt.sizeDelta.x, partyRt.anchoredPosition.y);
+            var heldRt = (RectTransform)heldButton.transform;
+            heldRt.anchoredPosition = new Vector2(partyRt.anchoredPosition.x - HeldGap - heldRt.sizeDelta.x, heldRt.anchoredPosition.y);
 
             if (forReveal) SetContentVisible(false);
             else
@@ -222,6 +228,7 @@ namespace PalRogue
             foreach (var label in rewardLabels) label.SetActive(on);
             rerollButton.gameObject.SetActive(on);
             partyButton.gameObject.SetActive(on);
+            heldButton.gameObject.SetActive(on);
             nameTag.gameObject.SetActive(on);
             cursor.gameObject.SetActive(on);
             if (!on) SetMessage("");
@@ -404,12 +411,14 @@ namespace PalRogue
 
         /// <summary>무언가 고를 때까지 기다린다. 결과는 ResultKind / ResultIndex</summary>
         /// <param name="select">처음 커서를 둘 곳 (보상 칸 번호)</param>
-        public IEnumerator Choose(int select = 0)
+        /// <param name="focus">처음 커서를 둘 버튼 (지닌 도구 관리·파티 확인에서 돌아왔을 때 그 버튼에). None이면 보상 select번</param>
+        public IEnumerator Choose(int select = 0, Pick focus = Pick.None)
         {
             while (revealing) yield return null;
             ResultKind = Pick.None;
             waiting = true;
-            var first = rewardButtons.Count > 0 ? rewardButtons[Mathf.Clamp(select, 0, rewardButtons.Count - 1)] : rerollButton;
+            var first = focus == Pick.HeldItems ? heldButton : focus == Pick.Party ? partyButton
+                      : rewardButtons.Count > 0 ? rewardButtons[Mathf.Clamp(select, 0, rewardButtons.Count - 1)] : rerollButton;
             Select(first);
             while (ResultKind == Pick.None) yield return null;
             waiting = false;
@@ -523,7 +532,7 @@ namespace PalRogue
             int firstRow = n <= 4 ? n : Mathf.CeilToInt(n / 2f);
             if (n > 0) rows.Add(rewardButtons.GetRange(0, firstRow));
             if (n > firstRow) rows.Add(rewardButtons.GetRange(firstRow, n - firstRow));
-            rows.Add(new List<Button> { rerollButton, partyButton });
+            rows.Add(new List<Button> { rerollButton, heldButton, partyButton });
 
             for (int r = 0; r < rows.Count; r++)
             {
@@ -564,6 +573,7 @@ namespace PalRogue
                 Pick.Shop => shopButtons[index],
                 Pick.Reward => rewardButtons[index],
                 Pick.Reroll => rerollButton,
+                Pick.HeldItems => heldButton,
                 _ => partyButton,
             };
             lastSelected = button.gameObject;
@@ -603,7 +613,9 @@ namespace PalRogue
                 tagName.color = ItemTiers.Color(item.Tier);
                 SetMessage(item.Description);
             }
-            else SetMessage(kind == Pick.Reroll ? "돈을 내고 보상 아이템을 다시 뽑는다." : "파티의 상태를 확인한다.");
+            else SetMessage(kind == Pick.Reroll ? "돈을 내고 보상 아이템을 다시 뽑는다."
+                          : kind == Pick.HeldItems ? "팰이 지닌 도구를 다른 팰에게 넘겨주거나 버릴 수 있습니다."
+                          : "파티의 상태를 확인한다.");
         }
 
         /// <summary>root 기준 왼쪽 위 좌표 (anchoredPosition 계산용)</summary>

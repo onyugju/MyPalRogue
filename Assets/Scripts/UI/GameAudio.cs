@@ -9,7 +9,7 @@ namespace PalRogue
     /// </summary>
     public static class GameSettings
     {
-        const string KeyMaster = "pr_vol_master", KeyBgm = "pr_vol_bgm", KeySe = "pr_vol_se", KeyText = "pr_text_speed";
+        const string KeyMaster = "pr_vol_master", KeyBgm = "pr_vol_bgm", KeySe = "pr_vol_se", KeyText = "pr_text_speed", KeyBattle = "pr_battle_speed";
         public const int MaxVolume = 10;
         public static readonly string[] TextSpeedNames = { "느림", "보통", "빠름", "즉시" };
         static readonly float[] TextSpeeds = { 25f, 45f, 90f, 10000f };
@@ -31,6 +31,12 @@ namespace PalRogue
         public static int Se { get => PlayerPrefs.GetInt(KeySe, DefaultSe); set { PlayerPrefs.SetInt(KeySe, Mathf.Clamp(value, 0, MaxVolume)); Changed(); } }
         public static int TextSpeed { get => PlayerPrefs.GetInt(KeyText, 1); set { PlayerPrefs.SetInt(KeyText, Mathf.Clamp(value, 0, TextSpeedNames.Length - 1)); PlayerPrefs.Save(); } }
 
+        /// <summary>전투 속도 (연출·체력바·메시지 넘김이 이 배율로 빨라진다). 0=1배 1=1.5배 2=2배 3=3배</summary>
+        public static readonly string[] BattleSpeedNames = { "1배", "1.5배", "2배", "3배" };
+        static readonly float[] BattleSpeeds = { 1f, 1.5f, 2f, 3f };
+        public static int BattleSpeed { get => PlayerPrefs.GetInt(KeyBattle, 0); set { PlayerPrefs.SetInt(KeyBattle, Mathf.Clamp(value, 0, BattleSpeedNames.Length - 1)); PlayerPrefs.Save(); } }
+        public static float BattleSpeedMultiplier => BattleSpeeds[Mathf.Clamp(BattleSpeed, 0, BattleSpeeds.Length - 1)];
+
         /// <summary>메시지가 한 글자씩 나오는 속도 (초당 글자 수)</summary>
         public static float CharsPerSecond => TextSpeeds[Mathf.Clamp(TextSpeed, 0, TextSpeeds.Length - 1)];
 
@@ -41,6 +47,41 @@ namespace PalRogue
         {
             PlayerPrefs.Save();
             GameAudio.ApplyVolume();
+        }
+    }
+
+    /// <summary>
+    /// 전투 연출 시간. 설정의 "전투 속도" 배율이 곱해지고, 넘기기 키(Z·엔터·스페이스·마우스 왼쪽)를 누르고 있으면 더 빨라진다.
+    ///  for (t = 0; t < 시간; t += BattleTime.Dt)      yield return BattleTime.Wait(초);
+    /// (메뉴·보상 화면 같은 곳은 그대로 Time.unscaledDeltaTime을 쓴다)
+    /// </summary>
+    public static class BattleTime
+    {
+        /// <summary>넘기기 키를 누르고 있을 때 추가로 곱하는 배율</summary>
+        public const float HoldMultiplier = 3f;
+
+        public static float Multiplier => GameSettings.BattleSpeedMultiplier * (AdvanceHeld ? HoldMultiplier : 1f);
+        public static float Dt => Time.unscaledDeltaTime * Multiplier;
+
+        public static IEnumerator Wait(float seconds)
+        {
+            for (float t = 0f; t < seconds; t += Dt) yield return null;
+        }
+
+        /// <summary>넘기기 키(Z·엔터·스페이스·마우스 왼쪽)를 누르고 있는지</summary>
+        public static bool AdvanceHeld
+        {
+            get
+            {
+#if ENABLE_INPUT_SYSTEM
+                var mouse = UnityEngine.InputSystem.Mouse.current;
+                var kb = UnityEngine.InputSystem.Keyboard.current;
+                if (mouse != null && mouse.leftButton.isPressed) return true;
+                return kb != null && (kb.zKey.isPressed || kb.enterKey.isPressed || kb.spaceKey.isPressed);
+#else
+                return Input.GetMouseButton(0) || Input.GetKey(KeyCode.Z) || Input.GetKey(KeyCode.Return) || Input.GetKey(KeyCode.Space);
+#endif
+            }
         }
     }
 

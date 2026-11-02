@@ -94,26 +94,67 @@ namespace PalRogue
 
         static string PathOf(int slot) => Path.Combine(Application.persistentDataPath, $"slot{slot + 1}.json");
 
-        public static bool Exists(int slot) => slot >= 0 && File.Exists(PathOf(slot));
+        static string BackupOf(int slot) => PathOf(slot) + ".bak";
+
+        public static bool Exists(int slot) => slot >= 0 && (File.Exists(PathOf(slot)) || File.Exists(BackupOf(slot)));
         public static bool AnyExists => Enumerable.Range(0, Count).Any(Exists);
 
         public static RunSave Load(int slot)
         {
             if (!Exists(slot)) return null;
-            try { return JsonUtility.FromJson<RunSave>(File.ReadAllText(PathOf(slot))); }
-            catch (Exception e) { Debug.LogWarning($"[저장] 슬롯 {slot + 1}을 읽지 못했습니다: {e.Message}"); return null; }
+            // 본 파일이 깨졌으면(저장 중 꺼짐 등) 바로 전 저장(.bak)으로 이어 한다
+            var data = Read(PathOf(slot), slot) ?? Read(BackupOf(slot), slot);
+            if (data == null) Debug.LogWarning($"[저장] 슬롯 {slot + 1}을 읽지 못했습니다.");
+            return data;
         }
 
-        public static void Save(int slot, RunSave data)
+        static RunSave Read(string path, int slot)
         {
-            if (slot < 0 || data == null) return;
-            try { File.WriteAllText(PathOf(slot), JsonUtility.ToJson(data)); }
-            catch (Exception e) { Debug.LogWarning($"[저장] 슬롯 {slot + 1}에 저장하지 못했습니다: {e.Message}"); }
+            if (!File.Exists(path)) return null;
+            try
+            {
+                var data = JsonUtility.FromJson<RunSave>(File.ReadAllText(path));
+                return IsValid(data) ? data : null;
+            }
+            catch (Exception e) { Debug.LogWarning($"[저장] {Path.GetFileName(path)}을 읽지 못했습니다: {e.Message}"); return null; }
+        }
+
+        /// <summary>불러올 수 있는 저장인지 (파티가 있고 웨이브가 1 이상)</summary>
+        static bool IsValid(RunSave d) => d != null && d.wave >= 1 && d.party != null && d.party.Count > 0;
+
+        /// <summary>
+        /// 저장한다. 임시 파일에 쓰고 → 다시 읽어서 확인한 뒤 → 바꿔 끼운다 (이전 저장은 .bak으로 남긴다).
+        /// 저장 도중 게임이 꺼져도 슬롯이 깨지지 않는다. 성공하면 true.
+        /// </summary>
+        public static bool Save(int slot, RunSave data)
+        {
+            if (slot < 0 || data == null) return false;
+            string path = PathOf(slot), temp = path + ".tmp", backup = BackupOf(slot);
+            try
+            {
+                string json = JsonUtility.ToJson(data);
+                File.WriteAllText(temp, json);
+                var check = JsonUtility.FromJson<RunSave>(File.ReadAllText(temp));
+                if (!IsValid(check) || check.wave != data.wave) throw new Exception("저장한 내용을 다시 읽어 보니 다르다");
+                if (File.Exists(path)) File.Copy(path, backup, true);
+                File.Copy(temp, path, true);
+                File.Delete(temp);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning($"[저장] 슬롯 {slot + 1}에 저장하지 못했습니다: {e.Message}");
+                return false;
+            }
         }
 
         public static void Delete(int slot)
         {
-            try { if (Exists(slot)) File.Delete(PathOf(slot)); }
+            try
+            {
+                foreach (var p in new[] { PathOf(slot), BackupOf(slot), PathOf(slot) + ".tmp" })
+                    if (File.Exists(p)) File.Delete(p);
+            }
             catch (Exception e) { Debug.LogWarning($"[저장] 슬롯 {slot + 1}을 지우지 못했습니다: {e.Message}"); }
         }
 

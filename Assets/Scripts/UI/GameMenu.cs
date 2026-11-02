@@ -13,8 +13,8 @@ namespace PalRogue
     /// </summary>
     public class SettingsPanel : MonoBehaviour
     {
-        static readonly string[] Rows = { "전체 볼륨", "배경음악", "효과음", "대사 속도", "닫기" };
-        const float W = 224, H = 112, RowY = 22, RowStep = 16;
+        static readonly string[] Rows = { "전체 볼륨", "배경음악", "효과음", "대사 속도", "전투 속도", "닫기" };
+        const float W = 224, H = 128, RowY = 22, RowStep = 16;
 
         TMP_FontAsset font;
         RectTransform window;
@@ -118,6 +118,7 @@ namespace PalRogue
                 case 1: GameSettings.Bgm = Step(GameSettings.Bgm, d, GameSettings.MaxVolume, wrap); break;
                 case 2: GameSettings.Se = Step(GameSettings.Se, d, GameSettings.MaxVolume, wrap); break;
                 case 3: GameSettings.TextSpeed = Step(GameSettings.TextSpeed, d, GameSettings.TextSpeedNames.Length - 1, wrap); break;
+                case 4: GameSettings.BattleSpeed = Step(GameSettings.BattleSpeed, d, GameSettings.BattleSpeedNames.Length - 1, wrap); break;
                 default: return;
             }
             GameAudio.Se("select");          // 효과음 크기를 바로 들어 볼 수 있게
@@ -138,6 +139,7 @@ namespace PalRogue
                 for (int b = 0; b < blocks[i].Length; b++)
                     blocks[i][b].color = b < vols[i] ? UiKit.Gold : new Color(0.35f, 0.35f, 0.45f);
             values[3].text = GameSettings.TextSpeedNames[GameSettings.TextSpeed];
+            values[4].text = GameSettings.BattleSpeedNames[GameSettings.BattleSpeed];
             for (int i = 0; i < labels.Length; i++) labels[i].color = i == index ? UiKit.Gold : UiKit.White;
             cursor.rectTransform.anchoredPosition = new Vector2(5, -(RowY + index * RowStep + (RowStep - 9) / 2f));
         }

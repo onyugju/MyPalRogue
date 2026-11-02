@@ -640,7 +640,7 @@ namespace PalRogue
         {
             int max = Mathf.Max(1, maxHp > 0 ? maxHp : pal.MaxHP);
             float duration = Mathf.Clamp(Mathf.Abs(to - from) / (float)max * 1.2f, 0.25f, 1.0f);
-            for (float t = 0f; t < duration; t += Time.unscaledDeltaTime)
+            for (float t = 0f; t < duration; t += BattleTime.Dt)
             {
                 ShowHp(Mathf.RoundToInt(Mathf.Lerp(from, to, t / duration)), max);
                 yield return null;
@@ -667,7 +667,7 @@ namespace PalRogue
         {
             if (expFill == null) yield break;
             float duration = Mathf.Clamp(Mathf.Abs(to - from) * 1.0f, 0.2f, 0.9f);
-            for (float t = 0f; t < duration; t += Time.unscaledDeltaTime)
+            for (float t = 0f; t < duration; t += BattleTime.Dt)
             {
                 SetExp(Mathf.Lerp(from, to, t / duration));
                 yield return null;
