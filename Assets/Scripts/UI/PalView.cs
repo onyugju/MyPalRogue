@@ -211,6 +211,17 @@ namespace PalRogue
         {
             get { if (sr == null) Awake(); return sr.enabled && sr.sprite != null ? sr.bounds.center : transform.position; }
         }
+        /// <summary>팰 발밑 (월드 좌표). 땅에서 솟는 기술 연출의 기준</summary>
+        public Vector3 Feet
+        {
+            get
+            {
+                if (sr == null) Awake();
+                if (!sr.enabled || sr.sprite == null) return transform.position;
+                var b = sr.bounds;
+                return new Vector3(b.center.x, b.min.y, 0f);
+            }
+        }
         /// <summary>팰 그림 높이 (월드 단위)</summary>
         public float Height
         {

@@ -12,8 +12,6 @@ namespace PalRogue.EditorTools
     /// </summary>
     public static class SkillFxSelfTest
     {
-        const string Root = "3.VFX/Pixel VFX Essentials/Spritesheets/";
-
         static List<SkillData> AllSkills() => AssetDatabase.FindAssets("t:SkillData")
             .Select(g => AssetDatabase.LoadAssetAtPath<SkillData>(AssetDatabase.GUIDToAssetPath(g)))
             .Where(s => s != null).OrderBy(s => s.type).ThenBy(s => s.power).ToList();
@@ -28,9 +26,9 @@ namespace PalRogue.EditorTools
             var missing = new List<string>();
             foreach (var s in sheets)
             {
-                var tex = Resources.Load<Texture2D>(Root + s);
+                var tex = Resources.Load<Texture2D>(SkillFx.TexturePath(s));
                 if (tex == null) { missing.Add(s); continue; }
-                if (tex.width % tex.height != 0) missing.Add($"{s} (칸 크기가 맞지 않음 {tex.width}x{tex.height})");
+                if (!SkillFx.IsPxSheet(s) && tex.width % tex.height != 0) missing.Add($"{s} (칸 크기가 맞지 않음 {tex.width}x{tex.height})");
             }
             if (missing.Count > 0) { fail++; report.AppendLine($"  ✘ 없는 그림 {missing.Count}개: {string.Join(", ", missing)}"); }
             else report.AppendLine($"  ✔ VFX 그림 {sheets.Count}종 모두 있음");

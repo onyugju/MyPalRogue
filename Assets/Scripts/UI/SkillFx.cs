@@ -7,7 +7,10 @@ namespace PalRogue
 {
     /// <summary>
     /// 기술 연출 (임팩트). 내 팰·상대 팰 모두 같은 연출을 쓴다.
-    /// 그림은 Resources/3.VFX/Pixel VFX Essentials/Spritesheets 의 32×32 칸 가로 시트를 그대로 잘라 쓴다.
+    /// 그림은 두 곳에서 온다.
+    ///  - Resources/3.VFX/PixelFx : pixelfx로 뽑은 시트 (이름이 "px:"로 시작). 크기·기준점은 manifest.json에 있고 1배로 쓴다.
+    ///    발밑 연출(floor)은 팰 발에, 나머지는 팰 몸 가운데에 맞추고, 상대가 쓰면 좌우가 뒤집혀 쓰는 쪽에서 날아온다.
+    ///  - Resources/3.VFX/Pixel VFX Essentials/Spritesheets : 기존 32×32 칸 가로 시트 (돌·거품·화살표 등에 계속 쓴다)
     ///
     /// 연출 종류
     ///  - 발사(Projectile): 쓰는 팰에서 날아가 맞는다 (여러 발이면 연사)
@@ -18,12 +21,14 @@ namespace PalRogue
     ///  - 기운(Aura):      변화 기술. 자신에게 쓰면 자기 몸에, 상대에게 쓰면 상대 몸에 기운이 감돈다 (맞는 연출 없음)
     /// 능력치가 오르면 붉은 화살표(Buff Up), 떨어지면 푸른 화살표(Debuff Down)와 함께 팰이 번쩍인다 (PlayStatStage).
     /// 보스 패턴(힘 모으기·분노·정화 등)은 PlayBossFx.
+    /// 줄기(Beam)는 pixelfx 시트면 쓰는 팰에서 상대까지 한 장으로 늘려 뻗는다.
     /// 맞으면 상대가 깜빡이며 흔들리고, 급소·효과 굉장·위력 100 이상이면 화면도 흔들린다.
     /// 기술별 연출은 아래 표(BySkill, 키 = 기술 에셋 이름)에, 표에 없으면 속성 기본 연출(ByType)을 쓴다.
     /// </summary>
     public class SkillFx : MonoBehaviour
     {
         const string Root = "3.VFX/Pixel VFX Essentials/Spritesheets/";
+        const string PxRoot = "3.VFX/PixelFx/", PxPrefix = "px:";
         const int FrameSize = 32;
         const float ImpactFps = 20f, TravelFps = 16f;
         const int SortingAbovePals = 20;
@@ -39,6 +44,58 @@ namespace PalRogue
             public float travelScale = 1.6f, impactScale = 2.2f;
             public float travelTime = 0.32f;
             public bool arc;
+        }
+
+        // ═════════════════ pixelfx 시트 정보 ═════════════════
+
+        [Serializable]
+        class PxInfo
+        {
+            public string name;
+            public int w, h, cols, count, fps;
+            public float pivotX, pivotY;   // 칸 왼쪽 위에서 잰 기준점 (픽셀)
+            public bool floor;             // 팰 발밑에 놓는 연출
+            public float reach;            // 줄기: 기준점에서 끝까지 길이 (픽셀)
+            public float hit;              // 시작 후 가장 세게 터지는 시각 (초)
+            public bool loop;
+        }
+
+        [Serializable]
+        class PxManifest { public PxInfo[] sheets; }
+
+        static Dictionary<string, PxInfo> pxInfo;
+
+        /// <summary>pixelfx 시트면 그 정보, 아니면 null</summary>
+        static PxInfo Px(string sheet)
+        {
+            if (string.IsNullOrEmpty(sheet) || !sheet.StartsWith(PxPrefix, StringComparison.Ordinal)) return null;
+            if (pxInfo == null)
+            {
+                pxInfo = new Dictionary<string, PxInfo>();
+                var file = Resources.Load<TextAsset>(PxRoot + "manifest");
+                if (file == null) Debug.LogWarning($"[SkillFx] Resources/{PxRoot}manifest.json 이 없습니다.");
+                else foreach (var i in JsonUtility.FromJson<PxManifest>(file.text).sheets) pxInfo[i.name] = i;
+            }
+            return pxInfo.TryGetValue(sheet.Substring(PxPrefix.Length), out var info) ? info : null;
+        }
+
+        /// <summary>시트 이름 → Resources 경로</summary>
+        public static string TexturePath(string sheet) =>
+            sheet.StartsWith(PxPrefix, StringComparison.Ordinal) ? PxRoot + sheet.Substring(PxPrefix.Length) : Root + sheet;
+
+        public static bool IsPxSheet(string sheet) => !string.IsNullOrEmpty(sheet) && sheet.StartsWith(PxPrefix, StringComparison.Ordinal);
+
+        /// <summary>팰 몸집에 맞춘 pixelfx 배율 (기준: 키 3유닛인 상대 팰). 큰 보스일수록 크게</summary>
+        static float Fit(PalView view) => Mathf.Clamp(view.Height / 3f, 0.9f, 1.8f);
+
+        /// <summary>pixelfx 시트는 몸집 배율, 기존 시트는 표에 적힌 배율</summary>
+        static float Sz(string sheet, float oldScale, float fit) => Px(sheet) != null ? fit : oldScale;
+
+        /// <summary>시트를 놓을 자리: 발밑 연출이면 팰 발, 아니면 주어진 자리</summary>
+        static Vector3 At(string sheet, PalView view, Vector3 otherwise)
+        {
+            var px = Px(sheet);
+            return px != null && px.floor ? view.Feet : otherwise;
         }
 
         // ═════════════════ 연출 표 ═════════════════
@@ -95,154 +152,257 @@ namespace PalRogue
                      EmberRise = "Fire/Ember Rise", FogDrift = "Smoke and Dust/Fog Drift", SmokePuff = "Smoke and Dust/Smoke Puff",
                      Dissipate = "Smoke and Dust/Dissipate", RankUp = "Pickups and UI/Rank Up";
 
+        const string PSpark = PxPrefix + "spark";
+        const string PBlunt = PxPrefix + "blunt";
+        const string PCrit = PxPrefix + "crit";
+        const string PSlash = PxPrefix + "slash";
+        const string PSlashG = PxPrefix + "slash_g";
+        const string PClaw = PxPrefix + "claw";
+        const string PClawY = PxPrefix + "claw_y";
+        const string PXslash = PxPrefix + "xslash";
+        const string PXslashG = PxPrefix + "xslash_g";
+        const string PSpin = PxPrefix + "spin";
+        const string PThrust = PxPrefix + "thrust";
+        const string PUppercut = PxPrefix + "uppercut";
+        const string PCleave = PxPrefix + "cleave";
+        const string PScythe = PxPrefix + "scythe";
+        const string PHammer = PxPrefix + "hammer";
+        const string PBoom = PxPrefix + "boom";
+        const string PBurst = PxPrefix + "burst";
+        const string PBurstF = PxPrefix + "burst_f";
+        const string PBurstB = PxPrefix + "burst_b";
+        const string PBurstD = PxPrefix + "burst_d";
+        const string PMana = PxPrefix + "mana";
+        const string PManaW = PxPrefix + "mana_w";
+        const string PImplosion = PxPrefix + "implosion";
+        const string PDarkBoom = PxPrefix + "dark_boom";
+        const string PDirt = PxPrefix + "dirt";
+        const string PSlam = PxPrefix + "slam";
+        const string PLanding = PxPrefix + "landing";
+        const string PSpike = PxPrefix + "spike";
+        const string PQuake = PxPrefix + "quake";
+        const string PFireball = PxPrefix + "fireball";
+        const string PFireBreath = PxPrefix + "fire_breath";
+        const string PFireBreathP = PxPrefix + "fire_breath_p";
+        const string PFireRing = PxPrefix + "fire_ring";
+        const string PFlamePillar = PxPrefix + "flame_pillar";
+        const string PFireTornado = PxPrefix + "fire_tornado";
+        const string PShadowFlames = PxPrefix + "shadow_flames";
+        const string PMeteor = PxPrefix + "meteor";
+        const string PMeteorP = PxPrefix + "meteor_p";
+        const string PWaterJet = PxPrefix + "water_jet";
+        const string PBeamB = PxPrefix + "beam_b";
+        const string PSplash = PxPrefix + "splash";
+        const string PGeyser = PxPrefix + "geyser";
+        const string PWave = PxPrefix + "wave";
+        const string PDiscG = PxPrefix + "disc_g";
+        const string PPlasmaG = PxPrefix + "plasma_g";
+        const string PLeafStorm = PxPrefix + "leaf_storm";
+        const string PVine = PxPrefix + "vine";
+        const string PTornado = PxPrefix + "tornado";
+        const string PTornadoP = PxPrefix + "tornado_p";
+        const string PThorns = PxPrefix + "thorns";
+        const string PAcid = PxPrefix + "acid";
+        const string PBloom = PxPrefix + "bloom";
+        const string PZap = PxPrefix + "zap";
+        const string PBolt = PxPrefix + "bolt";
+        const string PThunderclap = PxPrefix + "thunderclap";
+        const string PChargeY = PxPrefix + "charge_y";
+        const string PChargeW = PxPrefix + "charge_w";
+        const string PLanceY = PxPrefix + "lance_y";
+        const string PBeamY = PxPrefix + "beam_y";
+        const string PLance = PxPrefix + "lance";
+        const string PFrostBreath = PxPrefix + "frost_breath";
+        const string PFrostNova = PxPrefix + "frost_nova";
+        const string PIceSpikes = PxPrefix + "ice_spikes";
+        const string PIcicle = PxPrefix + "icicle";
+        const string PSnow = PxPrefix + "snow";
+        const string PBlizzard = PxPrefix + "blizzard";
+        const string PBeamP = PxPrefix + "beam_p";
+        const string PBeamW = PxPrefix + "beam_w";
+        const string PBeamD = PxPrefix + "beam_d";
+        const string PPlasmaP = PxPrefix + "plasma_p";
+        const string PPlasmaD = PxPrefix + "plasma_d";
+        const string PPlasmaV = PxPrefix + "plasma_v";
+        const string PPlasmaW = PxPrefix + "plasma_w";
+        const string PDiscW = PxPrefix + "disc_w";
+        const string PStarFall = PxPrefix + "star_fall";
+        const string PSpell = PxPrefix + "spell";
+        const string PHands = PxPrefix + "hands";
+        const string PTendrils = PxPrefix + "tendrils";
+        const string PHex = PxPrefix + "hex";
+        const string PVoidOrb = PxPrefix + "void_orb";
+        const string PPillar = PxPrefix + "pillar";
+        const string PSmite = PxPrefix + "smite";
+        const string PFeather = PxPrefix + "feather";
+        const string PShield = PxPrefix + "shield";
+        const string PShieldB = PxPrefix + "shield_b";
+        const string PArrow = PxPrefix + "arrow";
+        const string PRocket = PxPrefix + "rocket";
+
+        // pixelfx 연출 표 쓰기용. 맞는 그림은 시트 자체가 기술 전체를 담고 있어서 한두 장이면 된다.
+        static Def XProj(string travel, string hit, string hit2 = null, string cast = null, int count = 1, float time = 0.34f,
+                         bool arc = false, float scale = 1.6f, Color? tint = null) =>
+            new Def { kind = Kind.Projectile, travel = travel, impact = hit, impact2 = hit2, cast = cast, count = count,
+                      travelTime = time, arc = arc, travelScale = scale, tint = tint ?? Color.white };
+        static Def XCone(string cone, string hit, string hit2 = null, string cast = null) =>
+            new Def { kind = Kind.Beam, travel = cone, impact = hit, impact2 = hit2, cast = cast };
+        static Def XStrike(string hit, string hit2 = null, string cast = null, int count = 1) =>
+            new Def { kind = Kind.Strike, impact = hit, impact2 = hit2, cast = cast, count = count };
+        static Def XMelee(string hit, string hit2 = null) =>
+            new Def { kind = Kind.Melee, impact = hit, impact2 = hit2 };
+        static Def XAura(string fx, string fx2 = null) =>
+            new Def { kind = Kind.Aura, impact = fx, impact2 = fx2 };
+
         static readonly Dictionary<string, Def> BySkill = new Dictionary<string, Def>
         {
             // ── 무 ──
-            ["Air_Cannon"]     = Proj(PlasmaShot, HitSpark, Color.white),
-            ["Power_Shot"]     = Proj(EnergyBolt, Shockwave, Color.white, cast: StarBurst),
-            ["Power_Bomb"]     = Proj(Cannonball, Blast, Color.white, scale: 2f, arc: true, time: 0.45f),
-            ["Pal_Blast"]      = Beam(Laser, PlasmaBlast, Color.white, impact2: Shockwave),
-            ["Holy_Burst"]     = Strike(HolyLight, BigBoom, C(0xfff1b0), 2.5f, cast: StarBurst),
-            ["Rolling_Fluff"]  = Melee(Thud, DustCloud),
-            ["Meow_Punch"]     = Melee(Punch, MultiHit),
-            ["Quick_Strike"]   = Melee(Thrust, HitSpark),
-            ["Lancer_Charge"]  = Melee(Pierce, Shockwave, null, 2.5f),
-            ["Struggle"]       = Melee(WeakHit),
-            // ── 화염 ──
-            ["Fire_Shot"]      = Proj(FireballShot, FireHit),
-            ["Spirit_Fire"]    = Proj(FireOrb, FireBurst, count: 3, scale: 1.3f),
-            ["Fire_Breath"]    = Beam(Flamethrower, FireHit, impact2: FireBurst),
-            ["Flame_Panel"]    = Strike(BurningGround, FireRing, null, 2.6f),
-            ["Fireball"]       = Proj(FireOrb, BigBoom, scale: 2.2f, arc: true, time: 0.5f, impactScale: 2.6f),
-            ["Burning_Horn"]   = Melee(FireSlash, FireHit),
-            ["Blazing_Missile"]= Proj(FireballShot, Blast, count: 3, arc: true, time: 0.42f),
-            ["Flame_Waltz"]    = Strike(FireRing, FireBurst, C(0xff8ae0), 2.6f),
+            ["Air_Cannon"]     = XProj(PDiscW, PSpark),
+            ["Power_Shot"]     = XProj(PPlasmaW, PManaW, cast: PChargeW),
+            ["Power_Bomb"]     = XProj(Cannonball, PBoom, arc: true, time: 0.45f, scale: 2f),
+            ["Pal_Blast"]      = XCone(PBeamW, PManaW, PBurst, PChargeW),
+            ["Holy_Burst"]     = XStrike(PPillar, PSmite, PChargeW),
+            ["Rolling_Fluff"]  = XMelee(PBlunt, PFeather),
+            ["Meow_Punch"]     = XMelee(PUppercut, PSpark),
+            ["Quick_Strike"]   = XMelee(PThrust, PSpark),
+            ["Lancer_Charge"]  = XMelee(PThrust, PCrit),
+            ["Struggle"]       = XMelee(PBlunt),
+            // ── 불 ──
+            ["Fire_Shot"]      = XProj(PFireball, PBurstF),
+            ["Spirit_Fire"]    = XProj(PFireball, PBurstF, count: 3),
+            ["Fire_Breath"]    = XCone(PFireBreath, PBurstF),
+            ["Flame_Panel"]    = XStrike(PFireRing, PFlamePillar),
+            ["Fireball"]       = XStrike(PMeteor, PFireRing),
+            ["Burning_Horn"]   = XMelee(PThrust, PBurstF),
+            ["Blazing_Missile"]= XProj(PRocket, PBoom, count: 3, arc: true, time: 0.42f),
+            ["Flame_Waltz"]    = XStrike(PFireTornado, PShadowFlames),
             // ── 물 ──
-            ["Water_Jet"]      = Proj(PlasmaShot, WaterSplash, Blue),
-            ["Bubble_Shot"]    = Proj(Bubbles, WaterSplash, null, count: 3, scale: 1.2f),
-            ["Line_Splash"]    = Beam(EnergyBolt, WaterSplash, Blue),
-            ["Hydro_Stream"]   = Beam(EnergyBolt, WaterSplash, Blue, 2f, impact2: Bubbles),
-            ["Water_Geyser"]   = Strike(WaterSplash, Bubbles, null, 2.6f),
-            ["Tarasonic_Laser"]= Beam(EnergyBolt, PlasmaBlast, C(0xbff4ff), 2.2f, impact2: WaterSplash),
+            ["Water_Jet"]      = XCone(PWaterJet, PSplash),
+            ["Bubble_Shot"]    = XProj(Bubbles, PSplash, count: 3, scale: 1.2f),
+            ["Line_Splash"]    = XStrike(PWave, PSplash),
+            ["Hydro_Stream"]   = XCone(PBeamB, PSplash, PBurstB),
+            ["Water_Geyser"]   = XStrike(PGeyser, PSplash),
+            ["Tarasonic_Laser"]= XCone(PBeamB, PBurstB, PGeyser, PSpell),
             // ── 풀 ──
-            ["Wind_Blade"]     = Proj(WindGust, SlashDown, Green),
-            ["Seed_Machine_Gun"] = Proj(PoisonDart, WeakHit, Green, count: 5, scale: 1.4f, time: 0.22f),
-            ["Multi_Cutter"]   = Strike(DoubleSlash, CrossSlash, Green),
-            ["Reflect_Leaf"]   = Proj(Leaves, SlashHit, null, count: 3, scale: 1.2f),
-            ["Wind_Blast"]     = Strike(WindGust, Shockwave, Green, 2.6f),
+            ["Wind_Blade"]     = XProj(PDiscG, PSlashG),
+            ["Seed_Machine_Gun"] = XProj(PPlasmaG, PSpark, count: 5, time: 0.22f),
+            ["Multi_Cutter"]   = XStrike(PXslashG, PSlashG),
+            ["Reflect_Leaf"]   = XStrike(PLeafStorm, PSlashG),
+            ["Wind_Blast"]     = XStrike(PTornado, PLeafStorm),
             // ── 번개 ──
-            ["Lightning_Spear"]= Proj(Spear, ShockHit, Yellow),
-            ["Electric_Wave"]  = Strike(ZapRing, ElectricShock, Yellow),
-            ["Line_Thunder"]   = Beam(TeslaArc, SparkBurst),
-            ["Thunder_Strike"] = Strike(ThunderImpact, SparkBurst, null, 2.6f),
-            ["Thunderstorm"]   = Rain(BoltStrike, StormFlash, null, count: 3, scale: 2.4f, impactScale: 2.4f),
-            ["Electric_Claw"]  = Melee(TripleClaw, ShockHit, Yellow),
-            ["Thunder_Tank"]   = Melee(Overload, PlasmaBlast, Yellow, 2.5f),
+            ["Lightning_Spear"]= XProj(PLanceY, PZap),
+            ["Electric_Wave"]  = XStrike(PThunderclap, PZap),
+            ["Line_Thunder"]   = XCone(PBeamY, PZap),
+            ["Thunder_Strike"] = XStrike(PBolt, PThunderclap),
+            ["Thunderstorm"]   = XStrike(PBolt, PThunderclap, PChargeY, 3),
+            ["Electric_Claw"]  = XMelee(PClawY, PZap),
+            ["Thunder_Tank"]   = XMelee(PCrit, PThunderclap),
             // ── 땅 ──
-            ["Mud_Shot"]       = Proj(RockThrow, DirtKick, Brown),
-            ["Rock_Burst"]     = Strike(RockBurst, SandBurst),
-            ["Rock_Cannon"]    = Proj(RockThrow, RockBurst, null, scale: 2.2f, arc: true, time: 0.42f),
-            ["Rock_Spear"]     = Strike(Thrust, RockBurst, Brown, 2.6f),
-            ["Stone_Beat"]     = Rain(RockThrow, RockBurst, null, count: 4),
-            ["Fighting_Slash"] = Melee(WideCleave, SlashHit),
-            ["Spin_Leg_Slash"] = Melee(SpinSlash, SlashHit),
-            ["Force_Drive"]    = Melee(HeavyHit, Shockwave, null, 2.6f),
-            ["Ground_Smasher"] = Melee(RockBurst, DustCloud, null, 2.6f),
-            ["Somersault_Scratch"] = Melee(TripleClaw, SlashHit),
-            ["Rolling_Scratch"]    = Melee(SpinSlash, TripleClaw),
+            ["Mud_Shot"]       = XProj(RockThrow, PDirt, tint: Brown),
+            ["Rock_Burst"]     = XStrike(PDirt, PSpike),
+            ["Rock_Cannon"]    = XProj(RockThrow, PSlam, arc: true, time: 0.42f, scale: 2.2f),
+            ["Rock_Spear"]     = XStrike(PSpike),
+            ["Stone_Beat"]     = XStrike(PQuake, PSpike, count: 3),
+            ["Fighting_Slash"] = XMelee(PSlash, PSpark),
+            ["Spin_Leg_Slash"] = XMelee(PSpin, PSpark),
+            ["Force_Drive"]    = XMelee(PHammer, PCrit),
+            ["Ground_Smasher"] = XMelee(PSlam, PQuake),
+            ["Somersault_Scratch"] = XMelee(PClaw, PSpark),
+            ["Rolling_Scratch"]    = XMelee(PSpin, PClaw),
             // ── 얼음 ──
-            ["Ice_Missile"]    = Proj(IceShard, IceHit, null, count: 3),
-            ["Ice_Blade"]      = Strike(IceSlash, IceHit),
-            ["Frost_Breath"]   = Beam(Steam, FrostNova, Ice),
-            ["Icicle_Line"]    = Proj(IceShard, IceShatter, null, count: 4, time: 0.24f),
-            ["Diamond_Fall"]   = Rain(IceShard, IceShatter, null, count: 5),
-            ["Crystal_Wing"]   = Strike(FrostNova, IceShatter, null, 2.6f),
+            ["Ice_Missile"]    = XProj(PLance, PSnow, count: 3),
+            ["Ice_Blade"]      = XStrike(PSlash, PSnow),
+            ["Frost_Breath"]   = XCone(PFrostBreath, PSnow),
+            ["Icicle_Line"]    = XProj(PLance, PIceSpikes, count: 4, time: 0.24f),
+            ["Diamond_Fall"]   = XStrike(PIcicle, PSnow, count: 3),
+            ["Crystal_Wing"]   = XStrike(PFrostNova, PSnow),
             // ── 용 ──
-            ["Dragon_Cannon"]  = Proj(PlasmaShot, PlasmaBlast, Purple),
-            ["Dragon_Wave"]    = Strike(Emp, Shockwave, Purple),
-            ["Dragon_Breath"]  = Beam(Flamethrower, PlasmaBlast, Purple),
-            ["Beam_Slicer"]    = Beam(Laser, CrossSlash, Purple),
-            ["Dragon_Meteor"]  = Rain(FireOrb, BigBoom, Purple, count: 4, scale: 2f, impactScale: 2.6f),
-            ["Mystic_Hurricane"] = Strike(WindGust, Portal, Purple, 2.6f),
-            ["Rocket_Tackle"]  = Melee(HeavyHit, SmokeBurst),
-            ["Meteor_Beam"]    = Beam(Laser, BigBoom, C(0xffd0ff), impact2: Shockwave),
+            ["Dragon_Cannon"]  = XProj(PPlasmaP, PMana),
+            ["Dragon_Wave"]    = XStrike(PBurstD, PMana),
+            ["Dragon_Breath"]  = XCone(PFireBreathP, PMana),
+            ["Beam_Slicer"]    = XCone(PBeamP, PXslash),
+            ["Dragon_Meteor"]  = XStrike(PMeteorP, PMana, count: 2),
+            ["Mystic_Hurricane"] = XStrike(PTornadoP, PMana),
+            ["Rocket_Tackle"]  = XMelee(PCrit, PLanding),
+            ["Meteor_Beam"]    = XCone(PBeamP, PBoom, PStarFall, PSpell),
             // ── 어둠 ──
-            ["Dark_Shot"]      = Proj(HomingOrb, DarkSlash, DarkPurple),
-            ["Shadow_Burst"]   = Strike(DarkCurse, SmokeBurst, DarkPurple),
-            ["Dark_Arrow"]     = Proj(Arrow, Pierce, DarkPurple),
-            ["Dark_Laser"]     = Beam(Laser, DarkSlash, DarkPurple),
-            ["Dark_Wisp"]      = Proj(MagicMissile, DarkCurse, DarkPurple, count: 3),
-            ["Nightmare_Ray"]  = Beam(Laser, DarkCurse, DarkPurple, impact2: Portal),
+            ["Dark_Shot"]      = XProj(PPlasmaD, PBurstD),
+            ["Shadow_Burst"]   = XStrike(PDarkBoom),
+            ["Dark_Arrow"]     = XProj(Arrow, PBurstD, tint: DarkPurple),
+            ["Dark_Laser"]     = XCone(PBeamD, PBurstD),
+            ["Dark_Wisp"]      = XProj(PPlasmaD, PBurstD, count: 3),
+            ["Nightmare_Ray"]  = XCone(PBeamD, PTendrils, PBurstD, PHex),
             // ── 공허 (제로버스) ──
-            ["Void_Shot"]      = Proj(HomingOrb, Portal, VoidCol),
-            ["Void_Pulse"]     = Strike(Emp, Portal, VoidCol, 2.5f),
-            ["Annihilate"]     = Strike(Portal, Nuke, VoidCol, 3f, cast: DarkCurse),
+            ["Void_Shot"]      = XProj(PPlasmaV, PImplosion),
+            ["Void_Pulse"]     = XStrike(PImplosion, PBurstD),
+            ["Annihilate"]     = XStrike(PVoidOrb, PDarkBoom, PHex),
 
             // ── 새 팰 20종 전용 기술 ──
-            ["Gloomy_Sting"]   = Proj(PoisonDart, PoisonHit, DarkPurple, impact2: PoisonCloud),                  // 뚱코알라: 독침 → 독 구름
-            ["Penguin_Rocket"] = Melee(HeavyHit, WaterSplash, Blue, 2.4f),                                        // 펭키: 몸통 로켓
-            ["Vine_Barrage"]   = Melee(MultiHit, Leaves, Green),                                                  // 몽지: 덩굴 연타
-            ["Ember_Dash"]     = Melee(HeavyHit, FireBurst),                                                      // 불꽃밤비: 불꽃 돌진
-            ["Boar_Rush"]      = Melee(HeavyHit, SandBurst, null, 2.5f),                                          // 돌진돼지: 흙먼지 박치기
-            ["Fang_Raid"]      = Melee(DoubleSlash, CritStar),                                                    // 다크울프: 송곳니
-            ["Static_Scratch"] = Melee(TripleClaw, ShockHit, Yellow),                                             // 번개냥: 전기 발톱
-            ["Surf_Slash"]     = Melee(WideCleave, WaterSplash, Blue, 2.5f),                                      // 씨무기: 파도 베기
-            ["Hawkeye_Arrow"]  = Proj(Arrow, Pierce, Green, count: 3, time: 0.22f, impact2: CritStar),           // 로빈몽: 화살 3연발
-            ["Hell_Dive"]      = Strike(DarkSlash, SmokeBurst, DarkPurple, 2.6f, cast: WindGust),                 // 헬가루다: 급강하
-            ["Petal_Storm"]    = Strike(Leaves, WindGust, C(0xffb0d8), 2.7f, cast: CastCircle),                   // 플로라디노: 꽃잎 폭풍
-            ["Blaze_Gallop"]   = Melee(PhoenixFlare, FireBurst, null, 2.6f),                                      // 파이린: 불꽃 질주
-            ["Frost_Tail"]     = Melee(IceSlash, IceShatter),                                                     // 빙호: 얼음 꼬리
-            ["Jumping_Claw"]   = Strike(TripleClaw, ThunderImpact, Yellow, 2.6f, cast: SparkBurst),               // 썬도그: 번개 발톱 내려찍기
-            ["Panda_Lariat"]   = Melee(HeavyHit, Shockwave, Green, 2.7f),                                         // 풀바오: 라리아트
-            ["Inferno_Claw"]   = Melee(FireSlash, BurningGround, null, 2.6f),                                     // 만티파이어: 지옥불 발톱
-            ["Phantom_Scythe"] = Strike(DarkSlash, DarkCurse, DarkPurple, 2.7f, cast: SmokePuff),                 // 고스호스: 망령의 낫
-            ["Tidal_Wave"]     = Strike(WaterSplash, PlasmaBlast, C(0x9fdcff), 3f, cast: Bubbles),                // 레비드라: 대해일
-            ["Dragon_Dive"]    = Melee(HeavyHit, PlasmaBlast, Purple, 2.7f),                                      // 페스키: 용의 급강하
-            ["Iceberg_Drop"]   = Rain(IceShard, IceShatter, Ice, count: 2, scale: 3f, impactScale: 3f),           // 움포: 빙산 낙하
+            ["Gloomy_Sting"]   = XProj(PoisonDart, PAcid, tint: DarkPurple),         // 뚱코알라: 독침 → 독 웅덩이
+            ["Penguin_Rocket"] = XMelee(PCrit, PSplash),                             // 펭키: 몸통 로켓
+            ["Vine_Barrage"]   = XStrike(PVine, PThorns),                            // 몽지: 덩굴 연타
+            ["Ember_Dash"]     = XMelee(PBlunt, PBurstF),                            // 불꽃밤비: 불꽃 돌진
+            ["Boar_Rush"]      = XMelee(PBlunt, PLanding),                           // 돌진돼지: 흙먼지 박치기
+            ["Fang_Raid"]      = XMelee(PXslash, PCrit),                             // 다크울프: 송곳니
+            ["Static_Scratch"] = XMelee(PClawY, PZap),                               // 번개냥: 전기 발톱
+            ["Surf_Slash"]     = XMelee(PSlash, PWave),                              // 씨무기: 파도 베기
+            ["Hawkeye_Arrow"]  = XProj(PArrow, PSpark, PCrit, count: 3, time: 0.22f),// 로빈몽: 화살 3연발
+            ["Hell_Dive"]      = XStrike(PScythe, PDarkBoom),                        // 헬가루다: 급강하
+            ["Petal_Storm"]    = XStrike(PLeafStorm, PThorns),                       // 플로라디노: 꽃잎 폭풍
+            ["Blaze_Gallop"]   = XMelee(PCrit, PFireRing),                           // 파이린: 불꽃 질주
+            ["Frost_Tail"]     = XMelee(PSlash, PSnow),                              // 빙호: 얼음 꼬리
+            ["Jumping_Claw"]   = XStrike(PClawY, PThunderclap),                      // 썬도그: 번개 발톱 내려찍기
+            ["Panda_Lariat"]   = XMelee(PCleave, PSpark),                            // 풀바오: 라리아트
+            ["Inferno_Claw"]   = XMelee(PClaw, PFlamePillar),                        // 만티파이어: 지옥불 발톱
+            ["Phantom_Scythe"] = XStrike(PScythe, PHands),                           // 고스호스: 망령의 낫
+            ["Tidal_Wave"]     = XStrike(PWave, PGeyser),                            // 레비드라: 대해일
+            ["Dragon_Dive"]    = XMelee(PCrit, PMana),                               // 페스키: 용의 급강하
+            ["Iceberg_Drop"]   = XStrike(PIcicle, PFrostNova),                       // 움포: 빙산 낙하
 
             // ── 변화 기술 (버프·디버프·회복) ──
-            ["Focus_Up"]       = Aura(ChargeUp, StarBurst, C(0xffb070)),
-            ["Burning_Spirit"] = Aura(FireShield, EmberRise),
-            ["Aqua_Veil"]      = Aura(ShieldBubble, WaterSplash, Blue),
-            ["Photosynthesis"] = Aura(HealFx, HealCross, Green),
-            ["Charge_Up"]      = Aura(ChargeUp, StaticLoop, Yellow),
-            ["Rock_Armor"]     = Aura(ShieldBubble, RockBurst, Brown),
-            ["Frost_Mist"]     = Aura(FogDrift, FrostNova, Ice),
-            ["Dragon_Dance"]   = Aura(CastCircle, WindGust, Purple),
-            ["Fear_Gaze"]      = Aura(DarkCurse, SmokePuff, DarkPurple),
-            ["Void_Erosion"]   = Aura(Portal, DarkCurse, VoidCol, 2.6f),
+            ["Focus_Up"]       = XAura(PChargeW),
+            ["Burning_Spirit"] = XAura(PFireTornado),
+            ["Aqua_Veil"]      = XAura(PShieldB, PSplash),
+            ["Photosynthesis"] = XAura(PBloom),
+            ["Charge_Up"]      = XAura(PChargeY),
+            ["Rock_Armor"]     = XAura(PShield, PLanding),
+            ["Frost_Mist"]     = XAura(PBlizzard),
+            ["Dragon_Dance"]   = XAura(PSpell, PTornadoP),
+            ["Fear_Gaze"]      = XAura(PHex),
+            ["Void_Erosion"]   = XAura(PVoidOrb, PHex),
         };
 
         /// <summary>표에 없는 기술 (새로 추가한 기술 등)은 속성별 기본 연출</summary>
         static Def ByType(PalType t) => t switch
         {
-            PalType.Fire => Proj(FireballShot, FireHit),
-            PalType.Water => Proj(PlasmaShot, WaterSplash, Blue),
-            PalType.Grass => Proj(WindGust, SlashHit, Green),
-            PalType.Electric => Strike(BoltStrike, ShockHit),
-            PalType.Ground => Proj(RockThrow, RockBurst),
-            PalType.Ice => Proj(IceShard, IceHit),
-            PalType.Dragon => Proj(PlasmaShot, PlasmaBlast, Purple),
-            PalType.Dark => Proj(HomingOrb, DarkSlash, DarkPurple),
-            PalType.Void => Strike(Portal, Emp, VoidCol),
-            _ => Melee(HitSpark),
+            PalType.Fire => XProj(PFireball, PBurstF),
+            PalType.Water => XCone(PWaterJet, PSplash),
+            PalType.Grass => XProj(PDiscG, PSlashG),
+            PalType.Electric => XStrike(PBolt, PZap),
+            PalType.Ground => XStrike(PDirt),
+            PalType.Ice => XProj(PLance, PSnow),
+            PalType.Dragon => XProj(PPlasmaP, PMana),
+            PalType.Dark => XProj(PPlasmaD, PBurstD),
+            PalType.Void => XStrike(PImplosion, PBurstD),
+            _ => XMelee(PSpark),
         };
 
         /// <summary>상태이상에 걸렸을 때 팰 위에 나오는 연출</summary>
         static (string sheet, Color tint) StatusSheet(StatusCondition s) => s switch
         {
-            StatusCondition.Burn => (Ignite, Color.white),
-            StatusCondition.Poison => (PoisonCloud, Color.white),
-            StatusCondition.Paralysis => (ElectricShock, Yellow),
-            StatusCondition.Freeze => (FrostNova, Color.white),
+            StatusCondition.Burn => (PFireTornado, Color.white),
+            StatusCondition.Poison => (PAcid, Color.white),
+            StatusCondition.Paralysis => (PZap, Color.white),
+            StatusCondition.Freeze => (PFrostNova, Color.white),
             _ => (null, Color.white),
         };
+
 
         /// <summary>표에 있는 시트 이름 전부 (테스트에서 그림이 있는지 확인)</summary>
         public static IEnumerable<string> AllSheets()
         {
             foreach (var s in new[] { BuffUp, DebuffDown, HealFx, ChargeUp, Shockwave, Dissipate, FireShield, HolyLight, DarkCurse,
-                                      FrostNova, Portal, Ignite, ShockAura, RankUp })
+                                      FrostNova, Portal, Ignite, ShockAura, RankUp, PCrit })
                 yield return s;
             foreach (var d in BySkill.Values)
                 foreach (var s in new[] { d.travel, d.impact, d.impact2, d.cast })
@@ -269,14 +429,28 @@ namespace PalRogue
         {
             if (string.IsNullOrEmpty(sheet)) return null;
             if (cache.TryGetValue(sheet, out var f)) return f;
-            var tex = Resources.Load<Texture2D>(Root + sheet);
+            var tex = Resources.Load<Texture2D>(TexturePath(sheet));
             if (tex == null)
             {
-                Debug.LogWarning($"[SkillFx] Resources/{Root}{sheet}.png 가 없습니다.");
+                Debug.LogWarning($"[SkillFx] Resources/{TexturePath(sheet)}.png 가 없습니다.");
                 cache[sheet] = null;
                 return null;
             }
             tex.filterMode = FilterMode.Point;
+            var px = Px(sheet);
+            if (px != null)
+            {
+                var cells = new Sprite[px.count];
+                var pivot = new Vector2(px.pivotX / px.w, 1f - px.pivotY / px.h);
+                for (int i = 0; i < px.count; i++)
+                {
+                    int col = i % px.cols, row = i / px.cols;
+                    var rect = new Rect(col * px.w, tex.height - (row + 1) * px.h, px.w, px.h);   // 텍스처는 아래가 0
+                    cells[i] = Sprite.Create(tex, rect, pivot, PixelsPerUnit, 0, SpriteMeshType.FullRect);
+                }
+                cache[sheet] = cells;
+                return cells;
+            }
             int size = Mathf.Min(FrameSize, tex.height);
             int n = Mathf.Max(1, tex.width / size);
             var frames = new Sprite[n];
@@ -302,7 +476,7 @@ namespace PalRogue
         int sortingLayer, sortingOrder;
         int running;                                      // 아직 끝나지 않은 연출 수
 
-        SpriteRenderer Spawn(Sprite first, Vector3 pos, float scale, Color tint, float angle = 0f, bool flipY = false)
+        SpriteRenderer Spawn(Sprite first, Vector3 pos, float scale, Color tint, float angle = 0f, bool flipY = false, bool flipX = false)
         {
             var go = new GameObject("Fx");
             go.transform.SetParent(transform, false);
@@ -313,6 +487,7 @@ namespace PalRogue
             sr.sprite = first;
             sr.color = tint;
             sr.flipY = flipY;
+            sr.flipX = flipX;
             sr.sortingLayerID = sortingLayer;
             sr.sortingOrder = sortingOrder;
             return sr;
@@ -328,11 +503,13 @@ namespace PalRogue
         }
 
         /// <summary>한 번 재생하고 사라지는 연출</summary>
-        IEnumerator PlayOnce(string sheet, Vector3 pos, float scale, Color tint, float fps = ImpactFps, float angle = 0f, bool flipY = false)
+        IEnumerator PlayOnce(string sheet, Vector3 pos, float scale, Color tint, float fps = ImpactFps, float angle = 0f, bool flipY = false, bool flipX = false)
         {
             var frames = Frames(sheet);
             if (frames == null || frames.Length == 0) yield break;
-            var sr = Spawn(frames[0], pos, scale, tint, angle, flipY);
+            var px = Px(sheet);
+            if (px != null) fps = px.fps;                                   // pixelfx 시트는 뽑을 때 정한 속도로
+            var sr = Spawn(frames[0], pos, scale, tint, angle, flipY, flipX);
             float t = 0f;
             int last = -1;
             while (true)
@@ -356,6 +533,8 @@ namespace PalRogue
             bool flip = dir.x < 0f;                                         // 왼쪽으로 날아갈 때 그림이 뒤집히지 않게
             var sr = Spawn(frames[0], from, scale, tint, angle, flip);
             float height = arc ? Mathf.Max(1f, dir.magnitude * 0.25f) : 0f;
+            var px = Px(sheet);
+            float frameRate = px != null ? px.fps : TravelFps;
             for (float t = 0f; t < duration; t += BattleTime.Dt)
             {
                 float k = t / duration;
@@ -367,7 +546,7 @@ namespace PalRogue
                     sr.transform.rotation = Quaternion.Euler(0f, 0f, Mathf.Atan2(d.y, d.x) * Mathf.Rad2Deg);
                 }
                 sr.transform.position = new Vector3(p.x, p.y, 0f);
-                sr.sprite = frames[Mathf.FloorToInt(t * TravelFps) % frames.Length];
+                sr.sprite = frames[Mathf.FloorToInt(t * frameRate) % frames.Length];
                 yield return null;
             }
             Destroy(sr.gameObject);
@@ -404,6 +583,28 @@ namespace PalRogue
             foreach (var p in parts) Destroy(p.gameObject);
         }
 
+        /// <summary>pixelfx 줄기: 쓰는 팰부터 상대까지 한 장을 늘려 뻗고, hold초 동안 반복한 뒤 사라진다</summary>
+        IEnumerator ConeTo(string sheet, Vector3 from, Vector3 to, float hold, Color tint)
+        {
+            var frames = Frames(sheet);
+            var px = Px(sheet);
+            if (frames == null || frames.Length == 0 || px == null) yield break;
+            Vector3 dir = to - from; dir.z = 0f;
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            float length = dir.magnitude / (Mathf.Max(8f, px.reach) / PixelsPerUnit);
+            float thick = Mathf.Clamp(length, 1f, 1.3f);
+            var sr = Spawn(frames[0], from, 1f, tint, angle, dir.x < 0f);
+            const float grow = 0.12f, fade = 0.12f;
+            for (float t = 0f; t < hold + fade; t += BattleTime.Dt)
+            {
+                sr.transform.localScale = new Vector3(length * Mathf.Clamp01(t / grow), thick, 1f);
+                sr.sprite = frames[Mathf.FloorToInt(t * px.fps) % frames.Length];
+                if (t > hold) { var c = tint; c.a *= 1f - (t - hold) / fade; sr.color = c; }
+                yield return null;
+            }
+            Destroy(sr.gameObject);
+        }
+
         IEnumerator CameraShake(float strength, float duration)
         {
             var cam = Camera.main;
@@ -437,18 +638,24 @@ namespace PalRogue
             bool strong = !missed && (critical || effectiveness > 1f || skill.power >= 100);
             bool weak = !missed && effectiveness < 1f;
             float impactScale = d.impactScale * (critical ? 1.25f : weak ? 0.8f : 1f);
+            float hitFit = Fit(target) * (critical ? 1.15f : weak ? 0.85f : 1f);
+            bool mirror = from.x > target.Center.x;                              // 오른쪽(상대)에서 쓰면 그림을 뒤집는다
             bool impacted = false;
+            Vector3 shift = Vector3.zero;                                        // 여러 번 터지는 기술의 자리 어긋남
 
             void Impact(Vector3 at)
             {
                 if (missed) return;
                 impacted = true;
-                Run(PlayOnce(d.impact, at, impactScale, d.tint));
-                if (d.impact2 != null) Run(DelayThen(0.08f, PlayOnce(d.impact2, at, impactScale * 0.8f, d.tint)));
-                if (critical) Run(PlayOnce(CritStar, at + Vector3.up * 0.4f, 2f, Color.white));
+                Run(PlayOnce(d.impact, At(d.impact, target, at) + shift, Sz(d.impact, impactScale, hitFit), d.tint, flipX: mirror));
+                if (d.impact2 != null)
+                    Run(DelayThen(Px(d.impact2) != null ? 0.14f : 0.08f,
+                        PlayOnce(d.impact2, At(d.impact2, target, at) + shift, Sz(d.impact2, impactScale * 0.8f, hitFit), d.tint, flipX: mirror)));
+                if (critical) Run(PlayOnce(PCrit, at + Vector3.up * 0.3f, Fit(target), Color.white, flipX: mirror));
             }
 
-            if (d.cast != null) Run(PlayOnce(d.cast, from, 1.5f, d.tint));
+            if (d.cast != null) Run(PlayOnce(d.cast, At(d.cast, user, from), Sz(d.cast, 1.5f, Fit(user)), d.tint, flipX: mirror));
+            float castWait = d.cast == null ? 0f : Px(d.cast) != null ? 0.45f : 0.15f;
 
             switch (d.kind)
             {
@@ -457,27 +664,44 @@ namespace PalRogue
                     break;
 
                 case Kind.Projectile:
-                    if (d.cast != null) yield return BattleTime.Wait(0.15f);
+                    if (d.cast != null) yield return BattleTime.Wait(castWait);
                     for (int i = 0; i < d.count; i++)
                     {
                         Vector3 jitter = d.count > 1 ? new Vector3(UnityEngine.Random.Range(-0.3f, 0.3f), UnityEngine.Random.Range(-0.35f, 0.35f), 0f) : Vector3.zero;
                         Vector3 end = to + jitter;
-                        Run(Fly(d.travel, from + jitter * 0.3f, end, d.travelTime, d.travelScale, d.tint, d.arc, () => Impact(end)));
+                        Run(Fly(d.travel, from + jitter * 0.3f, end, d.travelTime, Sz(d.travel, d.travelScale, 1f), d.tint, d.arc, () => Impact(end)));
                         if (i < d.count - 1) yield return BattleTime.Wait(Mathf.Min(0.1f, d.travelTime * 0.45f));
                     }
                     yield return BattleTime.Wait(d.travelTime);
                     break;
 
                 case Kind.Beam:
-                    Run(BeamTo(d.travel, from, to, d.travelScale, d.tint, 0.3f));
-                    yield return BattleTime.Wait(0.22f);
+                    if (Px(d.travel) != null)
+                    {
+                        if (d.cast != null) yield return BattleTime.Wait(castWait);
+                        Run(ConeTo(d.travel, from + dir.normalized * 0.9f, to, 0.6f, d.tint));
+                        yield return BattleTime.Wait(0.26f);
+                    }
+                    else
+                    {
+                        Run(BeamTo(d.travel, from, to, d.travelScale, d.tint, 0.3f));
+                        yield return BattleTime.Wait(0.22f);
+                    }
                     Impact(to);
                     break;
 
                 case Kind.Strike:
                     yield return user.WindUp(target.Center, 0.18f);
-                    Impact(missed ? to : target.Center);
-                    if (missed) Run(PlayOnce(d.impact, to, impactScale * 0.7f, new Color(1f, 1f, 1f, 0.5f)));
+                    if (castWait > 0.18f) yield return BattleTime.Wait(castWait - 0.18f);
+                    for (int i = 0; i < d.count; i++)
+                    {
+                        shift = i == 0 ? Vector3.zero : new Vector3(UnityEngine.Random.Range(-1.5f, 1.5f), UnityEngine.Random.Range(-0.2f, 0.2f), 0f);
+                        Impact(missed ? to : target.Center);
+                        if (i < d.count - 1) yield return BattleTime.Wait(0.2f);
+                    }
+                    shift = Vector3.zero;
+                    if (missed) Run(PlayOnce(d.impact, to, Sz(d.impact, impactScale * 0.7f, hitFit), new Color(1f, 1f, 1f, 0.5f), flipX: mirror));
+                    else if (Px(d.impact) != null) yield return BattleTime.Wait(Px(d.impact).hit);   // 번개가 떨어지는 순간에 맞춰 움찔
                     break;
 
                 case Kind.Aura:
@@ -488,8 +712,8 @@ namespace PalRogue
                     yield return user.WindUp(self ? user.Center + Vector3.down : target.Center, 0.2f);
                     Vector3 p = self ? user.Center : (missed ? to : target.Center);
                     Color tint = missed ? new Color(d.tint.r, d.tint.g, d.tint.b, 0.5f) : d.tint;
-                    Run(PlayOnce(d.impact, p, d.impactScale, tint, 14f));
-                    if (d.impact2 != null) Run(DelayThen(0.15f, PlayOnce(d.impact2, p, d.impactScale * 0.8f, tint, 14f)));
+                    Run(PlayOnce(d.impact, At(d.impact, at, p), Sz(d.impact, d.impactScale, Fit(at)), tint, 14f));
+                    if (d.impact2 != null) Run(DelayThen(0.15f, PlayOnce(d.impact2, At(d.impact2, at, p), Sz(d.impact2, d.impactScale * 0.8f, Fit(at)), tint, 14f)));
                     if (!self && !missed) Run(DelayThen(0.1f, at.Flash(new Color(0.75f, 0.6f, 1f), 2)));
                     yield return BattleTime.Wait(0.3f);
                     break;
@@ -524,7 +748,7 @@ namespace PalRogue
             if (sheet == null || view == null) yield break;
             sortingLayer = view.SortingLayerId;
             sortingOrder = view.SortingOrder + SortingAbovePals;
-            yield return PlayOnce(sheet, view.Center, 2.2f, tint, 14f);
+            yield return PlayOnce(sheet, At(sheet, view, view.Center), Sz(sheet, 2.2f, Fit(view)), tint, 14f);
         }
 
         // ═════════════════ 능력치 변화 ═════════════════
