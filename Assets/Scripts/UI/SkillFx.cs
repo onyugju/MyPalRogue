@@ -153,6 +153,7 @@ namespace PalRogue
                      Dissipate = "Smoke and Dust/Dissipate", RankUp = "Pickups and UI/Rank Up";
 
         const string PSpark = PxPrefix + "spark";
+        const string PSpiritUp = PxPrefix + "spirit_up";
         const string PBlunt = PxPrefix + "blunt";
         const string PCrit = PxPrefix + "crit";
         const string PSlash = PxPrefix + "slash";
@@ -361,7 +362,7 @@ namespace PalRogue
 
             // ── 변화 기술 (버프·디버프·회복) ──
             ["Focus_Up"]       = XAura(PChargeW),
-            ["Burning_Spirit"] = XAura(PFireTornado),
+            ["Burning_Spirit"] = XAura(PSpiritUp, EmberRise),         // 투지 연소: 불꽃 기둥과 고리가 솟는 강화 연출
             ["Aqua_Veil"]      = XAura(PShieldB, PSplash),
             ["Photosynthesis"] = XAura(PBloom),
             ["Charge_Up"]      = XAura(PChargeY),

@@ -1217,6 +1217,20 @@
    "reach": 14,
    "hit": 0,
    "loop": true
+  },
+  {
+   "name": "spirit_up",
+   "w": 154,
+   "h": 131,
+   "cols": 4,
+   "count": 18,
+   "fps": 20,
+   "pivotX": 77,
+   "pivotY": 110,
+   "floor": true,
+   "reach": 76,
+   "hit": 0.1,
+   "loop": false
   }
  ]
 }
