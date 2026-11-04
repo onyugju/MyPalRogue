@@ -15,13 +15,14 @@ MonoBehaviour:
   palId: 198
   palName: "\uD314\uB77C\uB514\uC6B0\uC2A4"
   englishName: Paladius
-  frontSprite: {fileID: -8435200254391410116, guid: 5abe3a042632863448b0b13b2af6c89d, type: 3}
-  backSprite: {fileID: -5703059968976574318, guid: b42b34ebae08ee04592a173706d7b4bd, type: 3}
-  frontScale: 0.4939627
-  backScale: 0.38909563
+  frontSprite: {fileID: 21300000, guid: b53a46c89f60b7f4c8e9ec6362371598, type: 3}
+  backSprite: {fileID: 21300000, guid: 5c8f0aa179c12f247bb5c41c34ddcd75, type: 3}
+  frontScale: 0.38037857
+  backScale: 0.38018948
   sizeTune: 1
-  frontAnimator: {fileID: 0}
-  backAnimator: {fileID: 0}
+  frontYOffset: 0
+  frontAnimator: {fileID: 9100000, guid: fd7b62224c705cb47977b865283f4506, type: 2}
+  backAnimator: {fileID: 9100000, guid: 294b54c9198d8324cb854468323b7698, type: 2}
   primaryType: 0
   hasSecondaryType: 0
   secondaryType: 0
