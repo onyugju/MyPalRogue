@@ -5,6 +5,54 @@ TextureImporter:
   - first:
       213: -8937551996617866963
     second: 200_Frostallion_0
+  - first:
+      213: 7412259461916853163
+    second: 200_Frostallion_1
+  - first:
+      213: -8890133715882845049
+    second: 200_Frostallion_2
+  - first:
+      213: 4455707730501510311
+    second: 200_Frostallion_3
+  - first:
+      213: 5296537751768409893
+    second: 200_Frostallion_4
+  - first:
+      213: 8299586748993982808
+    second: 200_Frostallion_5
+  - first:
+      213: 8225411565960724457
+    second: 200_Frostallion_6
+  - first:
+      213: -7765417578153404572
+    second: 200_Frostallion_7
+  - first:
+      213: -655373298229513090
+    second: 200_Frostallion_8
+  - first:
+      213: 6637193693655470209
+    second: 200_Frostallion_9
+  - first:
+      213: 1704439369841244591
+    second: 200_Frostallion_10
+  - first:
+      213: 4550365409881562475
+    second: 200_Frostallion_11
+  - first:
+      213: -7824495642215580419
+    second: 200_Frostallion_12
+  - first:
+      213: -5454791908014399641
+    second: 200_Frostallion_13
+  - first:
+      213: -4750110284547787127
+    second: 200_Frostallion_14
+  - first:
+      213: -6898495914327430829
+    second: 200_Frostallion_15
+  - first:
+      213: 6129132985521492345
+    second: 200_Frostallion_16
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -90,7 +138,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -103,7 +151,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -118,10 +166,10 @@ TextureImporter:
       name: 200_Frostallion_0
       rect:
         serializedVersion: 2
-        x: 29
-        y: 194
-        width: 713
-        height: 612
+        x: 59
+        y: 108
+        width: 1470
+        height: 768
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -136,11 +184,363 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: 200_Frostallion_1
+      rect:
+        serializedVersion: 2
+        x: 434
+        y: 933
+        width: 7
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba3059275b2add660800000000000000
+      internalID: 7412259461916853163
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 200_Frostallion_2
+      rect:
+        serializedVersion: 2
+        x: 440
+        y: 937
+        width: 39
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78c5413cc76ef9480800000000000000
+      internalID: -8890133715882845049
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 200_Frostallion_3
+      rect:
+        serializedVersion: 2
+        x: 556
+        y: 955
+        width: 22
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a42183d29ad5dd30800000000000000
+      internalID: 4455707730501510311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 200_Frostallion_4
+      rect:
+        serializedVersion: 2
+        x: 681
+        y: 954
+        width: 9
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5272a91e505118940800000000000000
+      internalID: 5296537751768409893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 200_Frostallion_5
+      rect:
+        serializedVersion: 2
+        x: 689
+        y: 956
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8515354dc2e0e2370800000000000000
+      internalID: 8299586748993982808
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 200_Frostallion_6
+      rect:
+        serializedVersion: 2
+        x: 898
+        y: 941
+        width: 17
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ef7a783d38862270800000000000000
+      internalID: 8225411565960724457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 200_Frostallion_7
+      rect:
+        serializedVersion: 2
+        x: 935
+        y: 945
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 46797990bd1bb3490800000000000000
+      internalID: -7765417578153404572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 200_Frostallion_8
+      rect:
+        serializedVersion: 2
+        x: 388
+        y: 925
+        width: 24
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e74f0c32575a7e6f0800000000000000
+      internalID: -655373298229513090
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 200_Frostallion_9
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 904
+        width: 11
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1801ccfbf7c0c1c50800000000000000
+      internalID: 6637193693655470209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 200_Frostallion_10
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 899
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa9f39c839267a710800000000000000
+      internalID: 1704439369841244591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 200_Frostallion_11
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 887
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6d173e3b35262f30800000000000000
+      internalID: 4550365409881562475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 200_Frostallion_12
+      rect:
+        serializedVersion: 2
+        x: 1161
+        y: 872
+        width: 11
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dfcf52b5baec96390800000000000000
+      internalID: -7824495642215580419
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 200_Frostallion_13
+      rect:
+        serializedVersion: 2
+        x: 958
+        y: 88
+        width: 11
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76f502f09afac44b0800000000000000
+      internalID: -5454791908014399641
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 200_Frostallion_14
+      rect:
+        serializedVersion: 2
+        x: 842
+        y: 64
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 98679950dd7341eb0800000000000000
+      internalID: -4750110284547787127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 200_Frostallion_15
+      rect:
+        serializedVersion: 2
+        x: 597
+        y: 50
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 359a706048e9340a0800000000000000
+      internalID: -6898495914327430829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 200_Frostallion_16
+      rect:
+        serializedVersion: 2
+        x: 874
+        y: 30
+        width: 17
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 971532f0afd0f0550800000000000000
+      internalID: 6129132985521492345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 3c36ba835e7aaf2429f69f56058de5a2
+    spriteID: 3e27767b81318dd498756b59e15d50be
     internalID: 0
     vertices: []
     indices: 
@@ -151,6 +551,22 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       200_Frostallion_0: -8937551996617866963
+      200_Frostallion_1: 7412259461916853163
+      200_Frostallion_10: 1704439369841244591
+      200_Frostallion_11: 4550365409881562475
+      200_Frostallion_12: -7824495642215580419
+      200_Frostallion_13: -5454791908014399641
+      200_Frostallion_14: -4750110284547787127
+      200_Frostallion_15: -6898495914327430829
+      200_Frostallion_16: 6129132985521492345
+      200_Frostallion_2: -8890133715882845049
+      200_Frostallion_3: 4455707730501510311
+      200_Frostallion_4: 5296537751768409893
+      200_Frostallion_5: 8299586748993982808
+      200_Frostallion_6: 8225411565960724457
+      200_Frostallion_7: -7765417578153404572
+      200_Frostallion_8: -655373298229513090
+      200_Frostallion_9: 6637193693655470209
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

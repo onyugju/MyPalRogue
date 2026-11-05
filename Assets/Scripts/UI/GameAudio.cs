@@ -68,6 +68,17 @@ namespace PalRogue
             for (float t = 0f; t < seconds; t += Dt) yield return null;
         }
 
+        /// <summary>
+        /// 기술 연출(VFX)용 시간. 너무 빨라지면 연출이 한두 프레임 만에 끝나 안 보이므로
+        /// 넘기기 키를 눌러도 더 빨라지지 않고, 전투 속도도 최대 FxMaxMultiplier배까지만 따른다.
+        /// </summary>
+        public const float FxMaxMultiplier = 1.5f;
+        public static float FxDt => Time.unscaledDeltaTime * Mathf.Min(GameSettings.BattleSpeedMultiplier, FxMaxMultiplier);
+        public static IEnumerator FxWait(float seconds)
+        {
+            for (float t = 0f; t < seconds; t += FxDt) yield return null;
+        }
+
         /// <summary>넘기기 키(Z·엔터·스페이스·마우스 왼쪽)를 누르고 있는지</summary>
         public static bool AdvanceHeld
         {

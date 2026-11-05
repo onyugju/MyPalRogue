@@ -338,6 +338,25 @@ namespace PalRogue
             return true;
         }
 
+        /// <summary>
+        /// 웨이브를 시작할 때 (포켓로그의 "포켓몬을 교체하시겠습니까?") 턴을 쓰지 않고 내 팰을 바꾼다.
+        /// 지금 싸우는 팰·기절한 팰로는 바꿀 수 없다. 바꿨으면 true
+        /// </summary>
+        public bool SwitchBeforeBattle(int partyIndex)
+        {
+            if (State != BattleState.Ongoing) return false;
+            if (partyIndex < 0 || partyIndex >= PlayerParty.Count || partyIndex == PlayerIndex || PlayerParty[partyIndex].IsFainted) return false;
+            Log($"{Player.Data.palName}, 돌아와!");
+            Emit(new BattleEvent { Type = BattleEventType.Recalled, Pal = Player, IsPlayerSide = true });
+            Player.ResetBattleState();
+            BringToFront(partyIndex);
+            participants.Add(playerList[0]);
+            PlayerIndex = 0;
+            Log($"가라, {Player.Data.palName}!");
+            Emit(new BattleEvent { Type = BattleEventType.SentOut, Pal = Player, IsPlayerSide = true });
+            return true;
+        }
+
         // 적 AI: 지금은 PP가 남은 스킬 중 무작위
         /// <summary>상대의 똑똑함 (0~1). 높을수록 상성·막타·상태이상을 따져서 기술을 고른다 (EnemyAI)</summary>
         public float EnemySmartness { get; set; }

@@ -519,7 +519,7 @@ namespace PalRogue
                 if (i >= frames.Length) break;
                 if (i != last) { sr.sprite = frames[i]; last = i; }
                 yield return null;
-                t += BattleTime.Dt;
+                t += BattleTime.FxDt;
             }
             Destroy(sr.gameObject);
         }
@@ -536,7 +536,7 @@ namespace PalRogue
             float height = arc ? Mathf.Max(1f, dir.magnitude * 0.25f) : 0f;
             var px = Px(sheet);
             float frameRate = px != null ? px.fps : TravelFps;
-            for (float t = 0f; t < duration; t += BattleTime.Dt)
+            for (float t = 0f; t < duration; t += BattleTime.FxDt)
             {
                 float k = t / duration;
                 Vector3 p = Vector3.Lerp(from, to, k) + Vector3.up * (height * 4f * k * (1f - k));
@@ -568,15 +568,15 @@ namespace PalRogue
             for (int i = 0; i < n; i++)
             {
                 parts.Add(Spawn(frames[i % frames.Length], from + dir * ((i + 0.5f) / n), scale, tint, angle, flip));
-                yield return BattleTime.Wait(0.018f);
+                yield return BattleTime.FxWait(0.018f);
             }
-            for (float t = 0f; t < hold; t += BattleTime.Dt)
+            for (float t = 0f; t < hold; t += BattleTime.FxDt)
             {
                 int f = Mathf.FloorToInt(t * TravelFps);
                 for (int i = 0; i < parts.Count; i++) parts[i].sprite = frames[(f + i) % frames.Length];
                 yield return null;
             }
-            for (float t = 0f; t < 0.12f; t += BattleTime.Dt)
+            for (float t = 0f; t < 0.12f; t += BattleTime.FxDt)
             {
                 foreach (var p in parts) { var c = p.color; c.a = 1f - t / 0.12f; p.color = c; }
                 yield return null;
@@ -596,7 +596,7 @@ namespace PalRogue
             float thick = Mathf.Clamp(length, 1f, 1.3f);
             var sr = Spawn(frames[0], from, 1f, tint, angle, dir.x < 0f);
             const float grow = 0.12f, fade = 0.12f;
-            for (float t = 0f; t < hold + fade; t += BattleTime.Dt)
+            for (float t = 0f; t < hold + fade; t += BattleTime.FxDt)
             {
                 sr.transform.localScale = new Vector3(length * Mathf.Clamp01(t / grow), thick, 1f);
                 sr.sprite = frames[Mathf.FloorToInt(t * px.fps) % frames.Length];
@@ -611,7 +611,7 @@ namespace PalRogue
             var cam = Camera.main;
             if (cam == null) yield break;
             Vector3 home = cam.transform.position;
-            for (float t = 0f; t < duration; t += BattleTime.Dt)
+            for (float t = 0f; t < duration; t += BattleTime.FxDt)
             {
                 float k = 1f - t / duration;
                 cam.transform.position = home + new Vector3(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f), 0f) * strength * k;
@@ -665,44 +665,44 @@ namespace PalRogue
                     break;
 
                 case Kind.Projectile:
-                    if (d.cast != null) yield return BattleTime.Wait(castWait);
+                    if (d.cast != null) yield return BattleTime.FxWait(castWait);
                     for (int i = 0; i < d.count; i++)
                     {
                         Vector3 jitter = d.count > 1 ? new Vector3(UnityEngine.Random.Range(-0.3f, 0.3f), UnityEngine.Random.Range(-0.35f, 0.35f), 0f) : Vector3.zero;
                         Vector3 end = to + jitter;
                         Run(Fly(d.travel, from + jitter * 0.3f, end, d.travelTime, Sz(d.travel, d.travelScale, 1f), d.tint, d.arc, () => Impact(end)));
-                        if (i < d.count - 1) yield return BattleTime.Wait(Mathf.Min(0.1f, d.travelTime * 0.45f));
+                        if (i < d.count - 1) yield return BattleTime.FxWait(Mathf.Min(0.1f, d.travelTime * 0.45f));
                     }
-                    yield return BattleTime.Wait(d.travelTime);
+                    yield return BattleTime.FxWait(d.travelTime);
                     break;
 
                 case Kind.Beam:
                     if (Px(d.travel) != null)
                     {
-                        if (d.cast != null) yield return BattleTime.Wait(castWait);
+                        if (d.cast != null) yield return BattleTime.FxWait(castWait);
                         Run(ConeTo(d.travel, from + dir.normalized * 0.9f, to, 0.6f, d.tint));
-                        yield return BattleTime.Wait(0.26f);
+                        yield return BattleTime.FxWait(0.26f);
                     }
                     else
                     {
                         Run(BeamTo(d.travel, from, to, d.travelScale, d.tint, 0.3f));
-                        yield return BattleTime.Wait(0.22f);
+                        yield return BattleTime.FxWait(0.22f);
                     }
                     Impact(to);
                     break;
 
                 case Kind.Strike:
                     yield return user.WindUp(target.Center, 0.18f);
-                    if (castWait > 0.18f) yield return BattleTime.Wait(castWait - 0.18f);
+                    if (castWait > 0.18f) yield return BattleTime.FxWait(castWait - 0.18f);
                     for (int i = 0; i < d.count; i++)
                     {
                         shift = i == 0 ? Vector3.zero : new Vector3(UnityEngine.Random.Range(-1.5f, 1.5f), UnityEngine.Random.Range(-0.2f, 0.2f), 0f);
                         Impact(missed ? to : target.Center);
-                        if (i < d.count - 1) yield return BattleTime.Wait(0.2f);
+                        if (i < d.count - 1) yield return BattleTime.FxWait(0.2f);
                     }
                     shift = Vector3.zero;
                     if (missed) Run(PlayOnce(d.impact, to, Sz(d.impact, impactScale * 0.7f, hitFit), new Color(1f, 1f, 1f, 0.5f), flipX: mirror));
-                    else if (Px(d.impact) != null) yield return BattleTime.Wait(Px(d.impact).hit);   // 번개가 떨어지는 순간에 맞춰 움찔
+                    else if (Px(d.impact) != null) yield return BattleTime.FxWait(Px(d.impact).hit);   // 번개가 떨어지는 순간에 맞춰 움찔
                     break;
 
                 case Kind.Aura:
@@ -716,7 +716,7 @@ namespace PalRogue
                     Run(PlayOnce(d.impact, At(d.impact, at, p), Sz(d.impact, d.impactScale, Fit(at)), tint, 14f));
                     if (d.impact2 != null) Run(DelayThen(0.15f, PlayOnce(d.impact2, At(d.impact2, at, p), Sz(d.impact2, d.impactScale * 0.8f, Fit(at)), tint, 14f)));
                     if (!self && !missed) Run(DelayThen(0.1f, at.Flash(new Color(0.75f, 0.6f, 1f), 2)));
-                    yield return BattleTime.Wait(0.3f);
+                    yield return BattleTime.FxWait(0.3f);
                     break;
                 }
 
@@ -727,9 +727,9 @@ namespace PalRogue
                         Vector3 end = (missed ? to : target.Center) + new Vector3(x, UnityEngine.Random.Range(-0.3f, 0.2f), 0f);
                         Vector3 start = end + new Vector3(-1.2f, 6f, 0f);
                         Run(Fly(d.travel, start, end, 0.24f, d.travelScale, d.tint, false, () => Impact(end)));
-                        yield return BattleTime.Wait(0.11f);
+                        yield return BattleTime.FxWait(0.11f);
                     }
-                    yield return BattleTime.Wait(0.24f);
+                    yield return BattleTime.FxWait(0.24f);
                     break;
             }
 
@@ -782,7 +782,7 @@ namespace PalRogue
                     Run(PlayOnce(ChargeUp, boss.Center, 2.8f, ChargeGlow, 14f));
                     Run(DelayThen(0.2f, PlayOnce(ChargeUp, boss.Center, 2.2f, ChargeGlow, 14f)));
                     Run(CameraShake(0.06f, 0.5f));
-                    yield return BattleTime.Wait(0.35f);
+                    yield return BattleTime.FxWait(0.35f);
                     boss.SetGlow(ChargeGlow);
                     break;
                 case BossFx.Release:                      // 모은 힘이 터진다: 상대 자리에 충격파 + 큰 흔들림
@@ -829,7 +829,7 @@ namespace PalRogue
 
         IEnumerator DelayThen(float seconds, IEnumerator then)
         {
-            yield return BattleTime.Wait(seconds);
+            yield return BattleTime.FxWait(seconds);
             yield return then;
         }
     }

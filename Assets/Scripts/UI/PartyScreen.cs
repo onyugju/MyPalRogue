@@ -29,8 +29,9 @@ namespace PalRogue
         public Image optionCursor;
 
         /// <summary>메뉴 창 항목 (순서 = 번호). 메뉴 14가 이 글자로 창을 만든다</summary>
-        public static readonly string[] OptionLabels = { "교체한다", "능력치를 본다", "팰 도감", "그만둔다" };
-        public const int OptionSwitch = 0, OptionSummary = 1, OptionCancel = 3;
+        public static readonly string[] OptionLabels = { "교체한다", "능력치를 본다", "그만둔다" };
+        public const int OptionSwitch = 0, OptionSummary = 1;
+        int OptionCancel => optionButtons != null && optionButtons.Length > 0 ? optionButtons.Length - 1 : 2;   // 마지막 줄 = 그만둔다
 
         /// <summary>"능력치를 본다"를 고르면 부른다 (파티, 칸 번호). BattleScreen이 능력치 화면을 연결한다</summary>
         public Func<IReadOnlyList<Pal>, int, IEnumerator> OpenSummary;
@@ -140,7 +141,7 @@ namespace PalRogue
         }
 
         /// <summary>
-        /// 없앤 메뉴 항목(닉네임 바꾸기)이 씬에 남아 있으면 지우고, 아래 항목을 한 줄씩 올리고 창을 줄인다
+        /// 없앤 메뉴 항목(닉네임 바꾸기, 아직 없는 팰 도감)이 씬에 남아 있으면 지우고, 아래 항목을 한 줄씩 올리고 창을 줄인다
         /// (씬을 다시 만들지 않아도 되게). optionButtons 순서 = OptionLabels 순서가 된다.
         /// </summary>
         void RemoveRetiredOptions()
@@ -155,7 +156,7 @@ namespace PalRogue
                 var label = b.GetComponentInChildren<TMP_Text>(true);
                 if (i > 0 && step == 0f)
                     step = ((RectTransform)optionButtons[i - 1].transform).anchoredPosition.y - ((RectTransform)b.transform).anchoredPosition.y;
-                if (label != null && label.text.Contains("닉네임"))
+                if (label != null && (label.text.Contains("닉네임") || label.text.Contains("도감")))
                 {
                     b.gameObject.SetActive(false);
                     removed++;
@@ -209,8 +210,8 @@ namespace PalRogue
             this.canCancel = canCancel;
             transform.SetAsLastSibling();          // 다른 전투 UI보다 항상 위에 그려지게
             // 자기 캔버스로 맨 위에 그린다 (보상 화면·웨이브/돈 글자보다도 위 → 파티 화면 위에 다른 글자가 안 비친다)
-            RewardScreen.EnsureOwnCanvas(gameObject, SortingOrder, true);
             gameObject.SetActive(true);
+            RewardScreen.EnsureOwnCanvas(gameObject, SortingOrder, true);   // 켠 뒤에 맞춘다 (꺼진 채로 정하면 풀릴 수 있음)
             cancelButton.gameObject.SetActive(canCancel);
             if (optionsBox != null) optionsBox.SetActive(false);
             inOptions = false;

@@ -955,7 +955,24 @@ namespace PalRogue
             if (pendingSynergyMessages != null)
                 foreach (var msg in pendingSynergyMessages) yield return ShowMessage(msg);
             pendingSynergyMessages = null;
+            yield return AskSwitchAtStart();
             ShowCommand();
+        }
+
+        /// <summary>
+        /// 배틀을 시작할 때마다 (싸울 수 있는 팰이 2마리 이상이면) "팰을 교체하시겠습니까?"를 묻는다.
+        /// 예 → 파티 화면에서 고른 팰로 턴을 쓰지 않고 바꾼다 (그만두면 그대로 시작). 아니오 → 바로 시작.
+        /// </summary>
+        IEnumerator AskSwitchAtStart()
+        {
+            if (choiceMenu == null || partyScreen == null || battle == null) yield break;
+            if (battle.PlayerParty.Count(p => !p.IsFainted) < 2) yield break;
+            yield return ShowMessage("팰을 교체하시겠습니까?");
+            yield return choiceMenu.Choose(YesNo, 0);
+            if (choiceMenu.Result != 0) yield break;
+            yield return partyScreen.Choose(battle.PlayerParty, true, SelectPrompt, SwitchError);
+            if (partyScreen.Result < 0) yield break;
+            if (battle.SwitchBeforeBattle(partyScreen.Result)) yield return PlayEvents();
         }
 
         ItemBar itemBar;
@@ -1006,8 +1023,14 @@ namespace PalRogue
 
             messageText.text = $"{Josa.Eun(PalName(battle.Player))}\n무엇을 할까?";
             messageText.maxVisibleCharacters = 9999;
-            Select(fightButton);
+            // 포켓로그처럼 마지막으로 고른 명령(싸운다/스피어/팰/도망)에 커서를 둔다
+            var start = lastCommand != null && lastCommand.gameObject.activeInHierarchy && lastCommand.interactable ? lastCommand : fightButton;
+            Select(start);
         }
+
+        // 마지막으로 고른 명령 / 팰마다 마지막으로 고른 기술 (다음에 메뉴를 열면 그 자리에 커서)
+        Button lastCommand;
+        readonly Dictionary<Pal, int> lastSkillIndex = new Dictionary<Pal, int>();
 
         // ───────── 파티 / 교체 ─────────
         List<Pal> BuildPlayerParty()
@@ -1256,8 +1279,15 @@ namespace PalRogue
         IEnumerator SphereFromMenu()
         {
             mode = Mode.Busy;
-            HidePanels();
+            // 포켓로그처럼 명령 창은 그대로 두고 그 바로 위에 스피어 창을 띄운다
+            skillPanel.SetActive(false);
+            skillInfoPanel.SetActive(false);
+            sphereMenu.placeAbove = commandBox.transform as RectTransform;
+            var commands = new[] { fightButton, sphereButton, palsButton, runButton };
+            foreach (var c in commands) if (c != null) c.interactable = false;   // 스피어를 고르는 동안 명령 칸이 마우스로 선택되지 않게
             yield return sphereMenu.Choose(spheres);
+            foreach (var c in commands) if (c != null) c.interactable = true;
+            commandBox.SetActive(false);
             if (sphereMenu.Result < 0) { ShowCommand(); yield break; }        // 취소
 
             var type = (SphereType)sphereMenu.Result;
@@ -1492,7 +1522,8 @@ namespace PalRogue
                 skillTexts[i].text = has ? pal.Skills[i].Data.skillName : "-";
                 skillTexts[i].color = !has || !pal.Skills[i].HasPP ? Dim : EffectivenessColor(pal.Skills[i].Data, battle.Enemy);
             }
-            Select(skillButtons[0]);
+            int last = lastSkillIndex.TryGetValue(pal, out var li) && li >= 0 && li < pal.Skills.Count ? li : 0;
+            Select(skillButtons[last]);
         }
 
         // 기술 이름 색: 상대에게 효과가 굉장하면 파랑, 별로(또는 효과 없음)면 주황, 보통이거나 변화 기술이면 흰색
@@ -1776,13 +1807,13 @@ namespace PalRogue
             if (choiceMenu == null || partyScreen == null) yield break;
             bool toss = false;
             int startSlot = -1;
-            RewardScreen.EnsureOwnCanvas(choiceMenu.gameObject, 90, true);   // 선택 창이 파티 화면(80) 위에 보이게
+            choiceMenu.DrawOrder = HeldMenuOrder;        // 선택 창이 파티 화면 위에 보이게 (열릴 때마다 맞춘다)
             while (true)
             {
                 string prompt = toss ? "도구를 버릴 팰을 선택하세요." : "도구를 옮길 팰을 선택하세요.";
                 yield return partyScreen.Choose(run.Party, true, prompt,
                     i => HeldGroups(run.Party[i]).Count == 0 ? $"{Josa.Eun(run.Party[i].Data.palName)} 지닌 도구가 없다." : null,
-                    null, direct: true, keepOpen: true, modeLabel: toss ? "버리기" : "건넨다", modeHint: HeldModeHint, startSlot: startSlot);
+                    toss ? "버린다" : "건넨다", direct: false, keepOpen: true, modeLabel: toss ? "버리기" : "건넨다", modeHint: HeldModeHint, startSlot: startSlot);
                 int r = partyScreen.Result;
                 if (r == PartyScreen.ModeToggled) { toss = !toss; startSlot = PartyScreen.ModeToggled; GameAudio.Se("select"); continue; }
                 if (r < 0) break;
@@ -1829,6 +1860,7 @@ namespace PalRogue
             }
             partyScreen.Close();
         }
+        const int HeldMenuOrder = 95;                 // 파티 화면(PartyScreen.SortingOrder)보다 위
 
         /// <summary>도구 목록 창 (팰 화면 위). 고르면 done(번호, 수량), 그만두면 done(-1, 0)</summary>
         IEnumerator ChooseHeldItem(List<(string name, List<BattleEffect> items)> groups, bool toss, System.Action<int, int> done)
@@ -1965,6 +1997,8 @@ namespace PalRogue
                 cursor.rectTransform.anchoredPosition = label.anchoredPosition + new Vector2(-7f, -1f);
 
             if (skillIndex >= 0) ShowSkillInfo(skillIndex);
+            if (mode == Mode.Skill && skillIndex >= 0 && battle?.Player != null) lastSkillIndex[battle.Player] = skillIndex;
+            if (mode == Mode.Command && (button == fightButton || button == sphereButton || button == palsButton || button == runButton)) lastCommand = button;
         }
 
         void OnCancel()

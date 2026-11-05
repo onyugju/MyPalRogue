@@ -33,6 +33,12 @@ namespace PalRogue
 
         int currentRow;
 
+        /// <summary>
+        /// 이 창을 다른 화면(파티 화면 등) 위에 그린다. 0 이상이면 창이 열릴 때마다 자기 캔버스 순서를 이 값으로 맞춘다
+        /// (꺼져 있는 오브젝트에 캔버스 순서를 정하면 켜질 때 풀리는 경우가 있어서, 켠 뒤에 맞춘다)
+        /// </summary>
+        public int DrawOrder { get; set; } = -1;
+
         const float DefaultWidth = 92f, RowX = 8f, TextX = 12f;
 
         int clicked = -2;
@@ -79,6 +85,7 @@ namespace PalRogue
 
             transform.SetAsLastSibling();
             gameObject.SetActive(true);
+            if (DrawOrder >= 0) RewardScreen.EnsureOwnCanvas(gameObject, DrawOrder, true);
             clicked = -2;
             Select(rowButtons[Mathf.Clamp(startIndex, 0, rows - 1)]);
             while (clicked == -2) yield return null;

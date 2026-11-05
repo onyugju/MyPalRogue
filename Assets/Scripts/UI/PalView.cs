@@ -182,9 +182,9 @@ namespace PalRogue
             for (int i = 0; i < times; i++)
             {
                 sr.color = color;
-                yield return BattleTime.Wait(each);
+                yield return BattleTime.FxWait(each);
                 sr.color = baseTint;
-                yield return BattleTime.Wait(each);
+                yield return BattleTime.FxWait(each);
             }
         }
 
@@ -238,7 +238,7 @@ namespace PalRogue
             Vector3 dir = (target - home); dir.z = 0f;
             Vector3 peak = home + dir.normalized * Mathf.Min(distance, dir.magnitude * 0.8f);
             float half = duration * 0.4f;
-            for (float t = 0f; t < half; t += BattleTime.Dt)
+            for (float t = 0f; t < half; t += BattleTime.FxDt)
             {
                 float k = t / half;
                 transform.position = Vector3.Lerp(home, peak, k * k);
@@ -247,7 +247,7 @@ namespace PalRogue
             transform.position = peak;
             atPeak?.Invoke();
             float back = duration - half;
-            for (float t = 0f; t < back; t += BattleTime.Dt)
+            for (float t = 0f; t < back; t += BattleTime.FxDt)
             {
                 transform.position = Vector3.Lerp(peak, home, t / back);
                 yield return null;
@@ -262,7 +262,7 @@ namespace PalRogue
             Vector3 home = transform.position;
             Vector3 dir = target - home; dir.z = 0f;
             Vector3 back = home - dir.normalized * 0.25f;
-            for (float t = 0f; t < duration; t += BattleTime.Dt)
+            for (float t = 0f; t < duration; t += BattleTime.FxDt)
             {
                 float k = Mathf.Sin(t / duration * Mathf.PI);
                 transform.position = Vector3.Lerp(home, back, k);
@@ -283,10 +283,10 @@ namespace PalRogue
             {
                 sr.enabled = false;
                 transform.position = home + Vector3.right * amp * (i % 2 == 0 ? 1f : -1f);
-                yield return BattleTime.Wait(0.045f);
+                yield return BattleTime.FxWait(0.045f);
                 sr.enabled = true;
                 transform.position = home;
-                yield return BattleTime.Wait(0.045f);
+                yield return BattleTime.FxWait(0.045f);
             }
             transform.position = home;
         }
