@@ -59,6 +59,18 @@ namespace PalRogue.EditorTools
             // "menu:" 다음 줄들 = 실행할 메뉴 경로, "trash:" 다음 줄들 = 휴지통으로 보낼 에셋 경로
             var lines = raw.Split('\n').Select(l => l.Trim()).Where(l => l.Length > 0).Skip(1).ToArray();
             if (what.StartsWith("menu:")) { foreach (var m in lines) if (!EditorApplication.ExecuteMenuItem(m)) Debug.LogWarning($"[요청] 메뉴 없음: {m}"); return; }
+            if (what.StartsWith("move:"))   // 줄마다 "원래경로|새경로" (메타·참조 유지한 채 이름 바꾸기)
+            {
+                foreach (var l in lines)
+                {
+                    var parts = l.Split('|');
+                    if (parts.Length != 2) continue;
+                    string err = AssetDatabase.MoveAsset(parts[0].Trim(), parts[1].Trim());
+                    Debug.Log(string.IsNullOrEmpty(err) ? $"[요청] 이동: {parts[0]} → {parts[1]}" : $"[요청] 이동 실패: {err}");
+                }
+                AssetDatabase.Refresh();
+                return;
+            }
             if (what.StartsWith("trash:"))
             {
                 var failed = new List<string>();

@@ -62,7 +62,7 @@ namespace PalRogue.EditorTools
             new("140","세크메트","Sekhmet","140_Sekhmet","140_Sekhmet_back",PalType.Ground,null,Tier.Mid,Role.Balanced,100),  
             new("172","뇌운조","Dynamoff","172_Dynamoff","172_Dynamoff_back",PalType.Electric,null,Tier.Mid,Role.Tank,100),
             new("174","센코","Flaracle","174_Flaracle","174_Flaracle_back",PalType.Fire,null,Tier.Mid,Role.Attacker,100),
-            new("184","셀가드라","Aegidron","184_Aegidron","184_Aegidron_back",PalType.Ground,null,Tier.Late,Role.Tank,60),   
+            new("184","셸가드라","Aegidron","184_Aegidron","184_Aegidron_back",PalType.Ground,null,Tier.Late,Role.Tank,60),   
             new("185","일렉판다","Grizzbolt","185_Grizzbolt","185_Grizzbolt_back",PalType.Electric,null,Tier.Late,Role.Attacker,70),
             new("186","릴린","Lyleen","186_Lyleen","186_Lyleen_back",PalType.Grass,null,Tier.Late,Role.Balanced,60),
             new("198","팔라디우스","Paladius","198_Paladius","198_Paladius_back",PalType.Neutral,null,Tier.Late,Role.Attacker,50),

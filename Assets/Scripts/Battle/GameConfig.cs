@@ -143,7 +143,7 @@ namespace PalRogue
             (60,  "186_Lyleen"),           // 풀속성 왕 릴린
             (80,  "201_Neptilius"),        // 물속성 왕 넵티오스
             (100, "200_Frostallion"),      // 얼음속성 왕 빙천마
-            (120, "184_Aegidron"),         // 땅속성 왕 셀가드라
+            (120, "184_Aegidron"),         // 땅속성 왕 셸가드라
             (140, "172_Dynamoff"),         // 번개속성 왕 뇌운조
             (160, "202_Jetragon"),         // 드래곤속성 왕 제트래곤
             (180, "000_Bellanoir_Libero"), // 어둠속성 왕 벨라루주
@@ -171,6 +171,22 @@ namespace PalRogue
         public static float LegendStat(int wave) => 1f + (LegendStatMultiplier - 1f) * LegendStrength(wave);
         public static float LegendHp(int wave) => 1f + (LegendHpMultiplier - 1f) * LegendStrength(wave);
         public const float FinalBossStatMultiplier = 1.2f, FinalBossHpMultiplier = 2f;   // 공허 ×1.5 상성이 생겨서 1.35 → 1.2
+
+        /// <summary>전설 팰의 이명 (보스로 나올 때 등장 컷인에 이름 위에 나온다). 팰 이름으로 찾는다</summary>
+        public static readonly Dictionary<string, string> Epithets = new Dictionary<string, string>
+        {
+            { "제로버스", "종성의 재앙" },
+            { "제트래곤", "전설 속 유성의 용" },
+            { "넵티오스", "전설의 해수" },
+            { "빙천마", "전설의 얼음 천마" },
+            { "팔라디우스", "전설의 성기사" },
+            { "벨라루주", "유현의 마녀" },
+            { "릴린", "백합의 여제" },
+            { "셸가드라", "빛의 흔적을 새기는 수호룡" },
+            { "뇌운조", "움직이는 천재지변" },
+            { "센코", "불꽃의 예언자" },
+        };
+        public static string EpithetOf(PalData d) => d != null && Epithets.TryGetValue(d.palName, out var e) ? e : null;
 
         /// <summary>공허 속성 팰(제로버스)이 주는·받는 데미지 배율 (모든 속성 상대로, 상성 배율에 곱해진다)</summary>
         public const float VoidMultiplier = 1.5f;

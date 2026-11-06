@@ -14,13 +14,14 @@ namespace PalRogue
     public class BossIntro : MonoBehaviour
     {
         const int SortingOrder = 300;
-        const float BandHeight = 38f;          // 320x180 기준 띠 높이
+        const float BandHeight = 48f;          // 320x180 기준 띠 높이
         const float DimAlpha = 0.55f;
         const float OpenSeconds = 0.14f, SlideSeconds = 0.22f, HoldSeconds = 0.95f, CloseSeconds = 0.16f;
         const float HeldHold = 0.25f;          // 넘기기 키를 누르고 있으면 이만큼만 보여 준다
 
         Image dim, band, edgeTop, edgeBottom;
-        TMP_Text title, subtitle;
+        const float HeaderY = 14f, TitleY = 1f, SubY = -14f;   // 이명(작게) / 이름·제목(크게) / 부제
+        TMP_Text header, title, subtitle;
 
         public static BossIntro Create(TMP_FontAsset font)
         {
@@ -38,8 +39,9 @@ namespace PalRogue
             bi.band = MakeImage(go.transform, "Band", new Vector2(0f, 0.5f), new Vector2(1f, 0.5f), new Vector2(0f, BandHeight), Color.clear);
             bi.edgeTop = MakeImage(bi.band.transform, "EdgeTop", new Vector2(0f, 1f), new Vector2(1f, 1f), new Vector2(0f, 2f), Color.clear);
             bi.edgeBottom = MakeImage(bi.band.transform, "EdgeBottom", new Vector2(0f, 0f), new Vector2(1f, 0f), new Vector2(0f, 2f), Color.clear);
-            bi.title = MakeText(bi.band.transform, font, "Title", 18f, 5f);
-            bi.subtitle = MakeText(bi.band.transform, font, "Subtitle", 8f, -11f);
+            bi.header = MakeText(bi.band.transform, font, "Header", 9f, HeaderY);
+            bi.title = MakeText(bi.band.transform, font, "Title", 18f, TitleY);
+            bi.subtitle = MakeText(bi.band.transform, font, "Subtitle", 8f, SubY);
             go.SetActive(false);
             return bi;
         }
@@ -76,12 +78,14 @@ namespace PalRogue
             return t;
         }
 
-        /// <summary>컷인 한 번 재생 (끝나면 다시 숨는다)</summary>
-        public IEnumerator Play(string titleText, string subtitleText, Color color)
+        /// <summary>컷인 한 번 재생 (끝나면 다시 숨는다). headerText = 이름 위 작은 글자 (전설의 이명, 없으면 null)</summary>
+        public IEnumerator Play(string headerText, string titleText, string subtitleText, Color color)
         {
             gameObject.SetActive(true);
+            header.text = headerText ?? "";
             title.text = titleText;
             subtitle.text = subtitleText;
+            float titleY = string.IsNullOrEmpty(headerText) ? 5f : TitleY;    // 이명이 없으면 제목을 조금 위로
             var bandColor = new Color(color.r * 0.55f, color.g * 0.55f, color.b * 0.55f, 0.92f);
             var edge = new Color(Mathf.Min(1f, color.r * 1.2f), Mathf.Min(1f, color.g * 1.2f), Mathf.Min(1f, color.b * 1.2f), 1f);
             band.color = bandColor;
@@ -89,7 +93,9 @@ namespace PalRogue
             var bandRt = band.rectTransform;
             var titleRt = title.rectTransform;
             var subRt = subtitle.rectTransform;
-            Vector2 titleHome = new Vector2(0f, 5f), subHome = new Vector2(0f, -11f);
+            var headRt = header.rectTransform;
+            Vector2 titleHome = new Vector2(0f, titleY), subHome = new Vector2(0f, string.IsNullOrEmpty(headerText) ? -11f : SubY);
+            Vector2 headHome = new Vector2(0f, HeaderY);
 
             // ① 어두워지면서 띠가 위아래로 펼쳐진다
             SetText(0f);
@@ -109,11 +115,13 @@ namespace PalRogue
                 float k = Ease(t / SlideSeconds);
                 titleRt.anchoredPosition = titleHome + Vector2.right * (1f - k) * 220f;
                 subRt.anchoredPosition = subHome + Vector2.left * (1f - k) * 220f;
+                headRt.anchoredPosition = headHome + Vector2.left * (1f - k) * 220f;
                 SetText(k);
                 yield return null;
             }
             titleRt.anchoredPosition = titleHome;
             subRt.anchoredPosition = subHome;
+            headRt.anchoredPosition = headHome;
             SetText(1f);
 
             // ③ 제목이 두 번 번쩍이고 잠깐 머문다 (넘기기 키를 누르고 있으면 짧게)
@@ -140,6 +148,7 @@ namespace PalRogue
 
         void SetText(float a)
         {
+            header.color = new Color(1f, 0.85f, 0.45f, a);       // 이명은 금빛
             title.color = new Color(1f, 1f, 1f, a);
             subtitle.color = new Color(1f, 0.92f, 0.8f, a);
         }

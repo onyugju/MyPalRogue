@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 184_Aegidron
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.PalData
   palId: 184
-  palName: "\uC140\uAC00\uB4DC\uB77C"
+  palName: "\uC178\uAC00\uB4DC\uB77C"
   englishName: Aegidron
   frontSprite: {fileID: -851162857476845648, guid: b02f96a9c9c1c88488602016764e631d, type: 3}
   backSprite: {fileID: -8847303119139741111, guid: 4bcaf8bc9fc971241901dbb764c23a45, type: 3}

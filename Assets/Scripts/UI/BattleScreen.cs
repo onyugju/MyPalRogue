@@ -421,15 +421,19 @@ namespace PalRogue
         {
             if (bossIntro == null) bossIntro = BossIntro.Create(messageText.font);
             var enemy = battle?.Enemy;
-            string sub = enemy != null ? $"{PalName(enemy)}  Lv.{enemy.Level}" : "";
+            string name = enemy != null ? PalName(enemy) : "";
+            string lv = enemy != null ? $"Lv.{enemy.Level}" : "";
             var (title, color) = run.EnemyKind switch
             {
                 BossKind.Final => ("최종 보스 출현!", FinalColor),
                 BossKind.Legend => ("속성의 왕 출현!", LegendColor),
                 _ => ("보스 출현!", BossColor),
             };
+            // 전설 팰은 이명을 이름 위에 띄운다:  "전설 속 유성의 용" / 제트래곤 / 속성의 왕 출현! · Lv.160
+            string epithet = GameConfig.EpithetOf(enemy?.Data);
             GameAudio.Se("menu_open");
-            yield return bossIntro.Play(title, sub, color);
+            if (epithet != null) yield return bossIntro.Play(epithet, name, $"{title}  {lv}", color);
+            else yield return bossIntro.Play(null, title, $"{name}  {lv}", color);
 
             // 본모습 공개: 실루엣 → 하얀 번쩍임 → 원래 색, 화면 흔들림
             GameAudio.Se("hit_strong");
