@@ -73,13 +73,13 @@ namespace PalRogue
         public TMP_Text categoryText;
         public TMP_Text ppValueText, powerValueText, accuracyValueText;
 
-        [Header("파티 화면 (메뉴 14로 생성)")]
+        [Header("파티 화면")]
         public PartyScreen partyScreen;
 
-        [Header("예/아니오 선택 창 (메뉴 17로 생성)")]
+        [Header("예/아니오 선택 창")]
         public ChoiceMenu choiceMenu;
 
-        [Header("팰 스피어 (메뉴 16으로 생성)")]
+        [Header("팰 스피어")]
         public SphereMenu sphereMenu;
         [Tooltip("시작할 때 가진 스피어 개수: 팰 / 기가 / 하이퍼 / 얼티밋 / 엑조틱")]
         public int[] startingSpheres = { 10, 5, 3, 2, 1 };
@@ -760,7 +760,7 @@ namespace PalRogue
             }
             else
             {
-                if (partyScreen == null) { yield return RewardError("파티 화면이 아직 없어요! (메뉴 14 실행)"); yield break; }
+                if (partyScreen == null) { yield return RewardError("파티 화면이 아직 없어요!"); yield break; }
                 rewardScreen.Hide();
                 string prompt = item.IsHeld ? $"{Josa.Eul(item.Name)} 누구에게 지니게 할까?" : $"{Josa.Eul(item.Name)} 누구에게 사용할까?";
                 while (true)
@@ -832,7 +832,7 @@ namespace PalRogue
             Debug.Log($"[아이템 줄] 파티 전체 아이템 {run.RunItems.Count}종, 팰마다 지닌 아이템 {heldPerPal}개씩 (상대 포함)");
         }
 
-        /// <summary>(테스트) 결과 화면만 미리 본다 — 기록·저장은 건드리지 않는다 (메뉴 PalRogue/37)</summary>
+        /// <summary>(테스트) 결과 화면만 미리 본다 — 기록·저장은 건드리지 않는다 (메뉴 PalRogue/35)</summary>
         public void DebugShowResult()
         {
             if (run == null || mode != Mode.Command) { Debug.LogWarning("[결과 화면] 명령을 고르는 화면에서 실행해 주세요."); return; }
@@ -1267,7 +1267,7 @@ namespace PalRogue
         void OnSphere()
         {
             if (mode != Mode.Command) return;
-            if (sphereMenu == null) { StartCoroutine(Unavailable("스피어 메뉴가 아직 없어요! (메뉴 16 실행)")); return; }
+            if (sphereMenu == null) { StartCoroutine(Unavailable("스피어 메뉴가 아직 없어요!")); return; }
 
             string blocked = battle.CatchBlockReason();
             if (blocked != null) { StartCoroutine(Unavailable(blocked)); return; }
@@ -1380,7 +1380,7 @@ namespace PalRogue
                     yield return choiceMenu.Choose(FullPartyChoices, ChoiceYes);
                     choice = choiceMenu.Result < 0 ? ChoiceNo : choiceMenu.Result;   // Esc = 아니오
                 }
-                else Debug.LogWarning("[BattleScreen] 선택 창이 없어서 잡은 팰을 놓아줍니다. (메뉴 17 실행)");
+                else Debug.LogWarning("[BattleScreen] 선택 창이 없어서 잡은 팰을 놓아줍니다.");
 
                 if (choice == ChoiceStats)
                 {
@@ -1424,7 +1424,7 @@ namespace PalRogue
             }
         }
 
-        /// <summary>(테스트용, 메뉴 PalRogue/22) 지금 전투 화면에서 기술 연출을 차례로 보여준다. 내 팰 → 상대, 상대 → 내 팰 번갈아</summary>
+        /// <summary>(테스트용, 메뉴 PalRogue/31) 지금 전투 화면에서 기술 연출을 차례로 보여준다. 내 팰 → 상대, 상대 → 내 팰 번갈아</summary>
         public void PreviewSkillFx(IList<SkillData> skills)
         {
             StopCoroutine(nameof(PreviewRoutine));
@@ -1462,7 +1462,7 @@ namespace PalRogue
             if (mode != Mode.Command) return;
             if (partyScreen == null)
             {
-                StartCoroutine(Unavailable("파티 화면이 아직 없어요! (메뉴 14 실행)"));
+                StartCoroutine(Unavailable("파티 화면이 아직 없어요!"));
                 return;
             }
             StartCoroutine(SwitchFromMenu());
@@ -1589,7 +1589,7 @@ namespace PalRogue
         // 기술을 고르는 동안엔 상대 정보창 옆에 고른 기술의 상성 배율(0.5x · 2x …)이 나온다.
         int currentSkill = -1;
         TMP_Text skillDescText;
-        public static bool DebugPeek;                 // (테스트) 메뉴 PalRogue/41: C를 누르고 있는 것처럼
+        public static bool DebugPeek;                 // (테스트) 메뉴 PalRogue/38: C를 누르고 있는 것처럼
         float peekFade;
 
         void UpdateSkillPeek()

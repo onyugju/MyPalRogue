@@ -65,7 +65,6 @@ namespace PalRogue.EditorTools
             ("Meteor_Beam",  Self(StatType.Attack, 1),  100),  // 유성 광선 (제트래곤 전용)
         };
 
-        [MenuItem("PalRogue/26. 버프·디버프 기술 추가")]
         public static void Build()
         {
             if (!AssetDatabase.IsValidFolder(SkillDir)) { Debug.LogError($"[버프 기술] {SkillDir} 폴더가 없습니다. 메뉴 4를 먼저 실행하세요."); return; }
@@ -133,7 +132,7 @@ namespace PalRogue.EditorTools
 
             AssetDatabase.SaveAssets();
             Debug.Log($"[버프 기술] 변화 기술 새로 {created}개 / 갱신 {updated}개, 학습 목록 {palsChanged}마리에 {entries}개 추가, " +
-                      $"공격 기술 {secondary}개에 능력치 변화 추가 효과. (메뉴 27로 테스트)");
+                      $"공격 기술 {secondary}개에 능력치 변화 추가 효과. (메뉴 16으로 테스트)");
         }
     }
 }

@@ -9,7 +9,7 @@ using UnityEngine;
 namespace PalRogue.EditorTools
 {
     /// <summary>
-    /// 메뉴 PalRogue/42. 자동 플레이 점검 — 화면 없이 모험을 여러 번 끝까지 돌리며 버그를 찾는다.
+    /// 메뉴 PalRogue/11. 자동 플레이 점검 — 화면 없이 모험을 여러 번 끝까지 돌리며 버그를 찾는다.
     ///  매 턴: 모든 팰의 HP가 0~최대 HP 안인지, 쓰러짐과 HP 0이 맞는지, 실드 수가 맞는지
     ///  매 웨이브: 보상 아이템을 무작위로 쓰고, 레벨업 강화·각성도 무작위로 붙이고, 시너지를 다시 계산해도 HP가 그대로인지
     ///  몇 웨이브마다: 저장 → 불러오기(JSON 거쳐서) 해서 HP·최대 HP·능력치·효과·기술이 똑같은지
@@ -20,7 +20,7 @@ namespace PalRogue.EditorTools
     {
         const int Runs = 40, DeepRuns = 15, MaxWaves = 200, MaxTurns = 300;
 
-        [MenuItem("PalRogue/42. 자동 플레이 점검 (모험 40번, 버그 찾기)")]
+        [MenuItem("PalRogue/11. 자동 플레이 점검 (모험 40번, 버그 찾기)", false, 201)]
         static void RunAll()
         {
             var pals = AssetDatabase.FindAssets("t:PalData").Select(g => AssetDatabase.LoadAssetAtPath<PalData>(AssetDatabase.GUIDToAssetPath(g)))

@@ -193,7 +193,6 @@ namespace PalRogue.EditorTools
         ///  ③ 이미 만든 팰의 학습 목록에 그 팰의 전용 기술이 없으면 더한다 (원래 습득 레벨로)
         /// 여러 번 실행해도 안전하다. 그림이 아직 없는 팰은 나중에 추가될 때 메뉴 5 규칙으로 전용 기술을 같이 배운다.
         /// </summary>
-        [MenuItem("PalRogue/34. 팰 전용 기술 추가 (새 팰 20종)")]
         public static void AddSignatureSkills()
         {
             CreateSkills();
@@ -236,11 +235,10 @@ namespace PalRogue.EditorTools
             }
             AssetDatabase.SaveAssets();
             Debug.Log($"[전용 기술] 기술 {effects}개에 설명·추가 효과, 학습 목록에 {added}개 추가" +
-                      (names.Count > 0 ? $" ({string.Join(", ", names)})" : "") + ". (메뉴 22로 연출 확인)");
+                      (names.Count > 0 ? $" ({string.Join(", ", names)})" : "") + ". (메뉴 12로 연출 확인)");
         }
 
         // ───────── 6. 초기화 ─────────
-        [MenuItem("PalRogue/6. 스킬·학습목록 초기화 (재생성용)")]
         static void ResetAll()
         {
             if (!EditorUtility.DisplayDialog("스킬 초기화",
@@ -261,7 +259,6 @@ namespace PalRogue.EditorTools
         }
 
         // ───────── 4. 스킬 에셋 생성 ─────────
-        [MenuItem("PalRogue/4. SkillData 에셋 생성")]
         public static void CreateSkills()
         {
             EnsureFolder("Assets/Data");
@@ -293,7 +290,6 @@ namespace PalRogue.EditorTools
         }
 
         // ───────── 5. 팰에 학습 스킬 연결 ─────────
-        [MenuItem("PalRogue/5. 팰에 학습 스킬 자동 연결")]
         public static void FillLearnsets()
         {
             // 속성별 공용 스킬 (Rows 순서 유지)
@@ -350,7 +346,7 @@ namespace PalRogue.EditorTools
                 foreach (var kv in learn.OrderBy(k => k.Value).ThenBy(k => k.Key))
                 {
                     var sk = Get(kv.Key);
-                    if (sk == null) { Debug.LogWarning($"[PalRogue] 스킬 없음: {kv.Key} (메뉴 4번을 먼저 실행하세요)"); continue; }
+                    if (sk == null) { Debug.LogWarning($"[PalRogue] 스킬 없음: {kv.Key} (메뉴 01을 먼저 실행하세요)"); continue; }
                     list.Add(new LearnsetEntry { level = kv.Value, skill = sk });
                 }
                 pal.learnset = list;
@@ -363,7 +359,6 @@ namespace PalRogue.EditorTools
 
         // ───────── 12. 스킬 종류 통합 (이미 만든 스킬 에셋용) ─────────
         /// <summary>예전 '물리/특수' 값을 가진 스킬 에셋을 전부 '공격'으로 바꾼다 (변화 스킬은 그대로)</summary>
-        [MenuItem("PalRogue/12. 스킬 종류 통합 적용 (물리·특수→공격)", false, 1012)]
         static void MergeCategories()
         {
             int changed = 0;
@@ -394,7 +389,6 @@ namespace PalRogue.EditorTools
             return true;
         }
 
-        [MenuItem("PalRogue/13. 스킬 추가 효과(상태이상) 기본값 적용", false, 1013)]
         static void ApplyDefaultStatuses()
         {
             int changed = 0;

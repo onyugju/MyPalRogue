@@ -8,7 +8,7 @@ using UnityEngine;
 namespace PalRogue.EditorTools
 {
     /// <summary>
-    /// 메뉴 PalRogue/19. 아이템 자동 테스트
+    /// 메뉴 PalRogue/13. 아이템 자동 테스트
     /// 모든 아이템을 하나씩 실제로 써 보고(대상 팰·기술 고르기 포함), 그 파티로 전투를 몇 턴 돌려서
     /// 지니는 아이템·기간 효과가 오류 없이 동작하는지 확인한다. 아이템 그림이 있는지도 본다.
     /// 결과는 Console에 "[아이템 테스트]"로 나온다. 플레이 모드가 아닐 때 실행.
@@ -18,7 +18,7 @@ namespace PalRogue.EditorTools
         const int TestLevel = 25;
         const int BattleTurns = 25;
 
-        [MenuItem("PalRogue/19. 아이템 자동 테스트")]
+        [MenuItem("PalRogue/13. 아이템 자동 테스트", false, 203)]
         static void RunAll()
         {
             var pals = AssetDatabase.FindAssets("t:PalData")

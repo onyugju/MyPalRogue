@@ -35,7 +35,7 @@ namespace PalRogue
         SettingsPanel settings;
         RecordsScreen records;
 
-        [Tooltip("기록 화면의 팰 아이콘용 (메뉴 35가 채운다. 에디터에서는 자동)")]
+        [Tooltip("기록 화면의 팰 아이콘용 (에디터에서는 자동)")]
         public System.Collections.Generic.List<PalData> allPals = new System.Collections.Generic.List<PalData>();
         int continueSlot = -1;
 
@@ -253,7 +253,7 @@ namespace PalRogue
             }
             if (!GameSession.CanLoad(GameSession.StarterScene))
             {
-                messageText.text = "StarterScene이 빌드 설정에 없어요.\n(메뉴 PalRogue/35를 실행해 주세요)";
+                messageText.text = "StarterScene이 빌드 설정에 없어요.\n(Build Profiles 씬 목록에 추가해 주세요)";
                 messageUntil = Time.unscaledTime + 4f;
                 return;
             }

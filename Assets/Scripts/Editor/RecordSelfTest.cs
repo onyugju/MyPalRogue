@@ -7,12 +7,12 @@ using UnityEngine;
 namespace PalRogue.EditorTools
 {
     /// <summary>
-    /// 메뉴 PalRogue/37. 결과 화면 미리보기 (플레이 중) — 게임 오버 때 나오는 결과 화면을 기록 없이 띄워 본다
-    /// 메뉴 PalRogue/38. 밸런스 표 — 웨이브별 상대 레벨, 보스·전설 레벨과 강화 배율, 같은 레벨 한 마리 경험치를 콘솔에 보여 준다
+    /// 메뉴 PalRogue/35. 결과 화면 미리보기 (플레이 중) — 게임 오버 때 나오는 결과 화면을 기록 없이 띄워 본다
+    /// 메뉴 PalRogue/22. 밸런스 표 — 웨이브별 상대 레벨, 보스·전설 레벨과 강화 배율, 같은 레벨 한 마리 경험치를 콘솔에 보여 준다
     /// </summary>
     public static class RecordSelfTest
     {
-        [MenuItem("PalRogue/37. 결과 화면 미리보기 (플레이 중)")]
+        [MenuItem("PalRogue/35. 결과 화면 미리보기 (플레이 중)", false, 405)]
         static void PreviewResult()
         {
             if (!EditorApplication.isPlaying) { EditorUtility.DisplayDialog("플레이 중에 실행", "전투에서 명령을 고르는 화면일 때 실행해 주세요.", "확인"); return; }
@@ -20,7 +20,7 @@ namespace PalRogue.EditorTools
             if (screen != null) screen.DebugShowResult();
         }
 
-        [MenuItem("PalRogue/39. (테스트) 아이템 줄 채우기 (플레이 중)")]
+        [MenuItem("PalRogue/36. 아이템 줄 채우기 (플레이 중)", false, 406)]
         static void FillItems()
         {
             if (!EditorApplication.isPlaying) { EditorUtility.DisplayDialog("플레이 중에 실행", "전투 중에 실행해 주세요.", "확인"); return; }
@@ -28,7 +28,7 @@ namespace PalRogue.EditorTools
             if (screen != null) screen.DebugFillItems(6);
         }
 
-        [MenuItem("PalRogue/40. 게임 화면 캡처 (Captures 폴더) _F9")]
+        [MenuItem("PalRogue/35. 게임 화면 캡처 (Captures 폴더) _F9", false, 407)]
         static void Capture()
         {
             System.IO.Directory.CreateDirectory("Captures");
@@ -37,14 +37,14 @@ namespace PalRogue.EditorTools
             Debug.Log("[캡처] " + path);
         }
 
-        [MenuItem("PalRogue/41. (테스트) C 키 능력치 보기 켜기·끄기 _F8")]
+        [MenuItem("PalRogue/22. C 키 능력치 보기 켜기·끄기 _F8", false, 408)]
         static void TogglePeek()
         {
             BattleScreen.DebugPeek = !BattleScreen.DebugPeek;
             Debug.Log("[C 키 보기] " + (BattleScreen.DebugPeek ? "켬" : "끔"));
         }
 
-        [MenuItem("PalRogue/43. (테스트) 지금 UI 선택 상태 출력 _F7")]
+        [MenuItem("PalRogue/39. 지금 UI 선택 상태 출력 _F7", false, 409)]
         static void DumpUi()
         {
             var es = UnityEngine.EventSystems.EventSystem.current;
@@ -67,7 +67,7 @@ namespace PalRogue.EditorTools
 
         static string Path(Transform t) => t.parent == null ? t.name : Path(t.parent) + "/" + t.name;
 
-        [MenuItem("PalRogue/38. 밸런스 표 (웨이브별 상대 레벨·경험치)")]
+        [MenuItem("PalRogue/22. 밸런스 표 (웨이브별 상대 레벨·경험치)", false, 302)]
         static void BalanceTable()
         {
             var sb = new StringBuilder();

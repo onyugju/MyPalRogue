@@ -9,7 +9,7 @@ using UnityEngine;
 namespace PalRogue.EditorTools
 {
     /// <summary>
-    /// 메뉴 PalRogue/44. 밸런스 비교 — 실제 게임 코드로 "보통 플레이어"를 흉내 내어 모험을 여러 번 돌리고
+    /// 메뉴 PalRogue/21. 밸런스 비교 — 실제 게임 코드로 "보통 플레이어"를 흉내 내어 모험을 여러 번 돌리고
     /// 예전 설정과 지금 설정에서 몇 웨이브까지 가는지, 상대와 레벨 차이가 얼마인지 비교한다.
     ///  보통 플레이어: 위력×상성이 센 기술 위주(가끔 아무 기술), 가끔 교체·포획, 새 기술은 더 세면 배움,
     ///  강화 레벨마다 강화 3개 중 1개, 보상은 다친 팰이 있으면 회복약 → 아니면 가장 높은 등급. 상점은 안 씀.
@@ -31,7 +31,7 @@ namespace PalRogue.EditorTools
             }
         }
 
-        [MenuItem("PalRogue/44. 밸런스 비교 (지금 설정 vs 다른 설정)")]
+        [MenuItem("PalRogue/21. 밸런스 비교 (지금 설정 vs 다른 설정)", false, 301)]
         static void Compare()
         {
             var pals = AssetDatabase.FindAssets("t:PalData").Select(g => AssetDatabase.LoadAssetAtPath<PalData>(AssetDatabase.GUIDToAssetPath(g)))

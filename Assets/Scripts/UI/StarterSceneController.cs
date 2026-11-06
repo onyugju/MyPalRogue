@@ -67,7 +67,7 @@ namespace PalRogue
 
                 if (!GameSession.CanLoad(GameSession.GameScene))
                 {
-                    Debug.LogError("[씬] GameScene이 빌드 설정에 없습니다. 메뉴 PalRogue/35를 실행해 주세요.");
+                    Debug.LogError("[씬] GameScene이 빌드 설정에 없습니다. File > Build Profiles의 씬 목록에 추가해 주세요.");
                     yield break;
                 }
                 GameSession.Go(GameSession.GameScene, font);

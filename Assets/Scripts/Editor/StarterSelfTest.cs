@@ -8,9 +8,9 @@ using UnityEngine;
 namespace PalRogue.EditorTools
 {
     /// <summary>
-    /// 메뉴 PalRogue/31. 스타팅 팰 자동 테스트 — 코스트 표·기본 스타팅 5종·해금 기록이 맞는지
-    /// 메뉴 PalRogue/32. (테스트) 모든 팰 해금 — 잡지 않아도 선택 화면에서 전부 고를 수 있게
-    /// 메뉴 PalRogue/33. (테스트) 해금 기록 초기화 — 처음 상태(스타팅 5종만)로
+    /// 메뉴 PalRogue/19. 스타팅 팰 자동 테스트 — 코스트 표·기본 스타팅 5종·해금 기록이 맞는지
+    /// 메뉴 PalRogue/41. (테스트) 모든 팰 해금 — 잡지 않아도 선택 화면에서 전부 고를 수 있게
+    /// 메뉴 PalRogue/42. (테스트) 해금 기록 초기화 — 처음 상태(스타팅 5종만)로
     /// </summary>
     public static class StarterSelfTest
     {
@@ -18,7 +18,7 @@ namespace PalRogue.EditorTools
             .Select(g => AssetDatabase.LoadAssetAtPath<PalData>(AssetDatabase.GUIDToAssetPath(g)))
             .Where(p => p != null).OrderBy(p => p.name).ToList();
 
-        [MenuItem("PalRogue/31. 스타팅 팰 자동 테스트")]
+        [MenuItem("PalRogue/19. 스타팅 팰 자동 테스트", false, 209)]
         static void Test()
         {
             var pals = AllPals();
@@ -49,18 +49,18 @@ namespace PalRogue.EditorTools
             int unlocked = choosable.Count(PlayerSave.IsUnlocked);
             report.AppendLine($"  지금 해금된 팰: {unlocked}/{choosable.Count}종 (저장 파일: {PlayerSave.FilePath})");
 
-            string head = $"[스타팅 팰 테스트] {(fail == 0 ? "통과" : "실패")} (메뉴 32: 전부 해금 / 33: 기록 초기화)";
+            string head = $"[스타팅 팰 테스트] {(fail == 0 ? "통과" : "실패")} (메뉴 41: 전부 해금 / 42: 기록 초기화)";
             if (fail > 0) Debug.LogError(head + "\n" + report); else Debug.Log(head + "\n" + report);
         }
 
-        [MenuItem("PalRogue/32. (테스트) 모든 팰 해금")]
+        [MenuItem("PalRogue/41. 모든 팰 해금 (테스트)", false, 501)]
         static void UnlockAll()
         {
             PlayerSave.Unlock(AllPals());
-            Debug.Log("[스타팅 팰] 잡을 수 있는 모든 팰을 해금했습니다. 선택 화면에서 전부 고를 수 있어요. (메뉴 33으로 되돌리기)");
+            Debug.Log("[스타팅 팰] 잡을 수 있는 모든 팰을 해금했습니다. 선택 화면에서 전부 고를 수 있어요. (메뉴 42로 되돌리기)");
         }
 
-        [MenuItem("PalRogue/33. (테스트) 해금 기록 초기화")]
+        [MenuItem("PalRogue/42. 해금 기록 초기화 (테스트)", false, 502)]
         static void ResetSave()
         {
             if (!EditorUtility.DisplayDialog("해금 기록 초기화", "잡은 팰 기록과 해금을 모두 지울까요?\n(스타팅 팰 5종만 남습니다)", "지우기", "취소")) return;

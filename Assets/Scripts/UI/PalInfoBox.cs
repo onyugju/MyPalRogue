@@ -240,7 +240,7 @@ namespace PalRogue
             bool player = expFill != null;
             string backName = player ? "pbinfo_player_stats" : bossMode ? "pbinfo_enemy_boss_stats" : "pbinfo_enemy_mini_stats";
             var back = StatBack(backName);
-            if (back == null) { Debug.LogWarning("[PalInfoBox] Resources/UI 에 능력치 창 그림이 없습니다. (메뉴 PalRogue/18 실행)"); return false; }
+            if (back == null) { Debug.LogWarning("[PalInfoBox] Resources/UI 에 능력치 창 그림이 없습니다."); return false; }
             if (statNumbers == null) { statNumbers = Resources.Load<Texture2D>("UI/pbinfo_stat_numbers"); if (statNumbers != null) statNumbers.filterMode = FilterMode.Point; }
 
             if (peek == null)
@@ -626,7 +626,7 @@ namespace PalRogue
             bossHpTexture = Resources.Load<Texture2D>("UI/overlay_hp_boss");
             if (bg == null || bossHpTexture == null)
             {
-                Debug.LogWarning("[PalInfoBox] Resources/UI 에 보스 정보창 그림이 없습니다. (메뉴 PalRogue/18 실행)");
+                Debug.LogWarning("[PalInfoBox] Resources/UI 에 보스 정보창 그림이 없습니다.");
                 return false;
             }
             bg.filterMode = FilterMode.Point;

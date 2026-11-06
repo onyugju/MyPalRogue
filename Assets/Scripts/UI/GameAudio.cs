@@ -155,7 +155,7 @@ namespace PalRogue
             if (string.IsNullOrEmpty(name)) { StopBgm(); return; }
             if (a.currentName == name && a.music[a.current].isPlaying) return;
             var clip = a.Load("bgm/" + name);
-            if (clip == null) { Debug.LogWarning($"[사운드] 배경음악이 없음: Resources/{Root}bgm/{name} (메뉴 PalRogue/36)"); return; }
+            if (clip == null) { Debug.LogWarning($"[사운드] 배경음악이 없음: Resources/{Root}bgm/{name}"); return; }
             a.currentName = name;
             if (a.fading != null) a.StopCoroutine(a.fading);
             a.fading = a.StartCoroutine(a.Switch(clip));

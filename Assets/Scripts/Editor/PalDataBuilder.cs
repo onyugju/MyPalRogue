@@ -97,7 +97,6 @@ namespace PalRogue.EditorTools
         };
 
         // ───────── 1. 도트 이미지 필터 보정 ─────────
-        [MenuItem("PalRogue/1. 팰 스프라이트 Point 필터 적용")]
         static void ApplyPointFilter()
         {
             var guids = AssetDatabase.FindAssets("t:Texture2D", new[] { "Assets/Resources/1.팰" });
@@ -115,7 +114,6 @@ namespace PalRogue.EditorTools
         }
 
         // ───────── 7. 이미 만든 PalData의 스프라이트 재연결 ─────────
-        [MenuItem("PalRogue/7. 팰 스프라이트·배율 재연결")]
         static void RelinkSprites()
         {
             int ok = 0, fail = 0;
@@ -145,7 +143,6 @@ namespace PalRogue.EditorTools
         }
 
         // ───────── 3. 제로버스 설정 보정 (이미 만든 에셋용) ─────────
-        [MenuItem("PalRogue/3. 제로버스 설정 적용 (고유속성·포획불가)")]
         static void ApplyZerobusFix()
         {
             const string path = OutDir + "/000_Zerobus.asset";
@@ -160,7 +157,6 @@ namespace PalRogue.EditorTools
         }
 
         // ───────── 2. PalData 생성 ─────────
-        [MenuItem("PalRogue/2. PalData 에셋 생성")]
         static void CreatePalAssetsMenu() => CreatePalAssets(true);
 
         /// <summary>그림이 있는데 아직 PalData가 없는 팰만 만든다. 만든 수를 돌려준다</summary>
@@ -220,7 +216,7 @@ namespace PalRogue.EditorTools
         // ───────── 2-1. 새 팰 한 번에 추가 ─────────
         // 그림을 넣은 새 팰을: PalData 만들기(2) → 학습 기술(5) → 변화 기술(26) → 애니메이션 연결(7-1) → 야생 목록에 넣기
         // 에디터가 켜지거나 스크립트가 바뀔 때도 새로 만들 팰이 있으면 자동으로 실행된다.
-        [MenuItem("PalRogue/2-1. 새 팰 한 번에 추가 (그림 넣은 팰)")]
+        [MenuItem("PalRogue/01. 새 팰 한 번에 추가 (그림 넣은 팰)", false, 101)]
         static void AddNewPalsMenu() => AddNewPals(true);
 
         [InitializeOnLoadMethod]

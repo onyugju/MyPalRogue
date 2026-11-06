@@ -11,9 +11,9 @@ using UnityEngine;
 namespace PalRogue.EditorTools
 {
     /// <summary>
-    /// 프로젝트 정리 (메뉴 PalRogue/00, 01)
-    ///  00. 안 쓰는 파일 찾기 — 지우지 않고 보고서(프로젝트 폴더/CleanupReport.txt)만 만든다
-    ///  01. 안 쓰는 파일 휴지통으로 — 00과 같은 기준으로 고른 파일을 윈도우 휴지통으로 옮긴다 (되살릴 수 있음)
+    /// 프로젝트 정리 (메뉴 PalRogue/91, 92)
+    ///  91. 안 쓰는 파일 찾기 — 지우지 않고 보고서(프로젝트 폴더/CleanupReport.txt)만 만든다
+    ///  92. 안 쓰는 파일 휴지통으로 — 91과 같은 기준으로 고른 파일을 윈도우 휴지통으로 옮긴다 (되살릴 수 있음)
     ///
     /// 정리 대상 폴더: Assets/Resources, Assets/palrogue_assets_core, Assets/Welcome
     /// "쓰는 파일" 기준:
@@ -53,8 +53,21 @@ namespace PalRogue.EditorTools
             if (EditorApplication.timeSinceStartup < nextCheck) return;
             nextCheck = EditorApplication.timeSinceStartup + 2.0;
             if (EditorApplication.isPlayingOrWillChangePlaymode || EditorApplication.isCompiling || !File.Exists(RequestFile)) return;
-            string what = File.ReadAllText(RequestFile).Trim().ToLowerInvariant();
+            string raw = File.ReadAllText(RequestFile).Trim();
+            string what = raw.ToLowerInvariant();
             File.Delete(RequestFile);
+            // "menu:" 다음 줄들 = 실행할 메뉴 경로, "trash:" 다음 줄들 = 휴지통으로 보낼 에셋 경로
+            var lines = raw.Split('\n').Select(l => l.Trim()).Where(l => l.Length > 0).Skip(1).ToArray();
+            if (what.StartsWith("menu:")) { foreach (var m in lines) if (!EditorApplication.ExecuteMenuItem(m)) Debug.LogWarning($"[요청] 메뉴 없음: {m}"); return; }
+            if (what.StartsWith("trash:"))
+            {
+                var failed = new List<string>();
+                var paths = lines.Where(l => File.Exists(l) || Directory.Exists(l)).ToArray();
+                AssetDatabase.MoveAssetsToTrash(paths, failed);
+                AssetDatabase.Refresh();
+                Debug.Log($"[요청] 휴지통으로 {paths.Length - failed.Count}개" + (failed.Count > 0 ? $", 실패: {string.Join(", ", failed)}" : ""));
+                return;
+            }
             if (what == "test") RunTests();
             else Run(what == "clean");
         }
@@ -70,10 +83,10 @@ namespace PalRogue.EditorTools
             {
                 foreach (var menu in new[]
                 {
-                    "PalRogue/22. 기술 연출 자동 테스트", "PalRogue/19. 아이템 자동 테스트", "PalRogue/24. 지역 배경 자동 테스트",
-                    "PalRogue/29. 속성 뱃지 자동 테스트", "PalRogue/31. 스타팅 팰 자동 테스트", "PalRogue/20. 성장 시스템 자동 테스트",
-                    "PalRogue/21. 상대 AI 자동 테스트", "PalRogue/27. 버프·디버프·보스 패턴 자동 테스트",
-                    "PalRogue/42. 자동 플레이 점검 (모험 40번, 버그 찾기)",
+                    "PalRogue/12. 기술 연출 자동 테스트", "PalRogue/13. 아이템 자동 테스트", "PalRogue/17. 지역 배경 자동 테스트",
+                    "PalRogue/18. 속성 뱃지 자동 테스트", "PalRogue/19. 스타팅 팰 자동 테스트", "PalRogue/14. 성장 시스템 자동 테스트",
+                    "PalRogue/15. 상대 AI 자동 테스트", "PalRogue/16. 버프·디버프·보스 패턴 자동 테스트",
+                    "PalRogue/11. 자동 플레이 점검 (모험 40번, 버그 찾기)",
                 })
                 {
                     log.AppendLine($"── {menu}");
@@ -94,10 +107,10 @@ namespace PalRogue.EditorTools
             Debug.Log("[테스트] 끝. 프로젝트 폴더/TestReport.txt");
         }
 
-        [MenuItem("PalRogue/00. 정리: 안 쓰는 파일 찾기 (보고서만)", false, 0)]
+        [MenuItem("PalRogue/91. 정리: 안 쓰는 파일 찾기 (보고서만)", false, 901)]
         static void Report() => Run(false);
 
-        [MenuItem("PalRogue/01. 정리: 안 쓰는 파일 휴지통으로", false, 1)]
+        [MenuItem("PalRogue/92. 정리: 안 쓰는 파일 휴지통으로", false, 902)]
         static void Clean()
         {
             var unused = FindUnused(out _);

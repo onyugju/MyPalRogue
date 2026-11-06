@@ -25,7 +25,7 @@ namespace PalRogue
         [Tooltip("원본 이미지 크기가 제각각이라 배치 시 곱해주는 보정 배율")]
         public float frontScale = 1f;
         public float backScale = 1f;
-        [Tooltip("크기 미세 조정 (1 = 자동 크기 그대로). 바꾼 뒤 메뉴 PalRogue/7-2를 실행하면 반영된다")]
+        [Tooltip("크기 미세 조정 (1 = 자동 크기 그대로). 바꾼 뒤 메뉴 PalRogue/03을 실행하면 반영된다")]
         [Range(0.5f, 2.5f)] public float sizeTune = 1f;
         [Tooltip("상대 자리(앞모습)에서 위아래 위치 보정 (유닛, -는 아래로). 화면을 꽉 채우는 보스처럼 발판 기준을 벗어나야 할 때만 쓴다. 메뉴 7-2가 자동으로 정한다")]
         public float frontYOffset = 0f;

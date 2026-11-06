@@ -10,7 +10,7 @@ using UnityEngine;
 namespace PalRogue.EditorTools
 {
     /// <summary>
-    /// 메뉴 PalRogue/7-1. 팰 애니메이션 자동 연결
+    /// 메뉴 PalRogue/02. 팰 애니메이션 자동 연결
     /// 팰 폴더(Resources/1.팰/1.Pal/"번호 이름")에 새로 만든 애니메이션(Animator Controller)을 찾아서 PalData에 연결한다.
     ///  - 이름이 _back 으로 끝나면 뒷모습(내 팰), 아니면 앞모습(상대 팰). 폴더 안 어디에 있어도(Animations 하위 폴더 등) 찾는다.
     ///  - 애니메이션의 첫 프레임을 대표 그림으로, 그 크기로 화면 배율을 다시 맞춘다 (메뉴 2와 같은 기준).
@@ -28,7 +28,7 @@ namespace PalRogue.EditorTools
         [InitializeOnLoadMethod]
         static void Auto() => EditorApplication.delayCall += () => Run(false);
 
-        [MenuItem("PalRogue/7-1. 팰 애니메이션 자동 연결")]
+        [MenuItem("PalRogue/02. 팰 애니메이션 자동 연결", false, 102)]
         static void FromMenu() => Run(true);
 
         public static void Run(bool report)
