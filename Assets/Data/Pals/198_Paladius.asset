@@ -17,8 +17,8 @@ MonoBehaviour:
   englishName: Paladius
   frontSprite: {fileID: 21300000, guid: b53a46c89f60b7f4c8e9ec6362371598, type: 3}
   backSprite: {fileID: 21300000, guid: 5c8f0aa179c12f247bb5c41c34ddcd75, type: 3}
-  frontScale: 0.38037857
-  backScale: 0.38018948
+  frontScale: 0.76075715
+  backScale: 0.76037896
   sizeTune: 1
   frontYOffset: 0
   frontAnimator: {fileID: 9100000, guid: fd7b62224c705cb47977b865283f4506, type: 2}

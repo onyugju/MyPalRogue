@@ -225,6 +225,98 @@ namespace PalRogue.EditorTools
             var size = s.bounds.size;
             return box / Mathf.Max(size.x, size.y);
         }
+
+        // ═════════════════ 프레임 용량 줄이기 ═════════════════
+        const int HalveMinSide = 600;                      // 긴 변이 이보다 작으면 이미 작은 그림이라 건너뛴다
+        const string FrameBackupDir = "../PalRogue_FrameBackup";   // 원본 보관: 프로젝트 폴더 옆 (게임·git에 안 들어감)
+
+        /// <summary>
+        /// 팰 애니메이션 프레임(PNG)을 가로·세로 절반으로 줄인다 (용량 약 1/4).
+        ///  - 2×2 화소를 투명도까지 고려해 평균 내서 줄인다 (가장자리가 검게 번지지 않게)
+        ///  - 원본은 프로젝트 폴더 옆 PalRogue_FrameBackup 에 같은 경로로 복사해 둔다 (되돌리려면 그 파일을 다시 덮어쓰면 된다)
+        ///  - 그림 하나짜리(Single) 스프라이트만, 긴 변이 600px 이상인 것만 줄인다
+        ///  - 끝나면 03(크기 자동 맞춤)을 실행해 화면에 보이는 크기를 원래대로 맞춘다
+        /// </summary>
+        [MenuItem("PalRogue/04. 애니메이션 프레임 절반으로 줄이기", false, 104)]
+        public static void HalveFrames()
+        {
+            var frames = new SortedSet<string>(StringComparer.Ordinal);
+            foreach (var guid in AssetDatabase.FindAssets("t:PalData", new[] { "Assets/Data/Pals" }))
+            {
+                var pal = AssetDatabase.LoadAssetAtPath<PalData>(AssetDatabase.GUIDToAssetPath(guid));
+                if (pal == null) continue;
+                foreach (var ctrl in new[] { pal.frontAnimator, pal.backAnimator })
+                {
+                    if (ctrl == null) continue;
+                    foreach (var dep in AssetDatabase.GetDependencies(AssetDatabase.GetAssetPath(ctrl), true))
+                        if (dep.EndsWith(".png", StringComparison.OrdinalIgnoreCase)) frames.Add(dep);
+                }
+            }
+
+            int done = 0, skipped = 0;
+            long before = 0, after = 0;
+            try
+            {
+                AssetDatabase.StartAssetEditing();
+                int i = 0;
+                foreach (var path in frames)
+                {
+                    i++;
+                    if (i % 20 == 0) EditorUtility.DisplayProgressBar("프레임 줄이기", path, i / (float)frames.Count);
+                    var imp = AssetImporter.GetAtPath(path) as TextureImporter;
+                    if (imp == null || imp.spriteImportMode != SpriteImportMode.Single) { skipped++; continue; }
+                    byte[] bytes = File.ReadAllBytes(path);
+                    var src = new Texture2D(2, 2, TextureFormat.RGBA32, false);
+                    if (!src.LoadImage(bytes) || Mathf.Max(src.width, src.height) < HalveMinSide) { UnityEngine.Object.DestroyImmediate(src); skipped++; continue; }
+
+                    var dst = Downsample(src);
+                    byte[] png = dst.EncodeToPNG();
+                    UnityEngine.Object.DestroyImmediate(src);
+                    UnityEngine.Object.DestroyImmediate(dst);
+
+                    string backup = Path.Combine(FrameBackupDir, path);
+                    Directory.CreateDirectory(Path.GetDirectoryName(backup));
+                    if (!File.Exists(backup)) File.WriteAllBytes(backup, bytes);   // 처음 원본만 보관
+                    File.WriteAllBytes(path, png);
+                    before += bytes.Length;
+                    after += png.Length;
+                    done++;
+                }
+            }
+            finally
+            {
+                AssetDatabase.StopAssetEditing();
+                EditorUtility.ClearProgressBar();
+            }
+            AssetDatabase.Refresh();
+            Debug.Log($"[프레임 줄이기] {done}장 절반으로 줄임 ({before / 1048576f:0.0}MB → {after / 1048576f:0.0}MB), 건너뜀 {skipped}장. " +
+                      $"원본: 프로젝트 폴더 옆 PalRogue_FrameBackup. 이제 03(크기 자동 맞춤)을 실행하세요.");
+        }
+
+        /// <summary>2×2 화소를 투명도 가중 평균으로 합쳐 가로·세로 절반 크기의 그림을 만든다</summary>
+        static Texture2D Downsample(Texture2D src)
+        {
+            int sw = src.width, sh = src.height, w = Mathf.Max(1, sw / 2), h = Mathf.Max(1, sh / 2);
+            var s = src.GetPixels32();
+            var d = new Color32[w * h];
+            for (int y = 0; y < h; y++)
+                for (int x = 0; x < w; x++)
+                {
+                    int r = 0, g = 0, b = 0, a = 0;
+                    for (int dy = 0; dy < 2; dy++)
+                        for (int dx = 0; dx < 2; dx++)
+                        {
+                            var c = s[Mathf.Min(sh - 1, y * 2 + dy) * sw + Mathf.Min(sw - 1, x * 2 + dx)];
+                            r += c.r * c.a; g += c.g * c.a; b += c.b * c.a; a += c.a;
+                        }
+                    d[y * w + x] = a == 0 ? new Color32(0, 0, 0, 0)
+                        : new Color32((byte)(r / a), (byte)(g / a), (byte)(b / a), (byte)((a + 2) / 4));
+                }
+            var dst = new Texture2D(w, h, TextureFormat.RGBA32, false);
+            dst.SetPixels32(d);
+            dst.Apply();
+            return dst;
+        }
     }
 }
 #endif
