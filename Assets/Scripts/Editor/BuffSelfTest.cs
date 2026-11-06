@@ -253,7 +253,8 @@ namespace PalRogue.EditorTools
                 return p.Effects.OfType<BossPattern>().Count();
             }
             Check(Count(BossKind.None, 5) == 0, "일반 팰에 패턴이 붙음");
-            Check(Count(BossKind.Boss, 10) == 1 && Count(BossKind.Boss, 50) == 2 && Count(BossKind.Boss, 100) == 3, "일반 보스 패턴 수");
+            // 일반 보스: 힘 모으기 → 100웨이브부터 분노 → 130웨이브부터 실드 정화 (11/1 밸런스 조정 기준)
+            Check(Count(BossKind.Boss, 10) == 1 && Count(BossKind.Boss, 50) == 1 && Count(BossKind.Boss, 100) == 2 && Count(BossKind.Boss, 130) == 3, "일반 보스 패턴 수");
 
             var expect = new Dictionary<PalType, Type>
             {

@@ -84,7 +84,8 @@ namespace PalRogue.EditorTools
                 foreach (var g in AssetDatabase.FindAssets("t:PalData", new[] { "Assets/Data/Pals" }))
                 {
                     var d = AssetDatabase.LoadAssetAtPath<PalData>(AssetDatabase.GUIDToAssetPath(g));
-                    if (d != null && (d.frontSprite == null || (d.backSprite == null && d.backAnimator == null)))
+                    bool needsBack = d != null && d.primaryType != PalType.Void;   // 제로버스(포획 불가)는 뒷모습이 없다
+                    if (d != null && (d.frontSprite == null || (needsBack && d.backSprite == null && d.backAnimator == null)))
                         log.AppendLine($"[Error] 그림이 빠진 팰: {d.palName}");
                 }
             }
