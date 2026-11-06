@@ -198,6 +198,13 @@ namespace PalRogue
 
         public bool IsGlowing => glow != null;
 
+        /// <summary>검은 실루엣으로 보이게 한다 (보스 등장 연출). false면 원래 색</summary>
+        public void SetSilhouette(bool on)
+        {
+            if (sr == null) Awake();
+            sr.color = on ? Color.black : baseTint;
+        }
+
         void Update()
         {
             if (glow == null || sr == null || !sr.enabled) return;

@@ -937,7 +937,7 @@ namespace PalRogue
                 });
             }
 
-            // 로터스(팰월드): 팰 1마리의 능력치 하나가 영구히 15% 오른다
+            // 로터스(팰월드): 팰 1마리의 능력치 하나가 영구히 오른다 (지금 +10%, 한 팰에 2번까지)
             void AddLotus(string icon, string name, string statName, float weight, float hp = 1f, float atk = 1f, float spd = 1f)
             {
                 Add(new ItemDef
@@ -954,7 +954,7 @@ namespace PalRogue
                 });
             }
 
-            // 펜던트(팰월드): 지니게 하면 능력치 하나 +20%
+            // 펜던트(팰월드): 지니게 하면 능력치 하나가 오른다 (지금 +15%)
             void AddPendant(string icon, string name, string statName, float hp = 1f, float atk = 1f, float def = 1f)
             {
                 Add(new ItemDef
@@ -967,7 +967,7 @@ namespace PalRogue
                 });
             }
 
-            // 능력 향상 열매(팰월드): 팰 1마리의 능력치 하나가 영구히 25% 오른다
+            // 능력 향상 열매(팰월드): 팰 1마리의 능력치 하나가 영구히 오른다 (지금 +18%, 한 팰에 1번)
             void AddFruit(string icon, string name, string statName, float hp = 1f, float atk = 1f, float def = 1f)
             {
                 Add(new ItemDef

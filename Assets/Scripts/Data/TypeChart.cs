@@ -29,7 +29,7 @@ namespace PalRogue
         /// <summary>단일 방어 속성에 대한 배율</summary>
         public static float GetMultiplier(PalType attack, PalType defense)
         {
-            // 고유속성(Void)은 공격할 때도 방어할 때도 상성에 관여하지 않는다
+            // 고유속성(Void) 기술 자체는 상성이 없다. 대신 공허 "팰"은 주고받는 데미지가 모두 ×1.5 (BattleCalc, GameConfig.VoidMultiplier)
             if (attack == PalType.Void || defense == PalType.Void) return 1f;
             if (IsStrong(attack, defense)) return SuperEffective;   // 공격이 강함
             if (IsStrong(defense, attack)) return NotVeryEffective; // 방어가 강함 (역방향)

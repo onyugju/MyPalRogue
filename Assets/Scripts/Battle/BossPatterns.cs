@@ -154,7 +154,7 @@ namespace PalRogue
         public override void OnDamaged(Pal self, DamageInfo info, BattleContext ctx)
         {
             if (!Charged || releasing || self.IsFainted) return;
-            if (!info.IsCritical && info.TypeMultiplier <= 1f) return;
+            if (!info.IsCritical && info.ChartMultiplier <= 1f) return;   // 공허 ×1.5 는 빼고, 진짜 약점·급소에만 흐트러진다
             Charged = false;
             turns = 0;
             ctx.PatternFx(self, BossFx.ChargeBroken, self);

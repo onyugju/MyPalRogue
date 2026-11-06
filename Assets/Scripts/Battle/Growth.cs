@@ -58,7 +58,7 @@ namespace PalRogue
     }
 
     /// <summary>
-    /// 각성: 전투마다 한 번, HP가 절반 이하가 되면 깨어나 그 전투가 끝날 때까지 모든 능력치 ×1.2 (진각성 ×1.35) + 고유 효과.
+    /// 각성: 전투마다 한 번, HP가 절반 이하가 되면 깨어나 그 전투가 끝날 때까지 모든 능력치 ×GameConfig.AwakenStatMultiplier(1.15) (진각성 ×1.25) + 고유 효과.
     /// </summary>
     public class Awakening : CompositeEffect
     {

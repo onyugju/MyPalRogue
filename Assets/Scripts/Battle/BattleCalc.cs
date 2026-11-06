@@ -31,6 +31,10 @@ namespace PalRogue
 
             info.TypeMultiplier = TypeChart.GetMultiplier(skill.type, defender.Data.primaryType, defender.Data.SecondaryType);
             info.StabMultiplier = TypeChart.GetStab(skill.type, attacker.Data.primaryType, attacker.Data.SecondaryType);
+            info.ChartMultiplier = info.TypeMultiplier;
+            // 공허(제로버스): 모든 속성에게 주는 데미지 ×1.5, 모든 속성에게 받는 데미지 ×1.5 (공허 팰 자체에 붙는 규칙)
+            if (attacker.Data.HasType(PalType.Void)) info.TypeMultiplier *= GameConfig.VoidMultiplier;
+            if (defender.Data.HasType(PalType.Void)) info.TypeMultiplier *= GameConfig.VoidMultiplier;
             info.IsCritical = rng.NextDouble() < CritChance;
             info.CritMultiplier = info.IsCritical ? CritMultiplier : 1f;
             info.RandomMultiplier = 0.85f + (float)rng.NextDouble() * 0.15f;

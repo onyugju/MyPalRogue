@@ -27,7 +27,8 @@ namespace PalRogue
         public SkillData Skill;
 
         public int BaseDamage;                    // 보정 곱하기 전 기본 데미지
-        public float TypeMultiplier = 1f;         // 속성 상성
+        public float TypeMultiplier = 1f;         // 속성 상성 (공허 팰의 ×1.5 포함)
+        public float ChartMultiplier = 1f;        // 상성표만의 배율 (공허 ×1.5 빼고). 보스의 힘 모으기가 흐트러지는지 등에 쓴다
         public float StabMultiplier = 1f;         // 자속 보너스
         public float CritMultiplier = 1f;         // 급소
         public float RandomMultiplier = 1f;       // 0.85 ~ 1.0 난수

@@ -384,6 +384,8 @@ namespace PalRogue
         IEnumerator EnemyEntrance(bool firstWave)
         {
             SaveHomes();
+            bool boss = run != null && run.EnemyKind != BossKind.None;
+            if (boss) enemyView.SetSilhouette(true);          // 보스는 검은 실루엣으로 들어온다
             Vector3 enemyHome = enemyView.transform.position;
             for (float t = 0f; t < SlideSeconds; t += BattleTime.Dt)
             {
@@ -398,8 +400,56 @@ namespace PalRogue
             if (enemyBase != null) enemyBase.position = enemyBaseHome;
             if (playerBase != null) playerBase.position = playerBaseHome;
 
+            if (boss) yield return BossCutIn();
+
             enemyInfo.gameObject.SetActive(true);
             yield return SlideBox((RectTransform)enemyInfo.transform, enemyInfoHome, -BoxSlidePixels);
+        }
+
+        // ───────── 보스 등장 연출 ─────────
+        BossIntro bossIntro;
+        static readonly Color BossColor = new Color(0.95f, 0.25f, 0.2f);     // 보스: 빨강
+        static readonly Color LegendColor = new Color(1f, 0.75f, 0.2f);      // 속성의 왕: 금색
+        static readonly Color FinalColor = new Color(0.7f, 0.35f, 1f);       // 최종 보스: 보라
+        const float BossShakeSeconds = 0.35f, BossShakeAmount = 0.12f;
+
+        /// <summary>
+        /// 실루엣으로 들어온 보스 위로 컷인("보스 출현!" / "속성의 왕 출현!" / "최종 보스 출현!")이 지나간 뒤,
+        /// 하얗게 번쩍이며 본모습이 드러나고 화면이 흔들린다.
+        /// </summary>
+        IEnumerator BossCutIn()
+        {
+            if (bossIntro == null) bossIntro = BossIntro.Create(messageText.font);
+            var enemy = battle?.Enemy;
+            string sub = enemy != null ? $"{PalName(enemy)}  Lv.{enemy.Level}" : "";
+            var (title, color) = run.EnemyKind switch
+            {
+                BossKind.Final => ("최종 보스 출현!", FinalColor),
+                BossKind.Legend => ("속성의 왕 출현!", LegendColor),
+                _ => ("보스 출현!", BossColor),
+            };
+            GameAudio.Se("menu_open");
+            yield return bossIntro.Play(title, sub, color);
+
+            // 본모습 공개: 실루엣 → 하얀 번쩍임 → 원래 색, 화면 흔들림
+            GameAudio.Se("hit_strong");
+            enemyView.SetSilhouette(false);
+            StartCoroutine(enemyView.Flash(Color.white, 2, 0.06f));
+            yield return CameraShake(BossShakeSeconds, BossShakeAmount);
+        }
+
+        IEnumerator CameraShake(float seconds, float amount)
+        {
+            var cam = Camera.main;
+            if (cam == null) yield break;
+            var home = cam.transform.position;
+            for (float t = 0f; t < seconds; t += BattleTime.FxDt)
+            {
+                float a = amount * (1f - t / seconds);
+                cam.transform.position = home + new Vector3(Random.Range(-a, a), Random.Range(-a, a), 0f);
+                yield return null;
+            }
+            cam.transform.position = home;
         }
 
         /// <summary>내 팰 내보내기: (나와 있던 팰은 스피어로 돌아오고) 화면 왼쪽 아래 밖에서 그 팰을 잡은 스피어를 던져 열린 곳에서 튀어나온다</summary>

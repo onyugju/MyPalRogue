@@ -170,7 +170,10 @@ namespace PalRogue
         static float LegendStrength(int wave) => Mathf.Clamp01(0.1f + 0.9f * (wave - 20) / 80f);
         public static float LegendStat(int wave) => 1f + (LegendStatMultiplier - 1f) * LegendStrength(wave);
         public static float LegendHp(int wave) => 1f + (LegendHpMultiplier - 1f) * LegendStrength(wave);
-        public const float FinalBossStatMultiplier = 1.35f, FinalBossHpMultiplier = 2f;
+        public const float FinalBossStatMultiplier = 1.2f, FinalBossHpMultiplier = 2f;   // 공허 ×1.5 상성이 생겨서 1.35 → 1.2
+
+        /// <summary>공허 속성 팰(제로버스)이 주는·받는 데미지 배율 (모든 속성 상대로, 상성 배율에 곱해진다)</summary>
+        public const float VoidMultiplier = 1.5f;
 
         public const int EnemyLevelBase = 3;
         public const float EnemyLevelPerWave = 0.5f;
