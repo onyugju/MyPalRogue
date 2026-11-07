@@ -279,13 +279,19 @@ namespace PalRogue
         }
 
         /// <summary>도둑 팰이 상대가 지닌 아이템 하나를 무작위로 빼앗는다 (미니 블랙홀은 못 빼앗음). 빼앗았으면 true</summary>
-        public static bool StealHeldItem(Pal thief, Pal victim, BattleContext ctx, string via)
+        /// <param name="devour">true면 빼앗은 도구를 지니지 않고 삼켜 없앤다 (제로버스 2페이즈의 미니 블랙홀)</param>
+        public static bool StealHeldItem(Pal thief, Pal victim, BattleContext ctx, string via, bool devour = false)
         {
             if (thief == null || victim == null || thief == victim || thief.IsFainted || victim.IsFainted) return false;
             var items = victim.Effects.Where(e => e.HeldItemId != null && e.HeldItemId != MiniBlackHoleName).ToList();
             if (items.Count == 0) return false;
             var item = items[UnityEngine.Random.Range(0, items.Count)];
             victim.RemoveEffect(item);
+            if (devour)
+            {
+                ctx.Log($"{thief.Data.palName}의 {Josa.I(via)} {victim.Data.palName}의 {Josa.Eul(item.HeldItemId)} 집어삼켰다!");
+                return true;
+            }
             thief.AddEffect(item);
             ctx.Log($"{thief.Data.palName}의 {Josa.I(via)} {victim.Data.palName}의 {Josa.Eul(item.HeldItemId)} 빼앗았다!");
             return true;
@@ -1261,8 +1267,10 @@ namespace PalRogue
     /// <summary>미니 블랙홀: 매 턴 끝에 상대 아이템 하나를 빼앗는다</summary>
     public class MiniBlackHole : BattleEffect
     {
+        /// <summary>빼앗은 도구를 삼켜 없앤다 (제로버스 2페이즈)</summary>
+        public bool Devour;
         public override void OnTurnEnd(Pal self, BattleContext ctx) =>
-            ItemCatalog.StealHeldItem(self, ctx.OpponentOf(self), ctx, ItemCatalog.MiniBlackHoleName);
+            ItemCatalog.StealHeldItem(self, ctx.OpponentOf(self), ctx, ItemCatalog.MiniBlackHoleName, Devour);
     }
 
     /// <summary>끈기갈고리손톱: 공격을 맞히면 확률로 상대 아이템 하나를 빼앗는다</summary>
@@ -1291,7 +1299,7 @@ namespace PalRogue
 
     /// <summary>
     /// 상대 팰이 지니는 아이템. 웨이브가 깊어질수록 더 많이, 더 높은 등급의 아이템을 지닌다.
-    /// 보스는 +1개, 전설은 +2개, 최종 보스는 +3개에 미니 블랙홀을 반드시 지닌다.
+    /// 보스는 +1개, 전설은 +2개, 최종 보스는 +3개. (제로버스의 미니 블랙홀은 2페이즈가 되면 생긴다: ZerobusPhase)
     /// 아이템은 그 팰에게 맞는 것만 고른다 (속성 강화 아이템은 그 팰이 쓰는 속성만).
     /// </summary>
     public static class EnemyLoadout
@@ -1347,7 +1355,6 @@ namespace PalRogue
                 given.Add(d.Name);
             }
 
-            if (kind == BossKind.Final) Give(ItemCatalog.Get("mini_black_hole"));   // 최종 보스 제로버스는 반드시
 
             int count = ItemCount(wave, kind, rng);
             for (int i = given.Count; i < count; i++)

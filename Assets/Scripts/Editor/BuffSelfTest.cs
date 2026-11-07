@@ -49,6 +49,7 @@ namespace PalRogue.EditorTools
             Test("⑤ 힘 모으기", () => TestCharge(pals, weak, rng));
             Test("⑥ 패턴 배치", () => TestAttach(pals));
             Test("⑦ 보스전 시뮬레이션", () => TestBossBattles(pals, rng));
+            Test("⑧ 제로버스 2페이즈", () => TestZerobusPhase(pals, rng));
 
             string head = $"[버프 테스트] 통과 {pass} / 실패 {fail}";
             if (fail > 0) Debug.LogError(head + "\n" + report); else Debug.Log(head + "\n" + report);
@@ -279,7 +280,8 @@ namespace PalRogue.EditorTools
             {
                 var z = new Pal(zero, 100);
                 BossPattern.Attach(z, BossKind.Final, GameConfig.FinalWave);
-                Check(z.Effects.OfType<BossPattern>().Count() == 4, "제로버스 패턴 4개가 아님");
+                Check(z.Effects.OfType<BossPattern>().Count() == 5, "제로버스 1페이즈 패턴 5개가 아님");
+                Check(z.Effects.OfType<VoidSeal>().Any() && z.BossPhase == 1 && z.CannotFaint, "제로버스 1페이즈(멸성의 봉인) 설정 안 됨");
                 Check(z.Skills.Any(s => s.Data.category == SkillCategory.Status), "제로버스가 변화 기술(공허의 침식)을 안 들고 나옴");
                 notes.Add($"{zero.palName}[{string.Join("·", z.Effects.OfType<BossPattern>().Select(x => x.Name))}]");
             }
@@ -347,6 +349,106 @@ namespace PalRogue.EditorTools
             Check(fxCount.ContainsKey(BossFx.Release), "모은 힘을 한 번도 안 터뜨림");
             string fx = string.Join(", ", fxCount.OrderBy(k => k.Key).Select(k => $"{k.Key} {k.Value}"));
             return $"{battles}판 (승 {wins}, 평균 {turnsTotal / Mathf.Max(1, battles)}턴), 보스 변화 기술 {supportUses}번, 패턴: {fx}";
+        }
+    
+        // ⑧ ─────────────────────────────
+        static Pal MakeZerobus(PalData zero, System.Random rng)
+        {
+            var boss = new Pal(zero, 100, rng);
+            boss.AddEffect(new BossAura("공허의 기운", GameConfig.FinalBossStatMultiplier, GameConfig.FinalBossHpMultiplier));
+            boss.AddEffect(new Awakening(AwakeningCatalog.ForEnemy(boss)));
+            boss.Heal(boss.MaxHP);
+            boss.MakeBoss(GameConfig.BossSegments(BossKind.Final, 100));
+            BossPattern.Attach(boss, BossKind.Final, GameConfig.FinalWave);
+            return boss;
+        }
+
+        static string TestZerobusPhase(List<PalData> pals, System.Random rng)
+        {
+            var zero = pals.FirstOrDefault(p => p.name == GameConfig.FinalBossAsset);
+            if (zero == null) return "제로버스 없음 (건너뜀)";
+            var normal = pals.Where(p => !GameConfig.IsLegendary(p)).ToList();
+
+            // 1) 1페이즈: 아무리 세게 맞아도 마지막 실드(1/5)에서 멈추고, 실드가 없어도 HP 1 아래로 안 내려간다
+            var boss = MakeZerobus(zero, rng);
+            Check(boss.BossSegments == GameConfig.FinalPhase1Segments, $"1페이즈 실드 {boss.BossSegments}칸");
+            Check(!boss.Effects.OfType<MiniBlackHole>().Any(), "1페이즈에 미니 블랙홀이 있음");
+            int phase1Max = boss.MaxHP;
+            for (int i = 0; i < 6; i++) boss.TakeDamage(boss.MaxHP * 10);
+            Check(!boss.IsFainted && boss.CurrentHP >= 1, "1페이즈에서 쓰러짐");
+            Check(ZerobusPhase.ShouldShift(boss), $"HP {boss.CurrentHP}/{boss.MaxHP}인데 2페이즈 조건이 아님");
+
+            // 2) 전투 중 변신: 파티(쓰러진 팰·PP 바닥 포함) 회복 + 가호 + 부활의씨앗
+            var party = Enumerable.Range(0, 4).Select(_ => new Pal(normal[rng.Next(normal.Count)], 100, rng)).ToList();
+            party[1].TakeDamage(party[1].MaxHP);
+            foreach (var sk in party[2].Skills) sk.PP = 0;
+            party[3].TakeDamage(party[3].MaxHP / 2);
+            var b = new Battle(party, new List<Pal> { boss }, new System.Random(rng.Next()), null, true, BossKind.Final);
+            b.EnemySmartness = 1f;
+            Drain(b);
+            int pick = EnemyAI.ChooseSkill(b.Player, b.Enemy, 0.8f, rng);
+            Check(b.ExecuteTurn(BattleAction.Skill(pick)), "턴 진행 실패");
+            var events = Drain(b);
+            Check(boss.BossPhase == 2 && !boss.CannotFaint, "2페이즈로 넘어가지 않음");
+            Check(!boss.IsFainted && boss.CurrentHP > boss.MaxHP / 2, $"2페이즈 HP가 가득 차지 않음 ({boss.CurrentHP}/{boss.MaxHP})");
+            Check(boss.MaxHP > phase1Max, "2페이즈 최대 HP가 늘지 않음");
+            Check(boss.BossSegments == GameConfig.FinalPhase2Segments && boss.ShieldsLeft >= GameConfig.FinalPhase2Segments - 3, $"2페이즈 실드 {boss.ShieldsLeft}/{boss.BossSegments}");
+            Check(!boss.Effects.OfType<VoidSeal>().Any(), "2페이즈에 봉인이 남아 있음");
+            Check(!boss.Effects.OfType<ReviverSeed>().Any(), "2페이즈 제로버스가 부활의씨앗을 지님");
+            Check(boss.Effects.OfType<EventHorizon>().Any() && boss.Effects.OfType<Supernova>().Any(), "2페이즈 패턴이 없음");
+            Check(boss.Effects.OfType<BossPattern>().Count() == 5, $"2페이즈 패턴 {boss.Effects.OfType<BossPattern>().Count()}개");
+            Check(boss.Effects.OfType<MiniBlackHole>().Any(m => m.Devour), "2페이즈 미니 블랙홀이 없음");
+            Check(boss.Skills.Any(s => s.Data == ZerobusPhase.Starfall) && boss.Skills.Any(s => s.Data == ZerobusPhase.Judgement), "2페이즈 전용 기술이 없음");
+            Check(boss.Skills.Count <= Pal.MaxSkills, "기술이 4개보다 많음");
+            Check(boss.Effects.OfType<Awakening>().All(a => a.IsTrue), "2페이즈가 진각성이 아님");
+            Check(boss.LevelHidden, "레벨이 ??? 로 숨겨지지 않음");
+            foreach (var fx in new[] { BossFx.PhaseOmen, BossFx.PhaseShift, BossFx.Blessing })
+                Check(events.Any(e => e.Type == BattleEventType.BossPattern && e.Fx == fx), $"연출 이벤트 {fx} 없음");
+            var shiftEv = events.First(e => e.Fx == BossFx.PhaseShift && e.Type == BattleEventType.BossPattern);
+            Check(shiftEv.From > 0 && shiftEv.From < shiftEv.MaxHp, "변신 이벤트의 HP 시작값이 이상함");
+            Check(events.Any(e => e.Type == BattleEventType.HpChanged && e.Pal == boss && e.To > shiftEv.From), "제로버스 HP가 차오르는 이벤트 없음");
+            Check(!events.Any(e => e.Type == BattleEventType.HpChanged && e.IsPlayerSide && e.Pal != b.Player), "뒤에 있는 팰의 HP 이벤트가 화면으로 감");
+            foreach (var p in party)
+            {
+                Check(!p.IsFainted, $"{p.Data.palName}이(가) 회복되지 않음");
+                Check(p.Effects.OfType<StarBlessing>().Count() == 1, $"{p.Data.palName}: 별의 가호 없음");
+                if (p != b.Player) Check(p.CurrentHP == p.MaxHP && p.Skills.All(s => s.PP == s.MaxPP), $"{p.Data.palName}: HP·PP가 가득 차지 않음");
+            }
+            Check(party.Count(p => p.Effects.OfType<ReviverSeed>().Any()) >= 3, "부활의씨앗을 받지 못함");
+
+            // 3) 별의 가호: 쓰러질 공격을 한 번 버틴다
+            var ctx = new BattleContext();
+            var tank = new Pal(normal[0], 100, rng);
+            tank.AddEffect(new StarBlessing());
+            BattleCalc.ApplyDamage(new DamageInfo { Attacker = boss, Defender = tank, FinalDamage = tank.MaxHP * 5 }, ctx);
+            Check(!tank.IsFainted && tank.CurrentHP == 1, "별의 가호가 버티지 못함");
+            BattleCalc.ApplyDamage(new DamageInfo { Attacker = boss, Defender = tank, FinalDamage = tank.MaxHP * 5 }, ctx);
+            Check(tank.IsFainted, "별의 가호가 두 번 버팀");
+
+            // 4) 2페이즈 미니 블랙홀은 빼앗은 도구를 삼킨다 (제로버스가 부활의씨앗을 쓰지 않게)
+            int before = boss.Effects.Count;
+            var victim = party.First(p => p.Effects.Any(e => e.HeldItemId != null && e.HeldItemId != ItemCatalog.MiniBlackHoleName));
+            Check(ItemCatalog.StealHeldItem(boss, victim, ctx, ItemCatalog.MiniBlackHoleName, true), "삼키기 실패");
+            Check(boss.Effects.Count == before, "삼킨 도구가 제로버스에게 붙음");
+
+            // 5) 끝까지 싸워 본다 (오류 없이)
+            int turns = 0;
+            while (turns < 200 && (b.State == BattleState.Ongoing || b.State == BattleState.WaitingPlayerSwitch))
+            {
+                if (b.State == BattleState.WaitingPlayerSwitch)
+                    Check(b.SwitchAfterFaint(Enumerable.Range(0, b.PlayerParty.Count).First(i => !b.PlayerParty[i].IsFainted)), "교체 실패");
+                else
+                {
+                    Check(b.ExecuteTurn(BattleAction.Skill(EnemyAI.ChooseSkill(b.Player, b.Enemy, 0.8f, rng))), "턴 진행 실패");
+                    turns++;
+                }
+                Drain(b);
+            }
+            Check(boss.BossPhase == 2, "다시 1페이즈가 됨");
+            string result = b.State == BattleState.PlayerWon ? "승리" : b.State == BattleState.PlayerLost ? "패배" : "끝나지 않음";
+            b.Detach();
+            return $"1페이즈 HP {phase1Max} → 2페이즈 HP {boss.MaxHP}, 실드 {GameConfig.FinalPhase1Segments}→{GameConfig.FinalPhase2Segments}칸, " +
+                   $"기술 [{string.Join("·", boss.Skills.Select(s => s.Data.skillName))}], 이후 {turns}턴 {result}";
         }
     }
 }

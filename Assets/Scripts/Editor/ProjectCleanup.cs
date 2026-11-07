@@ -182,7 +182,7 @@ namespace PalRogue.EditorTools
 
             // ② 코드가 이름으로 부르는 것
             var literals = CodeLiterals();
-            var biomes = new HashSet<string>(GameConfig.AreaBiomes, StringComparer.OrdinalIgnoreCase) { "plains" };
+            var biomes = new HashSet<string>(GameConfig.AreaBiomes, StringComparer.OrdinalIgnoreCase) { "plains", GameConfig.FinalPhase2Biome };
             var sounds = new HashSet<string>(literals.Where(l => Regex.IsMatch(l, "^[a-z0-9_]+$")), StringComparer.OrdinalIgnoreCase);
             foreach (var b in biomes.Concat(ExtraBgm)) sounds.Add(b);
 

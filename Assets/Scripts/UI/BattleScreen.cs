@@ -317,6 +317,7 @@ namespace PalRogue
         void StartWave(bool firstWave)
         {
             battle?.Detach();
+            if (voidPhase) { voidPhase = false; Fx.SetBossAura(null, false); ApplyAreaScenery(true); }   // 2페이즈 끝 (다시 도전 등)
             var synergyNews = run.UpdateSynergies();             // 첫 웨이브: 시작 파티의 속성 시너지
             if (synergyNews.Count > 0) pendingSynergyMessages = synergyNews;
             var enemy = run.CreateEnemy(WildPool());
@@ -440,6 +441,55 @@ namespace PalRogue
             enemyView.SetSilhouette(false);
             StartCoroutine(enemyView.Flash(Color.white, 2, 0.06f));
             yield return CameraShake(BossShakeSeconds, BossShakeAmount);
+        }
+
+        // ───────── 제로버스 2페이즈 ─────────
+        /// <summary>2페이즈가 시작되면 true: 지역 이름이 "??? - ???"로 보인다 (다음 웨이브·새 모험에서 풀림)</summary>
+        bool voidPhase;
+        static readonly Color VoidPhaseTint = new Color(0.86f, 0.74f, 1f);    // 2페이즈 제로버스: 공허에 물든 색
+
+        /// <summary>보스 패턴마다 곁들이는 소리 (새 패턴만. 예전 패턴은 연출만)</summary>
+        static void PatternSound(BossFx fx)
+        {
+            switch (fx)
+            {
+                case BossFx.PhaseOmen: GameAudio.StopBgm(1.5f); GameAudio.Se("stat_down"); break;   // 음악이 멎고 공허가 요동친다
+                case BossFx.Blessing: GameAudio.Se("shine"); break;
+                case BossFx.Horizon: GameAudio.Se("stat_down"); break;
+                case BossFx.Nova: GameAudio.Se("hit_strong"); break;
+            }
+        }
+
+        /// <summary>
+        /// 제로버스 2페이즈 변신: 공허 폭발 → 화면이 하얗게 타오르는 사이 배경이 End로, 지역이 ??? - ???로 바뀐다 →
+        /// "멸성의 재앙" 대형 컷인 → 크게 흔들림. HP바는 변신 직전 칸에서 다음 HpChanged로 가득 차오른다.
+        /// </summary>
+        IEnumerator PlayPhaseShift(BattleEvent ev)
+        {
+            var boss = ev.Pal;
+            if (bossIntro == null) bossIntro = BossIntro.Create(messageText.font);
+            GameAudio.Se("hit_strong");
+            if (enemyView.IsVisible) yield return Fx.PlayBossFx(BossFx.PhaseShift, boss.Data.primaryType, enemyView, enemyView);
+
+            // 하얗게 타오르는 동안 세계가 바뀐다
+            GameAudio.Se("shine");
+            yield return bossIntro.FadeScreen(Color.white, 0f, 1f, 0.3f);
+            voidPhase = true;
+            AreaScenery.Apply(enemyView.transform.parent, GameConfig.FinalPhase2Biome);
+            UpdateHud();
+            enemyInfo.Refresh(boss);                                        // 실드 6칸 · Lv.??? · 새 능력치 단계
+            enemyInfo.SetHp(ev.MaxHp > 0 ? Mathf.Clamp01(ev.From / (float)ev.MaxHp) : 0f);
+            enemyView.SetBaseTint(VoidPhaseTint);
+            Fx.SetBossAura(enemyView, true);
+            GameAudio.Bgm(GameConfig.FinalPhase2Bgm);
+            yield return BattleTime.FxWait(0.25f);
+            yield return bossIntro.FadeScreen(Color.white, 1f, 0f, 0.6f);
+
+            // 멸성의 재앙 / 제로버스 / Lv.???
+            yield return bossIntro.PlayGrand(GameConfig.FinalPhase2Epithet, PalName(boss), "Lv.???", FinalColor);
+            GameAudio.Se("hit_strong");
+            StartCoroutine(enemyView.Flash(Color.white, 2, 0.06f));
+            yield return CameraShake(0.55f, 0.2f);
         }
 
         IEnumerator CameraShake(float seconds, float amount)
@@ -660,6 +710,31 @@ namespace PalRogue
             if (run == null || mode == Mode.Busy) { Debug.LogWarning("[PalRogue] 명령을 고르는 중일 때 다시 눌러 주세요."); return; }
             if (GameConfig.AreaIndex(run.Wave) >= GameConfig.AreaNames.Length - 1) { Debug.Log("[PalRogue] 마지막 지역이라 더 갈 곳이 없습니다."); return; }
             StartCoroutine(DebugNextAreaRoutine());
+        }
+
+        /// <summary>
+        /// 테스트 메뉴(37)용: 마지막 웨이브(제로버스)로 건너뛴다. 제로버스는 마지막 실드까지 깎인 채로 나와서
+        /// 아무 기술이나 한 번 쓰면 바로 2페이즈 연출을 볼 수 있다.
+        /// </summary>
+        public void DebugZerobusPhase()
+        {
+            if (run == null || mode == Mode.Busy) { Debug.LogWarning("[PalRogue] 명령을 고르는 중일 때 다시 눌러 주세요."); return; }
+            StartCoroutine(DebugZerobusRoutine());
+        }
+
+        IEnumerator DebugZerobusRoutine()
+        {
+            mode = Mode.Busy;
+            GameSession.Slot = -1;                     // 테스트용 점프: 저장 슬롯을 건드리지 않는다 (지거나 이겨도 슬롯이 지워지거나 덮이지 않게)
+            Debug.Log("[PalRogue] 제로버스 테스트: 이번 플레이는 저장하지 않습니다.");
+            HidePanels();
+            enemyInfo.gameObject.SetActive(false);
+            enemyView.Hide();
+            string before = run.AreaName;
+            while (run.Wave < GameConfig.FinalWave) run.NextWave();
+            if (run.AreaName != before) yield return ChangeArea();
+            ZerobusPhase.DebugNearShift = true;
+            StartWave(false);
         }
 
         IEnumerator DebugNextAreaRoutine()
@@ -938,7 +1013,7 @@ namespace PalRogue
         void UpdateHud()
         {
             if (run == null) return;
-            if (areaText != null) areaText.text = $"{run.AreaName} - {run.Wave}";
+            if (areaText != null) areaText.text = voidPhase ? GameConfig.FinalPhase2AreaText : $"{run.AreaName} - {run.Wave}";
             if (moneyText != null) moneyText.text = $"{run.Money:N0} G";
             Achievements.CheckMoney(run.Money);
         }
@@ -1759,6 +1834,8 @@ namespace PalRogue
                     }
                     case BattleEventType.BossPattern:
                     {
+                        if (ev.Fx == BossFx.PhaseShift) { yield return PlayPhaseShift(ev); break; }   // 제로버스 2페이즈 대연출
+                        PatternSound(ev.Fx);
                         box.ShowStages(ev.Stages, ev.Charging);
                         var targetView = ev.TargetIsPlayerSide ? playerView : enemyView;
                         if (view.IsVisible) yield return Fx.PlayBossFx(ev.Fx, ev.Pal.Data.primaryType, view, targetView);

@@ -188,6 +188,14 @@ namespace PalRogue
             }
         }
 
+        /// <summary>평소 색을 바꾼다 (제로버스 2페이즈: 공허에 물든 색). 다음 Show 때 원래 색</summary>
+        public void SetBaseTint(Color color)
+        {
+            if (sr == null) Awake();
+            baseTint = color;
+            if (glow == null) sr.color = color;
+        }
+
         /// <summary>몸에 맥동하는 기운을 두른다 (null이면 끈다)</summary>
         public void SetGlow(Color? color)
         {

@@ -215,7 +215,7 @@ namespace PalRogue
         {
             int broken = 0;
             if (ShieldsLeft > 0) amount = ClampForShields(amount, out broken);
-            int dealt = Mathf.Clamp(amount, 0, CurrentHP);
+            int dealt = Mathf.Clamp(amount, 0, CannotFaint ? Mathf.Max(0, CurrentHP - 1) : CurrentHP);   // 제로버스 1페이즈는 쓰러지지 않는다
             int before = CurrentHP;
             CurrentHP -= dealt;
             if (dealt > 0) HpChanged?.Invoke(this, before, CurrentHP);
@@ -250,7 +250,15 @@ namespace PalRogue
         {
             BossSegments = 1;
             ShieldsLeft = 0;
+            CannotFaint = false;
+            BossPhase = 0;
         }
+
+        /// <summary>HP가 1 아래로 내려가지 않는다 (최종 보스 1페이즈: 2페이즈로 넘어가기 전에 쓰러지지 않게)</summary>
+        public bool CannotFaint { get; set; }
+        /// <summary>최종 보스의 페이즈 (0 = 보통 팰, 1·2 = 제로버스 1·2페이즈). 2페이즈면 레벨이 "???"로 보인다</summary>
+        public int BossPhase { get; set; }
+        public bool LevelHidden => BossPhase >= 2;
 
         /// <summary>shield번째 실드(아래에서부터 1, 2, …)가 있는 HP</summary>
         public int ShieldHp(int shield) => Mathf.RoundToInt(MaxHP * shield / (float)BossSegments);

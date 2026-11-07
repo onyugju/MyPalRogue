@@ -34,7 +34,8 @@ namespace PalRogue
             ApplyBossLayout(pal);
             nameText.text = string.IsNullOrEmpty(pal.Data.palName) ? pal.Data.name : pal.Data.palName;
             StarIcons.Show(nameText, pal.Stars);                       // 응축 ★
-            levelText.text = expFill != null ? GameConfig.LevelText(pal.Level) : $"Lv.{pal.Level}";   // 내 팰: 한도에 닿으면 빨간 숫자
+            levelText.text = expFill != null ? GameConfig.LevelText(pal.Level)                        // 내 팰: 한도에 닿으면 빨간 숫자
+                           : pal.LevelHidden ? "Lv.???" : $"Lv.{pal.Level}";                           // 제로버스 2페이즈는 ???
             if (hpText != null) hpText.text = $"{pal.CurrentHP}/{pal.MaxHP}";
             SetHp(pal.MaxHP > 0 ? (float)pal.CurrentHP / pal.MaxHP : 0f);
             SetExp(pal.ExpRatio);

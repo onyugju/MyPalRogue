@@ -337,6 +337,9 @@ namespace PalRogue
             ["Void_Shot"]      = XProj(PPlasmaV, PImplosion),
             ["Void_Pulse"]     = XStrike(PImplosion, PBurstD),
             ["Annihilate"]     = XStrike(PVoidOrb, PDarkBoom, PHex),
+            // 제로버스 2페이즈 전용 (ZerobusPhase가 실행 중에 만드는 기술)
+            ["Zerobus_Starfall"]  = XStrike(PStarFall, PDarkBoom, PVoidOrb, count: 3),   // 멸성의 유성: 공허의 유성 세 줄기
+            ["Zerobus_Judgement"] = XCone(PBeamP, PImplosion, PHex, PSpell),             // 공허의 단죄: 빛줄기 → 함몰
 
             // ── 새 팰 20종 전용 기술 ──
             ["Gloomy_Sting"]   = XProj(PoisonDart, PAcid, tint: DarkPurple),         // 뚱코알라: 독침 → 독 웅덩이
@@ -403,7 +406,8 @@ namespace PalRogue
         public static IEnumerable<string> AllSheets()
         {
             foreach (var s in new[] { BuffUp, DebuffDown, HealFx, ChargeUp, Shockwave, Dissipate, FireShield, HolyLight, DarkCurse,
-                                      FrostNova, Portal, Ignite, ShockAura, RankUp, PCrit })
+                                      FrostNova, Portal, Ignite, ShockAura, RankUp, PCrit,
+                                      PImplosion, PDarkBoom, PVoidOrb, PShadowFlames, Nuke, StarBurst, PSpiritUp })
                 yield return s;
             foreach (var d in BySkill.Values)
                 foreach (var s in new[] { d.travel, d.impact, d.impact2, d.cast })
@@ -823,8 +827,101 @@ namespace PalRogue
                     if (bossType == PalType.Fire) Run(PlayOnce(Ignite, target.Center, 2.4f, Color.white, 14f));
                     else Run(PlayOnce(ShockAura, boss.Center, 2.6f, Yellow, 14f));
                     break;
+
+                // ───── 제로버스 2페이즈 ─────
+                case BossFx.PhaseOmen:                    // 전조: 몸이 검게 깜빡이고 공허가 안쪽으로 빨려 든다
+                {
+                    float fit = Fit(boss);
+                    Run(boss.Flash(Color.black, 4, 0.1f));
+                    Run(PlayOnce(PImplosion, boss.Center, fit * 1.4f, Color.white));
+                    Run(DelayThen(0.35f, PlayOnce(Portal, boss.Center, 3.4f, VoidCol, 12f)));
+                    Run(DelayThen(0.7f, PlayOnce(PImplosion, boss.Center, fit * 1.8f, Color.white)));
+                    Run(CameraShake(0.05f, 1.2f));
+                    break;
+                }
+                case BossFx.PhaseShift:                   // 변신: 공허의 폭발이 연달아 터지고 마지막에 거대한 섬광
+                {
+                    float fit = Fit(boss);
+                    boss.SetGlow(null);
+                    Run(boss.Flash(VoidCol, 8, 0.05f));
+                    Run(PlayOnce(PVoidOrb, boss.Center, fit * 2.2f, Color.white));
+                    for (int i = 0; i < 5; i++)
+                    {
+                        var off = new Vector3(UnityEngine.Random.Range(-0.9f, 0.9f), UnityEngine.Random.Range(-0.7f, 0.9f), 0f) * fit;
+                        Run(DelayThen(0.12f + i * 0.16f, PlayOnce(PDarkBoom, boss.Center + off, fit * (1f + 0.15f * i), Color.white)));
+                    }
+                    Run(DelayThen(0.95f, PlayOnce(Nuke, boss.Center, 4.2f, VoidCol)));
+                    Run(DelayThen(1.0f, PlayOnce(PImplosion, boss.Center, fit * 2.4f, Color.white)));
+                    Run(CameraShake(0.32f, 1.5f));
+                    break;
+                }
+                case BossFx.Blessing:                     // 별의 가호: 금빛 기둥과 별 가루가 내 팰을 감싼다
+                {
+                    float fit = Fit(target);
+                    Run(target.Flash(HolyGold, 3, 0.08f));
+                    Run(PlayOnce(HolyLight, target.Center, 3.2f, Color.white, 14f));
+                    Run(DelayThen(0.2f, PlayOnce(PSpiritUp, target.Feet, fit * 1.3f, HolyGold)));
+                    Run(DelayThen(0.35f, PlayOnce(StarBurst, target.Center, 3f, HolyGold, 14f)));
+                    Run(DelayThen(0.55f, PlayOnce(HealFx, target.Center, 2.6f, Color.white, 14f)));
+                    break;
+                }
+                case BossFx.Horizon:                      // 사건의 지평선: 상대 자리에 블랙홀이 열려 빨아들인다
+                {
+                    float fit = Fit(target);
+                    Run(PlayOnce(Portal, target.Center, 3.4f, VoidCol, 12f));
+                    Run(DelayThen(0.15f, PlayOnce(PImplosion, target.Center, fit * 1.6f, Color.white)));
+                    Run(DelayThen(0.3f, target.HitReact(true)));
+                    Run(DelayThen(0.3f, CameraShake(0.14f, 0.5f)));
+                    Run(DelayThen(0.55f, PlayOnce(PVoidOrb, boss.Center, Fit(boss) * 1.2f, Color.white)));
+                    break;
+                }
+                case BossFx.Nova:                         // 초신성 붕괴: 깨진 실드가 터지며 상대까지 폭발이 번진다
+                {
+                    Run(boss.Flash(Color.white, 2, 0.05f));
+                    Run(PlayOnce(PDarkBoom, boss.Center, Fit(boss) * 1.5f, Color.white));
+                    Run(DelayThen(0.15f, PlayOnce(Shockwave, target.Center, 3.2f, VoidCol)));
+                    Run(DelayThen(0.2f, PlayOnce(PDarkBoom, target.Center, Fit(target) * 1.2f, Color.white)));
+                    Run(DelayThen(0.2f, target.HitReact(true)));
+                    Run(CameraShake(0.2f, 0.5f));
+                    break;
+                }
             }
             while (running > 0) yield return null;
+        }
+
+        // ───── 제로버스 2페이즈: 몸 아래에서 계속 일렁이는 공허의 불꽃 ─────
+        Coroutine bossAura;
+        SpriteRenderer bossAuraRenderer;
+
+        /// <summary>보스 발밑에 계속 타오르는 공허의 불꽃을 켜고 끈다 (보스가 화면에서 사라지면 저절로 꺼진다)</summary>
+        public void SetBossAura(PalView boss, bool on)
+        {
+            if (bossAura != null) { StopCoroutine(bossAura); bossAura = null; }
+            if (bossAuraRenderer != null) { Destroy(bossAuraRenderer.gameObject); bossAuraRenderer = null; }
+            if (on && boss != null) bossAura = StartCoroutine(BossAuraLoop(boss));
+        }
+
+        IEnumerator BossAuraLoop(PalView boss)
+        {
+            var frames = Frames(PShadowFlames);
+            if (frames == null || frames.Length == 0) yield break;
+            var px = Px(PShadowFlames);
+            float fps = px != null ? px.fps : ImpactFps;
+            var sr = Spawn(frames[0], boss.Feet, Fit(boss) * 1.3f, new Color(0.75f, 0.45f, 1f, 0.5f));
+            sr.sortingLayerID = boss.SortingLayerId;
+            sr.sortingOrder = boss.SortingOrder - 1;                       // 팰 뒤
+            bossAuraRenderer = sr;
+            float t = 0f;
+            while (boss != null && boss.IsVisible && sr != null)
+            {
+                sr.transform.position = boss.Feet;
+                sr.sprite = frames[Mathf.FloorToInt(t * fps) % frames.Length];
+                t += Time.unscaledDeltaTime;
+                yield return null;
+            }
+            if (sr != null) Destroy(sr.gameObject);
+            bossAuraRenderer = null;
+            bossAura = null;
         }
 
         IEnumerator DelayThen(float seconds, IEnumerator then)

@@ -170,7 +170,20 @@ namespace PalRogue
         static float LegendStrength(int wave) => Mathf.Clamp01(0.1f + 0.9f * (wave - 20) / 80f);
         public static float LegendStat(int wave) => 1f + (LegendStatMultiplier - 1f) * LegendStrength(wave);
         public static float LegendHp(int wave) => 1f + (LegendHpMultiplier - 1f) * LegendStrength(wave);
-        public const float FinalBossStatMultiplier = 1.2f, FinalBossHpMultiplier = 2f;   // 공허 ×1.5 상성이 생겨서 1.35 → 1.2
+        // 최종 보스 제로버스는 두 페이즈로 싸운다.
+        //  1페이즈 "종성의 재앙": 조금 약하게 (×1.1 / HP ×1.6, 실드 5칸). HP가 1/5(마지막 실드)까지 깎이면 2페이즈로
+        //  2페이즈 "멸성의 재앙": HP·실드가 다시 가득 차고 더 강해진다 (×1.3 / HP ×2.0, 실드 6칸, 전용 기술·패턴)
+        //  2페이즈가 시작될 때 내 파티는 HP·PP가 모두 회복되고 "별의 가호"와 부활의씨앗을 받는다
+        public const float FinalBossStatMultiplier = 1.1f, FinalBossHpMultiplier = 1.6f;
+        public const float FinalPhase2StatMultiplier = 1.3f, FinalPhase2HpMultiplier = 2f;
+        public const int FinalPhase1Segments = 5, FinalPhase2Segments = 6;
+        /// <summary>2페이즈로 넘어가는 HP 비율 (실드 5칸이면 마지막 실드가 깨지는 순간)</summary>
+        public const float FinalPhaseShiftRatio = 0.2f;
+        public const string FinalPhase2Epithet = "멸성의 재앙";
+        /// <summary>2페이즈 배경 (포켓로그 End)과 지역 이름</summary>
+        public const string FinalPhase2Biome = "end", FinalPhase2Bgm = "end", FinalPhase2AreaText = "??? - ???";
+        /// <summary>별의 가호 (2페이즈에서 내 파티 전원): 모든 능력치 배율, 쓰러질 공격을 한 번 HP 1로 버틴다</summary>
+        public const float StarBlessingStatMultiplier = 1.15f;
 
         /// <summary>전설 팰의 이명 (보스로 나올 때 등장 컷인에 이름 위에 나온다). 팰 이름으로 찾는다</summary>
         public static readonly Dictionary<string, string> Epithets = new Dictionary<string, string>
@@ -280,7 +293,7 @@ namespace PalRogue
         {
             BossKind.Boss => Mathf.Clamp(level / 25 + 2, 2, 4),
             BossKind.Legend => Mathf.Clamp(level / 25 + 3, 3, 5),
-            BossKind.Final => 5,
+            BossKind.Final => FinalPhase1Segments,
             _ => 1,
         };
 

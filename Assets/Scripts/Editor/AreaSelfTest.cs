@@ -24,6 +24,14 @@ namespace PalRogue.EditorTools
                 report.AppendLine($"  ✘ 지역 {GameConfig.AreaNames.Length}개인데 배경은 {GameConfig.AreaBiomes.Length}개만 정해짐");
             }
 
+            // 제로버스 2페이즈 배경 (포켓로그 End)
+            {
+                string biome = GameConfig.FinalPhase2Biome;
+                bool ok = AreaScenery.Has(biome);
+                if (!ok) fail++;
+                report.AppendLine(ok ? $"  ✔ 제로버스 2페이즈 → {biome}" : $"  ✘ 제로버스 2페이즈 배경 그림이 없음: {biome}_bg / _a / _b");
+            }
+
             for (int i = 0; i < GameConfig.AreaNames.Length; i++)
             {
                 int wave = i * GameConfig.AreaWaveStep + 1;
@@ -174,6 +182,15 @@ namespace PalRogue.EditorTools
             var screen = Object.FindAnyObjectByType<BattleScreen>();
             if (screen == null) { Debug.LogError("[지역 이동] BattleScreen을 찾지 못했습니다."); return; }
             screen.DebugNextArea();
+        }
+
+        [MenuItem("PalRogue/37. 제로버스 2페이즈 바로 보기 (플레이 중)", false, 406)]
+        static void ZerobusPhaseTwo()
+        {
+            if (!EditorApplication.isPlaying) { EditorUtility.DisplayDialog("플레이 중에 실행", "플레이 버튼을 누르고 명령을 고르는 화면이 나온 뒤에 실행해 주세요.", "확인"); return; }
+            var screen = Object.FindAnyObjectByType<BattleScreen>();
+            if (screen == null) { Debug.LogError("[제로버스] BattleScreen을 찾지 못했습니다."); return; }
+            screen.DebugZerobusPhase();
         }
     }
 }

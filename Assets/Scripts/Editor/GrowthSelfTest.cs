@@ -238,7 +238,7 @@ namespace PalRogue.EditorTools
                 bool legend = run.EnemyKind == BossKind.Legend || run.EnemyKind == BossKind.Final;
                 var aw = AwakeningCatalog.Of(enemy);
                 Check(legend == (aw != null), $"웨이브 {wave} {run.EnemyKind}: 각성 {(aw != null ? "있음" : "없음")}");
-                if (run.EnemyKind == BossKind.Final) Check(aw.IsTrue, "최종 보스가 진각성이 아님");
+                if (run.EnemyKind == BossKind.Final) Check(!aw.IsTrue, "제로버스 1페이즈가 진각성임 (진각성은 2페이즈부터)");
                 if (legend) Fight(new List<Pal> { new Pal(normal[1], 100) }, enemy, rng, 30);   // 상대 각성도 오류 없이
                 lines.Add($"W{wave} {run.EnemyKind} {enemy.Data.palName} ★{enemy.Stars}{(aw != null ? $" {aw.Def.Name}{(aw.IsTrue ? "(진)" : "")}" : "")}");
             }

@@ -291,6 +291,7 @@ namespace PalRogue
             if (!IsValidPlayerAction(playerAction)) return false;
 
             Ctx.Turn++;
+            enemySkipsTurn = false;
             foreach (var p in new[] { Player, Enemy })
                 foreach (var e in p.EffectsSnapshot()) e.OnTurnStart(p, Ctx);
 
@@ -305,6 +306,7 @@ namespace PalRogue
                 if (State != BattleState.Ongoing) break;
                 bool stillActive = en.Actor == (en.IsPlayer ? Player : Enemy);
                 if (en.Actor.IsFainted || !stillActive) continue;   // 쓰러졌거나 교체돼서 못 움직임
+                if (!en.IsPlayer && enemySkipsTurn) continue;       // 2페이즈로 변신한 턴에는 움직이지 않는다
 
                 Perform(en);
                 ResolveFaints();
@@ -318,7 +320,10 @@ namespace PalRogue
             if (State == BattleState.Ongoing)
             {
                 foreach (var p in new[] { Player, Enemy })
+                {
+                    if (p == Enemy && enemySkipsTurn) continue;     // 변신한 턴에는 새 패턴·미니 블랙홀이 아직 움직이지 않는다
                     foreach (var e in p.EffectsSnapshot()) e.OnTurnEnd(p, Ctx);
+                }
                 ResolveFaints();
             }
             return true;
@@ -516,9 +521,69 @@ namespace PalRogue
             Log($"{Josa.Eun(p.Data.palName)} {reason} 데미지를 입고 있다!");
         }
 
+        // ───────── 제로버스 2페이즈 ─────────
+        bool enemySkipsTurn;
+
+        /// <summary>
+        /// 제로버스 1페이즈 → 2페이즈. 대사 → 변신(대연출) → HP·실드 가득 → 새 패턴 알림 →
+        /// 내 파티 전원 HP·PP·상태이상 회복(쓰러진 팰도) + 별의 가호 + 부활의씨앗 + 지금 팰 공격·스피드 상승.
+        /// 변신한 턴에 제로버스는 더 움직이지 않는다.
+        /// </summary>
+        void ShiftPhase(Pal boss)
+        {
+            enemySkipsTurn = true;
+            string n = boss.Data.palName;
+            Ctx.PatternFx(boss, BossFx.PhaseOmen, boss);
+            Log($"{Josa.I(n)} 움직임을 멈췄다…?");
+            foreach (var line in ZerobusPhase.Lines) Log($"{n}: 「{line}」");
+
+            ZerobusPhase.Transform(boss, Ctx);
+            Emit(new BattleEvent                                    // 화면: 배경 End · 지역 ??? · Lv.??? 대형 컷인
+            {
+                Type = BattleEventType.BossPattern, Pal = boss, Fx = BossFx.PhaseShift, Target = boss,
+                From = boss.CurrentHP, MaxHp = boss.MaxHP, Stages = StageSnapshot(boss),
+            });
+            boss.Heal(boss.MaxHP);
+            Log($"{n}의 봉인이 풀렸다!\n{GameConfig.FinalPhase2Epithet}, {Josa.I(n)} 진정한 모습을 드러냈다!");
+            Log($"{n}의 HP와 실드가 모두 되살아났다!");
+            foreach (var pattern in boss.Effects.OfType<BossPattern>())
+            {
+                string intro = pattern.Intro(boss);
+                if (intro != null) Log(intro);
+            }
+            Log($"{Josa.Eun(n)} {Josa.Eul(ItemCatalog.MiniBlackHoleName)} 손에 넣었다!\n매 턴 지닌 도구를 하나씩 삼켜 버린다!");
+
+            // 내 파티: 별의 가호
+            Ctx.PatternFx(boss, BossFx.Blessing, Player);
+            Log("그때, 꺼져 가던 별들의 빛이 파티를 감쌌다…!");
+            bool revived = false;
+            var seed = ItemCatalog.Get("reviver_seed");
+            foreach (var p in PlayerParty)
+            {
+                bool active = p == Player;
+                if (!active) p.HpChanged -= OnHpChanged;            // 뒤에 있는 팰의 HP는 화면에 그리지 않는다
+                if (p.IsFainted) { p.Revive(p.MaxHP); revived = true; }
+                else p.Heal(p.MaxHP);
+                if (!active) p.HpChanged += OnHpChanged;
+                if (active) p.CureStatus();
+                else if (p.Status != StatusCondition.None) { p.StatusChanged -= OnStatusChanged; p.CureStatus(); p.StatusChanged += OnStatusChanged; }
+                foreach (var sk in p.Skills) sk.PP = sk.MaxPP;
+                if (!p.Effects.OfType<StarBlessing>().Any()) p.AddEffect(new StarBlessing());
+                if (seed != null && seed.CannotUse(p) == null) seed.Apply(new ItemContext { Target = p });
+            }
+            Log("파티 전원의 HP와 PP가 모두 회복되었다!");
+            if (revived) Log("쓰러져 있던 팰들도 다시 일어섰다!");
+            Log($"별의 가호! 파티 전원의 모든 능력치가 올랐다!\n쓰러질 공격을 한 번 버텨 낼 수 있다!");
+            if (seed != null) Log("파티 전원이 부활의씨앗을 지니게 되었다!");
+            Log($"{Player.Data.palName}의 투지가 별빛처럼 타오른다!");
+            StatStages.ChangeMany(Player, new List<(StatType, int)> { (StatType.Attack, 1), (StatType.Speed, 1) }, Log);
+            Log($"{n}: 「{ZerobusPhase.LastLine}」");
+        }
+
         // ───────── 기절 처리 ─────────
         void ResolveFaints()
         {
+            if (ZerobusPhase.ShouldShift(Enemy)) ShiftPhase(Enemy);   // 제로버스 HP 1/5 → 2페이즈 (쓰러짐보다 먼저)
             if (Enemy.IsFainted)
             {
                 Enemy.ClearStatusOnFaint();

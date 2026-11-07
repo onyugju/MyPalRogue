@@ -16,6 +16,11 @@ namespace PalRogue
         Curse,         // 상대에게 저주·냉기 등을 건다 (대상 쪽에 연출)
         Heal,          // 회복
         Aura,          // 몸에 두른 기운이 반응 (작열 오라 등)
+        PhaseOmen,     // 제로버스 2페이즈 전조 (공허가 요동친다, 음악이 멎는다)
+        PhaseShift,    // 제로버스 2페이즈 변신 (배경 End, 지역 ???, 대형 컷인)
+        Blessing,      // 별의 가호 (내 파티 전원 회복·강화)
+        Horizon,       // 사건의 지평선 (상대를 빨아들여 HP를 빼앗는다)
+        Nova,          // 초신성 붕괴 (실드가 깨질 때 터지는 반격)
     }
 
     /// <summary>
@@ -24,7 +29,8 @@ namespace PalRogue
     ///
     /// 보스:   힘 모으기 (웨이브 50부터 분노, 100부터 실드 정화도)
     /// 왕:     힘 모으기 + 실드 정화 + 속성별 고유 패턴 1개
-    /// 제로버스: 힘 모으기(2배) + 공허의 침식 + 실드 정화 + 분노
+    /// 제로버스 1페이즈: 공허 응축(1.7배) + 공허의 침식 + 공허의 재구성 + 공허 폭주 + 멸성의 봉인(HP 1/5에서 2페이즈)
+    /// 제로버스 2페이즈: 멸성 응축(1.8배) + 사건의 지평선 + 초신성 붕괴 + 멸성의 낙인 + 최후의 발악 (ZerobusPhase)
     /// </summary>
     public abstract class BossPattern : BattleEffect
     {
@@ -38,6 +44,19 @@ namespace PalRogue
         public virtual string Intro(Pal self) => null;
 
         protected static string N(Pal p) => p.Data.palName;
+
+        /// <summary>패턴이 직접 주는 데미지 (실드·버티기·부활 효과를 거친다). 실제로 깎인 HP</summary>
+        protected static int Hurt(Pal target, int amount, BattleContext ctx)
+        {
+            if (target == null || target.IsFainted) return 0;
+            int dealt = target.TakeDamage(Mathf.Max(1, amount));
+            if (!target.IsFainted) return dealt;
+            foreach (var e in target.EffectsSnapshot())
+                if (e.TryPreventFaint(target, ctx)) break;
+            if (target.IsFainted)
+                foreach (var e in target.EffectsSnapshot()) e.OnFainted(target, ctx);
+            return dealt;
+        }
 
         // ───────── 붙이기 ─────────
         public static void Attach(Pal pal, BossKind kind, int wave)
@@ -61,11 +80,14 @@ namespace PalRogue
                     if (signature != null) pal.AddEffect(signature);
                     break;
 
-                case BossKind.Final:
-                    pal.AddEffect(new ChargeStrike(3, 2f, "공허 응축"));
-                    pal.AddEffect(new PeriodicCurse(4, "공허의 침식", (StatType.Attack, -1), (StatType.Defense, -1), (StatType.Speed, -1)));
+                case BossKind.Final:                     // 1페이즈 (2페이즈보다 한 단계 약하게)
+                    pal.AddEffect(new ChargeStrike(3, 1.7f, "공허 응축"));
+                    pal.AddEffect(new PeriodicCurse(4, "공허의 침식", (StatType.Attack, -1), (StatType.Speed, -1)));
                     pal.AddEffect(new ShieldPurify("공허의 재구성"));
-                    pal.AddEffect(new Enrage(1f / 3f, "공허 폭주", (StatType.Attack, 1), (StatType.Defense, 1), (StatType.Speed, 1)));
+                    pal.AddEffect(new Enrage(1f / 3f, "공허 폭주", (StatType.Attack, 1), (StatType.Speed, 1)));
+                    pal.AddEffect(new VoidSeal());
+                    pal.BossPhase = 1;
+                    pal.CannotFaint = true;
                     break;
             }
         }
@@ -319,6 +341,231 @@ namespace PalRogue
             ctx.PatternFx(self, BossFx.Aura, self);
             ctx.Log($"{N(self)}의 번개 가속!");
             StatStages.Change(self, StatType.Speed, 1, ctx.Log);
+        }
+    }
+
+    // ═════════════════ 제로버스 2페이즈 ═════════════════
+
+    /// <summary>멸성의 봉인 (제로버스 1페이즈): HP가 1/5까지 줄면 봉인이 풀려 2페이즈가 된다 (Battle이 확인). 그 전에는 쓰러지지 않는다</summary>
+    public class VoidSeal : BossPattern
+    {
+        public VoidSeal() : base("멸성의 봉인", "HP가 1/5까지 줄어들면 봉인이 풀려 진정한 모습을 드러낸다.") { }
+        public override string Intro(Pal self) => $"…{Josa.Eun(N(self))} 아직 힘의 일부만 드러내고 있는 것 같다.";
+    }
+
+    /// <summary>
+    /// 사건의 지평선 (제로버스 2페이즈): period턴마다 턴 끝에 상대를 빨아들여 최대 HP의 1/divisor를 빼앗고 그만큼 회복한다.
+    /// 회복은 지금 실드 칸 위로는 차오르지 않는다.
+    /// </summary>
+    public class EventHorizon : BossPattern
+    {
+        readonly int period, divisor;
+        int turns;
+
+        public EventHorizon(int period, int divisor)
+            : base("사건의 지평선", $"{period}턴마다 상대를 빨아들여 최대 HP의 1/{divisor}을 빼앗고 그만큼 회복한다.")
+        {
+            this.period = Mathf.Max(1, period);
+            this.divisor = Mathf.Max(1, divisor);
+        }
+
+        public override string Intro(Pal self) => $"{N(self)}의 주위로 빛조차 빠져나갈 수 없는 사건의 지평선이 열렸다!";
+        public override void OnBattleStart(Pal self, BattleContext ctx) => turns = 0;
+
+        public override void OnTurnEnd(Pal self, BattleContext ctx)
+        {
+            if (self.IsFainted || ++turns < period) return;
+            turns = 0;
+            var foe = ctx.OpponentOf(self);
+            if (foe == null || foe.IsFainted) return;
+            ctx.PatternFx(self, BossFx.Horizon, foe);
+            ctx.Log($"{N(self)}의 {PerkName}!\n{Josa.I(foe.Data.palName)} 공허로 빨려 들어간다!");
+            int dealt = Hurt(foe, foe.MaxHP / divisor, ctx);
+            int top = self.IsBoss ? self.ShieldHp(self.ShieldsLeft + 1) : self.MaxHP;
+            int heal = Mathf.Min(dealt, top - self.CurrentHP);
+            if (heal > 0)
+            {
+                self.Heal(heal);
+                ctx.Log($"{Josa.Eun(N(self))} 빼앗은 생명으로 HP를 회복했다!");
+            }
+        }
+    }
+
+    /// <summary>초신성 붕괴 (제로버스 2페이즈): 실드가 깨질 때마다 떨어진 능력치를 되돌리고, 공격한 상대에게 최대 HP의 1/divisor 반격</summary>
+    public class Supernova : BossPattern
+    {
+        readonly int divisor;
+        int lastShields;
+
+        public Supernova(int divisor)
+            : base("초신성 붕괴", $"실드가 깨질 때마다 떨어진 능력치를 되돌리고, 공격한 상대에게 최대 HP의 1/{divisor} 반격한다.")
+        {
+            this.divisor = Mathf.Max(1, divisor);
+        }
+
+        public override string Intro(Pal self) => $"{N(self)}의 실드 속에서 죽어 가는 별이 들끓고 있다!";
+        public override void OnBattleStart(Pal self, BattleContext ctx) => lastShields = self.ShieldsLeft;
+
+        public override void OnDamaged(Pal self, DamageInfo info, BattleContext ctx)
+        {
+            if (self.ShieldsLeft >= lastShields) { lastShields = self.ShieldsLeft; return; }
+            lastShields = self.ShieldsLeft;
+            if (self.IsFainted) return;
+            var foe = info.Attacker != null && info.Attacker != self ? info.Attacker : ctx.OpponentOf(self);
+            ctx.PatternFx(self, BossFx.Nova, foe ?? self);
+            ctx.Log($"깨진 실드가 붕괴한다…!\n{N(self)}의 {PerkName}!");
+            if (self.ClearNegativeStages()) ctx.Log("떨어진 능력치가 원래대로 돌아왔다!");
+            if (foe != null && !foe.IsFainted)
+            {
+                Hurt(foe, foe.MaxHP / divisor, ctx);
+                ctx.Log($"{Josa.I(foe.Data.palName)} 폭발에 휘말렸다!");
+            }
+        }
+    }
+
+    /// <summary>
+    /// 제로버스 1페이즈 → 2페이즈 변신. Battle이 HP 1/5에서 부른다.
+    /// 패턴·기운·기술·지닌 도구를 2페이즈 것으로 바꾸고 실드를 6칸으로 되살린다 (HP 회복과 화면 연출은 Battle이).
+    /// </summary>
+    public static class ZerobusPhase
+    {
+        /// <summary>2페이즈로 넘어가기 전에 제로버스가 하는 말</summary>
+        public static readonly string[] Lines =
+        {
+            "……크큭.",
+            "하찮은 빛 주제에… 용케 여기까지 기어 올라왔구나.",
+            "좋다. 그 발버둥에 걸맞은 끝을 보여 주마.",
+            "별도, 시간도, 너희의 이름조차도… 모두 공허로 돌아간다.",
+            "보아라. 이것이 멸성(滅星)의 재앙이다!",
+        };
+        /// <summary>파티가 별의 가호를 받은 뒤 제로버스의 한마디</summary>
+        public const string LastLine = "…빛이 아직 남아 있었나. 와라. 이것이 마지막이다.";
+
+        /// <summary>테스트 메뉴(37): 다음에 나오는 제로버스를 마지막 실드까지 깎아 둔다 (한 번 쓰면 꺼짐)</summary>
+        public static bool DebugNearShift;
+
+        public static bool ShouldShift(Pal p) =>
+            p != null && p.BossPhase == 1 && !p.IsFainted && p.CurrentHP <= Mathf.RoundToInt(p.MaxHP * GameConfig.FinalPhaseShiftRatio);
+
+        /// <summary>보스 쪽 변신 (HP는 그대로: 늘어난 최대 HP만큼만 같이 는다. 가득 채우는 건 Battle이 이벤트와 함께)</summary>
+        public static void Transform(Pal boss, BattleContext ctx)
+        {
+            // 1페이즈 패턴·기운은 버리고, 지니고 있던 부활의씨앗도 공허에 삼켜진다 (2페이즈를 쓰러뜨리면 끝)
+            var remove = boss.Effects.Where(e => e is BossPattern || e is BossAura || e is ReviverSeed).ToList();
+            boss.ChangeEffects(remove, new BattleEffect[]
+            {
+                new BossAura("멸성의 기운", GameConfig.FinalPhase2StatMultiplier, GameConfig.FinalPhase2HpMultiplier),
+            });
+            boss.BossPhase = 2;
+            boss.CannotFaint = false;
+            boss.CureStatus();
+            boss.ResetBattleState();
+            boss.MakeBoss(GameConfig.FinalPhase2Segments);
+
+            // 각성은 다시 잠들었다가 2페이즈에서 진각성으로 깨어난다
+            foreach (var aw in boss.Effects.OfType<Awakening>()) { aw.Sleep(); aw.SetTrue(true); }
+
+            var patterns = new BossPattern[]
+            {
+                new ChargeStrike(3, 1.8f, "멸성 응축"),
+                new EventHorizon(4, 8),
+                new Supernova(10),
+                new PeriodicCurse(5, "멸성의 낙인", (StatType.Attack, -1), (StatType.Defense, -1)),
+                new Enrage(1f / 3f, "최후의 발악", (StatType.Attack, 1), (StatType.Defense, 1), (StatType.Speed, 1)),
+            };
+            foreach (var p in patterns) { boss.AddEffect(p); p.OnBattleStart(boss, ctx); }
+
+            SetPhaseTwoSkills(boss);
+
+            // 미니 블랙홀: 2페이즈에서만. 빼앗은 도구는 공허에 삼켜져 사라진다 (부활의씨앗을 제로버스가 쓰지 않게)
+            if (!boss.Effects.OfType<MiniBlackHole>().Any())
+                boss.AddEffect(new MiniBlackHole
+                {
+                    Devour = true, HeldItemId = ItemCatalog.MiniBlackHoleName, PerkName = ItemCatalog.MiniBlackHoleName,
+                    PerkDescription = "매 턴 상대 아이템 1개를 집어삼킨다",
+                });
+        }
+
+        // ───── 2페이즈 전용 기술 (에셋 없이 실행 중에 만든다. 연출은 SkillFx 표의 같은 이름) ─────
+        public const string StarfallId = "Zerobus_Starfall", JudgementId = "Zerobus_Judgement";
+        static SkillData starfall, judgement;
+
+        public static SkillData Starfall
+        {
+            get
+            {
+                if (starfall == null)
+                    starfall = Make(StarfallId, "멸성의 유성", "삼킨 별들을 공허의 유성으로 쏟아붓는다.", 100, 90, 5);
+                return starfall;
+            }
+        }
+
+        public static SkillData Judgement
+        {
+            get
+            {
+                if (judgement == null)
+                {
+                    judgement = Make(JudgementId, "공허의 단죄", "공허의 빛줄기로 꿰뚫는다. 30% 확률로 상대의 방어를 떨어뜨린다.", 80, 100, 10);
+                    judgement.statChanges.Add(new StatChange(StatType.Defense, -1, false));
+                    judgement.statChangeChance = 30;
+                }
+                return judgement;
+            }
+        }
+
+        static SkillData Make(string id, string name, string desc, int power, int accuracy, int pp)
+        {
+            var s = ScriptableObject.CreateInstance<SkillData>();
+            s.name = id;
+            s.hideFlags = HideFlags.DontSave;
+            s.skillName = name;
+            s.description = desc;
+            s.type = PalType.Void;
+            s.category = SkillCategory.Attack;
+            s.power = power;
+            s.accuracy = accuracy;
+            s.maxPP = pp;
+            return s;
+        }
+
+        /// <summary>2페이즈 기술: 멸성의 유성 + 공허의 단죄 + 원래 가장 센 공격 기술 + 변화 기술(없으면 두 번째로 센 공격)</summary>
+        public static void SetPhaseTwoSkills(Pal boss)
+        {
+            var attacks = boss.Skills.Where(s => s.Data.category == SkillCategory.Attack)
+                .OrderByDescending(s => s.Data.power).Select(s => s.Data).ToList();
+            var support = boss.Skills.FirstOrDefault(s => s.Data.category == SkillCategory.Status)?.Data;
+            var list = new List<SkillData> { Starfall, Judgement };
+            if (attacks.Count > 0) list.Add(attacks[0]);
+            if (support != null) list.Add(support);
+            else if (attacks.Count > 1) list.Add(attacks[1]);
+            boss.Skills.Clear();
+            foreach (var s in list.Take(Pal.MaxSkills)) boss.Skills.Add(new SkillInstance(s));
+        }
+    }
+
+    /// <summary>
+    /// 별의 가호 (제로버스 2페이즈가 시작될 때 내 파티 전원): 그 전투 동안 모든 능력치 ×1.15,
+    /// 쓰러질 공격을 한 번 HP 1로 버틴다. 저장되지 않는 전투용 효과다.
+    /// </summary>
+    public class StarBlessing : BattleEffect
+    {
+        bool used;
+        public StarBlessing()
+        {
+            PerkName = "별의 가호";
+            PerkDescription = $"모든 능력치 ×{GameConfig.StarBlessingStatMultiplier:0.##}, 쓰러질 공격을 한 번 버틴다";
+        }
+
+        public override float StatMultiplier(StatType stat) => GameConfig.StarBlessingStatMultiplier;
+
+        public override bool TryPreventFaint(Pal self, BattleContext ctx)
+        {
+            if (used) return false;
+            used = true;
+            self.Revive(1);
+            ctx.Log($"별의 가호가 {Josa.Eul(self.Data.palName)} 지켜 냈다!\n{Josa.Eun(self.Data.palName)} 가까스로 버텼다!");
+            return true;
         }
     }
 }

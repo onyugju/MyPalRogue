@@ -176,8 +176,8 @@ namespace PalRogue.EditorTools
                         var def = ItemCatalog.All.FirstOrDefault(d => d.Name == h);
                         if (def != null) { tierSum += (int)def.Tier; tierN++; }
                     }
-                    if (run.EnemyKind == BossKind.Final && !held.Contains(ItemCatalog.MiniBlackHoleName))
-                        throw new Exception("최종 보스가 미니 블랙홀을 지니지 않음");
+                    if (run.EnemyKind == BossKind.Final && held.Contains(ItemCatalog.MiniBlackHoleName))
+                        throw new Exception("제로버스 1페이즈가 미니 블랙홀을 지니고 있음 (2페이즈 전용)");
                     if (enemy.CurrentHP != enemy.MaxHP) throw new Exception($"웨이브 {wave}: 상대 HP가 가득 차 있지 않음");
                     if (i == 0) example = $"{run.EnemyKind} {enemy.Data.palName} Lv{enemy.Level}: {string.Join(", ", enemy.Effects.Select(e => e.PerkName).Where(n => n != null))}";
                     if (i == 0 && wave % 30 == 0 || wave == GameConfig.FinalWave && i == 0) SimulateBattle(MakeRun(partyData, rng), pals, rng, enemy, run.EnemyKind);

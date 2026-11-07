@@ -217,12 +217,17 @@ namespace PalRogue
             else if (kind == BossKind.Final)
                 pal.AddEffect(new BossAura("공허의 기운", GameConfig.FinalBossStatMultiplier, GameConfig.FinalBossHpMultiplier));
             pal.SetStars(GameConfig.EnemyStars(Wave, kind));    // 깊은 웨이브의 상대는 응축 ★을 달고 나온다
-            if (kind == BossKind.Legend || kind == BossKind.Final)                     // 전설·최종 보스는 각성한다
-                pal.AddEffect(new Awakening(AwakeningCatalog.ForEnemy(pal), kind == BossKind.Final));
+            if (kind == BossKind.Legend || kind == BossKind.Final)                     // 전설·최종 보스는 각성한다 (제로버스는 2페이즈에서 진각성)
+                pal.AddEffect(new Awakening(AwakeningCatalog.ForEnemy(pal)));
             EnemyLoadout.Equip(pal, this, Wave, kind, rng);   // 웨이브가 깊을수록 아이템을 많이·강하게 지닌다
             pal.Heal(pal.MaxHP);                             // 최대 HP가 늘어난 만큼 채운다
             if (kind != BossKind.None) pal.MakeBoss(GameConfig.BossSegments(kind, pal.Level));
             BossPattern.Attach(pal, kind, Wave);             // 보스 패턴: 힘 모으기·분노·속성별 고유 패턴
+            if (kind == BossKind.Final && ZerobusPhase.DebugNearShift)   // 테스트 메뉴 37: 한 번 맞으면 바로 2페이즈
+            {
+                ZerobusPhase.DebugNearShift = false;
+                pal.TakeDamage(pal.MaxHP * 10);
+            }
             return pal;
         }
 
