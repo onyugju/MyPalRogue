@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4627a231d918ef54b8d936bce8e4f4c3, type: 3}
-  m_Name: 000_Zerobus
+  m_Name: 000_Astralym
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.PalData
   palId: 000
   palName: "\uC81C\uB85C\uBC84\uC2A4"
-  englishName: Zerobus
+  englishName: Astralym
   frontSprite: {fileID: 21300000, guid: 67666707621adbb44804dce581ca38b0, type: 3}
   backSprite: {fileID: 0}
   frontScale: 2.4

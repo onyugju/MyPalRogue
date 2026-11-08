@@ -223,10 +223,11 @@ namespace PalRogue
             pal.Heal(pal.MaxHP);                             // 최대 HP가 늘어난 만큼 채운다
             if (kind != BossKind.None) pal.MakeBoss(GameConfig.BossSegments(kind, pal.Level));
             BossPattern.Attach(pal, kind, Wave);             // 보스 패턴: 힘 모으기·분노·속성별 고유 패턴
-            if (kind == BossKind.Final && ZerobusPhase.DebugNearShift)   // 테스트 메뉴 37: 한 번 맞으면 바로 2페이즈
+            if (kind == BossKind.Final && AstralymPhase.DebugNearShift)   // 테스트 메뉴 37: 한 번 맞으면 바로 2페이즈
             {
-                ZerobusPhase.DebugNearShift = false;
+                AstralymPhase.DebugNearShift = false;
                 pal.TakeDamage(pal.MaxHP * 10);
+                foreach (var aw in pal.Effects.OfType<Awakening>().ToList()) pal.RemoveEffect(aw);   // 1페이즈 각성(HP 회복)으로 1/5 위로 올라가지 않게 (2페이즈에서 진각성으로 다시 붙는다)
             }
             return pal;
         }

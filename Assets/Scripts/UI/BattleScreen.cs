@@ -166,6 +166,9 @@ namespace PalRogue
                 else StartCoroutine(BeginRun(false));
             });
 
+#if UNITY_EDITOR
+            if (TryStartAstralymTest()) return;       // 메뉴 37(F6): 강한 테스트 파티로 바로 제로버스전
+#endif
             // 타이틀 → 팰 선택·저장 슬롯을 거쳐 들어온 경우 (씬 이동). 아니면(에디터에서 이 씬을 바로 플레이) 이 씬 안에서 팰 선택
             if (GameSession.Loaded != null)
             {
@@ -235,12 +238,15 @@ namespace PalRogue
         // ───────── 저장 / 불러오기 ─────────
         /// <summary>타이틀을 거쳐 들어왔는지 (끝나면 타이틀로 돌아간다)</summary>
         bool fromSession;
+        /// <summary>테스트 판 (메뉴 37: 저장·이력·업적을 남기지 않는다)</summary>
+        bool debugRun;
         double playSeconds;
         int runNumber;
 
         /// <summary>저장 슬롯의 모험을 이어서 한다 (저장된 웨이브의 처음부터)</summary>
         void StartLoadedRun(RunSave save)
         {
+            debugRun = false;
             playSeconds = save.playSeconds;
             runNumber = save.runNumber;
             var restored = SaveSlots.Restore(save, WildPool(), KnownSkills());
@@ -271,6 +277,7 @@ namespace PalRogue
         void BeginWithRun(Run newRun)
         {
             run = newRun;
+            debugRun = false;
             Achievements.StartRun();
             if (partyScreen != null) partyScreen.OpenSummary = OpenSummary;   // 파티 화면 "능력치를 본다"
             spheres = run.Spheres;                     // 스피어 메뉴가 쓰는 배열 = 런이 가진 배열
@@ -317,6 +324,7 @@ namespace PalRogue
         void StartWave(bool firstWave)
         {
             battle?.Detach();
+            AstralymPhase.RunNumber = runNumber;            // 제로버스는 몇 번째 모험인지 알고 있다
             if (voidPhase) { voidPhase = false; Fx.SetBossAura(null, false); ApplyAreaScenery(true); }   // 2페이즈 끝 (다시 도전 등)
             var synergyNews = run.UpdateSynergies();             // 첫 웨이브: 시작 파티의 속성 시너지
             if (synergyNews.Count > 0) pendingSynergyMessages = synergyNews;
@@ -448,6 +456,21 @@ namespace PalRogue
         bool voidPhase;
         static readonly Color VoidPhaseTint = new Color(0.86f, 0.74f, 1f);    // 2페이즈 제로버스: 공허에 물든 색
 
+        static Sprite phase2Sprite;
+
+        /// <summary>제로버스 2페이즈 그림을 화면 높이에 맞는 크기로 만든다 (없으면 null)</summary>
+        static Sprite Phase2Sprite()
+        {
+            if (phase2Sprite != null) return phase2Sprite;
+            var src = Resources.LoadAll<Sprite>(GameConfig.FinalPhase2Sprite).FirstOrDefault();
+            Texture2D tex = src != null ? src.texture : Resources.Load<Texture2D>(GameConfig.FinalPhase2Sprite);
+            if (tex == null) { Debug.LogWarning($"[PalRogue] 2페이즈 그림이 없습니다: Resources/{GameConfig.FinalPhase2Sprite}"); return null; }
+            var rect = src != null ? src.rect : new Rect(0f, 0f, tex.width, tex.height);
+            phase2Sprite = Sprite.Create(tex, rect, new Vector2(0.5f, 0.5f), rect.height / GameConfig.FinalPhase2SpriteHeight);
+            phase2Sprite.name = "Astralym_Phase2";
+            return phase2Sprite;
+        }
+
         /// <summary>보스 패턴마다 곁들이는 소리 (새 패턴만. 예전 패턴은 연출만)</summary>
         static void PatternSound(BossFx fx)
         {
@@ -479,8 +502,9 @@ namespace PalRogue
             UpdateHud();
             enemyInfo.Refresh(boss);                                        // 실드 6칸 · Lv.??? · 새 능력치 단계
             enemyInfo.SetHp(ev.MaxHp > 0 ? Mathf.Clamp01(ev.From / (float)ev.MaxHp) : 0f);
-            enemyView.SetBaseTint(VoidPhaseTint);
-            Fx.SetBossAura(enemyView, true);
+            var form = Phase2Sprite();
+            if (form != null) enemyView.SetForm(form, boss.Data);          // 2페이즈 모습 (Astralym_Phase2)
+            else { enemyView.SetBaseTint(VoidPhaseTint); Fx.SetBossAura(enemyView, true); }   // 그림이 없으면 공허에 물든 색 + 불꽃
             GameAudio.Bgm(GameConfig.FinalPhase2Bgm);
             yield return BattleTime.FxWait(0.25f);
             yield return bossIntro.FadeScreen(Color.white, 1f, 0f, 0.6f);
@@ -579,8 +603,7 @@ namespace PalRogue
             {
                 bool legend = run.EnemyKind == BossKind.Legend || run.EnemyKind == BossKind.Final;
                 run.BossesDefeated++;
-                PlayerSave.AddBossDefeat(legend);
-                Achievements.CheckBoss(legend);
+                if (!debugRun) { PlayerSave.AddBossDefeat(legend); Achievements.CheckBoss(legend); }   // 테스트 판은 기록하지 않는다
             }
             if (battle.PendingCatch != null) yield return ResolveCatch();
             run.SyncParty(battle.PlayerParty);
@@ -605,7 +628,7 @@ namespace PalRogue
             if (run.Wave >= GameConfig.FinalWave)
             {
                 GameAudio.Bgm("end");
-                Achievements.Cleared();
+                if (!debugRun) Achievements.Cleared();
                 yield return ShowMessage("공허의 왕을 쓰러뜨리고 모든 웨이브를 돌파했다!");
                 yield return ShowMessage($"웨이브 {GameConfig.FinalWave} 클리어! 모험 성공!");
                 yield return EndRun();
@@ -716,15 +739,53 @@ namespace PalRogue
         /// 테스트 메뉴(37)용: 마지막 웨이브(제로버스)로 건너뛴다. 제로버스는 마지막 실드까지 깎인 채로 나와서
         /// 아무 기술이나 한 번 쓰면 바로 2페이즈 연출을 볼 수 있다.
         /// </summary>
-        public void DebugZerobusPhase()
+        public void DebugAstralymPhase()
         {
             if (run == null || mode == Mode.Busy) { Debug.LogWarning("[PalRogue] 명령을 고르는 중일 때 다시 눌러 주세요."); return; }
-            StartCoroutine(DebugZerobusRoutine());
+            StartCoroutine(DebugAstralymRoutine());
         }
 
-        IEnumerator DebugZerobusRoutine()
+        /// <summary>에디터 메뉴 37이 켜 두면, 게임 씬이 시작될 때 바로 제로버스 테스트 판을 연다</summary>
+        public const string AstralymTestKey = "PalRogue.AstralymTest";
+
+        /// <summary>
+        /// 메뉴 37(F6)로 플레이를 시작했을 때: 전설 팰 6마리(최대 레벨)로 바로 마지막 웨이브 제로버스전.
+        /// 제로버스는 마지막 실드까지 깎인 채라 아무 기술이나 한 번 쓰면 2페이즈 연출이 나온다. 저장·기록은 하지 않는다.
+        /// </summary>
+        bool TryStartAstralymTest()
+        {
+            if (!UnityEditor.SessionState.GetBool(AstralymTestKey, false)) return false;
+            UnityEditor.SessionState.EraseBool(AstralymTestKey);
+            var pool = WildPool().Where(d => d != null && d.name != GameConfig.FinalBossAsset).ToList();
+            if (pool.Count == 0) return false;
+            var picks = pool.Where(GameConfig.IsLegendary).Take(6).ToList();
+            picks.AddRange(pool.Where(d => !picks.Contains(d))
+                .OrderByDescending(d => d.baseHP + d.baseAttack + d.baseDefense + d.baseSpeed).Take(6 - picks.Count));
+
+            GameSession.Loaded = null;
+            GameSession.NewParty = null;
+            GameSession.Slot = -1;
+            fromSession = false;
+            debugRun = true;
+            runNumber = Mathf.Max(2, PlayerSave.RunsStarted);
+            playSeconds = 0;
+            mode = Mode.Busy;
+            run = new Run(picks.Select(d => new Pal(d, GameConfig.MaxLevel)).ToList(), startingSpheres, new System.Random());
+            if (partyScreen != null) partyScreen.OpenSummary = OpenSummary;
+            spheres = run.Spheres;
+            while (run.Wave < GameConfig.FinalWave) run.NextWave();
+            GameConfig.ActiveLevelCap = run.LevelCap;
+            ApplyAreaScenery(true);
+            AstralymPhase.DebugNearShift = true;
+            Debug.Log($"[PalRogue] 제로버스 2페이즈 테스트: {string.Join(", ", picks.Select(p => p.palName))} Lv.{GameConfig.MaxLevel}. 아무 기술이나 한 번 쓰면 2페이즈! (저장·기록 안 함)");
+            StartWave(false);
+            return true;
+        }
+
+        IEnumerator DebugAstralymRoutine()
         {
             mode = Mode.Busy;
+            debugRun = true;
             GameSession.Slot = -1;                     // 테스트용 점프: 저장 슬롯을 건드리지 않는다 (지거나 이겨도 슬롯이 지워지거나 덮이지 않게)
             Debug.Log("[PalRogue] 제로버스 테스트: 이번 플레이는 저장하지 않습니다.");
             HidePanels();
@@ -733,7 +794,7 @@ namespace PalRogue
             string before = run.AreaName;
             while (run.Wave < GameConfig.FinalWave) run.NextWave();
             if (run.AreaName != before) yield return ChangeArea();
-            ZerobusPhase.DebugNearShift = true;
+            AstralymPhase.DebugNearShift = true;
             StartWave(false);
         }
 
@@ -991,7 +1052,7 @@ namespace PalRogue
                 playSeconds = playSeconds, area = run.AreaName,
             };
             foreach (var p in run.Party) record.party.Add(new PlayerSave.RecordPal { pal = p.Data.name, level = p.Level, fainted = p.IsFainted });
-            bool best = PlayerSave.AddHistory(record);
+            bool best = !debugRun && PlayerSave.AddHistory(record);          // 테스트 판은 플레이 이력에 남기지 않는다
             bool toTitle = fromSession && GameSession.CanLoad(GameSession.TitleScene);
             HidePanels();
             if (resultScreen == null) resultScreen = RunResultScreen.Create(messageText.font);

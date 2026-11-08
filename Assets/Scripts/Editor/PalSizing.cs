@@ -39,7 +39,7 @@ namespace PalRogue.EditorTools
         /// </summary>
         static readonly Dictionary<string, float> BodyTune = new Dictionary<string, float>
         {
-            ["000_Zerobus"] = 2.2f,       // 최종 보스: 화면을 압도하는 크기 (화면 위로 넘치지 않는 최대치까지)
+            ["000_Astralym"] = 2.2f,       // 최종 보스: 화면을 압도하는 크기 (화면 위로 넘치지 않는 최대치까지)
             ["202_Jetragon"] = 1.15f,     // 전설의 용
             ["000_Bellanoir_Libero"] = 1.35f, // 보스: 날개 펼친 거대한 몸집
             ["184_Aegidron"] = 1.35f,     // 거대한 공룡
@@ -59,7 +59,7 @@ namespace PalRogue.EditorTools
         /// </summary>
         static readonly Dictionary<string, float> FixedFront = new Dictionary<string, float>
         {
-            ["000_Zerobus"] = 2.4f,       // 최종 보스: 화면을 꽉 채우는 압도적인 크기 (직접 보고 정한 값)
+            ["000_Astralym"] = 2.4f,       // 최종 보스: 화면을 꽉 채우는 압도적인 크기 (직접 보고 정한 값)
         };
 
         public static float Tune(PalData d) =>

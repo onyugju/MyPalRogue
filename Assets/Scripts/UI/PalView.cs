@@ -188,6 +188,27 @@ namespace PalRogue
             }
         }
 
+        /// <summary>
+        /// 같은 팰의 다른 모습으로 바꾼다 (제로버스 2페이즈). 애니메이션을 멈추고 이 그림 한 장으로,
+        /// 크기 배율은 그대로 두고 발 높이만 다시 맞춘다. 다음 Show 때 원래 모습.
+        /// </summary>
+        public void SetForm(Sprite sprite, PalData data)
+        {
+            if (sr == null) Awake();
+            if (sprite == null) return;
+            if (animator != null)
+            {
+                animator.runtimeAnimatorController = null;
+                animator.enabled = false;
+            }
+            sr.sprite = sprite;
+            pendingSprite = sprite;                   // 애니메이터를 끈 직후 예전 그림으로 돌아가는 것까지 막는다
+            float height = sprite.bounds.size.y * transform.localScale.y;
+            var pos = transform.position;
+            pos.y = feetWorldY + height / 2f + (data != null ? data.frontYOffset * scaleTune : 0f);
+            transform.position = pos;
+        }
+
         /// <summary>평소 색을 바꾼다 (제로버스 2페이즈: 공허에 물든 색). 다음 Show 때 원래 색</summary>
         public void SetBaseTint(Color color)
         {

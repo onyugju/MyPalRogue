@@ -126,6 +126,9 @@ namespace PalRogue
         }
 
         /// <summary>새 모험을 시작할 때마다 1씩 늘어나는 번호 (저장 슬롯에 "모험 34"처럼 보인다)</summary>
+        /// <summary>지금까지 시작한 모험 수 (늘리지 않고 읽기만)</summary>
+        public static int RunsStarted => Data.runsStarted;
+
         public static int NextRunNumber()
         {
             Data.runsStarted++;

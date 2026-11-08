@@ -30,7 +30,7 @@ namespace PalRogue
     /// 보스:   힘 모으기 (웨이브 50부터 분노, 100부터 실드 정화도)
     /// 왕:     힘 모으기 + 실드 정화 + 속성별 고유 패턴 1개
     /// 제로버스 1페이즈: 공허 응축(1.7배) + 공허의 침식 + 공허의 재구성 + 공허 폭주 + 멸성의 봉인(HP 1/5에서 2페이즈)
-    /// 제로버스 2페이즈: 멸성 응축(1.8배) + 사건의 지평선 + 초신성 붕괴 + 멸성의 낙인 + 최후의 발악 (ZerobusPhase)
+    /// 제로버스 2페이즈: 멸성 응축(1.8배) + 사건의 지평선 + 초신성 붕괴 + 멸성의 낙인 + 최후의 발악 (AstralymPhase)
     /// </summary>
     public abstract class BossPattern : BattleEffect
     {
@@ -427,19 +427,39 @@ namespace PalRogue
     /// 제로버스 1페이즈 → 2페이즈 변신. Battle이 HP 1/5에서 부른다.
     /// 패턴·기운·기술·지닌 도구를 2페이즈 것으로 바꾸고 실드를 6칸으로 되살린다 (HP 회복과 화면 연출은 Battle이).
     /// </summary>
-    public static class ZerobusPhase
+    public static class AstralymPhase
     {
-        /// <summary>2페이즈로 넘어가기 전에 제로버스가 하는 말</summary>
-        public static readonly string[] Lines =
+        /// <summary>지금이 몇 번째 모험인지 (화면이 웨이브마다 넣어 준다. 0이면 모름)</summary>
+        public static int RunNumber;
+
+        /// <summary>2페이즈로 넘어가기 전에 제로버스가 하는 말 (몇 번째 모험인지 알고 있다)</summary>
+        public static IEnumerable<string> Lines()
         {
-            "……크큭.",
-            "하찮은 빛 주제에… 용케 여기까지 기어 올라왔구나.",
-            "좋다. 그 발버둥에 걸맞은 끝을 보여 주마.",
-            "별도, 시간도, 너희의 이름조차도… 모두 공허로 돌아간다.",
-            "보아라. 이것이 멸성(滅星)의 재앙이다!",
+            yield return "……또 왔구나.";
+            if (RunNumber > 1)
+            {
+                yield return $"{RunNumber}번째로구나.";
+                yield return "너희는 기억하지 못하겠지만.";
+            }
+            else
+            {
+                yield return "처음이라고 생각하겠지.";
+                yield return "아니. 너희가 기억하지 못할 뿐이다.";
+            }
+            yield return "쓰러지면 초원에서 다시 눈을 뜨고,";
+            yield return "같은 길을 걸어 결국 이곳에 선다.";
+            yield return "별은 지고, 다시 뜨고, 또 진다.";
+            yield return "그 끝없는 순환의 끝에는 언제나 내가 있다.";
+            yield return "…이번 빛은 조금 다른가. 좋다, 보여 주마.";
+            yield return "이것이, 멸성(滅星)의 재앙이다.";
+        }
+
+        /// <summary>파티가 별의 가호를 받은 뒤 제로버스의 말</summary>
+        public static readonly string[] LastLines =
+        {
+            "…죽은 별들의 빛인가. 그 빛도 지난번에 보았다.",
+            "와라. 이번에야말로 이 순환을 끊을 수 있는지 보자.",
         };
-        /// <summary>파티가 별의 가호를 받은 뒤 제로버스의 한마디</summary>
-        public const string LastLine = "…빛이 아직 남아 있었나. 와라. 이것이 마지막이다.";
 
         /// <summary>테스트 메뉴(37): 다음에 나오는 제로버스를 마지막 실드까지 깎아 둔다 (한 번 쓰면 꺼짐)</summary>
         public static bool DebugNearShift;
@@ -464,6 +484,7 @@ namespace PalRogue
 
             // 각성은 다시 잠들었다가 2페이즈에서 진각성으로 깨어난다
             foreach (var aw in boss.Effects.OfType<Awakening>()) { aw.Sleep(); aw.SetTrue(true); }
+            if (!boss.Effects.OfType<Awakening>().Any()) boss.AddEffect(new Awakening(AwakeningCatalog.ForEnemy(boss), true));
 
             var patterns = new BossPattern[]
             {
@@ -487,7 +508,7 @@ namespace PalRogue
         }
 
         // ───── 2페이즈 전용 기술 (에셋 없이 실행 중에 만든다. 연출은 SkillFx 표의 같은 이름) ─────
-        public const string StarfallId = "Zerobus_Starfall", JudgementId = "Zerobus_Judgement";
+        public const string StarfallId = "Astralym_Starfall", JudgementId = "Astralym_Judgement";
         static SkillData starfall, judgement;
 
         public static SkillData Starfall

@@ -70,7 +70,7 @@ namespace PalRogue.EditorTools
             new("201","넵티오스","Neptilius","201_Neptilius","201_Neptilius_back",PalType.Water,null,Tier.Late,Role.Fast,50),
             new("202","제트래곤","Jetragon","202_Jetragon","202_Jetragon_back",PalType.Dragon,null,Tier.Boss,Role.Fast,10),
             new("000","벨라루주","Bellanoir_Libero","000_Bellanoir Libero","000_Bellanoir Libero_back",PalType.Dark,null,Tier.Boss,Role.Attacker,5),
-            new("000","제로버스","Zerobus","boss_Zerobus",null,PalType.Void,null,Tier.Boss,Role.Tank,0),   // catchRate 0 = 포획 불가
+            new("000","제로버스","Astralym","boss_Astralym",null,PalType.Void,null,Tier.Boss,Role.Tank,0),   // catchRate 0 = 포획 불가
 
             // ── 추가 20종 (속성별 4~5종이 되도록. 원종만, 이벤트·콜라보·아종 제외) ──
             // 그림(앞모습 png 또는 애니메이션)을 폴더에 넣은 팰만 만들어진다. 나머지는 그림을 넣으면 자동으로 추가된다 (메뉴 2-1)
@@ -143,9 +143,9 @@ namespace PalRogue.EditorTools
         }
 
         // ───────── 3. 제로버스 설정 보정 (이미 만든 에셋용) ─────────
-        static void ApplyZerobusFix()
+        static void ApplyAstralymFix()
         {
-            const string path = OutDir + "/000_Zerobus.asset";
+            const string path = OutDir + "/000_Astralym.asset";
             var pal = AssetDatabase.LoadAssetAtPath<PalData>(path);
             if (pal == null) { Debug.LogWarning($"[PalRogue] 에셋을 찾을 수 없음: {path}"); return; }
             pal.primaryType = PalType.Void;

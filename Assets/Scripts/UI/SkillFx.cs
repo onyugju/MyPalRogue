@@ -337,9 +337,9 @@ namespace PalRogue
             ["Void_Shot"]      = XProj(PPlasmaV, PImplosion),
             ["Void_Pulse"]     = XStrike(PImplosion, PBurstD),
             ["Annihilate"]     = XStrike(PVoidOrb, PDarkBoom, PHex),
-            // 제로버스 2페이즈 전용 (ZerobusPhase가 실행 중에 만드는 기술)
-            ["Zerobus_Starfall"]  = XStrike(PStarFall, PDarkBoom, PVoidOrb, count: 3),   // 멸성의 유성: 공허의 유성 세 줄기
-            ["Zerobus_Judgement"] = XCone(PBeamP, PImplosion, PHex, PSpell),             // 공허의 단죄: 빛줄기 → 함몰
+            // 제로버스 2페이즈 전용 (AstralymPhase가 실행 중에 만드는 기술)
+            ["Astralym_Starfall"]  = XStrike(PStarFall, PDarkBoom, PVoidOrb, count: 3),   // 멸성의 유성: 공허의 유성 세 줄기
+            ["Astralym_Judgement"] = XCone(PBeamP, PImplosion, PHex, PSpell),             // 공허의 단죄: 빛줄기 → 함몰
 
             // ── 새 팰 20종 전용 기술 ──
             ["Gloomy_Sting"]   = XProj(PoisonDart, PAcid, tint: DarkPurple),         // 뚱코알라: 독침 → 독 웅덩이

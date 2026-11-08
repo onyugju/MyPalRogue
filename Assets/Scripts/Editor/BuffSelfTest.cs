@@ -49,7 +49,7 @@ namespace PalRogue.EditorTools
             Test("⑤ 힘 모으기", () => TestCharge(pals, weak, rng));
             Test("⑥ 패턴 배치", () => TestAttach(pals));
             Test("⑦ 보스전 시뮬레이션", () => TestBossBattles(pals, rng));
-            Test("⑧ 제로버스 2페이즈", () => TestZerobusPhase(pals, rng));
+            Test("⑧ 제로버스 2페이즈", () => TestAstralymPhase(pals, rng));
 
             string head = $"[버프 테스트] 통과 {pass} / 실패 {fail}";
             if (fail > 0) Debug.LogError(head + "\n" + report); else Debug.Log(head + "\n" + report);
@@ -352,7 +352,7 @@ namespace PalRogue.EditorTools
         }
     
         // ⑧ ─────────────────────────────
-        static Pal MakeZerobus(PalData zero, System.Random rng)
+        static Pal MakeAstralym(PalData zero, System.Random rng)
         {
             var boss = new Pal(zero, 100, rng);
             boss.AddEffect(new BossAura("공허의 기운", GameConfig.FinalBossStatMultiplier, GameConfig.FinalBossHpMultiplier));
@@ -363,20 +363,20 @@ namespace PalRogue.EditorTools
             return boss;
         }
 
-        static string TestZerobusPhase(List<PalData> pals, System.Random rng)
+        static string TestAstralymPhase(List<PalData> pals, System.Random rng)
         {
             var zero = pals.FirstOrDefault(p => p.name == GameConfig.FinalBossAsset);
             if (zero == null) return "제로버스 없음 (건너뜀)";
             var normal = pals.Where(p => !GameConfig.IsLegendary(p)).ToList();
 
             // 1) 1페이즈: 아무리 세게 맞아도 마지막 실드(1/5)에서 멈추고, 실드가 없어도 HP 1 아래로 안 내려간다
-            var boss = MakeZerobus(zero, rng);
+            var boss = MakeAstralym(zero, rng);
             Check(boss.BossSegments == GameConfig.FinalPhase1Segments, $"1페이즈 실드 {boss.BossSegments}칸");
             Check(!boss.Effects.OfType<MiniBlackHole>().Any(), "1페이즈에 미니 블랙홀이 있음");
             int phase1Max = boss.MaxHP;
             for (int i = 0; i < 6; i++) boss.TakeDamage(boss.MaxHP * 10);
             Check(!boss.IsFainted && boss.CurrentHP >= 1, "1페이즈에서 쓰러짐");
-            Check(ZerobusPhase.ShouldShift(boss), $"HP {boss.CurrentHP}/{boss.MaxHP}인데 2페이즈 조건이 아님");
+            Check(AstralymPhase.ShouldShift(boss), $"HP {boss.CurrentHP}/{boss.MaxHP}인데 2페이즈 조건이 아님");
 
             // 2) 전투 중 변신: 파티(쓰러진 팰·PP 바닥 포함) 회복 + 가호 + 부활의씨앗
             var party = Enumerable.Range(0, 4).Select(_ => new Pal(normal[rng.Next(normal.Count)], 100, rng)).ToList();
@@ -398,7 +398,7 @@ namespace PalRogue.EditorTools
             Check(boss.Effects.OfType<EventHorizon>().Any() && boss.Effects.OfType<Supernova>().Any(), "2페이즈 패턴이 없음");
             Check(boss.Effects.OfType<BossPattern>().Count() == 5, $"2페이즈 패턴 {boss.Effects.OfType<BossPattern>().Count()}개");
             Check(boss.Effects.OfType<MiniBlackHole>().Any(m => m.Devour), "2페이즈 미니 블랙홀이 없음");
-            Check(boss.Skills.Any(s => s.Data == ZerobusPhase.Starfall) && boss.Skills.Any(s => s.Data == ZerobusPhase.Judgement), "2페이즈 전용 기술이 없음");
+            Check(boss.Skills.Any(s => s.Data == AstralymPhase.Starfall) && boss.Skills.Any(s => s.Data == AstralymPhase.Judgement), "2페이즈 전용 기술이 없음");
             Check(boss.Skills.Count <= Pal.MaxSkills, "기술이 4개보다 많음");
             Check(boss.Effects.OfType<Awakening>().All(a => a.IsTrue), "2페이즈가 진각성이 아님");
             Check(boss.LevelHidden, "레벨이 ??? 로 숨겨지지 않음");

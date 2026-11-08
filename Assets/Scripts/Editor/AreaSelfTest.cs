@@ -184,13 +184,30 @@ namespace PalRogue.EditorTools
             screen.DebugNextArea();
         }
 
-        [MenuItem("PalRogue/37. 제로버스 2페이즈 바로 보기 (플레이 중)", false, 406)]
-        static void ZerobusPhaseTwo()
+        /// <summary>
+        /// 제로버스 2페이즈 바로 테스트 (F6). 언제 눌러도 된다:
+        ///  - 플레이 중이 아니면: 게임 씬을 열고 플레이 → 전설 팰 6마리(최대 레벨)로 바로 제로버스전
+        ///  - 플레이 중 전투 화면이면: 지금 파티 그대로 제로버스전으로 점프
+        ///  - 플레이 중 타이틀 등이면: 게임 씬으로 넘어가 테스트 파티로 시작
+        /// 제로버스는 마지막 실드까지 깎인 채로 나와서 아무 기술이나 한 번 쓰면 2페이즈. 저장·기록은 하지 않는다.
+        /// </summary>
+        [MenuItem("PalRogue/37. 제로버스 2페이즈 바로 테스트 _F6", false, 406)]
+        static void AstralymPhaseTwo()
         {
-            if (!EditorApplication.isPlaying) { EditorUtility.DisplayDialog("플레이 중에 실행", "플레이 버튼을 누르고 명령을 고르는 화면이 나온 뒤에 실행해 주세요.", "확인"); return; }
-            var screen = Object.FindAnyObjectByType<BattleScreen>();
-            if (screen == null) { Debug.LogError("[제로버스] BattleScreen을 찾지 못했습니다."); return; }
-            screen.DebugZerobusPhase();
+            if (EditorApplication.isPlaying)
+            {
+                var screen = Object.FindAnyObjectByType<BattleScreen>();
+                if (screen != null) { screen.DebugAstralymPhase(); return; }
+                SessionState.SetBool(BattleScreen.AstralymTestKey, true);
+                UnityEngine.SceneManagement.SceneManager.LoadScene(GameSession.GameScene);
+                return;
+            }
+            var guid = AssetDatabase.FindAssets($"{GameSession.GameScene} t:Scene").FirstOrDefault();
+            if (guid == null) { Debug.LogError($"[제로버스] {GameSession.GameScene} 씬을 찾지 못했습니다."); return; }
+            if (!UnityEditor.SceneManagement.EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) return;
+            UnityEditor.SceneManagement.EditorSceneManager.OpenScene(AssetDatabase.GUIDToAssetPath(guid));
+            SessionState.SetBool(BattleScreen.AstralymTestKey, true);
+            EditorApplication.isPlaying = true;
         }
     }
 }

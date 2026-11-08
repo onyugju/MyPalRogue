@@ -149,7 +149,7 @@ namespace PalRogue
             (180, "000_Bellanoir_Libero"), // 어둠속성 왕 벨라루주
         };
         /// <summary>마지막 웨이브에 반드시 나오는 최종 보스 (공허속성 제로버스)</summary>
-        public const string FinalBossAsset = "000_Zerobus";
+        public const string FinalBossAsset = "000_Astralym";
         /// <summary>20웨이브마다 속성의 왕이 나올 확률 (0~1). 안 나오면 일반 보스</summary>
         public const float LegendChance = 0.5f;
         /// <summary>전설 팰을 잡을 때 쓰는 포획률 상한 (원래 포획률이 더 높아도 이 값까지만)</summary>
@@ -180,6 +180,9 @@ namespace PalRogue
         /// <summary>2페이즈로 넘어가는 HP 비율 (실드 5칸이면 마지막 실드가 깨지는 순간)</summary>
         public const float FinalPhaseShiftRatio = 0.2f;
         public const string FinalPhase2Epithet = "멸성의 재앙";
+        /// <summary>2페이즈 모습 (Resources 경로)과 화면에서의 높이 (1페이즈 그림보다 살짝 크게)</summary>
+        public const string FinalPhase2Sprite = "1.팰/1.Pal/000 제로버스/Astralym_Phase2";
+        public const float FinalPhase2SpriteHeight = 2.4f;
         /// <summary>2페이즈 배경 (포켓로그 End)과 지역 이름</summary>
         public const string FinalPhase2Biome = "end", FinalPhase2Bgm = "end", FinalPhase2AreaText = "??? - ???";
         /// <summary>별의 가호 (2페이즈에서 내 파티 전원): 모든 능력치 배율, 쓰러질 공격을 한 번 HP 1로 버틴다</summary>

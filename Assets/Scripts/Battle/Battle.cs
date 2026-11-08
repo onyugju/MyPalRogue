@@ -535,9 +535,9 @@ namespace PalRogue
             string n = boss.Data.palName;
             Ctx.PatternFx(boss, BossFx.PhaseOmen, boss);
             Log($"{Josa.I(n)} 움직임을 멈췄다…?");
-            foreach (var line in ZerobusPhase.Lines) Log($"{n}: 「{line}」");
+            foreach (var line in AstralymPhase.Lines()) Log($"{n}: 「{line}」");
 
-            ZerobusPhase.Transform(boss, Ctx);
+            AstralymPhase.Transform(boss, Ctx);
             Emit(new BattleEvent                                    // 화면: 배경 End · 지역 ??? · Lv.??? 대형 컷인
             {
                 Type = BattleEventType.BossPattern, Pal = boss, Fx = BossFx.PhaseShift, Target = boss,
@@ -577,13 +577,13 @@ namespace PalRogue
             if (seed != null) Log("파티 전원이 부활의씨앗을 지니게 되었다!");
             Log($"{Player.Data.palName}의 투지가 별빛처럼 타오른다!");
             StatStages.ChangeMany(Player, new List<(StatType, int)> { (StatType.Attack, 1), (StatType.Speed, 1) }, Log);
-            Log($"{n}: 「{ZerobusPhase.LastLine}」");
+            foreach (var line in AstralymPhase.LastLines) Log($"{n}: 「{line}」");
         }
 
         // ───────── 기절 처리 ─────────
         void ResolveFaints()
         {
-            if (ZerobusPhase.ShouldShift(Enemy)) ShiftPhase(Enemy);   // 제로버스 HP 1/5 → 2페이즈 (쓰러짐보다 먼저)
+            if (AstralymPhase.ShouldShift(Enemy)) ShiftPhase(Enemy);   // 제로버스 HP 1/5 → 2페이즈 (쓰러짐보다 먼저)
             if (Enemy.IsFainted)
             {
                 Enemy.ClearStatusOnFaint();
