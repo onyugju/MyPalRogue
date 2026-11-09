@@ -25,7 +25,7 @@ namespace PalRogue
     /// 맞으면 상대가 깜빡이며 흔들리고, 급소·효과 굉장·위력 100 이상이면 화면도 흔들린다.
     /// 기술별 연출은 아래 표(BySkill, 키 = 기술 에셋 이름)에, 표에 없으면 속성 기본 연출(ByType)을 쓴다.
     /// </summary>
-    public class SkillFx : MonoBehaviour
+    public partial class SkillFx : MonoBehaviour
     {
         const string Root = "3.VFX/Pixel VFX Essentials/Spritesheets/";
         const string PxRoot = "3.VFX/PixelFx/", PxPrefix = "px:";
@@ -334,12 +334,7 @@ namespace PalRogue
             ["Dark_Wisp"]      = XProj(PPlasmaD, PBurstD, count: 3),
             ["Nightmare_Ray"]  = XCone(PBeamD, PTendrils, PBurstD, PHex),
             // ── 공허 (제로버스) ──
-            ["Void_Shot"]      = XProj(PPlasmaV, PImplosion),
-            ["Void_Pulse"]     = XStrike(PImplosion, PBurstD),
-            ["Annihilate"]     = XStrike(PVoidOrb, PDarkBoom, PHex),
-            // 제로버스 2페이즈 전용 (AstralymPhase가 실행 중에 만드는 기술)
-            ["Astralym_Starfall"]  = XStrike(PStarFall, PDarkBoom, PVoidOrb, count: 3),   // 멸성의 유성: 공허의 유성 세 줄기
-            ["Astralym_Judgement"] = XCone(PBeamP, PImplosion, PHex, PSpell),             // 공허의 단죄: 빛줄기 → 함몰
+            // 제로버스(공허 기술 넷 + 2페이즈 기술 넷)는 SkillFx.Astralym.cs에 따로 그린 전용 연출
 
             // ── 새 팰 20종 전용 기술 ──
             ["Gloomy_Sting"]   = XProj(PoisonDart, PAcid, tint: DarkPurple),         // 뚱코알라: 독침 → 독 웅덩이
@@ -373,7 +368,6 @@ namespace PalRogue
             ["Frost_Mist"]     = XAura(PBlizzard),
             ["Dragon_Dance"]   = XAura(PSpell, PTornadoP),
             ["Fear_Gaze"]      = XAura(PHex),
-            ["Void_Erosion"]   = XAura(PVoidOrb, PHex),
         };
 
         /// <summary>표에 없는 기술 (새로 추가한 기술 등)은 속성별 기본 연출</summary>
@@ -422,7 +416,7 @@ namespace PalRogue
             yield return CritStar;
         }
 
-        public static bool HasCustomFx(SkillData s) => s != null && BySkill.ContainsKey(s.name);
+        public static bool HasCustomFx(SkillData s) => s != null && (BySkill.ContainsKey(s.name) || IsAstralymSkill(s));
 
         // ═════════════════ 그림 ═════════════════
 
@@ -633,6 +627,7 @@ namespace PalRogue
         public IEnumerator Play(SkillData skill, PalView user, PalView target, bool missed, bool critical, float effectiveness)
         {
             if (skill == null || user == null || target == null) yield break;
+            if (IsAstralymSkill(skill)) { yield return PlayAstralym(skill, user, target, missed, critical, effectiveness); yield break; }
             var d = BySkill.TryGetValue(skill.name, out var def) ? def : ByType(skill.type);
             sortingLayer = target.SortingLayerId;
             sortingOrder = Mathf.Max(user.SortingOrder, target.SortingOrder) + SortingAbovePals;

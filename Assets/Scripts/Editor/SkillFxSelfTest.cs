@@ -51,5 +51,15 @@ namespace PalRogue.EditorTools
             if (screen == null) { Debug.LogError("[연출 미리보기] BattleScreen을 찾지 못했습니다."); return; }
             screen.PreviewSkillFx(AllSkills());
         }
+
+        [MenuItem("PalRogue/38. 제로버스 기술 연출 미리보기 (플레이 중)", false, 402)]
+        static void PreviewAstralym()
+        {
+            if (!EditorApplication.isPlaying) { EditorUtility.DisplayDialog("플레이 중에 실행", "플레이 버튼을 누르고 전투 화면이 나온 뒤에 실행해 주세요. (F6 제로버스 테스트 중이면 더 좋아요)", "확인"); return; }
+            var screen = Object.FindAnyObjectByType<BattleScreen>();
+            if (screen == null) { Debug.LogError("[연출 미리보기] BattleScreen을 찾지 못했습니다."); return; }
+            var list = AstralymPhase.PhaseOneSkills.Concat(AstralymPhase.PhaseTwoSkills).ToList();
+            screen.PreviewSkillFx(list, enemyOnly: true, record: true);     // 제로버스 쪽에서 쓰는 모습, Temp/PhaseShiftFrames에 프레임 저장
+        }
     }
 }

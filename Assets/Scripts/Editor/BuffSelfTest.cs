@@ -282,7 +282,7 @@ namespace PalRogue.EditorTools
                 BossPattern.Attach(z, BossKind.Final, GameConfig.FinalWave);
                 Check(z.Effects.OfType<BossPattern>().Count() == 5, "제로버스 1페이즈 패턴 5개가 아님");
                 Check(z.Effects.OfType<VoidSeal>().Any() && z.BossPhase == 1 && z.CannotFaint, "제로버스 1페이즈(멸성의 봉인) 설정 안 됨");
-                Check(z.Skills.Any(s => s.Data.category == SkillCategory.Status), "제로버스가 변화 기술(공허의 침식)을 안 들고 나옴");
+                Check(AstralymPhase.PhaseOneSkills.All(sk => z.Skills.Any(s => s.Data == sk)), "제로버스가 1페이즈 전용 기술을 안 들고 나옴");
                 notes.Add($"{zero.palName}[{string.Join("·", z.Effects.OfType<BossPattern>().Select(x => x.Name))}]");
             }
             return string.Join(" ", notes);
@@ -372,6 +372,9 @@ namespace PalRogue.EditorTools
             // 1) 1페이즈: 아무리 세게 맞아도 마지막 실드(1/5)에서 멈추고, 실드가 없어도 HP 1 아래로 안 내려간다
             var boss = MakeAstralym(zero, rng);
             Check(boss.BossSegments == GameConfig.FinalPhase1Segments, $"1페이즈 실드 {boss.BossSegments}칸");
+            Check(AstralymPhase.PhaseOneSkills.All(sk => boss.Skills.Any(s => s.Data == sk)), "1페이즈 전용 기술 넷이 다 있지 않음: " + string.Join(", ", boss.Skills.Select(s => s.Data.name)));
+            foreach (var tex in new[] { "ast_dot", "ast_ring", "ast_ring_soft", "ast_void", "ast_star", "ast_streak", "ast_line", "ast_beam", "ast_shard", "ast_galaxy", "ast_wormhole", "ast_nebula", "ast_rays", "ast_shock", "ast_cannon", "ast_flare", "ast_petal" })
+                Check(Resources.Load<Texture2D>("UI/AstralymFx/" + tex) != null, $"제로버스 기술 연출 그림 없음: {tex}");
             Check(!boss.Effects.OfType<MiniBlackHole>().Any(), "1페이즈에 미니 블랙홀이 있음");
             int phase1Max = boss.MaxHP;
             for (int i = 0; i < 6; i++) boss.TakeDamage(boss.MaxHP * 10);
@@ -398,7 +401,9 @@ namespace PalRogue.EditorTools
             Check(boss.Effects.OfType<EventHorizon>().Any() && boss.Effects.OfType<Supernova>().Any(), "2페이즈 패턴이 없음");
             Check(boss.Effects.OfType<BossPattern>().Count() == 5, $"2페이즈 패턴 {boss.Effects.OfType<BossPattern>().Count()}개");
             Check(boss.Effects.OfType<MiniBlackHole>().Any(m => m.Devour), "2페이즈 미니 블랙홀이 없음");
-            Check(boss.Skills.Any(s => s.Data == AstralymPhase.Starfall) && boss.Skills.Any(s => s.Data == AstralymPhase.Judgement), "2페이즈 전용 기술이 없음");
+            var phase2 = AstralymPhase.PhaseTwoSkills;
+            Check(phase2.All(sk => boss.Skills.Any(s => s.Data == sk)), "2페이즈 전용 기술 넷이 다 있지 않음: " + string.Join(", ", boss.Skills.Select(s => s.Data.skillName)));
+            Check(boss.Skills.All(s => SkillFx.IsAstralymSkill(s.Data)), "2페이즈 기술 중 전용 연출이 없는 것이 있음");
             Check(boss.Skills.Count <= Pal.MaxSkills, "기술이 4개보다 많음");
             Check(boss.Effects.OfType<Awakening>().All(a => a.IsTrue), "2페이즈가 진각성이 아님");
             Check(boss.LevelHidden, "레벨이 ??? 로 숨겨지지 않음");

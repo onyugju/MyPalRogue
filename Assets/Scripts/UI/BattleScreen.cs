@@ -1634,22 +1634,27 @@ namespace PalRogue
         }
 
         /// <summary>(테스트용, 메뉴 PalRogue/31) 지금 전투 화면에서 기술 연출을 차례로 보여준다. 내 팰 → 상대, 상대 → 내 팰 번갈아</summary>
-        public void PreviewSkillFx(IList<SkillData> skills)
+        public void PreviewSkillFx(IList<SkillData> skills, bool enemyOnly = false, bool record = false)
         {
             StopCoroutine(nameof(PreviewRoutine));
-            StartCoroutine(PreviewRoutine(skills));
+            StartCoroutine(PreviewRoutine(skills, enemyOnly, record));
         }
 
-        IEnumerator PreviewRoutine(IList<SkillData> skills)
+        IEnumerator PreviewRoutine(IList<SkillData> skills, bool enemyOnly, bool record)
         {
+            bool recording = record;
+#if UNITY_EDITOR
+            if (record) StartCoroutine(ShiftRecorder.Record(() => recording, 0.06f));
+#endif
             for (int i = 0; i < skills.Count; i++)
             {
-                bool mine = i % 2 == 0;
+                bool mine = !enemyOnly && i % 2 == 0;
                 messageText.maxVisibleCharacters = 9999;
                 messageText.text = $"[연출 미리보기 {i + 1}/{skills.Count}]\n{skills[i].skillName} ({skills[i].name})";
-                yield return Fx.Play(skills[i], mine ? playerView : enemyView, mine ? enemyView : playerView, false, i % 5 == 4, 1f);
-                yield return new WaitForSecondsRealtime(0.35f);
+                yield return Fx.Play(skills[i], mine ? playerView : enemyView, mine ? enemyView : playerView, false, !enemyOnly && i % 5 == 4, 1f);
+                yield return new WaitForSecondsRealtime(enemyOnly ? 0.6f : 0.35f);
             }
+            recording = false;
             messageText.text = "연출 미리보기 끝!";
         }
 

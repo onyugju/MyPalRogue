@@ -198,8 +198,9 @@ namespace PalRogue.EditorTools
             foe.MakeBoss(4);
             foe.Heal(foe.MaxHP);
             var battle = new Battle(new List<Pal> { me }, new List<Pal> { foe }, rng, msgs.Add, true, BossKind.Boss);
-            for (int t = 0; t < 3 && battle.State == BattleState.Ongoing; t++)
+            for (int t = 0; t < 8 && battle.State == BattleState.Ongoing; t++)            // 멀티렌즈는 확률이라 나올 때까지 조금 더 싸운다
             {
+                if (t >= 3 && msgs.Any(m => m.Contains("멀티렌즈"))) break;
                 int idx = me.Skills.FindIndex(sk => sk.HasPP && sk.Data.category != SkillCategory.Status);
                 battle.ExecuteTurn(BattleAction.Skill(Mathf.Max(0, idx)));
                 while (battle.TryDequeueEvent(out _)) { }

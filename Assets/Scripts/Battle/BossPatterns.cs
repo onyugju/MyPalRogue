@@ -86,6 +86,7 @@ namespace PalRogue
                     pal.AddEffect(new ShieldPurify("공허의 재구성"));
                     pal.AddEffect(new Enrage(1f / 3f, "공허 폭주", (StatType.Attack, 1), (StatType.Speed, 1)));
                     pal.AddEffect(new VoidSeal());
+                    AstralymPhase.SetPhaseOneSkills(pal);
                     pal.BossPhase = 1;
                     pal.CannotFaint = true;
                     break;
@@ -507,33 +508,62 @@ namespace PalRogue
                 });
         }
 
-        // ───── 2페이즈 전용 기술 (에셋 없이 실행 중에 만든다. 연출은 SkillFx 표의 같은 이름) ─────
-        public const string StarfallId = "Astralym_Starfall", JudgementId = "Astralym_Judgement";
-        static SkillData starfall, judgement;
+        // ───── 제로버스 전용 기술 8개 (에셋 없이 실행 중에 만든다. 연출은 SkillFx.Astralym.cs의 같은 이름) ─────
+        //  1페이즈: 별의 비 · 아스트랄 글라이딩 · 웜홀 · 팔디움 캐논
+        //  2페이즈: 디바인 레이 · 천상의 꽃 · 창조의 종언 · 멸성
+        public const string StarfallId = "Astralym_Starfall", GlideId = "Astralym_Glide", WormHoleId = "Astralym_WormHole", BurstId = "Astralym_Burst",
+                            DivineRayId = "Astralym_DivineRay", BloomId = "Astralym_Bloom", CreationEndId = "Astralym_CreationEnd", ExtinctionId = "Astralym_Extinction";
 
-        public static SkillData Starfall
+        static readonly Dictionary<string, SkillData> skills = new Dictionary<string, SkillData>();
+
+        static SkillData Get(string id, Func<SkillData> make)
         {
-            get
-            {
-                if (starfall == null)
-                    starfall = Make(StarfallId, "멸성의 유성", "삼킨 별들을 공허의 유성으로 쏟아붓는다.", 100, 90, 5);
-                return starfall;
-            }
+            if (skills.TryGetValue(id, out var s) && s != null) return s;
+            return skills[id] = make();
         }
 
-        public static SkillData Judgement
+        public static SkillData Starfall => Get(StarfallId, () => Make(StarfallId, "별의 비", "별무리를 불러 유성의 비를 쏟아붓는다.", 90, 90, 10));
+
+        public static SkillData Glide => Get(GlideId, () =>
         {
-            get
-            {
-                if (judgement == null)
-                {
-                    judgement = Make(JudgementId, "공허의 단죄", "공허의 빛줄기로 꿰뚫는다. 30% 확률로 상대의 방어를 떨어뜨린다.", 80, 100, 10);
-                    judgement.statChanges.Add(new StatChange(StatType.Defense, -1, false));
-                    judgement.statChangeChance = 30;
-                }
-                return judgement;
-            }
-        }
+            var s = Make(GlideId, "아스트랄 글라이딩", "별빛을 타고 미끄러지듯 파고들어 벤다. 반드시 먼저 공격한다.", 70, 100, 15);
+            s.priority = 1;
+            return s;
+        });
+
+        public static SkillData WormHole => Get(WormHoleId, () =>
+        {
+            var s = Make(WormHoleId, "웜홀", "웜홀로 상대를 삼켰다가 다른 곳에서 내던진다. 30% 확률로 상대의 스피드를 떨어뜨린다.", 85, 95, 10);
+            s.statChanges.Add(new StatChange(StatType.Speed, -1, false));
+            s.statChangeChance = 30;
+            return s;
+        });
+
+        public static SkillData Burst => Get(BurstId, () => Make(BurstId, "팔디움 캐논", "팔디움 에너지를 한껏 모아 거대한 포격을 쏜다.", 110, 85, 5));
+
+        public static SkillData DivineRay => Get(DivineRayId, () =>
+        {
+            var s = Make(DivineRayId, "디바인 레이", "하늘에서 신성한 빛줄기가 연달아 내리꽂힌다. 30% 확률로 상대의 방어를 떨어뜨린다.", 95, 100, 10);
+            s.statChanges.Add(new StatChange(StatType.Defense, -1, false));
+            s.statChangeChance = 30;
+            return s;
+        });
+
+        public static SkillData Bloom => Get(BloomId, () =>
+        {
+            var s = Make(BloomId, "천상의 꽃", "별빛의 꽃을 피워 자신의 공격과 방어를 올린다.", 0, 100, 5);
+            s.category = SkillCategory.Status;
+            s.statChanges.Add(new StatChange(StatType.Attack, 1, true));
+            s.statChanges.Add(new StatChange(StatType.Defense, 1, true));
+            return s;
+        });
+
+        public static SkillData CreationEnd => Get(CreationEndId, () => Make(CreationEndId, "창조의 종언", "은하 하나를 빚어내 상대 위에서 무너뜨린다.", 130, 90, 5));
+
+        public static SkillData Extinction => Get(ExtinctionId, () => Make(ExtinctionId, "멸성", "별 하나를 태어나게 하고, 그 별의 죽음으로 모든 것을 지운다.", 150, 85, 3));
+
+        public static SkillData[] PhaseOneSkills => new[] { Starfall, Glide, WormHole, Burst };
+        public static SkillData[] PhaseTwoSkills => new[] { DivineRay, Bloom, CreationEnd, Extinction };
 
         static SkillData Make(string id, string name, string desc, int power, int accuracy, int pp)
         {
@@ -550,19 +580,17 @@ namespace PalRogue
             return s;
         }
 
-        /// <summary>2페이즈 기술: 멸성의 유성 + 공허의 단죄 + 원래 가장 센 공격 기술 + 변화 기술(없으면 두 번째로 센 공격)</summary>
-        public static void SetPhaseTwoSkills(Pal boss)
+        static void SetSkills(Pal boss, IEnumerable<SkillData> list)
         {
-            var attacks = boss.Skills.Where(s => s.Data.category == SkillCategory.Attack)
-                .OrderByDescending(s => s.Data.power).Select(s => s.Data).ToList();
-            var support = boss.Skills.FirstOrDefault(s => s.Data.category == SkillCategory.Status)?.Data;
-            var list = new List<SkillData> { Starfall, Judgement };
-            if (attacks.Count > 0) list.Add(attacks[0]);
-            if (support != null) list.Add(support);
-            else if (attacks.Count > 1) list.Add(attacks[1]);
             boss.Skills.Clear();
             foreach (var s in list.Take(Pal.MaxSkills)) boss.Skills.Add(new SkillInstance(s));
         }
+
+        /// <summary>1페이즈 기술: 별의 비 · 아스트랄 글라이딩 · 웜홀 · 팔디움 캐논</summary>
+        public static void SetPhaseOneSkills(Pal boss) => SetSkills(boss, PhaseOneSkills);
+
+        /// <summary>2페이즈 기술: 1페이즈와 전부 다른 디바인 레이 · 천상의 꽃 · 창조의 종언 · 멸성</summary>
+        public static void SetPhaseTwoSkills(Pal boss) => SetSkills(boss, PhaseTwoSkills);
     }
 
     /// <summary>
