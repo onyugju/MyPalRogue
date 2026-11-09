@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: edfaccef3db136a45b594a4680718d84
+guid: f7f2ac4c405fc304fbe4daaf8ea7202a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6651418607632056629
-    second: Astralym_Phase2_0
+      213: 2095141331926938424
+    second: Astralym_Phase2_36_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -77,7 +77,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -115,13 +115,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Astralym_Phase2_0
+      name: Astralym_Phase2_36_0
       rect:
         serializedVersion: 2
-        x: 195
-        y: 25
-        width: 600
-        height: 512
+        x: 25
+        y: 43
+        width: 610
+        height: 586
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -130,8 +130,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: bcefaaf540a61b3a0800000000000000
-      internalID: -6651418607632056629
+      spriteID: 8337ebbd0ff631d10800000000000000
+      internalID: 2095141331926938424
       vertices: []
       indices: 
       edges: []
@@ -140,7 +140,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -150,7 +150,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Astralym_Phase2_0: -6651418607632056629
+      Astralym_Phase2_36_0: 2095141331926938424
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -209,6 +209,30 @@ namespace PalRogue
             transform.position = pos;
         }
 
+        /// <summary>
+        /// 애니메이션으로 모습을 바꾼다 (제로버스 2페이즈). 그림 칸 높이가 화면에서 worldHeight가 되게 크기를 맞추고 발 높이를 맞춘다.
+        /// 다음 Show 때 원래 팰 모습·애니메이션으로 돌아간다
+        /// </summary>
+        public bool SetAnimatedForm(RuntimeAnimatorController controller, float worldHeight, PalData data)
+        {
+            if (sr == null) Awake();
+            if (controller == null) return false;
+            if (animator == null) animator = gameObject.AddComponent<Animator>();
+            animator.enabled = true;
+            animator.runtimeAnimatorController = controller;
+            animator.Rebind();
+            animator.Update(0f);                      // 첫 프레임을 바로 적용
+            pendingSprite = null;
+            var first = sr.sprite;
+            if (first == null) return false;
+            float frameHeight = first.rect.height / first.pixelsPerUnit;
+            transform.localScale = Vector3.one * (worldHeight / Mathf.Max(0.01f, frameHeight));
+            var pos = transform.position;
+            pos.y = feetWorldY + worldHeight / 2f + (data != null ? data.frontYOffset * scaleTune : 0f);
+            transform.position = pos;
+            return true;
+        }
+
         /// <summary>이 팰을 그리는 스프라이트 (연출이 같은 그림으로 실루엣을 겹칠 때)</summary>
         public SpriteRenderer Renderer { get { if (sr == null) Awake(); return sr; } }
 

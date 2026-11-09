@@ -182,7 +182,9 @@ namespace PalRogue
         public const string FinalPhase2Epithet = "멸성의 재앙";
         /// <summary>2페이즈 모습 (Resources 경로)과 화면에서의 높이 (월드 유닛)</summary>
         public const string FinalPhase2Sprite = "1.팰/1.Pal/000 제로버스/Astralym_Phase2";
-        public const float FinalPhase2Height = 5.76f;
+        /// <summary>2페이즈 대기 애니메이션 (Resources 경로, 컨트롤러)</summary>
+        public const string FinalPhase2Animator = "1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2";
+        public const float FinalPhase2Height = 5.1f;
         /// <summary>2페이즈 배경 (포켓로그 End)과 지역 이름</summary>
         public const string FinalPhase2Biome = "end", FinalPhase2Bgm = "end", FinalPhase2AreaText = "??? - ???";
         /// <summary>별의 가호 (2페이즈에서 내 파티 전원): 모든 능력치 배율, 쓰러질 공격을 한 번 HP 1로 버틴다</summary>

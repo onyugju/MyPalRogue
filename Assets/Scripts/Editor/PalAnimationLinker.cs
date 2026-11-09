@@ -284,12 +284,17 @@ namespace PalRogue.EditorTools
                 }
 
             List<Sprite> loop;
-            if (bestI >= 0 && best <= step * 1.2f)
+            if (BestCut(sprites, out int ci, out int cj, out float ratio) && ratio <= 2f)
+            {
+                loop = sprites.GetRange(ci, cj - ci);
+                how = $"{ci + 1}~{cj}번째 프레임만 반복 (이음새 = 보통 프레임 사이의 {ratio:0.0}배, {n}→{loop.Count}장)";
+            }
+            else if (bestI >= 0 && best <= step * 1.2f)
             {
                 loop = sprites.GetRange(bestI, bestJ - bestI);
                 how = $"{bestI + 1}~{bestJ}번째 프레임만 반복 ({bestJ + 1}번째가 {bestI + 1}번째와 거의 같음, {n}→{loop.Count}장)";
             }
-            else
+            else if ((loop = CrossfadeLoop(sprites, out how)) == null)
             {
                 loop = new List<Sprite>(sprites);
                 for (int i = n - 2; i >= 1; i--) loop.Add(sprites[i]);
@@ -306,6 +311,184 @@ namespace PalRogue.EditorTools
             EditorUtility.SetDirty(clip);
             return true;
         }
+
+        /// <summary>
+        /// 거꾸로 돌아가는 왕복 반복 대신, 끝 몇 장을 처음 몇 장 쪽으로 서서히 겹쳐(크로스페이드) 앞으로만 도는 반복을 만든다.
+        /// 섞은 그림은 프레임 폴더 옆 "Frames_Loop" 폴더에 새 PNG로 저장한다 (원본 프레임은 그대로).
+        /// 반복 = 원본 K~n-K-1번째 + 섞은 K장 (마지막 섞은 그림이 K-1번째와 거의 같아서 K번째로 자연스럽게 이어진다)
+        /// </summary>
+        static List<Sprite> CrossfadeLoop(List<Sprite> sprites, out string how)
+        {
+            how = null;
+            int n = sprites.Count;
+            int k = Mathf.Clamp(n / 12, 4, 8);
+            if (n < k * 4) return null;
+            // 겹칠 두 구간이 가장 비슷한 곳을 고른다: 반복 = i ~ j-1번째, 끝 k장(j-k ~ j-1)을 i-k ~ i-1번째 쪽으로 섞는다
+            var thumbs = sprites.Select(Thumb).ToList();
+            if (thumbs.Any(t => t == null)) return null;
+            float D(int a, int b) { var x = thumbs[a]; var y = thumbs[b]; float sum = 0f; for (int q = 0; q < x.Length; q++) sum += Mathf.Abs(x[q] - y[q]); return sum / x.Length; }
+            int bi = -1, bj = -1; float best = float.MaxValue;
+            for (int i = k; i <= n / 3; i++)
+                for (int j = i + n / 2; j <= n; j++)
+                {
+                    float sum = 0f;
+                    for (int s = 0; s < k; s++) sum += D(j - k + s, i - k + s);
+                    if (sum < best) { best = sum; bi = i; bj = j; }
+                }
+            if (bi < 0) return null;
+            string firstPath = AssetDatabase.GetAssetPath(sprites[0]);
+            if (string.IsNullOrEmpty(firstPath)) return null;
+            string dir = Path.GetDirectoryName(firstPath).Replace('\\', '/');
+            string outDir = (Path.GetFileName(dir).StartsWith("Frames", StringComparison.OrdinalIgnoreCase) ? Path.GetDirectoryName(dir).Replace('\\', '/') : dir) + "/Frames_Loop";
+            if (!AssetDatabase.IsValidFolder(outDir)) AssetDatabase.CreateFolder(Path.GetDirectoryName(outDir).Replace('\\', '/'), "Frames_Loop");
+            var srcImp = AssetImporter.GetAtPath(firstPath) as TextureImporter;
+            string baseName = Path.GetFileNameWithoutExtension(firstPath);
+            var made = new List<string>();
+            for (int s = 0; s < k; s++)
+            {
+                var a = LoadPng(AssetDatabase.GetAssetPath(sprites[bj - k + s]));
+                var b = LoadPng(AssetDatabase.GetAssetPath(sprites[bi - k + s]));
+                if (a == null || b == null || a.width != b.width || a.height != b.height)
+                {
+                    if (a != null) UnityEngine.Object.DestroyImmediate(a);
+                    if (b != null) UnityEngine.Object.DestroyImmediate(b);
+                    return null;                                               // 크기가 다르면 섞을 수 없다 → 왕복 반복
+                }
+                float w = (s + 1f) / (k + 1f);
+                var pa = a.GetPixels32(); var pb = b.GetPixels32();
+                var po = new Color32[pa.Length];
+                for (int i = 0; i < pa.Length; i++)
+                {
+                    float aa = pa[i].a / 255f * (1f - w), ab = pb[i].a / 255f * w, ao = aa + ab;
+                    if (ao <= 0.001f) { po[i] = new Color32(0, 0, 0, 0); continue; }
+                    po[i] = new Color32((byte)((pa[i].r * aa + pb[i].r * ab) / ao), (byte)((pa[i].g * aa + pb[i].g * ab) / ao),
+                                        (byte)((pa[i].b * aa + pb[i].b * ab) / ao), (byte)Mathf.Clamp(Mathf.RoundToInt(ao * 255f), 0, 255));
+                }
+                var o = new Texture2D(a.width, a.height, TextureFormat.RGBA32, false);
+                o.SetPixels32(po);
+                string path = $"{outDir}/{baseName}_loop{s:00}.png";
+                File.WriteAllBytes(path, o.EncodeToPNG());
+                UnityEngine.Object.DestroyImmediate(a); UnityEngine.Object.DestroyImmediate(b); UnityEngine.Object.DestroyImmediate(o);
+                made.Add(path);
+            }
+            var loop = new List<Sprite>(sprites.GetRange(bi, bj - k - bi));
+            foreach (var path in made)
+            {
+                AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceSynchronousImport);
+                if (AssetImporter.GetAtPath(path) is TextureImporter imp)
+                {
+                    imp.textureType = TextureImporterType.Sprite;
+                    imp.spriteImportMode = SpriteImportMode.Single;
+                    imp.spritePixelsPerUnit = srcImp != null ? srcImp.spritePixelsPerUnit : 100f;
+                    imp.filterMode = srcImp != null ? srcImp.filterMode : FilterMode.Point;
+                    imp.mipmapEnabled = false;
+                    imp.alphaIsTransparency = true;
+                    imp.textureCompression = TextureImporterCompression.Uncompressed;
+                    if (srcImp != null) { var ts = new TextureImporterSettings(); srcImp.ReadTextureSettings(ts); var ds = new TextureImporterSettings(); imp.ReadTextureSettings(ds); ds.spriteAlignment = ts.spriteAlignment; ds.spritePivot = ts.spritePivot; imp.SetTextureSettings(ds); }
+                    imp.SaveAndReimport();
+                }
+                var sp = AssetDatabase.LoadAssetAtPath<Sprite>(path);
+                if (sp == null) return null;
+                loop.Add(sp);
+            }
+            how = $"{bi + 1}~{bj}번째를 반복, 끝 {k}장을 {bi - k + 1}~{bi}번째 쪽으로 겹쳐 앞으로만 반복 ({n}→{loop.Count}장)";
+            return loop;
+        }
+
+        /// <summary>
+        /// 그대로 잘라서 반복할 구간 찾기: i ~ j-1번째를 반복할 때 j번째가 i번째와 가장 비슷한 곳 (구간은 전체의 40% 이상).
+        /// ratio = 이음새 차이 / 보통 한 프레임 사이 차이 (1에 가까울수록 이음새가 안 보인다)
+        /// </summary>
+        static bool BestCut(List<Sprite> sprites, out int bi, out int bj, out float ratio)
+        {
+            bi = bj = -1; ratio = float.MaxValue;
+            int n = sprites.Count;
+            var t = sprites.Select(Thumb).ToList();
+            if (t.Any(x => x == null)) return false;
+            float D(int a, int b) { var x = t[a]; var y = t[b]; float sum = 0f; for (int q = 0; q < x.Length; q++) sum += Mathf.Abs(x[q] - y[q]); return sum / x.Length; }
+            var steps = Enumerable.Range(0, n - 1).Select(i => D(i, i + 1)).OrderBy(d => d).ToList();
+            float step = steps[steps.Count / 2];
+            if (step <= 0f) return false;
+            int minLen = Mathf.Max(16, Mathf.RoundToInt(n * 0.4f));
+            for (int i = 0; i < n; i++)
+                for (int j = i + minLen; j < n; j++)
+                {
+                    float r = D(j, i) / step;
+                    if (r < ratio - 0.05f || (r < ratio + 0.05f && j - i > bj - bi)) { if (r < ratio) ratio = r; bi = i; bj = j; }
+                }
+            // 마지막 프레임 → 첫 프레임 (그대로 반복)도 후보
+            float wrap = D(n - 1, 0) / step;
+            if (wrap <= ratio + 0.05f) { ratio = wrap; bi = 0; bj = n; }
+            return bi >= 0;
+        }
+
+        static Texture2D LoadPng(string path)
+        {
+            if (string.IsNullOrEmpty(path) || !File.Exists(path)) return null;
+            var t = new Texture2D(2, 2, TextureFormat.RGBA32, false);
+            if (t.LoadImage(File.ReadAllBytes(path))) return t;
+            UnityEngine.Object.DestroyImmediate(t);
+            return null;
+        }
+
+        /// <summary>왕복(앞으로 갔다 거꾸로 돌아오는) 반복이면 앞으로 가는 프레임만 돌려준다</summary>
+        static List<Sprite> PingPongForward(List<Sprite> seq)
+        {
+            int m = seq.Count;
+            if (m < 6 || m % 2 != 0) return null;
+            int u = m / 2 + 1;                                                  // 왕복 길이 = 2u - 2
+            for (int i = 1; i < u - 1; i++) if (seq[u - 1 + i] != seq[u - 1 - i]) return null;
+            return seq.GetRange(0, u);
+        }
+
+        [MenuItem("PalRogue/06. 왕복(역재생) 반복 애니메이션을 앞으로만 도는 반복으로", false, 106)]
+        public static void FixPingPongMenu()
+        {
+            var log = new List<string>();
+            foreach (var guid in AssetDatabase.FindAssets("t:AnimationClip", new[] { PalRoot }))
+            {
+                var clip = AssetDatabase.LoadAssetAtPath<AnimationClip>(AssetDatabase.GUIDToAssetPath(guid));
+                if (clip == null) continue;
+                if (PingPongFilter != null && !clip.name.Contains(PingPongFilter)) continue;
+                var keys = AnimationUtility.GetObjectReferenceCurve(clip, SpriteBinding);
+                if (keys == null) continue;
+                var seq = keys.OrderBy(x => x.time).Select(x => x.value as Sprite).ToList();
+                if (seq.Any(x => x == null)) continue;
+                var fwd = PingPongForward(seq);
+                var loopFrame = seq.FirstOrDefault(x => AssetDatabase.GetAssetPath(x).Contains("/Frames_Loop/"));
+                string loopOwner = null;
+                if (fwd == null && loopFrame != null)                              // 이미 고친 것을 다시 만들 때: 원래 프레임 전부로
+                {
+                    string owner = loopOwner = Path.GetDirectoryName(Path.GetDirectoryName(AssetDatabase.GetAssetPath(loopFrame))).Replace('\\', '/');
+                    fwd = Directory.GetFiles(owner, "*.png").Select(x => x.Replace('\\', '/')).OrderBy(x => Path.GetFileName(x), StringComparer.Ordinal)
+                        .Select(AssetDatabase.LoadAssetAtPath<Sprite>).Where(x => x != null).ToList();
+                    foreach (var old in Directory.GetFiles(owner + "/Frames_Loop", "*.png")) AssetDatabase.DeleteAsset(old.Replace('\\', '/'));
+                }
+                if (fwd == null) continue;
+                List<Sprite> loop; string how;
+                if (BestCut(fwd, out int ci, out int cj, out float ratio) && ratio <= 2f)
+                {
+                    loop = fwd.GetRange(ci, cj - ci);
+                    how = $"{ci + 1}~{cj}번째 프레임을 그대로 반복 (이음새 차이 = 보통 프레임 사이의 {ratio:0.0}배, {fwd.Count}→{loop.Count}장)";
+                    if (loopOwner != null) AssetDatabase.DeleteAsset(loopOwner + "/Frames_Loop");   // 섞은 그림은 이제 안 쓴다
+                }
+                else loop = CrossfadeLoop(fwd, out how);
+                if (loop == null) continue;
+                float fps = clip.frameRate > 0f ? clip.frameRate : Fps;
+                AnimationUtility.SetObjectReferenceCurve(clip, SpriteBinding, loop.Select((sp, i) => new ObjectReferenceKeyframe { time = i / fps, value = sp }).ToArray());
+                var settings = AnimationUtility.GetAnimationClipSettings(clip);
+                settings.loopTime = true;
+                settings.stopTime = loop.Count / fps;
+                AnimationUtility.SetAnimationClipSettings(clip, settings);
+                EditorUtility.SetDirty(clip);
+                log.Add($"{clip.name}: {how}");
+            }
+            if (log.Count > 0) AssetDatabase.SaveAssets();
+            Debug.Log($"[팰 애니메이션] 왕복 반복을 고친 애니메이션 {log.Count}개{(log.Count > 0 ? "\n" + string.Join("\n", log) : "")}");
+        }
+
+        /// <summary>메뉴 06이 고칠 애니메이션 이름 (null이면 전부)</summary>
+        public static string PingPongFilter = "Astralym";
 
         /// <summary>스프라이트 그림을 SeamGrid×SeamGrid 칸으로 줄인 RGBA 값 (파일에서 직접 읽는다)</summary>
         static float[] Thumb(Sprite sp)

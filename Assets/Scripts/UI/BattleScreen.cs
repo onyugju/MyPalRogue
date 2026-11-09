@@ -466,7 +466,7 @@ namespace PalRogue
         static Sprite Phase2Sprite(float viewScale)
         {
             if (phase2Sprite != null && Mathf.Approximately(phase2Scale, viewScale)) return phase2Sprite;
-            var src = Resources.LoadAll<Sprite>(GameConfig.FinalPhase2Sprite).FirstOrDefault();
+            var src = Resources.LoadAll<Sprite>(GameConfig.FinalPhase2Sprite).OrderBy(x => x.name, System.StringComparer.Ordinal).FirstOrDefault();
             Texture2D tex = src != null ? src.texture : Resources.Load<Texture2D>(GameConfig.FinalPhase2Sprite);
             if (tex == null) { Debug.LogWarning($"[PalRogue] 2페이즈 그림이 없습니다: Resources/{GameConfig.FinalPhase2Sprite}"); return null; }
             var rect = src != null ? src.rect : new Rect(0f, 0f, tex.width, tex.height);
@@ -510,9 +510,13 @@ namespace PalRogue
                 voidPhase = true;
                 AreaScenery.Apply(enemyView.transform.parent, GameConfig.FinalPhase2Biome);
                 UpdateHud();
-                var form = Phase2Sprite(enemyView.transform.localScale.y);
-                if (form != null) enemyView.SetForm(form, boss.Data);      // 2페이즈 모습 (Astralym_Phase2)
-                else { enemyView.SetBaseTint(VoidPhaseTint); Fx.SetBossAura(enemyView, true); }   // 그림이 없으면 공허에 물든 색 + 불꽃
+                var anim = Resources.Load<RuntimeAnimatorController>(GameConfig.FinalPhase2Animator);
+                if (!enemyView.SetAnimatedForm(anim, GameConfig.FinalPhase2Height, boss.Data))   // 2페이즈 대기 애니메이션 (Astralym_Phase2)
+                {
+                    var form = Phase2Sprite(enemyView.transform.localScale.y);
+                    if (form != null) enemyView.SetForm(form, boss.Data);                       // 애니메이션이 없으면 멈춘 그림
+                    else { enemyView.SetBaseTint(VoidPhaseTint); Fx.SetBossAura(enemyView, true); }   // 그림도 없으면 공허에 물든 색 + 불꽃
+                }
                 enemyInfo.Refresh(boss);                                    // 실드 6칸 · Lv.??? · 새 능력치 단계
                 enemyInfo.SetHp(ev.MaxHp > 0 ? Mathf.Clamp01(ev.From / (float)ev.MaxHp) : 0f);
                 GameAudio.Bgm(GameConfig.FinalPhase2Bgm);
