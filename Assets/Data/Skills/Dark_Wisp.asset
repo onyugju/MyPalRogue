@@ -13,12 +13,15 @@ MonoBehaviour:
   m_Name: Dark_Wisp
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uB2E4\uD06C \uC704\uC2A4\uD504"
-  description: 
+  description: "\uC0C1\uB300\uB97C \uCAD3\uC544\uAC00\uB294 \uC5B4\uB460 \uAD6C\uCCB4\uB97C \uC5EC\uB7FF \uC3DC\uB2E4."
   type: 8
   category: 0
-  power: 120
-  accuracy: 80
+  power: 115
+  accuracy: 90
   maxPP: 5
   priority: 0
   statusEffect: 4
   statusChance: 10
+  statChanges: []
+  statChangeChance: 100
+  healPercent: 0

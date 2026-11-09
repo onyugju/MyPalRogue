@@ -52,6 +52,27 @@ namespace PalRogue.EditorTools
             screen.PreviewSkillFx(AllSkills());
         }
 
+        [MenuItem("PalRogue/39. 팰월드 기술 새 연출 미리보기 (플레이 중)", false, 403)]
+        static void PreviewPalworld()
+        {
+            if (!EditorApplication.isPlaying) { EditorUtility.DisplayDialog("플레이 중에 실행", "플레이 버튼을 누르고 전투 화면이 나온 뒤에 실행해 주세요.", "확인"); return; }
+            var screen = Object.FindAnyObjectByType<BattleScreen>();
+            if (screen == null) { Debug.LogError("[연출 미리보기] BattleScreen을 찾지 못했습니다."); return; }
+            var names = new HashSet<string>(SkillFx.PwSkillNames);
+            var all = AllSkills().Where(s => names.Contains(s.name)).ToList();
+            // PwPreview.txt(프로젝트 폴더)에 속성 이름을 적으면 그 속성만 본다 (예: Water,Grass). 없으면 가장 최근에 등록한 속성
+            var last = all.FirstOrDefault(s => s.name == SkillFx.PwSkillNames.Last());
+            List<SkillData> list;
+            if (System.IO.File.Exists("PwPreview.txt"))
+            {
+                var want = System.IO.File.ReadAllText("PwPreview.txt").Split(',', '\n', ' ').Select(x => x.Trim()).Where(x => x.Length > 0).ToList();
+                list = want.Contains("All") ? all : all.Where(s => want.Contains(s.type.ToString())).ToList();
+            }
+            else list = last == null ? all : all.Where(s => s.type == last.type).ToList();
+            Debug.Log($"[연출 미리보기] 새 연출 기술 {list.Count}개");
+            screen.PreviewSkillFx(list, enemyOnly: false, record: true);         // 내 팰·상대가 번갈아 쓴다, Temp/PhaseShiftFrames에 프레임 저장
+        }
+
         [MenuItem("PalRogue/38. 제로버스 기술 연출 미리보기 (플레이 중)", false, 402)]
         static void PreviewAstralym()
         {

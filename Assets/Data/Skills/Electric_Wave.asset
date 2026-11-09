@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Electric_Wave
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uC804\uAE30 \uD30C\uC7A5"
-  description: 
+  description: "\uBAB8 \uB458\uB808\uB85C \uC804\uAE30 \uCDA9\uACA9\uC744 \uD37C\uB728\uB9B0\uB2E4."
   type: 4
   category: 0
   power: 55
@@ -22,3 +22,6 @@ MonoBehaviour:
   priority: 0
   statusEffect: 3
   statusChance: 10
+  statChanges: []
+  statChangeChance: 100
+  healPercent: 0

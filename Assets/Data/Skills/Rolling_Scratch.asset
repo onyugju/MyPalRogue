@@ -13,10 +13,15 @@ MonoBehaviour:
   m_Name: Rolling_Scratch
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uB864\uB9C1 \uC2A4\uD06C\uB798\uCE58"
-  description: 
+  description: "\uBAB8\uC744 \uAD74\uB9AC\uBA70 \uBE60\uB974\uAC8C \uB2E4\uAC00\uAC00 \uD560\uD038\uB2E4."
   type: 5
   category: 0
-  power: 100
-  accuracy: 90
+  power: 95
+  accuracy: 95
   maxPP: 10
   priority: 0
+  statusEffect: 0
+  statusChance: 0
+  statChanges: []
+  statChangeChance: 100
+  healPercent: 0

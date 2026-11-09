@@ -13,10 +13,15 @@ MonoBehaviour:
   m_Name: Air_Cannon
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uACF5\uAE30 \uB300\uD3EC"
-  description: 
+  description: "\uC555\uCD95\uD55C \uACF5\uAE30 \uB369\uC5B4\uB9AC\uB97C \uBE60\uB974\uAC8C \uC3D8\uC544 \uBCF4\uB0B8\uB2E4."
   type: 0
   category: 0
   power: 40
   accuracy: 100
   maxPP: 25
   priority: 0
+  statusEffect: 0
+  statusChance: 0
+  statChanges: []
+  statChangeChance: 100
+  healPercent: 0

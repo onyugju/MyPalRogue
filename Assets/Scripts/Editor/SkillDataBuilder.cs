@@ -49,142 +49,22 @@ namespace PalRogue.EditorTools
               this.owner=owner; this.power=power; this.priority=priority; }
         }
 
-        // 속성별 공용 스킬은 "쿨타임 낮은 순" 5개 (Void만 3개). 순서가 학습 규칙에 쓰이므로 바꾸지 말 것.
-        static readonly Row[] Rows =
+        // 기술 표는 PalworldSkillTable (팰월드 기술: 공용기 + 우리 팰 전용기). 공허 셋은 제로버스 데이터용 (실전에서는 AstralymPhase 기술을 쓴다)
+        static readonly Row[] VoidRows =
         {
-            // ── 무 ──
-            new(PalType.Neutral, 2,  "공기 대포",   "Air_Cannon",  Atk),
-            new(PalType.Neutral, 4,  "파워 샷",     "Power_Shot",  Atk),
-            new(PalType.Neutral, 8,  "파워 폭탄",   "Power_Bomb",  Atk),
-            new(PalType.Neutral, 20, "팰 블래스트", "Pal_Blast",   Atk),
-            new(PalType.Neutral, 30, "신성 폭발",   "Holy_Burst",  Atk),
-            // ── 화염 ──
-            new(PalType.Fire, 2,  "파이어 샷",   "Fire_Shot",    Atk),
-            new(PalType.Fire, 4,  "스피릿 파이어", "Spirit_Fire", Atk),
-            new(PalType.Fire, 8,  "파이어 브레스", "Fire_Breath", Atk),
-            new(PalType.Fire, 16, "플레임 판넬", "Flame_Panel",   Atk),
-            new(PalType.Fire, 30, "화염구",      "Fireball",      Atk),
-            // ── 물 ──
-            new(PalType.Water, 2,  "워터 제트",     "Water_Jet",     Atk),
-            new(PalType.Water, 4,  "버블 샷",       "Bubble_Shot",   Atk),
-            new(PalType.Water, 8,  "라인 스플래시", "Line_Splash",   Atk),
-            new(PalType.Water, 20, "하이드로 스트림", "Hydro_Stream", Atk),
-            new(PalType.Water, 30, "물기둥 분출",   "Water_Geyser",  Atk),
-            // ── 풀 ──
-            new(PalType.Grass, 2,  "바람의 칼날",   "Wind_Blade",       Atk),
-            new(PalType.Grass, 4,  "씨앗 기관총",   "Seed_Machine_Gun", Atk),
-            new(PalType.Grass, 8,  "멀티 커터",     "Multi_Cutter",     Atk),
-            new(PalType.Grass, 20, "리플렉트 리프", "Reflect_Leaf",     Atk),
-            new(PalType.Grass, 30, "윈드 블래스트", "Wind_Blast",       Atk),
-            // ── 번개 ──
-            new(PalType.Electric, 2,  "번개 창",   "Lightning_Spear", Atk),
-            new(PalType.Electric, 4,  "전기 파장", "Electric_Wave",   Atk),
-            new(PalType.Electric, 8,  "라인 썬더", "Line_Thunder",    Atk),
-            new(PalType.Electric, 16, "번개 일격", "Thunder_Strike",  Atk),
-            new(PalType.Electric, 30, "번개 폭풍", "Thunderstorm",    Atk),
-            // ── 땅 ──
-            new(PalType.Ground, 2,  "머드 슛",    "Mud_Shot",    Atk),
-            new(PalType.Ground, 4,  "바위 폭발",  "Rock_Burst",  Atk),
-            new(PalType.Ground, 8,  "바위 대포",  "Rock_Cannon", Atk),
-            new(PalType.Ground, 20, "바위 창",    "Rock_Spear",  Atk),
-            new(PalType.Ground, 30, "스톤 비트",  "Stone_Beat",  Atk),
-            // ── 얼음 ──
-            new(PalType.Ice, 2,  "얼음 미사일",   "Ice_Missile",  Atk),
-            new(PalType.Ice, 4,  "얼음 칼날",     "Ice_Blade",    Atk),
-            new(PalType.Ice, 8,  "서리 낀 입김",  "Frost_Breath", Atk),
-            new(PalType.Ice, 16, "아이시클 라인", "Icicle_Line",  Atk),
-            new(PalType.Ice, 30, "다이아몬드 폴", "Diamond_Fall", Atk),
-            // ── 용 ──
-            new(PalType.Dragon, 2,  "용 대포",    "Dragon_Cannon", Atk),
-            new(PalType.Dragon, 4,  "용의 파장",  "Dragon_Wave",   Atk),
-            new(PalType.Dragon, 8,  "용의 숨결",  "Dragon_Breath", Atk),
-            new(PalType.Dragon, 16, "빔 슬라이서", "Beam_Slicer",  Atk),
-            new(PalType.Dragon, 30, "용의 운석",  "Dragon_Meteor", Atk),
-            // ── 어둠 ──
-            new(PalType.Dark, 2,  "다크 샷",      "Dark_Shot",    Atk),
-            new(PalType.Dark, 4,  "그림자 폭발",  "Shadow_Burst", Atk),
-            new(PalType.Dark, 8,  "어둠 화살",    "Dark_Arrow",   Atk),
-            new(PalType.Dark, 20, "어둠의 레이저", "Dark_Laser",  Atk),
-            new(PalType.Dark, 30, "다크 위스프",  "Dark_Wisp",    Atk),
-            // ── Void (제로버스 전용 고유속성, 원작에 없는 오리지널) ──
             new(PalType.Void, 2,  "공허의 탄환", "Void_Shot",  Atk, power: 50),
             new(PalType.Void, 8,  "공허의 파동", "Void_Pulse", Atk, power: 85),
             new(PalType.Void, 30, "소멸",        "Annihilate", Atk, power: 130),
-
-            // ── 팰 전용 스킬 (owner = PalData 에셋 이름) ──
-            new(PalType.Neutral,  2,  "데굴데굴 솜사탕", "Rolling_Fluff",     Atk, "001_Lamball"),
-            new(PalType.Neutral,  2,  "냥냥 펀치",       "Meow_Punch",        Atk, "002_Cattiva"),
-            new(PalType.Ground,   4,  "파이팅 슬래시",   "Fighting_Slash",    Atk, "013_Pupperai"),
-            new(PalType.Fire,     4,  "불타는 뿔",       "Burning_Horn",      Atk, "058_Arsox"),
-            new(PalType.Dragon,   8,  "신비의 허리케인", "Mystic_Hurricane",  Atk, "063_Elphidran"),
-            new(PalType.Dragon,   4,  "로켓 태클",       "Rocket_Tackle",     Atk, "103_Chillet"),
-            new(PalType.Ground,   16, "스핀 레그 슬래시", "Spin_Leg_Slash",   Atk, "139_Anubis"),
-            new(PalType.Ground,   20, "포스 드라이브",   "Force_Drive",       Atk, "139_Anubis"),
-            new(PalType.Ground,   24, "그라운드 스매셔", "Ground_Smasher",    Atk, "139_Anubis"),
-            new(PalType.Ground,   16, "서머솔트 스크래치", "Somersault_Scratch", Atk, "140_Sekhmet"),
-            new(PalType.Ground,   20, "롤링 스크래치",   "Rolling_Scratch",   Atk, "140_Sekhmet"),
-            new(PalType.Ground,   30, "작열 미사일",     "Blazing_Missile",   Atk, "184_Aegidron"),
-            new(PalType.Electric, 8,  "전기 할퀴기",     "Electric_Claw",     Atk, "185_Grizzbolt"),
-            new(PalType.Electric, 24, "뇌격의 중전차",   "Thunder_Tank",      Atk, "185_Grizzbolt"),
-            new(PalType.Neutral,  30, "창기병 돌격",     "Lancer_Charge",     Atk, "198_Paladius"),
-            new(PalType.Ice,      30, "크리스탈 윙",     "Crystal_Wing",      Atk, "200_Frostallion"),
-            new(PalType.Water,    30, "타라소닉 레이저", "Tarasonic_Laser",   Atk, "201_Neptilius"),
-            new(PalType.Dragon,   30, "유성 광선",       "Meteor_Beam",       Atk, "202_Jetragon"),
-            new(PalType.Dark,     30, "악몽의 빛줄기",   "Nightmare_Ray",     Atk, "000_Bellanoir_Libero"),
-            new(PalType.Dark,     20, "화염 왈츠",       "Flame_Waltz",       Atk, "000_Bellanoir_Libero"),
-
-            // ── 새로 추가한 팰 20종 전용 스킬 (팰의 모습·특징에서 따온 팰로그 기술) ──
-            new(PalType.Dark,     4,  "우울한 독침",     "Gloomy_Sting",      Atk, "016_Depresso"),
-            new(PalType.Water,    4,  "펭귄 로켓",       "Penguin_Rocket",    Atk, "017_Pengullet"),
-            new(PalType.Grass,    4,  "덩굴 난타",       "Vine_Barrage",      Atk, "023_Tanzee"),
-            new(PalType.Fire,     4,  "불꽃 돌진",       "Ember_Dash",        Atk, "026_Rooby"),
-            new(PalType.Ground,   8,  "멧돼지 돌진",     "Boar_Rush",         Atk, "028_Rushoar"),
-            new(PalType.Neutral,  4,  "송곳니 습격",     "Fang_Raid",         Atk, "033_Direhowl"),
-            new(PalType.Electric, 4,  "정전기 할퀴기",   "Static_Scratch",    Atk, "042_Sparkit"),
-            new(PalType.Water,    8,  "서핑 슬래시",     "Surf_Slash",        Atk, "075_Surfent"),
-            new(PalType.Grass,    8,  "명궁의 화살",     "Hawkeye_Arrow",     Atk, "076_Robinquill"),
-            new(PalType.Dark,     16, "지옥의 급강하",   "Hell_Dive",         Atk, "080_Helzephyr"),
-            new(PalType.Grass,    16, "꽃잎 폭풍",       "Petal_Storm",       Atk, "084_Dinossom"),
-            new(PalType.Fire,     16, "화염 질주",       "Blaze_Gallop",      Atk, "093_Pyrin"),
-            new(PalType.Ice,      8,  "얼음 꼬리",       "Frost_Tail",        Atk, "095_Foxcicle"),
-            new(PalType.Electric, 16, "점핑 클로",       "Jumping_Claw",      Atk, "098_Rayhound"),
-            new(PalType.Grass,    20, "판다 라리아트",   "Panda_Lariat",      Atk, "102_Mossanda"),
-            new(PalType.Fire,     20, "지옥불 할퀴기",   "Inferno_Claw",      Atk, "112_Blazehowl"),
-            new(PalType.Dark,     16, "망령의 낫",       "Phantom_Scythe",    Atk, "117_Maraith"),
-            new(PalType.Water,    30, "대해일",          "Tidal_Wave",        Atk, "121_Jormuntide"),
-            new(PalType.Dragon,   20, "용의 급강하",     "Dragon_Dive",       Atk, "124_Quivern"),
-            new(PalType.Ice,      24, "빙산 낙하",       "Iceberg_Drop",      Atk, "134_Wumpo"),
-
-            // ── 오리지널: 선제기 (전원 Lv1) ──
-            new(PalType.Neutral,  2,  "기습",            "Quick_Strike",      Atk, AllPals, power: 35, priority: 1),
         };
+
+        static readonly Row[] Rows = PalworldSkillTable.All
+            .Select(e => new Row(e.type, e.cd, e.kor, e.eng, e.cat, e.owner, e.power, e.priority))
+            .Concat(VoidRows).ToArray();
 
         // ───────── 34. 팰 전용 기술 추가 ─────────
         /// <summary>전용 기술의 설명과 추가 효과 (상태이상 / 능력치 변화). 기술 에셋 이름 → 내용</summary>
         static readonly Dictionary<string, (string desc, StatusCondition status, int statusChance, StatChange? change, int changeChance)> SignatureEffects =
-            new Dictionary<string, (string, StatusCondition, int, StatChange?, int)>
-        {
-            ["Gloomy_Sting"]   = ("축 처진 몸으로 독침을 찌른다. 30% 확률로 독.", StatusCondition.Poison, 30, null, 0),
-            ["Penguin_Rocket"] = ("몸을 로켓처럼 날려 부딪친다. 20% 확률로 상대 스피드 -1.", StatusCondition.None, 0, new StatChange(StatType.Speed, -1, false), 20),
-            ["Vine_Barrage"]   = ("덩굴을 휘둘러 마구 때린다.", StatusCondition.None, 0, null, 0),
-            ["Ember_Dash"]     = ("불꽃을 두르고 돌진한다. 20% 확률로 화상.", StatusCondition.Burn, 20, null, 0),
-            ["Boar_Rush"]      = ("흙먼지를 일으키며 들이받는다. 30% 확률로 상대 방어 -1.", StatusCondition.None, 0, new StatChange(StatType.Defense, -1, false), 30),
-            ["Fang_Raid"]      = ("날카로운 송곳니로 덮친다. 20% 확률로 자신의 스피드 +1.", StatusCondition.None, 0, new StatChange(StatType.Speed, 1, true), 20),
-            ["Static_Scratch"] = ("정전기가 흐르는 발톱으로 할퀸다. 30% 확률로 마비.", StatusCondition.Paralysis, 30, null, 0),
-            ["Surf_Slash"]     = ("파도를 타고 베어 낸다.", StatusCondition.None, 0, null, 0),
-            ["Hawkeye_Arrow"]  = ("빈틈을 노려 화살 세 발을 쏜다. 20% 확률로 상대 방어 -1.", StatusCondition.None, 0, new StatChange(StatType.Defense, -1, false), 20),
-            ["Hell_Dive"]      = ("하늘 높이 올라 지옥의 기운과 함께 내리꽂힌다. 20% 확률로 독.", StatusCondition.Poison, 20, null, 0),
-            ["Petal_Storm"]    = ("꽃잎 폭풍을 일으킨다. 30% 확률로 상대 공격 -1.", StatusCondition.None, 0, new StatChange(StatType.Attack, -1, false), 30),
-            ["Blaze_Gallop"]   = ("온몸을 불태우며 질주한다. 20% 확률로 화상.", StatusCondition.Burn, 20, null, 0),
-            ["Frost_Tail"]     = ("얼어붙은 꼬리로 후려친다. 15% 확률로 얼음.", StatusCondition.Freeze, 15, null, 0),
-            ["Jumping_Claw"]   = ("높이 뛰어올라 번개 발톱으로 내려친다. 20% 확률로 마비.", StatusCondition.Paralysis, 20, null, 0),
-            ["Panda_Lariat"]   = ("굵은 팔을 휘둘러 후려친다. 30% 확률로 상대 방어 -1.", StatusCondition.None, 0, new StatChange(StatType.Defense, -1, false), 30),
-            ["Inferno_Claw"]   = ("지옥불을 두른 발톱으로 할퀸다. 30% 확률로 화상.", StatusCondition.Burn, 30, null, 0),
-            ["Phantom_Scythe"] = ("망령의 낫으로 영혼을 벤다. 20% 확률로 상대 공격 -1.", StatusCondition.None, 0, new StatChange(StatType.Attack, -1, false), 20),
-            ["Tidal_Wave"]     = ("거대한 해일로 모든 것을 삼킨다. 30% 확률로 상대 스피드 -1.", StatusCondition.None, 0, new StatChange(StatType.Speed, -1, false), 30),
-            ["Dragon_Dive"]    = ("하늘에서 용의 힘을 싣고 내리꽂힌다. 20% 확률로 자신의 공격 +1.", StatusCondition.None, 0, new StatChange(StatType.Attack, 1, true), 20),
-            ["Iceberg_Drop"]   = ("거대한 빙산을 떨어뜨린다. 15% 확률로 얼음.", StatusCondition.Freeze, 15, null, 0),
-        };
+            new Dictionary<string, (string, StatusCondition, int, StatChange?, int)>();   // 팰월드 표(PalworldSkillTable)가 설명·추가 효과를 갖고 있다
 
         /// <summary>
         /// 메뉴 PalRogue/34. 팰 전용 기술 추가
@@ -324,22 +204,32 @@ namespace PalRogue.EditorTools
                     else if (r.owner == pal.name) PutRow(r);
                 }
 
-                // 2) 주 속성 공용 스킬 5개(Void는 3개) 전부
+                // 2) 주 속성 공용 기술: 습득 단계(레벨)마다 하나씩 (팰마다 다르게 고른다)
                 var p = pal.primaryType;
-                if (generic.TryGetValue(p, out var main)) foreach (var r in main) PutRow(r);
-
-                // 3) 무속성 보조 (공기 대포, 파워 폭탄). 무/Void 속성은 제외
-                if (p != PalType.Neutral && p != PalType.Void && generic.TryGetValue(PalType.Neutral, out var neutral))
+                if (generic.TryGetValue(p, out var main))
                 {
-                    PutRow(neutral[0]);
-                    PutRow(neutral[2]);
+                    if (p == PalType.Void) foreach (var r in main) PutRow(r);
+                    else foreach (var tier in main.GroupBy(r => GetBand(r.cd).level)) PutRow(Pick(tier.ToList(), pal.name + tier.Key));
                 }
 
-                // 4) 보조 속성이 있으면 그 속성의 2번째/4번째 스킬
-                if (pal.hasSecondaryType && generic.TryGetValue(pal.secondaryType, out var sub) && sub.Count > 3)
+                // 3) 무속성 공용 기술 둘 (무/공허 속성은 제외): 1단계 하나 + 12레벨 단계 하나
+                if (p != PalType.Neutral && p != PalType.Void && generic.TryGetValue(PalType.Neutral, out var neutral))
                 {
-                    PutRow(sub[1]);
-                    PutRow(sub[3]);
+                    foreach (int lvTier in new[] { 1, 12 })
+                    {
+                        var pool = neutral.Where(r => GetBand(r.cd).level == lvTier).ToList();
+                        if (pool.Count > 0) PutRow(Pick(pool, pal.name + "N" + lvTier));
+                    }
+                }
+
+                // 4) 보조 속성 공용 기술 둘: 12레벨 단계 하나 + 28레벨 단계 하나
+                if (pal.hasSecondaryType && pal.secondaryType != p && generic.TryGetValue(pal.secondaryType, out var sub))
+                {
+                    foreach (int lvTier in new[] { 12, 28 })
+                    {
+                        var pool = sub.Where(r => GetBand(r.cd).level == lvTier).ToList();
+                        if (pool.Count > 0) PutRow(Pick(pool, pal.name + "S" + lvTier));
+                    }
                 }
 
                 var list = new List<LearnsetEntry>();
@@ -355,6 +245,76 @@ namespace PalRogue.EditorTools
             }
             AssetDatabase.SaveAssets();
             Debug.Log($"[PalRogue] 학습 스킬 연결 {filled}마리 / 건너뜀 {skipped}마리");
+        }
+
+        /// <summary>팰 이름으로 정해지는 고르기 (같은 팰은 늘 같은 기술, 팰마다는 다르게)</summary>
+        static Row Pick(List<Row> pool, string seed)
+        {
+            uint h = 2166136261;
+            foreach (char c in seed) { h ^= c; h *= 16777619; }
+            return pool[(int)(h % (uint)pool.Count)];
+        }
+
+        // ───────── 43. 팰월드 기술로 전면 교체 ─────────
+        /// <summary>
+        /// 메뉴 PalRogue/43. 기술 표(PalworldSkillTable)대로 기술 에셋을 만들거나 고치고, 표에 없는 옛 기술 에셋은 지운 뒤
+        /// 모든 팰의 학습 목록을 새 규칙으로 다시 만든다 (변화 기술 SupportSkillBuilder 포함). 여러 번 실행해도 같은 결과.
+        /// 저장된 모험에 지운 기술이 있으면 불러올 때 자동으로 다시 배운다.
+        /// </summary>
+        [MenuItem("PalRogue/43. 팰월드 기술로 전면 교체", false, 230)]
+        public static void RebuildPalworld()
+        {
+            EnsureFolder("Assets/Data");
+            EnsureFolder(SkillDir);
+            int created = 0, updated = 0, removed = 0;
+            foreach (var e in PalworldSkillTable.All)
+            {
+                string path = $"{SkillDir}/{e.eng}.asset";
+                var sk = AssetDatabase.LoadAssetAtPath<SkillData>(path);
+                bool isNew = sk == null;
+                if (isNew) sk = ScriptableObject.CreateInstance<SkillData>();
+                sk.skillName = e.kor;
+                sk.description = e.desc;
+                sk.type = e.type;
+                sk.category = e.cat;
+                sk.power = e.power;
+                sk.accuracy = e.acc;
+                sk.maxPP = e.pp;
+                sk.priority = e.priority;
+                sk.statusEffect = e.status;
+                sk.statusChance = e.statusChance;
+                sk.statChanges = e.changes.ToList();
+                sk.statChangeChance = e.changeChance;
+                sk.healPercent = e.heal;
+                ApplyDefaultStatus(sk);
+                if (isNew) { AssetDatabase.CreateAsset(sk, path); created++; }
+                else { EditorUtility.SetDirty(sk); updated++; }
+            }
+            CreateSkills();                                                    // 공허 기술 (제로버스 데이터용)
+
+            var keep = new HashSet<string>(PalworldSkillTable.All.Select(e => e.eng));
+            foreach (var r in VoidRows) keep.Add(r.eng);
+            foreach (var sp in SupportSkillBuilder.Supports) keep.Add(sp.eng);
+            foreach (var guid in AssetDatabase.FindAssets("t:SkillData", new[] { SkillDir }))
+            {
+                string path = AssetDatabase.GUIDToAssetPath(guid);
+                if (keep.Contains(Path.GetFileNameWithoutExtension(path))) continue;
+                AssetDatabase.DeleteAsset(path);
+                removed++;
+            }
+
+            foreach (var guid in AssetDatabase.FindAssets("t:PalData", new[] { PalDir }))
+            {
+                var pal = AssetDatabase.LoadAssetAtPath<PalData>(AssetDatabase.GUIDToAssetPath(guid));
+                if (pal == null) continue;
+                pal.learnset = new List<LearnsetEntry>();
+                EditorUtility.SetDirty(pal);
+            }
+            AssetDatabase.SaveAssets();
+            FillLearnsets();
+            SupportSkillBuilder.Build();
+            AssetDatabase.SaveAssets();
+            Debug.Log($"[팰월드 기술] 새로 {created}개 / 고침 {updated}개 / 옛 기술 지움 {removed}개, 모든 팰 학습 목록을 다시 만들었습니다.");
         }
 
         // ───────── 12. 스킬 종류 통합 (이미 만든 스킬 에셋용) ─────────

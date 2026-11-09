@@ -210,6 +210,22 @@ namespace PalRogue.EditorTools
             if (stolen == 0) throw new Exception("미니 블랙홀이 아이템을 빼앗지 못함");
             if (foe.Effects.Any(e => e.HeldItemId != null) && stolen >= 3) throw new Exception("빼앗은 아이템이 상대에게 남아 있음");
             if (me.Effects.Count(e => e.HeldItemId != null) != 2 + stolen) throw new Exception("빼앗은 아이템이 내 팰에게 오지 않음");
+            for (int tryN = 0; lens == 0 && tryN < 6; tryN++)                              // 확률이라 안 나왔으면 새 전투로 몇 번 더 본다
+            {
+                var lmsgs = new List<string>();
+                var m2 = new Pal(partyData[0], 60); var f2 = new Pal(partyData[1], 60);
+                ItemCatalog.Get("multi_lens").Apply(new ItemContext { Target = m2 });
+                f2.MakeBoss(4); f2.Heal(f2.MaxHP);
+                var b2 = new Battle(new List<Pal> { m2 }, new List<Pal> { f2 }, rng, lmsgs.Add, true, BossKind.Boss);
+                for (int t = 0; t < 8 && b2.State == BattleState.Ongoing && !lmsgs.Any(m => m.Contains("멀티렌즈")); t++)
+                {
+                    int i2 = m2.Skills.FindIndex(sk => sk.HasPP && sk.Data.category != SkillCategory.Status);
+                    b2.ExecuteTurn(BattleAction.Skill(Mathf.Max(0, i2)));
+                    while (b2.TryDequeueEvent(out _)) { }
+                }
+                b2.Detach();
+                lens = lmsgs.Count(m => m.Contains("멀티렌즈"));
+            }
             if (lens == 0) throw new Exception("멀티렌즈 추가 공격이 없음");
             if (!msgs.Any(m => m.Contains("지니고 있다"))) throw new Exception("상대가 지닌 아이템을 알리지 않음");
             battle.Detach();

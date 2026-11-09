@@ -13,10 +13,15 @@ MonoBehaviour:
   m_Name: Tarasonic_Laser
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uD0C0\uB77C\uC18C\uB2C9 \uB808\uC774\uC800"
-  description: 
+  description: "\uACE0\uC555 \uBB3C\uC904\uAE30\uB85C \uC138 \uBC88 \uD729\uC4F8\uACE0 \uB9DE\uC740 \uC790\uB9AC\uC5D0\uC11C \uBB3C\uC774 \uC19F\uB294\uB2E4."
   type: 2
   category: 0
-  power: 120
-  accuracy: 80
+  power: 125
+  accuracy: 85
   maxPP: 5
   priority: 0
+  statusEffect: 0
+  statusChance: 0
+  statChanges: []
+  statChangeChance: 100
+  healPercent: 0

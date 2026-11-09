@@ -13,10 +13,15 @@ MonoBehaviour:
   m_Name: Reflect_Leaf
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uB9AC\uD50C\uB809\uD2B8 \uB9AC\uD504"
-  description: 
+  description: "\uC774\uB9AC\uC800\uB9AC \uD295\uAE30\uB294 \uBC14\uB78C \uCE7C\uB0A0\uB85C \uC5EC\uB7EC \uBC88 \uBCA4\uB2E4."
   type: 3
   category: 0
-  power: 100
-  accuracy: 90
+  power: 95
+  accuracy: 95
   maxPP: 10
   priority: 0
+  statusEffect: 0
+  statusChance: 0
+  statChanges: []
+  statChangeChance: 100
+  healPercent: 0

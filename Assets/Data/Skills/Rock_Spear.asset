@@ -13,10 +13,15 @@ MonoBehaviour:
   m_Name: Rock_Spear
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uBC14\uC704 \uCC3D"
-  description: 
+  description: "\uC0C1\uB300 \uBC1C\uBC11\uC5D0\uC11C \uB0A0\uCE74\uB85C\uC6B4 \uBC14\uC704 \uCC3D\uC744 \uC19F\uAD6C\uCE58\uAC8C \uD55C\uB2E4."
   type: 5
   category: 0
-  power: 100
-  accuracy: 90
+  power: 95
+  accuracy: 95
   maxPP: 10
   priority: 0
+  statusEffect: 0
+  statusChance: 0
+  statChanges: []
+  statChangeChance: 100
+  healPercent: 0

@@ -13,10 +13,15 @@ MonoBehaviour:
   m_Name: Dragon_Cannon
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uC6A9 \uB300\uD3EC"
-  description: 
+  description: "\uC6A9\uC758 \uD798\uC774 \uAE43\uB4E0 \uC5D0\uB108\uC9C0\uD0C4\uC744 \uC3DC\uB2E4."
   type: 7
   category: 0
   power: 40
   accuracy: 100
   maxPP: 25
   priority: 0
+  statusEffect: 0
+  statusChance: 0
+  statChanges: []
+  statChangeChance: 100
+  healPercent: 0

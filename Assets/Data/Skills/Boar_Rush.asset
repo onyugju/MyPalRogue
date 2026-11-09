@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Boar_Rush
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uBA67\uB3FC\uC9C0 \uB3CC\uC9C4"
-  description: "\uD759\uBA3C\uC9C0\uB97C \uC77C\uC73C\uD0A4\uBA70 \uB4E4\uC774\uBC1B\uB294\uB2E4. 30% \uD655\uB960\uB85C \uC0C1\uB300 \uBC29\uC5B4 -1."
+  description: "\uD45C\uC801\uC744 \uC815\uD574 \uB9F9\uB82C\uD788 \uB4E4\uC774\uBC1B\uB294\uB2E4."
   type: 5
   category: 0
-  power: 70
+  power: 50
   accuracy: 100
-  maxPP: 15
+  maxPP: 20
   priority: 0
   statusEffect: 0
   statusChance: 0

@@ -13,12 +13,15 @@ MonoBehaviour:
   m_Name: Thunderstorm
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uBC88\uAC1C \uD3ED\uD48D"
-  description: 
+  description: "\uAC70\uB300\uD55C \uBC88\uAC1C \uD68C\uC624\uB9AC\uB97C \uB9CC\uB4E4\uC5B4 \uC0C1\uB300 \uCABD\uC73C\uB85C \uBAB0\uC544\uAC04\uB2E4."
   type: 4
   category: 0
-  power: 120
-  accuracy: 80
+  power: 115
+  accuracy: 90
   maxPP: 5
   priority: 0
   statusEffect: 3
   statusChance: 10
+  statChanges: []
+  statChangeChance: 100
+  healPercent: 0

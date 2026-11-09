@@ -13,10 +13,15 @@ MonoBehaviour:
   m_Name: Water_Jet
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uC6CC\uD130 \uC81C\uD2B8"
-  description: 
+  description: "\uBE60\uB978 \uBB3C \uD0C4\uD658\uC744 \uC3DC\uB2E4."
   type: 2
   category: 0
   power: 40
   accuracy: 100
   maxPP: 25
   priority: 0
+  statusEffect: 0
+  statusChance: 0
+  statChanges: []
+  statChangeChance: 100
+  healPercent: 0

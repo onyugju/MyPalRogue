@@ -19,6 +19,8 @@ MonoBehaviour:
   backSprite: {fileID: -4315146253236652419, guid: 03677e9f4e89e634ca45a1e8a13ab5bf, type: 3}
   frontScale: 0.42551407
   backScale: 0.36090487
+  sizeTune: 1
+  frontYOffset: 0
   frontAnimator: {fileID: 0}
   backAnimator: {fileID: 0}
   primaryType: 4
@@ -30,22 +32,26 @@ MonoBehaviour:
   baseSpeed: 28
   learnset:
   - level: 1
-    skill: {fileID: 11400000, guid: a69689769d8d44a4083b43fedc00c4a5, type: 2}
+    skill: {fileID: 11400000, guid: 7adaabf1e20472e459976fea69368c01, type: 2}
   - level: 1
-    skill: {fileID: 11400000, guid: cdb01e35f73e565438a349f1303ea373, type: 2}
-  - level: 1
-    skill: {fileID: 11400000, guid: d407d0d68ab1438448a66fe2ce0f5610, type: 2}
+    skill: {fileID: 11400000, guid: 4ed4fa25d499eeb449409f95aabf764b, type: 2}
   - level: 6
     skill: {fileID: 11400000, guid: 519d41182d0ebec42a101f8d6dbfb82d, type: 2}
   - level: 10
     skill: {fileID: 11400000, guid: a2f8f28e35790fc4493b04aa2fce4d88, type: 2}
   - level: 12
-    skill: {fileID: 11400000, guid: 08ada6e88f1562044b5af3442b906d55, type: 2}
+    skill: {fileID: 11400000, guid: 9b9026301cfe8ba4794d9b8eddd1b57b, type: 2}
   - level: 12
-    skill: {fileID: 11400000, guid: c98f48158ebbe1a45bda5138515ccb71, type: 2}
+    skill: {fileID: 11400000, guid: 08ada6e88f1562044b5af3442b906d55, type: 2}
+  - level: 16
+    skill: {fileID: 11400000, guid: 4ac620a46932cca4c8a6a202e11afe27, type: 2}
   - level: 20
     skill: {fileID: 11400000, guid: 6ff4029eb71547c4483dac792c39b550, type: 2}
+  - level: 28
+    skill: {fileID: 11400000, guid: 4155ccbe3a69ed249b605bd803eabc96, type: 2}
+  - level: 34
+    skill: {fileID: 11400000, guid: ccc78fea036f71245a90188d1813b26b, type: 2}
   - level: 40
-    skill: {fileID: 11400000, guid: 1c7bf20a028ae95428365d9995e03e7b, type: 2}
+    skill: {fileID: 11400000, guid: 8269da536ad2a244f98992a62d3b87b2, type: 2}
   canBeCaught: 1
   catchRate: 100

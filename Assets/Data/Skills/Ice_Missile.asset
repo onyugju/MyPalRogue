@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Ice_Missile
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uC5BC\uC74C \uBBF8\uC0AC\uC77C"
-  description: 
+  description: "\uD558\uB298\uC5D0 \uB9CC\uB4E0 \uC5BC\uC74C\uC744 \uC0C1\uB300\uC5D0\uAC8C \uB0A0\uB9B0\uB2E4."
   type: 6
   category: 0
   power: 40
@@ -22,3 +22,6 @@ MonoBehaviour:
   priority: 0
   statusEffect: 2
   statusChance: 10
+  statChanges: []
+  statChangeChance: 100
+  healPercent: 0

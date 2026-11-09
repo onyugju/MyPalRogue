@@ -13,10 +13,15 @@ MonoBehaviour:
   m_Name: Somersault_Scratch
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uC11C\uBA38\uC194\uD2B8 \uC2A4\uD06C\uB798\uCE58"
-  description: 
+  description: "\uD560\uD038 \uB4A4 \uACF5\uC911\uC81C\uBE44\uB85C \uBB3C\uB7EC\uB09C\uB2E4."
   type: 5
   category: 0
-  power: 90
-  accuracy: 90
+  power: 85
+  accuracy: 95
   maxPP: 10
   priority: 0
+  statusEffect: 0
+  statusChance: 0
+  statChanges: []
+  statChangeChance: 100
+  healPercent: 0

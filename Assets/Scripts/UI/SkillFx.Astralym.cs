@@ -39,6 +39,9 @@ namespace PalRogue
 
         public static bool IsAstralymSkill(SkillData s) => s != null && (AstralymSkills.Contains(s.name) || AstralymAlias.ContainsKey(s.name));
 
+        /// <summary>코드로 직접 그리는 전용 연출이 있는 기술 (제로버스 기술 + 팰월드 기술)</summary>
+        public static bool IsCustomSkill(SkillData s) => IsAstralymSkill(s) || (s != null && PwFx.ContainsKey(s.name));
+
         // 이번 기술 하나를 그리는 동안의 정보
         PalView astTarget;
         bool astMissed, astStrong, astCrit, astHit, astNoHit;
@@ -50,8 +53,9 @@ namespace PalRogue
         {
             string key = name + pivot;
             if (astSprites.TryGetValue(key, out var s) && s != null) return s;
-            var tex = Resources.Load<Texture2D>(AstDir + name);
-            if (tex == null) { Debug.LogWarning($"[SkillFx] Resources/{AstDir}{name}.png 가 없습니다."); return null; }
+            string path = name.Contains("/") ? "UI/" + name : AstDir + name;      // "PwFx/n_paw" 처럼 폴더를 붙이면 다른 연출 그림 폴더
+            var tex = Resources.Load<Texture2D>(path);
+            if (tex == null) { Debug.LogWarning($"[SkillFx] Resources/{path}.png 가 없습니다."); return null; }
             tex.filterMode = FilterMode.Bilinear;
             s = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), pivot, 100f, 0, SpriteMeshType.FullRect);
             astSprites[key] = s;
@@ -321,11 +325,15 @@ namespace PalRogue
                     case AstralymPhase.BloomId:        yield return CelestialBloom(user); break;
                     case AstralymPhase.CreationEndId:  yield return CreationEnd(user, aim); break;
                     case AstralymPhase.ExtinctionId:   yield return Extinction(user, aim); break;
+                    default:
+                        if (PwFx.TryGetValue(id, out var pw)) yield return pw(this, user, target, aim);
+                        break;
                 }
                 while (running > 0) yield return null;
             }
             finally
             {
+                RestoreSquash();
                 DimRestore();
                 if (overlay != null) overlay.color = Color.clear;
             }

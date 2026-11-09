@@ -32,29 +32,31 @@ MonoBehaviour:
   baseSpeed: 50
   learnset:
   - level: 1
-    skill: {fileID: 11400000, guid: a69689769d8d44a4083b43fedc00c4a5, type: 2}
+    skill: {fileID: 11400000, guid: 97e15deaa0605ff498f76464f3acd4e5, type: 2}
   - level: 1
-    skill: {fileID: 11400000, guid: d407d0d68ab1438448a66fe2ce0f5610, type: 2}
-  - level: 1
-    skill: {fileID: 11400000, guid: e7c49f4d29e451641a2849262c727ddb, type: 2}
+    skill: {fileID: 11400000, guid: 7adaabf1e20472e459976fea69368c01, type: 2}
   - level: 6
     skill: {fileID: 11400000, guid: 28f3a3ca222e38f449009d17801fbbae, type: 2}
-  - level: 6
-    skill: {fileID: 11400000, guid: bc61e1ce82ffeec4c9fd4872c4706552, type: 2}
-  - level: 6
-    skill: {fileID: 11400000, guid: 588677af4d6e5b74096959d084c6b2dc, type: 2}
   - level: 10
     skill: {fileID: 11400000, guid: e42599920a18fd54ea2f1c39de668c43, type: 2}
   - level: 12
-    skill: {fileID: 11400000, guid: 4b76139cf2b027a4d86dcaaf92d7ce7a, type: 2}
+    skill: {fileID: 11400000, guid: 9b9026301cfe8ba4794d9b8eddd1b57b, type: 2}
   - level: 12
-    skill: {fileID: 11400000, guid: c98f48158ebbe1a45bda5138515ccb71, type: 2}
+    skill: {fileID: 11400000, guid: a1bd43f54045d8a48a8ed289af62fee3, type: 2}
+  - level: 12
+    skill: {fileID: 11400000, guid: 4b76139cf2b027a4d86dcaaf92d7ce7a, type: 2}
+  - level: 16
+    skill: {fileID: 11400000, guid: 406cf107ff78a444b8cbf9ed96573767, type: 2}
   - level: 20
-    skill: {fileID: 11400000, guid: 6d5eb2aa2b236e64fa678b7d3857ed97, type: 2}
+    skill: {fileID: 11400000, guid: f2bbc8f04d4d7c04081a77a11a299319, type: 2}
   - level: 22
     skill: {fileID: 11400000, guid: 7733c9c810a9d6847b2b91104cae41ff, type: 2}
   - level: 28
+    skill: {fileID: 11400000, guid: 79b78e2be4fe6bf47892d48447d0bd1b, type: 2}
+  - level: 28
     skill: {fileID: 11400000, guid: e3c02a49df2c06546b47fc27dad4e3d1, type: 2}
+  - level: 34
+    skill: {fileID: 11400000, guid: 14889cf202c68724a80c6e706d9d72e3, type: 2}
   - level: 40
     skill: {fileID: 11400000, guid: f044c81af55fc814b8c7c36699cc0da6, type: 2}
   canBeCaught: 1

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Fire_Shot
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uD30C\uC774\uC5B4 \uC0F7"
-  description: 
+  description: "\uACE7\uAC8C \uB0A0\uC544\uAC00\uB294 \uD654\uC5FC\uD0C4\uC744 \uC3DC\uB2E4."
   type: 1
   category: 0
   power: 40
@@ -22,3 +22,6 @@ MonoBehaviour:
   priority: 0
   statusEffect: 1
   statusChance: 10
+  statChanges: []
+  statChangeChance: 100
+  healPercent: 0

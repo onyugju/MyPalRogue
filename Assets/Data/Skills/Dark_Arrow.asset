@@ -13,12 +13,15 @@ MonoBehaviour:
   m_Name: Dark_Arrow
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uC5B4\uB460 \uD654\uC0B4"
-  description: 
+  description: "\uC0C1\uB300\uB97C \uCAD3\uC544\uAC00\uB294 \uC5B4\uB460 \uD654\uC0B4\uC744 \uC787\uB2EC\uC544 \uC3DC\uB2E4."
   type: 8
   category: 0
-  power: 70
+  power: 65
   accuracy: 100
   maxPP: 15
   priority: 0
   statusEffect: 4
   statusChance: 10
+  statChanges: []
+  statChangeChance: 100
+  healPercent: 0

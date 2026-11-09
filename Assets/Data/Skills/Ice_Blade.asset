@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Ice_Blade
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uC5BC\uC74C \uCE7C\uB0A0"
-  description: 
+  description: "\uCD08\uC2B9\uB2EC \uBAA8\uC591 \uC5BC\uC74C \uB0A0\uC744 \uC55E\uC73C\uB85C \uB0A0\uB9B0\uB2E4."
   type: 6
   category: 0
   power: 55
@@ -22,3 +22,6 @@ MonoBehaviour:
   priority: 0
   statusEffect: 2
   statusChance: 10
+  statChanges: []
+  statChangeChance: 100
+  healPercent: 0

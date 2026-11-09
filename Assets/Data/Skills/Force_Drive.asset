@@ -13,10 +13,15 @@ MonoBehaviour:
   m_Name: Force_Drive
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uD3EC\uC2A4 \uB4DC\uB77C\uC774\uBE0C"
-  description: 
+  description: "\uC21C\uC2DD\uAC04\uC5D0 \uB2E4\uAC00\uAC00 \uAC15\uD55C \uD380\uCE58\uB97C \uC5F0\uD0C0\uD55C\uB2E4."
   type: 5
   category: 0
-  power: 100
-  accuracy: 90
+  power: 95
+  accuracy: 95
   maxPP: 10
   priority: 0
+  statusEffect: 0
+  statusChance: 0
+  statChanges: []
+  statChangeChance: 100
+  healPercent: 0

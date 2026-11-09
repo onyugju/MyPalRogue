@@ -13,12 +13,15 @@ MonoBehaviour:
   m_Name: Nightmare_Ray
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uC545\uBABD\uC758 \uBE5B\uC904\uAE30"
-  description: 
+  description: "\uBAA8\uC2B5\uC744 \uAC10\uCDC4\uB2E4 \uB098\uD0C0\uB098\uBA70 \uAF43\uCC98\uB7FC \uD37C\uC9C0\uB294 \uAD11\uC120\uC744 \uC3DC\uB2E4."
   type: 8
   category: 0
-  power: 120
-  accuracy: 80
+  power: 115
+  accuracy: 90
   maxPP: 5
   priority: 0
   statusEffect: 4
   statusChance: 10
+  statChanges: []
+  statChangeChance: 100
+  healPercent: 0

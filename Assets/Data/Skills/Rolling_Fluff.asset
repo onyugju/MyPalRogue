@@ -13,10 +13,15 @@ MonoBehaviour:
   m_Name: Rolling_Fluff
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uB370\uAD74\uB370\uAD74 \uC19C\uC0AC\uD0D5"
-  description: 
+  description: "\uC19C\uD138 \uBAB8\uC73C\uB85C \uB370\uAD74\uB370\uAD74 \uAD74\uB7EC \uBD80\uB52A\uCE5C\uB2E4."
   type: 0
   category: 0
   power: 40
   accuracy: 100
   maxPP: 25
   priority: 0
+  statusEffect: 0
+  statusChance: 0
+  statChanges: []
+  statChangeChance: 100
+  healPercent: 0

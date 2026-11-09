@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Electric_Claw
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uC804\uAE30 \uD560\uD034\uAE30"
-  description: 
+  description: "\uC804\uAE30 \uBC1C\uD1B1\uC73C\uB85C \uB450 \uBC88 \uB36E\uCE5C \uB4A4 \uB545\uC5D0 \uCDA9\uACA9\uC744 \uD37C\uB728\uB9B0\uB2E4."
   type: 4
   category: 0
   power: 70
@@ -22,3 +22,6 @@ MonoBehaviour:
   priority: 0
   statusEffect: 3
   statusChance: 10
+  statChanges: []
+  statChangeChance: 100
+  healPercent: 0

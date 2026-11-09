@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Spirit_Fire
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uC2A4\uD53C\uB9BF \uD30C\uC774\uC5B4"
-  description: 
+  description: "\uBD88\uAD6C\uC2AC\uC744 \uC3D8\uC544 \uC791\uC740 \uBD88\uAF43\uB4E4\uB85C \uD769\uC5B4\uC9C0\uAC8C \uD55C\uB2E4."
   type: 1
   category: 0
   power: 55
@@ -22,3 +22,6 @@ MonoBehaviour:
   priority: 0
   statusEffect: 1
   statusChance: 10
+  statChanges: []
+  statChangeChance: 100
+  healPercent: 0

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b2e8e825aa565d49bd676a104973c3b, type: 3}
+  m_Name: Plasma_Panel
+  m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
+  skillName: "\uD50C\uB77C\uC988\uB9C8 \uD310\uB12C"
+  description: "\uBC88\uAC1C \uB369\uC5B4\uB9AC\uB97C \uC140 \uC218 \uC5C6\uC774 \uC3D8\uC544 \uB304\uB2E4."
+  type: 4
+  category: 0
+  power: 65
+  accuracy: 100
+  maxPP: 15
+  priority: 0
+  statusEffect: 3
+  statusChance: 10
+  statChanges: []
+  statChangeChance: 100
+  healPercent: 0

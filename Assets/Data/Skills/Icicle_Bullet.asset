@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b2e8e825aa565d49bd676a104973c3b, type: 3}
+  m_Name: Icicle_Bullet
+  m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
+  skillName: "\uC544\uC774\uC2DC\uD074 \uBD88\uB9BF"
+  description: "\uD558\uB298\uC5D0 \uACE0\uB4DC\uB984\uC744 \uC5EC\uB7FF \uB9CC\uB4E4\uC5B4 \uC3D8\uC544 \uBCF4\uB0B8\uB2E4."
+  type: 6
+  category: 0
+  power: 80
+  accuracy: 95
+  maxPP: 15
+  priority: 0
+  statusEffect: 2
+  statusChance: 10
+  statChanges: []
+  statChangeChance: 100
+  healPercent: 0

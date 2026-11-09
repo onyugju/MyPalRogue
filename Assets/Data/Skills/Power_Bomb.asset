@@ -13,10 +13,15 @@ MonoBehaviour:
   m_Name: Power_Bomb
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uD30C\uC6CC \uD3ED\uD0C4"
-  description: 
+  description: "\uC5D0\uB108\uC9C0\uB97C \uAC70\uB300\uD55C \uAD6C\uCCB4\uB85C \uBB49\uCCD0 \uB0A0\uB9B0\uB2E4."
   type: 0
   category: 0
-  power: 70
+  power: 65
   accuracy: 100
   maxPP: 15
   priority: 0
+  statusEffect: 0
+  statusChance: 0
+  statChanges: []
+  statChangeChance: 100
+  healPercent: 0

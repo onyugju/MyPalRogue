@@ -13,10 +13,15 @@ MonoBehaviour:
   m_Name: Rocket_Tackle
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uB85C\uCF13 \uD0DC\uD074"
-  description: 
+  description: "\uD798\uC744 \uBAA8\uC558\uB2E4\uAC00 \uC55E\uC73C\uB85C \uB3CC\uC9C4\uD55C\uB2E4."
   type: 7
   category: 0
   power: 55
   accuracy: 100
   maxPP: 20
   priority: 0
+  statusEffect: 0
+  statusChance: 0
+  statChanges: []
+  statChangeChance: 100
+  healPercent: 0

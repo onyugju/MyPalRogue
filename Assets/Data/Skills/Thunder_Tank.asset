@@ -13,12 +13,15 @@ MonoBehaviour:
   m_Name: Thunder_Tank
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uB1CC\uACA9\uC758 \uC911\uC804\uCC28"
-  description: 
+  description: "\uBBF8\uB2C8\uAC74\uC744 \uB09C\uC0AC\uD55C \uB4A4 \uCDA9\uC804\uD55C \uD55C \uBC1C\uB85C \uB9C8\uBB34\uB9AC\uD55C\uB2E4."
   type: 4
   category: 0
   power: 110
-  accuracy: 85
-  maxPP: 5
+  accuracy: 90
+  maxPP: 8
   priority: 0
   statusEffect: 3
   statusChance: 10
+  statChanges: []
+  statChangeChance: 100
+  healPercent: 0

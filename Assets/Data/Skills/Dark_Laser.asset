@@ -13,12 +13,15 @@ MonoBehaviour:
   m_Name: Dark_Laser
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uC5B4\uB460\uC758 \uB808\uC774\uC800"
-  description: 
+  description: "\uC5B4\uB460 \uC5D0\uB108\uC9C0\uB97C \uBAA8\uC544 \uAC15\uD55C \uAD11\uC120\uC744 \uC3DC\uB2E4."
   type: 8
   category: 0
   power: 100
-  accuracy: 90
+  accuracy: 95
   maxPP: 10
   priority: 0
   statusEffect: 4
   statusChance: 10
+  statChanges: []
+  statChangeChance: 100
+  healPercent: 0

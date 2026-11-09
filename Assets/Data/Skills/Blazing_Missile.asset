@@ -13,10 +13,15 @@ MonoBehaviour:
   m_Name: Blazing_Missile
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uC791\uC5F4 \uBBF8\uC0AC\uC77C"
-  description: 
+  description: "\uB0A0\uAC1C\uC5D0\uC11C \uC791\uC5F4 \uBBF8\uC0AC\uC77C\uC744 \uC140 \uC218 \uC5C6\uC774 \uC3DC\uB2E4."
   type: 5
   category: 0
-  power: 120
-  accuracy: 80
+  power: 125
+  accuracy: 85
   maxPP: 5
   priority: 0
+  statusEffect: 0
+  statusChance: 0
+  statChanges: []
+  statChangeChance: 100
+  healPercent: 0

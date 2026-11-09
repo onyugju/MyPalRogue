@@ -416,7 +416,7 @@ namespace PalRogue
             yield return CritStar;
         }
 
-        public static bool HasCustomFx(SkillData s) => s != null && (BySkill.ContainsKey(s.name) || IsAstralymSkill(s));
+        public static bool HasCustomFx(SkillData s) => s != null && (BySkill.ContainsKey(s.name) || IsCustomSkill(s));
 
         // ═════════════════ 그림 ═════════════════
 
@@ -627,7 +627,7 @@ namespace PalRogue
         public IEnumerator Play(SkillData skill, PalView user, PalView target, bool missed, bool critical, float effectiveness)
         {
             if (skill == null || user == null || target == null) yield break;
-            if (IsAstralymSkill(skill)) { yield return PlayAstralym(skill, user, target, missed, critical, effectiveness); yield break; }
+            if (IsCustomSkill(skill)) { yield return PlayAstralym(skill, user, target, missed, critical, effectiveness); yield break; }
             var d = BySkill.TryGetValue(skill.name, out var def) ? def : ByType(skill.type);
             sortingLayer = target.SortingLayerId;
             sortingOrder = Mathf.Max(user.SortingOrder, target.SortingOrder) + SortingAbovePals;

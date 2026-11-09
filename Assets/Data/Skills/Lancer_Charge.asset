@@ -13,10 +13,18 @@ MonoBehaviour:
   m_Name: Lancer_Charge
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uCC3D\uAE30\uBCD1 \uB3CC\uACA9"
-  description: 
+  description: "\uBC29\uD328\uB97C \uC55E\uC138\uC6B0\uACE0 \uCC3D\uC744 \uACA8\uB208 \uCC44 \uB3CC\uC9C4\uD55C\uB2E4."
   type: 0
   category: 0
-  power: 120
-  accuracy: 80
+  power: 125
+  accuracy: 85
   maxPP: 5
   priority: 0
+  statusEffect: 0
+  statusChance: 0
+  statChanges:
+  - stat: 1
+    stages: 1
+    self: 1
+  statChangeChance: 30
+  healPercent: 0

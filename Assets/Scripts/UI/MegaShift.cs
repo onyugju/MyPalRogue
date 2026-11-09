@@ -402,7 +402,7 @@ namespace PalRogue
             var read = new Texture2D(W, H, TextureFormat.RGB24, false);
             int i = 0;
             float started = Time.unscaledTime;
-            while (keepGoing() && Time.unscaledTime - started < 40f)
+            while (keepGoing() && Time.unscaledTime - started < 150f)
             {
                 yield return new WaitForEndOfFrame();
                 var shot = ScreenCapture.CaptureScreenshotAsTexture();

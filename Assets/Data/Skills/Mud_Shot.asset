@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Mud_Shot
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uBA38\uB4DC \uC29B"
-  description: 
+  description: "\uB048\uC801\uD55C \uC9C4\uD759\uC744 \uC0C1\uB300\uC5D0\uAC8C \uC3DC\uB2E4."
   type: 5
   category: 0
   power: 40

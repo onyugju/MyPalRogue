@@ -13,10 +13,15 @@ MonoBehaviour:
   m_Name: Seed_Machine_Gun
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uC528\uC557 \uAE30\uAD00\uCD1D"
-  description: 
+  description: "\uB531\uB531\uD55C \uC528\uC557\uC744 \uC274 \uC0C8 \uC5C6\uC774 \uC3D8\uC544 \uB304\uB2E4."
   type: 3
   category: 0
   power: 55
   accuracy: 100
   maxPP: 20
   priority: 0
+  statusEffect: 0
+  statusChance: 0
+  statChanges: []
+  statChangeChance: 100
+  healPercent: 0

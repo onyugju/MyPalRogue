@@ -13,10 +13,15 @@ MonoBehaviour:
   m_Name: Rock_Cannon
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uBC14\uC704 \uB300\uD3EC"
-  description: 
+  description: "\uB545\uC5D0\uC11C \uBC14\uC704\uB97C \uBF51\uC544 \uC3D8\uC544 \uBCF4\uB0B8\uB2E4."
   type: 5
   category: 0
-  power: 70
+  power: 65
   accuracy: 100
   maxPP: 15
   priority: 0
+  statusEffect: 0
+  statusChance: 0
+  statChanges: []
+  statChangeChance: 100
+  healPercent: 0

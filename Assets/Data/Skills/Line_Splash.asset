@@ -13,10 +13,15 @@ MonoBehaviour:
   m_Name: Line_Splash
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uB77C\uC778 \uC2A4\uD50C\uB798\uC2DC"
-  description: 
+  description: "\uC77C\uC9C1\uC120\uC73C\uB85C \uBB3C\uAE30\uB465\uC744 \uC19F\uAD6C\uCE58\uAC8C \uD55C\uB2E4."
   type: 2
   category: 0
   power: 70
   accuracy: 100
   maxPP: 15
   priority: 0
+  statusEffect: 0
+  statusChance: 0
+  statChanges: []
+  statChangeChance: 100
+  healPercent: 0

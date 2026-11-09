@@ -13,10 +13,15 @@ MonoBehaviour:
   m_Name: Dragon_Wave
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uC6A9\uC758 \uD30C\uC7A5"
-  description: 
+  description: "\uC6A9\uC758 \uD798\uC744 \uD480\uC5B4 \uB458\uB808\uC5D0 \uCDA9\uACA9\uC744 \uC900\uB2E4."
   type: 7
   category: 0
   power: 55
   accuracy: 100
   maxPP: 20
   priority: 0
+  statusEffect: 0
+  statusChance: 0
+  statChanges: []
+  statChangeChance: 100
+  healPercent: 0

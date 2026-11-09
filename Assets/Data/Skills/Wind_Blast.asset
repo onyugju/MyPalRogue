@@ -13,10 +13,15 @@ MonoBehaviour:
   m_Name: Wind_Blast
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uC708\uB4DC \uBE14\uB798\uC2A4\uD2B8"
-  description: 
+  description: "\uC790\uAE30 \uB458\uB808\uC5D0 \uAC70\uB300\uD55C \uD68C\uC624\uB9AC\uBC14\uB78C\uC744 \uC77C\uC73C\uD0A8\uB2E4."
   type: 3
   category: 0
-  power: 120
-  accuracy: 80
+  power: 115
+  accuracy: 90
   maxPP: 5
   priority: 0
+  statusEffect: 0
+  statusChance: 0
+  statChanges: []
+  statChangeChance: 100
+  healPercent: 0

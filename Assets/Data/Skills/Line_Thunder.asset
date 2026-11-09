@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Line_Thunder
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uB77C\uC778 \uC36C\uB354"
-  description: 
+  description: "\uC77C\uC9C1\uC120\uC73C\uB85C \uB1CC\uACA9\uC744 \uB0B4\uB2EC\uB9AC\uAC8C \uD55C\uB2E4."
   type: 4
   category: 0
   power: 70
@@ -22,3 +22,6 @@ MonoBehaviour:
   priority: 0
   statusEffect: 3
   statusChance: 10
+  statChanges: []
+  statChangeChance: 100
+  healPercent: 0

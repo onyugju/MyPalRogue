@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Lightning_Spear
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uBC88\uAC1C \uCC3D"
-  description: 
+  description: "\uACE7\uAC8C \uB0A0\uC544\uAC00\uB294 \uBC88\uAC1C \uCC3D\uC744 \uBE60\uB974\uAC8C \uB358\uC9C4\uB2E4."
   type: 4
   category: 0
   power: 40
@@ -22,3 +22,6 @@ MonoBehaviour:
   priority: 0
   statusEffect: 3
   statusChance: 10
+  statChanges: []
+  statChangeChance: 100
+  healPercent: 0
