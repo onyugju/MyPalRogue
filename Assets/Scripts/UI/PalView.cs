@@ -209,6 +209,9 @@ namespace PalRogue
             transform.position = pos;
         }
 
+        /// <summary>이 팰을 그리는 스프라이트 (연출이 같은 그림으로 실루엣을 겹칠 때)</summary>
+        public SpriteRenderer Renderer { get { if (sr == null) Awake(); return sr; } }
+
         /// <summary>평소 색을 바꾼다 (제로버스 2페이즈: 공허에 물든 색). 다음 Show 때 원래 색</summary>
         public void SetBaseTint(Color color)
         {

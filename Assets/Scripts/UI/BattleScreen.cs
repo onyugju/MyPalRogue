@@ -457,16 +457,21 @@ namespace PalRogue
         static readonly Color VoidPhaseTint = new Color(0.86f, 0.74f, 1f);    // 2페이즈 제로버스: 공허에 물든 색
 
         static Sprite phase2Sprite;
+        static float phase2Scale;
 
         /// <summary>제로버스 2페이즈 그림을 화면 높이에 맞는 크기로 만든다 (없으면 null)</summary>
-        static Sprite Phase2Sprite()
+        MegaShift megaShift;
+
+        /// <param name="viewScale">상대 자리 팰의 크기 배율 (그림이 이 배율로 커져도 화면 높이가 FinalPhase2Height가 되게)</param>
+        static Sprite Phase2Sprite(float viewScale)
         {
-            if (phase2Sprite != null) return phase2Sprite;
+            if (phase2Sprite != null && Mathf.Approximately(phase2Scale, viewScale)) return phase2Sprite;
             var src = Resources.LoadAll<Sprite>(GameConfig.FinalPhase2Sprite).FirstOrDefault();
             Texture2D tex = src != null ? src.texture : Resources.Load<Texture2D>(GameConfig.FinalPhase2Sprite);
             if (tex == null) { Debug.LogWarning($"[PalRogue] 2페이즈 그림이 없습니다: Resources/{GameConfig.FinalPhase2Sprite}"); return null; }
             var rect = src != null ? src.rect : new Rect(0f, 0f, tex.width, tex.height);
-            phase2Sprite = Sprite.Create(tex, rect, new Vector2(0.5f, 0.5f), rect.height / GameConfig.FinalPhase2SpriteHeight);
+            phase2Scale = viewScale;
+            phase2Sprite = Sprite.Create(tex, rect, new Vector2(0.5f, 0.5f), rect.height * Mathf.Max(0.01f, viewScale) / GameConfig.FinalPhase2Height);
             phase2Sprite.name = "Astralym_Phase2";
             return phase2Sprite;
         }
@@ -491,29 +496,43 @@ namespace PalRogue
         {
             var boss = ev.Pal;
             if (bossIntro == null) bossIntro = BossIntro.Create(messageText.font);
-            GameAudio.Se("hit_strong");
-            if (enemyView.IsVisible) yield return Fx.PlayBossFx(BossFx.PhaseShift, boss.Data.primaryType, enemyView, enemyView);
+            if (megaShift == null) megaShift = MegaShift.Create();
+#if UNITY_EDITOR
+            bool recording = debugRun;                                     // 테스트 판: 연출을 Temp/PhaseShiftFrames에 프레임으로 남긴다
+            if (recording) StartCoroutine(ShiftRecorder.Record(() => recording));
+#endif
+            var ui = new[] { Group(enemyInfo), Group(playerInfo) };       // 연출 동안 정보창은 흐려졌다가 2페이즈에서 다시 보인다
 
-            // 하얗게 타오르는 동안 세계가 바뀐다
-            GameAudio.Se("shine");
-            yield return bossIntro.FadeScreen(Color.white, 0f, 1f, 0.3f);
-            voidPhase = true;
-            AreaScenery.Apply(enemyView.transform.parent, GameConfig.FinalPhase2Biome);
-            UpdateHud();
-            enemyInfo.Refresh(boss);                                        // 실드 6칸 · Lv.??? · 새 능력치 단계
-            enemyInfo.SetHp(ev.MaxHp > 0 ? Mathf.Clamp01(ev.From / (float)ev.MaxHp) : 0f);
-            var form = Phase2Sprite();
-            if (form != null) enemyView.SetForm(form, boss.Data);          // 2페이즈 모습 (Astralym_Phase2)
-            else { enemyView.SetBaseTint(VoidPhaseTint); Fx.SetBossAura(enemyView, true); }   // 그림이 없으면 공허에 물든 색 + 불꽃
-            GameAudio.Bgm(GameConfig.FinalPhase2Bgm);
-            yield return BattleTime.FxWait(0.25f);
-            yield return bossIntro.FadeScreen(Color.white, 1f, 0f, 0.6f);
+            // 메가진화처럼: 빛의 구 → 굳어서 금 → 화면이 멈추고 깨지며 2페이즈가 드러난다
+            yield return megaShift.Play(enemyView, playerView, ui, () =>
+            {
+                // (멈춘 화면 뒤에서) 2페이즈 맵·모습·정보창으로 바꿔 둔다
+                voidPhase = true;
+                AreaScenery.Apply(enemyView.transform.parent, GameConfig.FinalPhase2Biome);
+                UpdateHud();
+                var form = Phase2Sprite(enemyView.transform.localScale.y);
+                if (form != null) enemyView.SetForm(form, boss.Data);      // 2페이즈 모습 (Astralym_Phase2)
+                else { enemyView.SetBaseTint(VoidPhaseTint); Fx.SetBossAura(enemyView, true); }   // 그림이 없으면 공허에 물든 색 + 불꽃
+                enemyInfo.Refresh(boss);                                    // 실드 6칸 · Lv.??? · 새 능력치 단계
+                enemyInfo.SetHp(ev.MaxHp > 0 ? Mathf.Clamp01(ev.From / (float)ev.MaxHp) : 0f);
+                GameAudio.Bgm(GameConfig.FinalPhase2Bgm);
+            });
 
             // 멸성의 재앙 / 제로버스 / Lv.???
             yield return bossIntro.PlayGrand(GameConfig.FinalPhase2Epithet, PalName(boss), "Lv.???", FinalColor);
             GameAudio.Se("hit_strong");
             StartCoroutine(enemyView.Flash(Color.white, 2, 0.06f));
             yield return CameraShake(0.55f, 0.2f);
+#if UNITY_EDITOR
+            recording = false;
+#endif
+        }
+
+        static CanvasGroup Group(Component c)
+        {
+            if (c == null) return null;
+            var g = c.GetComponent<CanvasGroup>();
+            return g != null ? g : c.gameObject.AddComponent<CanvasGroup>();
         }
 
         IEnumerator CameraShake(float seconds, float amount)

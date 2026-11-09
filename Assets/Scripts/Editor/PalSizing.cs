@@ -59,7 +59,7 @@ namespace PalRogue.EditorTools
         /// </summary>
         static readonly Dictionary<string, float> FixedFront = new Dictionary<string, float>
         {
-            ["000_Astralym"] = 2.4f,       // 최종 보스: 화면을 꽉 채우는 압도적인 크기 (직접 보고 정한 값)
+            ["000_Astralym"] = 0.94f,      // 최종 보스: 화면을 꽉 채우는 압도적인 크기 (직접 보고 정한 값. 새 애니메이션 856×665 기준 = 예전 341×260에서 2.4)
         };
 
         public static float Tune(PalData d) =>

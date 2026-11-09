@@ -155,6 +155,7 @@ namespace PalRogue.EditorTools
                 settings.stopTime = sprites.Length / Fps;                         // 마지막 프레임도 1/15초 보여 줘서 끊김 없이 반복
                 AnimationUtility.SetAnimationClipSettings(clip, settings);
                 AssetDatabase.CreateAsset(clip, $"{owner}/{name}_Idle.anim");
+                if (MakeSeamless(clip, out string how)) log.Add($"{name} 반복 이음새: {how}");   // AI 영상에서 뽑은 프레임은 끝과 처음이 안 맞는 경우가 많다
 
                 var ctrl = AnimatorController.CreateAnimatorControllerAtPath($"{owner}/{name}.controller");
                 var state = ctrl.layers[0].stateMachine.AddState("Idle");
@@ -217,6 +218,116 @@ namespace PalRogue.EditorTools
             AnimationUtility.SetAnimationClipSettings(clip, settings);
             EditorUtility.SetDirty(clip);
             return true;
+        }
+
+        // ═════════════════ 반복 이음새 맞추기 ═════════════════
+        [MenuItem("PalRogue/05. 애니메이션 반복 이음새 자동 맞춤", false, 105)]
+        static void SeamlessMenu()
+        {
+            var log = new List<string>();
+            foreach (var guid in AssetDatabase.FindAssets("t:AnimationClip", new[] { PalRoot }))
+            {
+                var clip = AssetDatabase.LoadAssetAtPath<AnimationClip>(AssetDatabase.GUIDToAssetPath(guid));
+                if (clip != null && MakeSeamless(clip, out string how)) log.Add($"{clip.name}: {how}");
+            }
+            if (log.Count > 0) AssetDatabase.SaveAssets();
+            Debug.Log($"[팰 애니메이션] 반복 이음새를 고친 애니메이션 {log.Count}개{(log.Count > 0 ? "\n" + string.Join("\n", log) : " (모두 자연스럽게 이어짐)")}");
+        }
+
+        const int SeamGrid = 48;                 // 비교할 때 그림을 이 칸 수로 줄여서 본다
+
+        /// <summary>
+        /// 마지막 프레임 → 첫 프레임으로 넘어갈 때 그림이 튀면(보통 프레임 사이 차이보다 훨씬 크면),
+        /// 영상 안에서 처음과 거의 같은 모습으로 돌아오는 지점을 찾아 거기서 끊는다 (i번째 ~ j-1번째 프레임만 반복, j ≈ i).
+        /// 그런 지점이 없으면 앞으로 갔다가 거꾸로 돌아오는 왕복 반복으로 바꾼다. 이미 자연스러우면 그대로 둔다.
+        /// </summary>
+        public static bool MakeSeamless(AnimationClip clip, out string how)
+        {
+            how = null;
+            var keys = AnimationUtility.GetObjectReferenceCurve(clip, SpriteBinding);
+            if (keys == null || keys.Length < 16) return false;
+            var sprites = keys.OrderBy(k => k.time).Select(k => k.value as Sprite).ToList();
+            if (sprites.Any(x => x == null)) return false;
+
+            var cache = new Dictionary<Sprite, float[]>();
+            float[] Px(Sprite sp)
+            {
+                if (cache.TryGetValue(sp, out var v)) return v;
+                v = Thumb(sp);
+                cache[sp] = v;
+                return v;
+            }
+            float Diff(int a, int b)
+            {
+                var x = Px(sprites[a]); var y = Px(sprites[b]);
+                if (x == null || y == null) return 0f;
+                float sum = 0f;
+                for (int i = 0; i < x.Length; i++) sum += Mathf.Abs(x[i] - y[i]);
+                return sum / x.Length;
+            }
+
+            int n = sprites.Count;
+            var steps = Enumerable.Range(0, n - 1).Select(i => Diff(i, i + 1)).OrderBy(d => d).ToList();
+            float step = steps[steps.Count / 2];                         // 보통 한 프레임 사이 차이
+            if (step <= 0f) return false;
+            float seam = Diff(n - 1, 0);
+            if (seam <= step * 2f) return false;                         // 이미 자연스럽다 (프레임 사이 차이의 2배까지는 괜찮다)
+
+            // 처음 1/4 안의 i와 절반 뒤의 j 중에서 모습이 가장 비슷한 쌍
+            int bestI = -1, bestJ = -1;
+            float best = float.MaxValue;
+            for (int i = 0; i < n / 4; i++)
+                for (int j = i + n / 2; j < n; j++)
+                {
+                    float d = Diff(j, i);
+                    if (d < best) { best = d; bestI = i; bestJ = j; }
+                }
+
+            List<Sprite> loop;
+            if (bestI >= 0 && best <= step * 1.2f)
+            {
+                loop = sprites.GetRange(bestI, bestJ - bestI);
+                how = $"{bestI + 1}~{bestJ}번째 프레임만 반복 ({bestJ + 1}번째가 {bestI + 1}번째와 거의 같음, {n}→{loop.Count}장)";
+            }
+            else
+            {
+                loop = new List<Sprite>(sprites);
+                for (int i = n - 2; i >= 1; i--) loop.Add(sprites[i]);
+                how = $"왕복 반복 ({n}→{loop.Count}장)";
+            }
+
+            float fps = clip.frameRate > 0f ? clip.frameRate : Fps;
+            var newKeys = loop.Select((sp, i) => new ObjectReferenceKeyframe { time = i / fps, value = sp }).ToArray();
+            AnimationUtility.SetObjectReferenceCurve(clip, SpriteBinding, newKeys);
+            var settings = AnimationUtility.GetAnimationClipSettings(clip);
+            settings.loopTime = true;
+            settings.stopTime = loop.Count / fps;
+            AnimationUtility.SetAnimationClipSettings(clip, settings);
+            EditorUtility.SetDirty(clip);
+            return true;
+        }
+
+        /// <summary>스프라이트 그림을 SeamGrid×SeamGrid 칸으로 줄인 RGBA 값 (파일에서 직접 읽는다)</summary>
+        static float[] Thumb(Sprite sp)
+        {
+            string path = AssetDatabase.GetAssetPath(sp);
+            if (string.IsNullOrEmpty(path) || !File.Exists(path)) return null;
+            var tex = new Texture2D(2, 2);
+            try
+            {
+                if (!tex.LoadImage(File.ReadAllBytes(path))) return null;
+                var r = sp.rect;
+                var v = new float[SeamGrid * SeamGrid * 4];
+                for (int y = 0; y < SeamGrid; y++)
+                    for (int x = 0; x < SeamGrid; x++)
+                    {
+                        var c = tex.GetPixel((int)(r.x + (x + 0.5f) / SeamGrid * r.width), (int)(r.y + (y + 0.5f) / SeamGrid * r.height));
+                        int k = (y * SeamGrid + x) * 4;
+                        v[k] = c.r * c.a; v[k + 1] = c.g * c.a; v[k + 2] = c.b * c.a; v[k + 3] = c.a;
+                    }
+                return v;
+            }
+            finally { UnityEngine.Object.DestroyImmediate(tex); }
         }
 
         static float FitScale(Sprite s, float box)

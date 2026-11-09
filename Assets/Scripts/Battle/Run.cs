@@ -228,6 +228,8 @@ namespace PalRogue
                 AstralymPhase.DebugNearShift = false;
                 pal.TakeDamage(pal.MaxHP * 10);
                 foreach (var aw in pal.Effects.OfType<Awakening>().ToList()) pal.RemoveEffect(aw);   // 1페이즈 각성(HP 회복)으로 1/5 위로 올라가지 않게 (2페이즈에서 진각성으로 다시 붙는다)
+                // 생명의 열매 같은 아이템 효과도 뺀다 (HP가 1/5 위로 회복돼서 2페이즈가 바로 안 나오지 않게). 보스 패턴·기운만 남긴다
+                foreach (var e in pal.Effects.Where(e => !(e is BossPattern) && !(e is BossAura)).ToList()) pal.RemoveEffect(e);
             }
             return pal;
         }

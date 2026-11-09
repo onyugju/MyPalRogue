@@ -128,7 +128,8 @@ namespace PalRogue.EditorTools
                 Check(awakening.Active, $"{def.Name}: HP {pal.CurrentHP}/{pal.MaxHP}인데 각성 안 함");
                 Check(sawEvent, $"{def.Name}: 각성 연출 이벤트 없음");
                 Check(msgs.Any(m => m.Contains(def.Name)), $"{def.Name}: 각성 메시지 없음");
-                Check(pal.GetStat(StatType.Attack) >= Mathf.FloorToInt(atkBefore * GameConfig.AwakenStatMultiplier) - 1,
+                pal.ClearNegativeStages();                                            // 상대가 공격 랭크를 내린 경우는 빼고 본다
+                Check(pal.GetStat(StatType.Attack) >=Mathf.FloorToInt(atkBefore * GameConfig.AwakenStatMultiplier) - 1,
                       $"{def.Name}: 공격이 {atkBefore} → {pal.GetStat(StatType.Attack)}");
                 battle.Detach();
                 awakening.Sleep();
