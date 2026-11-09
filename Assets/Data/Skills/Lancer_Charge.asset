@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Lancer_Charge
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uCC3D\uAE30\uBCD1 \uB3CC\uACA9"
-  description: "\uBC29\uD328\uB97C \uC55E\uC138\uC6B0\uACE0 \uCC3D\uC744 \uACA8\uB208 \uCC44 \uB3CC\uC9C4\uD55C\uB2E4."
+  description: "\uBC29\uD328\uB97C \uC55E\uC138\uC6B0\uACE0 \uBE5B\uC758 \uAE38\uC744 \uB530\uB77C \uCC3D\uC744 \uACA8\uB208 \uCC44 \uB3CC\uC9C4\uD55C\uB2E4."
   type: 0
   category: 0
   power: 125

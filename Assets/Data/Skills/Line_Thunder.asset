@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Line_Thunder
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uB77C\uC778 \uC36C\uB354"
-  description: "\uC77C\uC9C1\uC120\uC73C\uB85C \uB1CC\uACA9\uC744 \uB0B4\uB2EC\uB9AC\uAC8C \uD55C\uB2E4."
+  description: "\uB545\uC744 \uD0C0\uACE0 \uC9C0\uADF8\uC7AC\uADF8\uB85C \uB0B4\uB2EC\uB9AC\uB294 \uB1CC\uACA9\uC744 \uC0C1\uB300 \uBC1C\uBC11\uC5D0\uC11C \uD280\uC5B4 \uC624\uB974\uAC8C \uD55C\uB2E4."
   type: 4
   category: 0
   power: 70

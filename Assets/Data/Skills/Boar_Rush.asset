@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Boar_Rush
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uBA67\uB3FC\uC9C0 \uB3CC\uC9C4"
-  description: "\uD45C\uC801\uC744 \uC815\uD574 \uB9F9\uB82C\uD788 \uB4E4\uC774\uBC1B\uB294\uB2E4."
+  description: "\uC55E\uBC1C\uB85C \uB545\uC744 \uAE01\uC5B4 \uACA8\uB208 \uB4A4 \uD759\uBC14\uB78C\uC744 \uC77C\uC73C\uD0A4\uBA70 \uB9F9\uB82C\uD788 \uB4E4\uC774\uBC1B\uB294\uB2E4."
   type: 5
   category: 0
   power: 50

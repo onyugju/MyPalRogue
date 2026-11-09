@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Dark_Shot
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uB2E4\uD06C \uC0F7"
-  description: "\uC810\uC810 \uBE68\uB77C\uC9C0\uB294 \uC554\uD751\uD0C4\uC744 \uC3DC\uB2E4."
+  description: "\uCD9C\uBC1C\uC740 \uB290\uB9AC\uC9C0\uB9CC \uC810\uC810 \uBE68\uB77C\uC9C0\uB294 \uC554\uD751\uD0C4\uC744 \uC3DC\uB2E4."
   type: 8
   category: 0
   power: 40

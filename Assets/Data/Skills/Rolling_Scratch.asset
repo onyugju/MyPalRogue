@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Rolling_Scratch
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uB864\uB9C1 \uC2A4\uD06C\uB798\uCE58"
-  description: "\uBAB8\uC744 \uAD74\uB9AC\uBA70 \uBE60\uB974\uAC8C \uB2E4\uAC00\uAC00 \uD560\uD038\uB2E4."
+  description: "\uBAB8\uC744 \uB9D0\uC544 \uAD74\uB7EC \uD30C\uACE0\uB4E0 \uB4A4 X\uC790\uB85C \uD560\uD038\uB2E4."
   type: 5
   category: 0
   power: 95

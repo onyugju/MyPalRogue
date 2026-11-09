@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Freeze_Wall
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uD504\uB9AC\uC988 \uC6D4"
-  description: "\uB545\uC5D0\uC11C \uC5BC\uC74C \uBCBD\uC744 \uC19F\uAD6C\uCE58\uAC8C \uD574 \uBD80\uB52A\uCE5C\uB2E4."
+  description: "\uB545\uC5D0\uC11C \uC19F\uC740 \uB450\uAEBC\uC6B4 \uC5BC\uC74C \uBCBD\uC744 \uBBF8\uB044\uB7EC\uB728\uB824 \uB4E4\uC774\uBC1B\uACE0 \uBD80\uC21C\uB2E4."
   type: 6
   category: 0
   power: 75

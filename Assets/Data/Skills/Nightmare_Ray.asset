@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Nightmare_Ray
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uC545\uBABD\uC758 \uBE5B\uC904\uAE30"
-  description: "\uBAA8\uC2B5\uC744 \uAC10\uCDC4\uB2E4 \uB098\uD0C0\uB098\uBA70 \uAF43\uCC98\uB7FC \uD37C\uC9C0\uB294 \uAD11\uC120\uC744 \uC3DC\uB2E4."
+  description: "\uBAA8\uC2B5\uC744 \uAC10\uCDC4\uB2E4\uAC00 \uC0C1\uB300 \uC704\uC5D0 \uB098\uD0C0\uB098 \uAF43\uCC98\uB7FC \uD37C\uC9C0\uB294 \uAD11\uC120\uC744 \uC3DF\uC544\uB0B8\uB2E4."
   type: 8
   category: 0
   power: 115

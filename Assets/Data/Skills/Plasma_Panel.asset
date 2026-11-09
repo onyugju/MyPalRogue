@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Plasma_Panel
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uD50C\uB77C\uC988\uB9C8 \uD310\uB12C"
-  description: "\uBC88\uAC1C \uB369\uC5B4\uB9AC\uB97C \uC140 \uC218 \uC5C6\uC774 \uC3D8\uC544 \uB304\uB2E4."
+  description: "\uBAB8 \uB458\uB808\uC5D0 \uB744\uC6B4 \uD50C\uB77C\uC988\uB9C8 \uAD6C\uC2AC\uC744 \uC804\uAE30\uB85C \uC787\uACE0 \uC5F0\uBC1C\uB85C \uC3DF\uC544\uB0B8\uB2E4."
   type: 4
   category: 0
   power: 65

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: High_Pressure_Jet
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uACE0\uC555\uC218 \uBC1C\uC0AC"
-  description: "\uACE0\uC555 \uBB3C\uC904\uAE30\uB97C \uC3D8\uC544 \uC88C\uC6B0\uB85C \uAC08\uB77C\uC9C0\uAC8C \uD55C\uB2E4."
+  description: "\uACE0\uC555 \uBB3C\uC904\uAE30\uB97C \uAF42\uC740 \uB4A4 \uB9DE\uC740 \uC790\uB9AC\uC5D0\uC11C \uB450 \uAC08\uB798\uB85C \uAC08\uB77C\uC9C0\uAC8C \uD55C\uB2E4."
   type: 2
   category: 0
   power: 80

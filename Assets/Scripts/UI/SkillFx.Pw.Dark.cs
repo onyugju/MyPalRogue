@@ -304,7 +304,7 @@ namespace PalRogue
             Anim(rune, 0.3f, (s, k) => { Size(s, 3f * u * (1f + k)); s.color = Al(Color.white, Am * (1f - k)); });
             yield return Throw(orb, top, aim, 0.18f, 0f, -600f);
             GameAudio.Se("hit_strong");
-            ScreenFlash(DPurple, 0.4f, 0.02f, 0.04f, 0.3f);
+            ScreenFlash(DPurple, 0.22f, 0.02f, 0.04f, 0.3f);
             DarkBurst(aim, 3.4f * u, u);
             Ring(aim, 0.4f * u, 4f * u, Al(DViolet, Am), 0.5f, Pw + "d_orb");
             Run(Squash(astTarget, 0.26f));
@@ -344,7 +344,7 @@ namespace PalRogue
             }
             foreach (var v in vs) Destroy(v.gameObject);
             GameAudio.Se("hit_strong");
-            ScreenFlash(DPurple, 0.45f, 0.02f, 0.04f, 0.3f);
+            ScreenFlash(DPurple, 0.25f, 0.02f, 0.04f, 0.3f);
             DarkBurst(aim, 3.6f * u, u);
             Anim(rune, 0.4f, (s, k) => s.color = Al(Color.white, Am * (1f - k)));
             Run(Squash(astTarget, 0.28f));
@@ -371,7 +371,7 @@ namespace PalRogue
             GameAudio.Se("hit_strong");
             float len = Vector3.Distance(front, aim) + 1.2f * u;
             var beam = Ast(Pw + "d_beam", front, 0f, Al(Color.white, Am), 8, Ang(dir), new Vector2(0f, 0.5f));
-            ScreenFlash(DViolet, 0.35f, 0.02f, 0.04f, 0.3f);
+            ScreenFlash(DViolet, 0.19f, 0.02f, 0.04f, 0.3f);
             for (float t = 0f; t < 0.6f; t += BattleTime.FxDt)
             {
                 float f = t > 0.45f ? 1f - (t - 0.45f) / 0.15f : 1f;
@@ -425,7 +425,7 @@ namespace PalRogue
             GameAudio.Se(last ? "hit_strong" : "hit", 0.5f);
             DarkBurst(b, (last ? 2.6f : 1.1f) * u, u);
             Run(Squash(astTarget, last ? 0.26f : 0.07f));
-            if (last) { ScreenFlash(DPurple, 0.35f, 0.02f, 0.04f, 0.3f); AstHit(0.2f); }
+            if (last) { ScreenFlash(DPurple, 0.19f, 0.02f, 0.04f, 0.3f); AstHit(0.2f); }
         }
 
         /// <summary>사이코 그래비티: 상대를 보랏빛 염동력으로 감싸 허공에 둥실 띄웠다가, 그대로 땅바닥에 내리꽂는다</summary>
@@ -455,7 +455,7 @@ namespace PalRogue
             for (float t = 0f; t < 0.12f; t += BattleTime.FxDt) { float k = In(t / 0.12f); if (tr != null) tr.position = home + Vector3.up * lift * (1f - k); aura.transform.position = aim + Vector3.up * lift * (1f - k); yield return null; }
             if (tr != null) tr.position = home;
             GameAudio.Se("hit_strong");
-            ScreenFlash(DPurple, 0.45f, 0.02f, 0.04f, 0.3f);
+            ScreenFlash(DPurple, 0.25f, 0.02f, 0.04f, 0.3f);
             DarkBurst(GroundAt(aim, u) + Vector3.up * 0.3f * u, 3f * u, u);
             Ring(GroundAt(aim, u), 0.4f * u, 4.4f * u, Al(DViolet, Am), 0.45f, Pw + "d_orb", 0.3f);
             Dust(GroundAt(aim, u), u, 10, 2.2f);
@@ -506,7 +506,7 @@ namespace PalRogue
             GameAudio.Se("stat_up", 0.7f);
             for (float t = 0f; t < 0.45f; t += BattleTime.FxDt) { Size(ghost, 2.2f * u * BackOut(t / 0.45f)); ghost.transform.Rotate(0, 0, 160f * BattleTime.FxDt); yield return null; }
             GameAudio.Se("hit_strong");
-            ScreenFlash(DCrimson, 0.45f, 0.02f, 0.04f, 0.3f);
+            ScreenFlash(DCrimson, 0.25f, 0.02f, 0.04f, 0.3f);
             for (int i = 0; i < 8; i++)
             {
                 float ang = -90f + (i - 3.5f) * 14f;

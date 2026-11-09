@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Water_Geyser
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uBB3C\uAE30\uB465 \uBD84\uCD9C"
-  description: "\uC0C1\uB300 \uC8FC\uBCC0\uC5D0 \uBB3C\uAE30\uB465\uC744 \uC794\uB729 \uBFDC\uC5B4 \uC62C\uB9B0\uB2E4."
+  description: "\uC0C1\uB300 \uB458\uB808\uC5D0 \uBB3C\uAE30\uB465\uC744 \uC787\uB2EC\uC544 \uBFDC\uC5B4 \uC62C\uB9AC\uACE0 \uAC00\uC6B4\uB370\uB97C \uAC00\uC7A5 \uB192\uC774 \uC19F\uAD6C\uCE58\uAC8C \uD55C\uB2E4."
   type: 2
   category: 0
   power: 115

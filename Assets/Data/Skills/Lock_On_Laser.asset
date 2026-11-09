@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Lock_On_Laser
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uACE0\uC815\uC2DD \uB808\uC774\uC800"
-  description: "\uD45C\uC801\uC744 \uACE0\uC815\uD55C \uB4A4 \uC544\uC8FC \uBE60\uB978 \uBC88\uAC1C \uB808\uC774\uC800\uB97C \uC3DC\uB2E4."
+  description: "\uC870\uC900 \uAEBE\uC1E0\uB85C \uD45C\uC801\uC744 \uACE0\uC815\uD55C \uB4A4 \uC544\uC8FC \uBE60\uB978 \uB808\uC774\uC800\uB85C \uAFF0\uB6AB\uB294\uB2E4."
   type: 4
   category: 0
   power: 70

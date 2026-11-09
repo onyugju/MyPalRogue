@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Rock_Spear
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uBC14\uC704 \uCC3D"
-  description: "\uC0C1\uB300 \uBC1C\uBC11\uC5D0\uC11C \uB0A0\uCE74\uB85C\uC6B4 \uBC14\uC704 \uCC3D\uC744 \uC19F\uAD6C\uCE58\uAC8C \uD55C\uB2E4."
+  description: "\uB545 \uBC11\uC73C\uB85C \uADE0\uC5F4\uC744 \uBED7\uC5B4 \uC0C1\uB300 \uBC1C\uBC11\uC5D0\uC11C \uAC70\uB300\uD55C \uBC14\uC704 \uCC3D\uC744 \uC19F\uAD6C\uCE58\uAC8C \uD55C\uB2E4."
   type: 5
   category: 0
   power: 95

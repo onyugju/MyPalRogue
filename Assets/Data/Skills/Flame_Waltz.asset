@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Flame_Waltz
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uD654\uC5FC \uC648\uCE20"
-  description: "\uB458\uB808\uC5D0 \uD654\uC5FC \uACE0\uB9AC\uB97C \uC77C\uC73C\uD0A4\uACE0 \uCAD3\uC544\uAC00\uB294 \uBD88\uAF43\uC744 \uC3DC\uB2E4."
+  description: "\uCDA4\uCD94\uB4EF \uD654\uC5FC \uACE0\uB9AC\uB97C \uD37C\uB728\uB9AC\uACE0 \uACE0\uB9AC\uC5D0\uC11C \uB5A8\uC5B4\uC9C4 \uBD88\uAF43\uC774 \uC0C1\uB300\uB97C \uCAD3\uC544\uAC04\uB2E4."
   type: 8
   category: 0
   power: 100

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Volcanic_Strike
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uD654\uC0B0\uC758 \uC77C\uACA9"
-  description: "\uB3CC\uC9C4\uD55C \uB4A4 \uBA48\uCD98 \uC790\uB9AC\uC5D0\uC11C \uBD88\uAF43\uC744 \uD3ED\uBC1C\uC2DC\uD0A8\uB2E4."
+  description: "\uC794\uC0C1\uC744 \uB04C\uBA70 \uD30C\uACE0\uB4E0 \uB4A4 \uBA48\uCD98 \uC790\uB9AC\uC5D0\uC11C \uBD88\uAE30\uB465\uACFC \uC6A9\uC554\uC744 \uC19F\uAD6C\uCE58\uAC8C \uD55C\uB2E4."
   type: 1
   category: 0
   power: 95

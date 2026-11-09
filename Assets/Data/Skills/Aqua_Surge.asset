@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Aqua_Surge
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uC544\uCFE0\uC544 \uC11C\uC9C0"
-  description: "\uC0AC\uBC29\uC5D0\uC11C \uBC00\uB824\uB4E0 \uD30C\uB3C4\uAC00 \uD55C\uAC00\uC6B4\uB370\uC11C \uBB3C\uAE30\uB465\uC73C\uB85C \uD130\uC9C4\uB2E4."
+  description: "\uC591\uC606\uC5D0\uC11C \uBC00\uB824\uB4E0 \uD30C\uB3C4\uAC00 \uBD80\uB52A\uCCD0 \uD55C\uAC00\uC6B4\uB370\uC11C \uBB3C\uAE30\uB465\uC73C\uB85C \uD130\uC9C4\uB2E4."
   type: 2
   category: 0
   power: 105

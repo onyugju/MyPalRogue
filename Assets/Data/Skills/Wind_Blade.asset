@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Wind_Blade
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uBC14\uB78C\uC758 \uCE7C\uB0A0"
-  description: "\uC544\uC8FC \uBE60\uB978 \uBC14\uB78C \uCE7C\uB0A0\uC744 \uACE7\uAC8C \uB0A0\uB9B0\uB2E4."
+  description: "\uB208 \uAE5C\uC9DD\uD560 \uC0C8 \uB0A0\uC544\uAC00\uB294 \uCD08\uB85D \uCE7C\uBC14\uB78C\uC73C\uB85C \uBCA4\uB2E4."
   type: 3
   category: 0
   power: 40

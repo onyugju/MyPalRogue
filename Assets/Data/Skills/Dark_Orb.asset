@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Dark_Orb
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uC554\uD751\uAD6C"
-  description: "\uCC9C\uCC9C\uD788 \uB530\uB77C\uAC00\uB294 \uC5B4\uB460 \uAD6C\uCCB4\uB97C \uC3DC\uB2E4."
+  description: "\uB465\uC2E4\uB465\uC2E4 \uB5A0\uAC00\uB294 \uC5B4\uB460 \uAD6C\uCCB4\uB97C \uB2FF\uB294 \uC21C\uAC04 \uD130\uB728\uB9B0\uB2E4."
   type: 8
   category: 0
   power: 45

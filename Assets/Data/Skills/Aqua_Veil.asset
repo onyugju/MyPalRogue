@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Aqua_Veil
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uBB3C\uC758 \uBCA0\uC77C"
-  description: "\uBB3C\uC758 \uB9C9\uC744 \uB458\uB7EC \uBC29\uC5B4\uB97C \uC62C\uB9AC\uACE0 \uCD5C\uB300 HP\uC758 1/4\uC744 \uD68C\uBCF5\uD55C\uB2E4."
+  description: "\uBB3C\uBC29\uC6B8\uC744 \uBAA8\uC544 \uD22C\uBA85\uD55C \uBB3C\uC758 \uB9C9\uC744 \uB450\uB974\uACE0 \uC0C1\uCC98\uB97C \uC53B\uC5B4\uB0B8\uB2E4. \uBC29\uC5B4\uB97C \uC62C\uB9AC\uACE0 \uCD5C\uB300 HP\uC758 1/4\uC744 \uD68C\uBCF5\uD55C\uB2E4."
   type: 2
   category: 2
   power: 0

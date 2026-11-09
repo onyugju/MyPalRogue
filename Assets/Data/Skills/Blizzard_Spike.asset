@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Blizzard_Spike
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uB208\uBCF4\uB77C \uC2A4\uD30C\uC774\uD06C"
-  description: "\uAC70\uB300\uD55C \uC5BC\uC74C \uB369\uC5B4\uB9AC\uB97C \uB0A0\uB824 \uCDA9\uACA9\uC744 \uD37C\uB728\uB9B0\uB2E4."
+  description: "\uB208\uBCF4\uB77C\uB85C \uBE5A\uC740 \uAC70\uB300\uD55C \uC5BC\uC74C\uB369\uC5B4\uB9AC\uB97C \uB358\uC838 \uC11C\uB9AC \uCDA9\uACA9\uD30C\uB97C \uD37C\uB728\uB9B0\uB2E4."
   type: 6
   category: 0
   power: 100

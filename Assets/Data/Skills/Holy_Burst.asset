@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Holy_Burst
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uC2E0\uC131 \uD3ED\uBC1C"
-  description: "\uC0C1\uB300\uAC00 \uC788\uB294 \uC790\uB9AC\uB97C \uC2E0\uC131\uD55C \uBE5B\uC73C\uB85C \uD3ED\uBC1C\uC2DC\uD0A8\uB2E4."
+  description: "\uC0C1\uB300\uAC00 \uC788\uB294 \uC790\uB9AC\uB97C \uC2E0\uC131\uD55C \uBE5B\uC758 \uAE30\uB465\uC73C\uB85C \uD3ED\uBC1C\uC2DC\uD0A8\uB2E4."
   type: 0
   category: 0
   power: 125

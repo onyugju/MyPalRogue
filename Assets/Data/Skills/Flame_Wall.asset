@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Flame_Wall
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uD654\uC5FC \uC7A5\uBCBD"
-  description: "\uC0C1\uB300\uAC00 \uC788\uB294 \uC790\uB9AC\uC5D0 \uAEBC\uC9C0\uC9C0 \uC54A\uB294 \uBD88\uAE38\uC758 \uBCBD\uC744 \uC138\uC6B4\uB2E4."
+  description: "\uC0C1\uB300 \uBC1C\uBC11 \uB545\uC744 \uAC08\uB77C \uBD88\uAE38\uC758 \uBCBD\uC744 \uC19F\uAD6C\uCE58\uAC8C \uD55C\uB2E4."
   type: 1
   category: 0
   power: 80

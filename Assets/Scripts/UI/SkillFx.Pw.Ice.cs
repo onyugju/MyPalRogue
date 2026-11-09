@@ -265,7 +265,7 @@ namespace PalRogue
             GameAudio.Se("select", 0.8f);
             yield return Throw(ch, top, aim, 0.32f, 0.8f * u, 400f, false, (s, k) => { if (Random.value < 0.6f) Mote(s.transform.position, s.transform.position + (Vector3)(Random.insideUnitCircle * 0.5f * u), 0.2f * u, Color.white, 0.35f, 0f, Pw + "i_snow", 5); });
             GameAudio.Se("hit_strong");
-            ScreenFlash(IWhite, 0.35f, 0.02f, 0.04f, 0.3f);
+            ScreenFlash(IWhite, 0.19f, 0.02f, 0.04f, 0.3f);
             IceBreak(aim, 2.4f * u, u, 14);
             Ring(aim, 0.4f * u, 4f * u, Al(Color.white, Am), 0.5f, Pw + "i_ring", 0.45f);
             Frosted(u);
@@ -296,7 +296,7 @@ namespace PalRogue
                     IceBreak(end, (last ? 2.8f : 1.1f) * u, u, last ? 14 : 5);
                     Run(Squash(astTarget, last ? 0.3f : 0.1f));
                     Run(CameraShake(last ? 0.28f : 0.07f, 0.15f));
-                    if (last) { ScreenFlash(IWhite, 0.5f, 0.02f, 0.05f, 0.35f); Ring(end, 0.5f * u, 4.2f * u, Al(Color.white, Am), 0.5f, Pw + "i_ring", 0.45f); Frosted(u); AstHit(0.25f); }
+                    if (last) { ScreenFlash(IWhite, 0.28f, 0.02f, 0.05f, 0.35f); Ring(end, 0.5f * u, 4.2f * u, Al(Color.white, Am), 0.5f, Pw + "i_ring", 0.45f); Frosted(u); AstHit(0.25f); }
                 })));
                 yield return BattleTime.FxWait(last ? 0.5f : 0.16f);
             }
@@ -372,7 +372,7 @@ namespace PalRogue
                 Run(Squash(astTarget, 0.1f));
                 yield return BattleTime.FxWait(0.12f);
             }
-            ScreenFlash(IWhite, 0.4f, 0.02f, 0.04f, 0.3f);
+            ScreenFlash(IWhite, 0.22f, 0.02f, 0.04f, 0.3f);
             yield return BattleTime.FxWait(0.6f);
             IceBreak(g + Vector3.up * u, 3f * u, u, 16);
             Anim(fr, 0.3f, (s, k) => s.color = Al(Color.white, 0.8f * Am * (1f - k)));
@@ -407,7 +407,7 @@ namespace PalRogue
             yield return user.Lunge(aim, 99f, 0.4f, () =>
             {
                 GameAudio.Se("hit_strong");
-                ScreenFlash(IWhite, 0.45f, 0.02f, 0.04f, 0.3f);
+                ScreenFlash(IWhite, 0.25f, 0.02f, 0.04f, 0.3f);
                 for (int i = 0; i < 2; i++)
                 {
                     var sl = Ast(Pw + "i_crescent", aim, 0f, Al(Color.white, Am), 9, (flip ? 180f : 0f) + (i == 0 ? 35f : -35f));

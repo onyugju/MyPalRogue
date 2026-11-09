@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Icicle_Line
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uC544\uC774\uC2DC\uD074 \uB77C\uC778"
-  description: "\uC138 \uAC08\uB798\uB85C \uC5BC\uC74C \uAE30\uB465\uC744 \uC904\uC9C0\uC5B4 \uC19F\uAD6C\uCE58\uAC8C \uD55C\uB2E4."
+  description: "\uC138 \uAC08\uB798\uB85C \uC5BC\uC74C \uAE30\uB465\uC744 \uC904\uC9C0\uC5B4 \uC19F\uAD6C\uCE58\uAC8C \uD558\uBA70 \uBED7\uC5B4 \uB098\uAC04\uB2E4."
   type: 6
   category: 0
   power: 85

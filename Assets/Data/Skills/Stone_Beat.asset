@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Stone_Beat
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uC2A4\uD1A4 \uBE44\uD2B8"
-  description: "\uB545\uC744 \uD754\uB4E4\uC5B4 \uAC70\uB300\uD55C \uBC14\uC704\uB97C \uB744\uC6CC \uB5A8\uC5B4\uB728\uB9B0\uB2E4."
+  description: "\uAC70\uB300\uD55C \uBC14\uC704\uB97C \uACF5\uC911 \uB192\uC774 \uB744\uC6CC \uC62C\uB838\uB2E4\uAC00 \uBA38\uB9AC \uC704\uB85C \uB0B4\uB9AC\uCC0D\uB294\uB2E4."
   type: 5
   category: 0
   power: 115

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Charge_Cannon
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uCD95\uC801 \uB300\uD3EC"
-  description: "\uC6A9\uC758 \uC5D0\uB108\uC9C0\uD0C4\uC744 \uC3D8\uC544 \uB9DE\uC740 \uC790\uB9AC\uB97C \uB113\uAC8C \uD3ED\uBC1C\uC2DC\uD0A8\uB2E4."
+  description: "\uBAB8\uC774 \uB5A8\uB9B4 \uB9CC\uD07C \uC5D0\uB108\uC9C0\uB97C \uBAA8\uC544 \uC3D8\uC544 \uB9DE\uC740 \uC790\uB9AC\uB97C \uB113\uAC8C \uD3ED\uBC1C\uC2DC\uD0A8\uB2E4."
   type: 7
   category: 0
   power: 95

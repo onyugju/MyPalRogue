@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Line_Splash
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uB77C\uC778 \uC2A4\uD50C\uB798\uC2DC"
-  description: "\uC77C\uC9C1\uC120\uC73C\uB85C \uBB3C\uAE30\uB465\uC744 \uC19F\uAD6C\uCE58\uAC8C \uD55C\uB2E4."
+  description: "\uBC1C\uBC11\uC5D0\uC11C \uC0C1\uB300\uAE4C\uC9C0 \uD55C \uC904\uB85C \uBB3C\uAE30\uB465\uC744 \uCC28\uB840\uB85C \uC19F\uAD6C\uCE58\uAC8C \uD55C\uB2E4."
   type: 2
   category: 0
   power: 70

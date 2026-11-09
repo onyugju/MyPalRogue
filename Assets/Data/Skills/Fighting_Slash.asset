@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Fighting_Slash
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uD30C\uC774\uD305 \uC2AC\uB798\uC2DC"
-  description: "\uC785\uC5D0 \uBB38 \uBD09\uC73C\uB85C \uB450 \uBC88 \uC5F0\uB2EC\uC544 \uBCA4\uB2E4."
+  description: "\uC785\uC5D0 \uBB38 \uBD09\uC744 \uD718\uB458\uB7EC \uC704\uC544\uB798\uB85C \uB450 \uBC88 \uD6C4\uB824\uCE5C\uB2E4."
   type: 5
   category: 0
   power: 60

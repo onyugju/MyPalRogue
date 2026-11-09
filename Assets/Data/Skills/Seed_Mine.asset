@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Seed_Mine
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uC528\uC557 \uC9C0\uB8B0"
-  description: "\uC528\uC557\uC744 \uC3D8\uC544 \uB2FF\uB294 \uC21C\uAC04 \uD280\uC5B4 \uC624\uB974\uBA70 \uD130\uC9C0\uAC8C \uD55C\uB2E4."
+  description: "\uC528\uC557\uC744 \uC0C1\uB300 \uBC1C\uBC11\uC5D0 \uBC15\uC544 \uAF43\uBD09\uC624\uB9AC\uB85C \uBD80\uD480\uB824 \uD391 \uD130\uB728\uB9B0\uB2E4."
   type: 3
   category: 0
   power: 65

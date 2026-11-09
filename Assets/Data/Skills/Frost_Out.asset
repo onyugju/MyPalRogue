@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Frost_Out
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uD504\uB85C\uC2A4\uD2B8 \uC544\uC6C3"
-  description: "\uC0C1\uB300 \uBC1C\uBC11\uC744 \uC911\uC2EC\uC73C\uB85C \uC5BC\uC74C \uAE30\uB465\uC744 \uB113\uAC8C \uBED7\uCE5C\uB2E4."
+  description: "\uC0C1\uB300 \uBC1C\uBC11\uC744 \uC911\uC2EC\uC73C\uB85C \uC5BC\uC74C \uAE30\uB465\uC744 \uACB9\uACB9\uC758 \uB3D9\uC2EC\uC6D0\uC73C\uB85C \uD130\uB728\uB9B0\uB2E4."
   type: 6
   category: 0
   power: 125

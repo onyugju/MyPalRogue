@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Reflect_Leaf
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uB9AC\uD50C\uB809\uD2B8 \uB9AC\uD504"
-  description: "\uC774\uB9AC\uC800\uB9AC \uD295\uAE30\uB294 \uBC14\uB78C \uCE7C\uB0A0\uB85C \uC5EC\uB7EC \uBC88 \uBCA4\uB2E4."
+  description: "\uC774\uB9AC\uC800\uB9AC \uD295\uAE30\uB294 \uCE7C\uBC14\uB78C\uC774 \uC9C0\uADF8\uC7AC\uADF8\uB85C \uC624\uAC00\uBA70 \uC5EC\uB7EC \uBC88 \uBCA4\uB2E4."
   type: 3
   category: 0
   power: 95

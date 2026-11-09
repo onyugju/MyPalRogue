@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Summon_Thunder
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uCC9C\uB465 \uC18C\uD658"
-  description: "\uBC88\uAC1C\uB97C \uBD88\uB7EC\uB0B8 \uB4A4 \uADF8 \uC0AC\uC774\uB97C \uACE0\uC18D\uC73C\uB85C \uB3CC\uC9C4\uD55C\uB2E4."
+  description: "\uBC88\uAC1C\uB97C \uBD88\uB7EC \uB5A8\uC5B4\uB728\uB9AC\uACE0 \uADF8 \uBC88\uAC1C \uAE38\uC744 \uB530\uB77C \uC12C\uAD11\uCC98\uB7FC \uB3CC\uC9C4\uD55C\uB2E4."
   type: 4
   category: 0
   power: 60

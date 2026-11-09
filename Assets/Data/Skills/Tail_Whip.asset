@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Tail_Whip
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uAF2C\uB9AC \uCC44\uCC0D"
-  description: "\uAF2C\uB9AC\uB85C \uB545\uC744 \uB0B4\uB9AC\uCCD0 \uACE7\uAC8C \uBED7\uB294 \uCDA9\uACA9\uC744 \uBCF4\uB0B8\uB2E4."
+  description: "\uAF2C\uB9AC\uB85C \uB545\uC744 \uB0B4\uB9AC\uCCD0 \uD480\uC774 \uC904\uC9C0\uC5B4 \uC19F\uB294 \uCDA9\uACA9\uC744 \uC0C1\uB300\uAE4C\uC9C0 \uBCF4\uB0B8\uB2E4."
   type: 3
   category: 0
   power: 55

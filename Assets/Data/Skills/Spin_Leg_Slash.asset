@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Spin_Leg_Slash
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uC2A4\uD540 \uB808\uADF8 \uC2AC\uB798\uC2DC"
-  description: "\uD2BC\uD2BC\uD55C \uB2E4\uB9AC\uB85C \uD06C\uAC8C \uB3CC\uB824\uCC28 \uC4F0\uB7EC\uB728\uB9B0\uB2E4."
+  description: "\uD33D\uC774\uCC98\uB7FC \uD68C\uC804\uD558\uBA70 \uB2E4\uAC00\uAC00 \uD2BC\uD2BC\uD55C \uB2E4\uB9AC\uB85C \uD06C\uAC8C \uB3CC\uB824\uCC2C\uB2E4."
   type: 5
   category: 0
   power: 85

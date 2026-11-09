@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Pal_Blast
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uD330 \uBE14\uB798\uC2A4\uD2B8"
-  description: "\uC628\uBAB8\uC758 \uD798\uC744 \uAD75\uC740 \uAD11\uC120\uC73C\uB85C \uBAA8\uC544 \uC3DC\uB2E4."
+  description: "\uC628\uBAB8\uC758 \uD798\uC744 \uBAA8\uC544 \uAD75\uC740 \uAD11\uC120\uC73C\uB85C \uB0B4\uBFDC\uB294\uB2E4."
   type: 0
   category: 0
   power: 100

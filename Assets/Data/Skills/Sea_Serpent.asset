@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Sea_Serpent
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uBC14\uB2E4\uBC40"
-  description: "\uBB3C\uC744 \uD718\uAC10\uC740 \uBAB8\uC73C\uB85C \uD3EC\uD6A8\uD55C \uB4A4 \uB3CC\uC9C4\uD55C\uB2E4."
+  description: "\uBAB8\uC5D0 \uBB3C\uC904\uAE30\uB97C \uD718\uAC10\uACE0 \uD3EC\uD6A8\uD55C \uB4A4 \uD30C\uB3C4\uB97C \uB04C\uACE0 \uB3CC\uC9C4\uD55C\uB2E4."
   type: 2
   category: 0
   power: 95

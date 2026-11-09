@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Circle_Vine
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uC6D0\uD615 \uB369\uAD74"
-  description: "\uC0C1\uB300 \uC790\uB9AC\uC640 \uADF8 \uB458\uB808\uC5D0 \uB0A0\uCE74\uB85C\uC6B4 \uBFCC\uB9AC\uB97C \uBED7\uB294\uB2E4."
+  description: "\uC0C1\uB300 \uB458\uB808\uC5D0 \uBFCC\uB9AC\uB97C \uB465\uAE00\uAC8C \uC19F\uAD6C\uCE58\uAC8C \uD55C \uB4A4 \uD55C\uAC00\uC6B4\uB370\uB97C \uAC00\uC7A5 \uD070 \uBFCC\uB9AC\uB85C \uCC0C\uB978\uB2E4."
   type: 3
   category: 0
   power: 85

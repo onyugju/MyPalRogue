@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Burning_Horn
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uBD88\uD0C0\uB294 \uBFD4"
-  description: "\uBD88\uD0C0\uB294 \uBFD4\uC744 \uC55E\uC138\uC6B0\uACE0 \uB4E4\uC774\uBC1B\uB294\uB2E4."
+  description: "\uBFD4\uC5D0 \uBD88\uC744 \uBD99\uC774\uACE0 \uB3CC\uC9C4\uD574 \uBD88\uAF43 \uCD08\uC2B9\uB2EC\uB85C \uC62C\uB824\uCE5C\uB2E4."
   type: 1
   category: 0
   power: 55

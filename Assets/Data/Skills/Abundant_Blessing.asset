@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Abundant_Blessing
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uD48D\uC591\uC758 \uAC00\uD638"
-  description: "\uD48D\uC694\uC758 \uAE30\uC6B4\uC73C\uB85C \uC790\uC2E0\uC758 HP\uB97C \uD06C\uAC8C \uD68C\uBCF5\uD55C\uB2E4."
+  description: "\uBC1C\uBC11\uC5D0 \uAF43\uC744 \uD53C\uC6B0\uACE0 \uC0DD\uBA85\uC758 \uBE5B\uC744 \uBC1B\uC544 \uC790\uC2E0\uC758 HP\uB97C \uD06C\uAC8C \uD68C\uBCF5\uD55C\uB2E4."
   type: 3
   category: 2
   power: 0

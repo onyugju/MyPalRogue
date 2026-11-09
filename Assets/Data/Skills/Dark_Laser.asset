@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Dark_Laser
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uC5B4\uB460\uC758 \uB808\uC774\uC800"
-  description: "\uC5B4\uB460 \uC5D0\uB108\uC9C0\uB97C \uBAA8\uC544 \uAC15\uD55C \uAD11\uC120\uC744 \uC3DC\uB2E4."
+  description: "\uC55E\uC5D0 \uC138\uC6B4 \uB9C8\uBC95\uC9C4\uC73C\uB85C \uC5B4\uB460\uC744 \uBAA8\uC544 \uAD75\uC740 \uAD11\uC120\uC73C\uB85C \uAFF0\uB6AB\uB294\uB2E4."
   type: 8
   category: 0
   power: 100

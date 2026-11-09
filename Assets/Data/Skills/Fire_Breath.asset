@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Fire_Breath
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uD30C\uC774\uC5B4 \uBE0C\uB808\uC2A4"
-  description: "\uB728\uAC70\uC6B4 \uD654\uC5FC\uC744 \uAE38\uAC8C \uB0B4\uBFDC\uB294\uB2E4."
+  description: "\uBD88\uC528\uB97C \uBE68\uC544\uB4E4\uC600\uB2E4\uAC00 \uB728\uAC70\uC6B4 \uD654\uC5FC\uC744 \uAE38\uAC8C \uB0B4\uBFDC\uB294\uB2E4."
   type: 1
   category: 0
   power: 70

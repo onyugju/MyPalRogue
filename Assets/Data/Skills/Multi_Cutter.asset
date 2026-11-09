@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Multi_Cutter
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uBA40\uD2F0 \uCEE4\uD130"
-  description: "\uBC14\uB78C \uCE7C\uB0A0 \uC138 \uAC1C\uB97C \uC77C\uB82C\uB85C \uB0A0\uB9B0\uB2E4."
+  description: "\uBC14\uB78C \uCE7C\uB0A0 \uC138 \uAC1C\uB97C \uC77C\uB82C\uB85C \uB0A0\uB824 \uAC19\uC740 \uACF3\uC744 \uC5F0\uB2EC\uC544 \uBCA4\uB2E4."
   type: 3
   category: 0
   power: 70

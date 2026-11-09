@@ -400,6 +400,14 @@ namespace PalRogue
             const int W = 480, H = 270;
             var rt = new RenderTexture(W, H, 0);
             var read = new Texture2D(W, H, TextureFormat.RGB24, false);
+            // 확인용 모음 그림: 10장마다 한 칸씩, 5x5칸이 차면 sheet_NN.jpg로 저장
+            const int CW = 400, CH = 225, Cols = 5, Rows = 5, Every = 10;
+            var crt = new RenderTexture(CW, CH, 0);
+            var sheet = new Texture2D(CW * Cols, CH * Rows, TextureFormat.RGB24, false);
+            int cell = 0, sheets = 0;
+            void ClearSheet() { var px = sheet.GetPixels32(); for (int p = 0; p < px.Length; p++) px[p] = new Color32(0, 0, 0, 255); sheet.SetPixels32(px); }
+            void SaveSheet() { sheet.Apply(); System.IO.File.WriteAllBytes(System.IO.Path.Combine(dir, $"sheet_{sheets++:00}.jpg"), sheet.EncodeToJPG(80)); ClearSheet(); cell = 0; }
+            ClearSheet();
             int i = 0;
             float started = Time.unscaledTime;
             while (keepGoing() && Time.unscaledTime - started < 150f)
@@ -407,18 +415,27 @@ namespace PalRogue
                 yield return new WaitForEndOfFrame();
                 var shot = ScreenCapture.CaptureScreenshotAsTexture();
                 Graphics.Blit(shot, rt);
+                if (i % Every == 0) Graphics.Blit(shot, crt);
                 Object.Destroy(shot);
                 var prev = RenderTexture.active;
                 RenderTexture.active = rt;
                 read.ReadPixels(new Rect(0, 0, W, H), 0, 0);
                 read.Apply();
+                if (i % Every == 0)
+                {
+                    RenderTexture.active = crt;
+                    sheet.ReadPixels(new Rect(0, 0, CW, CH), (cell % Cols) * CW, (Rows - 1 - cell / Cols) * CH);
+                    if (++cell == Cols * Rows) SaveSheet();
+                }
                 RenderTexture.active = prev;
                 System.IO.File.WriteAllBytes(System.IO.Path.Combine(dir, $"f_{i++:000}_{Time.unscaledTime - started:00.00}.jpg"), read.EncodeToJPG(75));
                 for (float w = interval; w > 0f; w -= Time.unscaledDeltaTime) yield return null;
             }
+            if (cell > 0) SaveSheet();
             rt.Release();
             Object.Destroy(rt);
             Object.Destroy(read);
+            crt.Release(); Object.Destroy(crt); Object.Destroy(sheet);
             Debug.Log($"[PalRogue] 2페이즈 연출 프레임 {i}장 저장: {dir}");
         }
     }

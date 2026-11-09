@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Lightning_Spear
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uBC88\uAC1C \uCC3D"
-  description: "\uACE7\uAC8C \uB0A0\uC544\uAC00\uB294 \uBC88\uAC1C \uCC3D\uC744 \uBE60\uB974\uAC8C \uB358\uC9C4\uB2E4."
+  description: "\uBC88\uAC1C \uCC3D\uC744 \uB9CC\uB4E4\uC5B4 \uB208 \uAE5C\uC9DD\uD560 \uC0C8 \uAF42\uC544 \uAC10\uC804\uC2DC\uD0A8\uB2E4."
   type: 4
   category: 0
   power: 40

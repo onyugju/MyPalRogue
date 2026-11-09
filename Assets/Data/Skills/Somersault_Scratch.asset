@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Somersault_Scratch
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uC11C\uBA38\uC194\uD2B8 \uC2A4\uD06C\uB798\uCE58"
-  description: "\uD560\uD038 \uB4A4 \uACF5\uC911\uC81C\uBE44\uB85C \uBB3C\uB7EC\uB09C\uB2E4."
+  description: "\uBC1C\uD1B1\uC73C\uB85C \uD560\uD038 \uB4A4 \uACF5\uC911\uC81C\uBE44\uB97C \uB3CC\uBA70 \uB4A4\uB85C \uBB3C\uB7EC\uB09C\uB2E4."
   type: 5
   category: 0
   power: 85

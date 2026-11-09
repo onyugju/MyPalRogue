@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Eruption
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uBD84\uD654"
-  description: "\uD558\uB298\uB85C \uD654\uC0B0\uD0C4\uC744 \uC3D8\uC544 \uC62C\uB824 \uC8FC\uBCC0\uC5D0 \uC3DF\uC544\uC9C0\uAC8C \uD55C\uB2E4."
+  description: "\uD558\uB298\uB85C \uD654\uC0B0\uD0C4\uC744 \uC3D8\uC544 \uC62C\uB824 \uC0C1\uB300 \uC8FC\uBCC0\uC5D0 \uC3DF\uC544\uC9C0\uAC8C \uD55C\uB2E4."
   type: 1
   category: 0
   power: 100

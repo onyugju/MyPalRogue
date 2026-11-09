@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Bubble_Shot
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uBC84\uBE14 \uC0F7"
-  description: "\uCC9C\uCC9C\uD788 \uB530\uB77C\uAC00\uB294 \uAC70\uD488 \uC5EC\uB7EC \uAC1C\uB97C \uC3DC\uB2E4."
+  description: "\uD754\uB4E4\uD754\uB4E4 \uB5A0\uAC00\uB294 \uAC70\uD488 \uC5EC\uB7EC \uAC1C\uB85C \uC0C1\uB300\uB97C \uAC10\uC2F8 \uD401\uD401 \uD130\uB728\uB9B0\uB2E4."
   type: 2
   category: 0
   power: 55

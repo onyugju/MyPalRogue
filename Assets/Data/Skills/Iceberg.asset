@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Iceberg
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uBE59\uC0B0"
-  description: "\uC0C1\uB300 \uBC1C\uBC11\uC5D0\uC11C \uB0A0\uCE74\uB85C\uC6B4 \uC5BC\uC74C\uCE7C\uC744 \uC19F\uAD6C\uCE58\uAC8C \uD55C\uB2E4."
+  description: "\uC0C1\uB300 \uBC1C\uBC11\uC744 \uC5BC\uB9B0 \uB4A4 \uB0A0\uCE74\uB85C\uC6B4 \uC5BC\uC74C\uCE7C\uC744 \uC19F\uAD6C\uCE58\uAC8C \uD55C\uB2E4."
   type: 6
   category: 0
   power: 65

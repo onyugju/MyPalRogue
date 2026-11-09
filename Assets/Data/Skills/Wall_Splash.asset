@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Wall_Splash
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uC6D4 \uC2A4\uD50C\uB798\uC2DC"
-  description: "\uBB3C\uAE30\uB465 \uBCBD\uC744 \uC787\uB2EC\uC544 \uC138\uC6B4\uB2E4."
+  description: "\uC0C1\uB300 \uB458\uB808\uC5D0 \uBB3C\uC758 \uBCBD\uC744 \uC138 \uACB9 \uC787\uB2EC\uC544 \uC138\uC6B0\uACE0 \uD30C\uB3C4\uB85C \uB36E\uCE5C\uB2E4."
   type: 2
   category: 0
   power: 85

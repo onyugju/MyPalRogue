@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Grass_Tornado
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uCD08\uB85D \uD3ED\uD48D"
-  description: "\uC591\uC606\uC5D0 \uD480\uC78E \uD68C\uC624\uB9AC\uB97C \uC77C\uC73C\uCF1C \uB0A0\uB9B0\uB2E4."
+  description: "\uC591\uC606\uC5D0 \uD480\uC78E \uD68C\uC624\uB9AC\uB97C \uC77C\uC73C\uCF1C X\uC790\uB85C \uC5C7\uAC08\uB824 \uB0A0\uB824 \uC0C1\uB300\uB97C \uD718\uAC10\uB294\uB2E4."
   type: 3
   category: 0
   power: 75

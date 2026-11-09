@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Thunder_Rain
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uCC9C\uB465\uBE44"
-  description: "\uBC88\uAC1C\uB97C \uBD88\uB7EC \uBAA8\uC740 \uB4A4 \uB54C\uAC00 \uB418\uBA74 \uBCBC\uB77D\uC744 \uC3DF\uB294\uB2E4."
+  description: "\uBA39\uAD6C\uB984\uC5D0 \uBC88\uAC1C\uB97C \uBAA8\uC558\uB2E4\uAC00 \uBCBC\uB77D\uC744 \uBE44\uCC98\uB7FC \uC3DF\uC544\uBD93\uB294\uB2E4."
   type: 4
   category: 0
   power: 95

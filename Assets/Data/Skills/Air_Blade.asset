@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Air_Blade
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uC5D0\uC5B4 \uBE14\uB808\uC774\uB4DC"
-  description: "\uBD80\uCC44\uAF34\uB85C \uD37C\uC9C0\uB294 \uACF5\uAE30 \uCE7C\uB0A0\uC744 \uB0A0\uB9B0\uB2E4."
+  description: "\uBD80\uCC44\uAF34\uB85C \uD37C\uC9C0\uB294 \uACF5\uAE30 \uCE7C\uB0A0\uC744 \uB0A0\uB824 \uC0C1\uB300\uB97C \uBCA4\uB2E4."
   type: 0
   category: 0
   power: 70

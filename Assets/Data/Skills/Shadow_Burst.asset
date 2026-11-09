@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Shadow_Burst
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uADF8\uB9BC\uC790 \uD3ED\uBC1C"
-  description: "\uC5B4\uB460\uC758 \uD798\uC744 \uD480\uC5B4 \uB458\uB808\uC5D0 \uCDA9\uACA9\uC744 \uC900\uB2E4."
+  description: "\uBC1C\uBC11 \uADF8\uB9BC\uC790\uB97C \uBD80\uD480\uB824 \uBAB8 \uB458\uB808\uB85C \uC5B4\uB460\uC758 \uD798\uC744 \uD130\uB728\uB9B0\uB2E4."
   type: 8
   category: 0
   power: 55

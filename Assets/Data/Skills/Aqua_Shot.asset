@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Aqua_Shot
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uC544\uCFE0\uC544 \uC0F7"
-  description: "\uACE7\uAC8C \uB0A0\uC544\uAC00\uB294 \uBB3C \uD0C4\uD658\uC744 \uC3DC\uB2E4."
+  description: "\uBB3C\uBC29\uC6B8\uC744 \uBE5A\uC5B4 \uACE7\uAC8C \uC3D8\uC544 \uCCA0\uD37D \uD130\uB728\uB9B0\uB2E4."
   type: 2
   category: 0
   power: 45

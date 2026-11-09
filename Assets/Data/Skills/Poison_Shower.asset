@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Poison_Shower
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uD3EC\uC774\uC98C \uC0E4\uC6CC"
-  description: "\uC0AC\uBC29\uC73C\uB85C \uB3C5 \uAD6C\uC2AC\uC744 \uD769\uBFCC\uB9B0\uB2E4."
+  description: "\uB3C5 \uAD6C\uC2AC\uC744 \uD558\uB298\uB85C \uD769\uBFCC\uB824 \uC0AC\uBC29\uC5D0 \uBE44\uCC98\uB7FC \uB5A8\uC5B4\uB728\uB9B0\uB2E4."
   type: 8
   category: 0
   power: 70

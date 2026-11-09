@@ -278,7 +278,7 @@ namespace PalRogue
             for (float t = 0f; t < 0.16f; t += BattleTime.FxDt) { rk.transform.position = Vector3.Lerp(high, aim, In(t / 0.16f)); yield return null; }
             Destroy(rk.gameObject);
             GameAudio.Se("hit_strong");
-            ScreenFlash(RSand, 0.35f, 0.02f, 0.04f, 0.3f);
+            ScreenFlash(RSand, 0.19f, 0.02f, 0.04f, 0.3f);
             RockBreak(aim, 3f * u, u, 16);
             Quake(g, 4.4f * u, u);
             Run(Squash(astTarget, 0.32f));
@@ -367,7 +367,7 @@ namespace PalRogue
                 yield return BattleTime.FxWait(0.04f);
             }
             GameAudio.Se("hit_strong");
-            ScreenFlash(RSand, 0.4f, 0.02f, 0.04f, 0.3f);
+            ScreenFlash(RSand, 0.22f, 0.02f, 0.04f, 0.3f);
             Impact(aim, 2.8f * u, RFlame, 0.25f);
             Ring(aim, 0.4f * u, 3.2f * u, Al(Color.white, Am), 0.4f, Pw + "r_quake");
             SpeedLines(aim, 6f * u, 0.4f, RSand);
@@ -397,7 +397,7 @@ namespace PalRogue
             tr.position = land;
             Destroy(shadow.gameObject);
             GameAudio.Se("hit_strong");
-            ScreenFlash(RSand, 0.45f, 0.02f, 0.04f, 0.3f);
+            ScreenFlash(RSand, 0.25f, 0.02f, 0.04f, 0.3f);
             Quake(g, 5f * u, u);
             for (int r = 1; r <= 2; r++)
                 for (int i = 0; i < 4 + r * 2; i++)
@@ -513,7 +513,7 @@ namespace PalRogue
                     Anim(b, 0.4f, (s, k) => { Size(s, (last ? 3f : 1.4f) * u * Out(k)); s.color = Al(Color.Lerp(RFlame, Color.white, k), Am * (1f - k)); });
                     Run(CameraShake(last ? 0.25f : 0.05f, 0.1f));
                     Run(Squash(astTarget, last ? 0.28f : 0.05f));
-                    if (last) { ScreenFlash(RFlame, 0.45f, 0.02f, 0.04f, 0.3f); RockBreak(end, 2f * u, u, 8); AstHit(0.24f); }
+                    if (last) { ScreenFlash(RFlame, 0.25f, 0.02f, 0.04f, 0.3f); RockBreak(end, 2f * u, u, 8); AstHit(0.24f); }
                 })));
                 yield return BattleTime.FxWait(0.05f);
             }

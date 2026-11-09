@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Sniping_Shot
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uC2A4\uB098\uC774\uD551 \uC0F7"
-  description: "\uACFC\uB141\uC744 \uC815\uC870\uC900\uD574 \uD654\uC0B4\uC744 \uC3DC\uB2E4."
+  description: "\uC870\uC900\uC120\uC744 \uACB9\uCCD0 \uB9DE\uCD98 \uB4A4 \uD654\uC0B4 \uD55C \uBC1C\uB85C \uC815\uD655\uD788 \uAFF0\uB6AB\uB294\uB2E4."
   type: 3
   category: 0
   power: 65

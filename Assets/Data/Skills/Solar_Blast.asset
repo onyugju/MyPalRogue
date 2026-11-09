@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Solar_Blast
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uD0DC\uC591 \uD3ED\uBC1C"
-  description: "\uD0DC\uC591\uC758 \uD798\uC744 \uBAA8\uC544 \uAC15\uD55C \uAD11\uC120\uC744 \uC3DC\uB2E4."
+  description: "\uBA38\uB9AC \uC704\uC5D0 \uC791\uC740 \uD0DC\uC591\uC744 \uB744\uC6CC \uD669\uAE08\uBE5B \uAD11\uC120\uC73C\uB85C \uB0B4\uB9AC\uC3DC\uB2E4."
   type: 3
   category: 0
   power: 100

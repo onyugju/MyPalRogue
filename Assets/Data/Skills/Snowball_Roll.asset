@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Snowball_Roll
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uB208\uB369\uC774 \uAD74\uB9AC\uAE30"
-  description: "\uB208\uB369\uC774\uB97C \uAD74\uB824 \uAC00\uC7A5 \uCEE4\uC84C\uC744 \uB54C \uB358\uC838 \uD130\uB728\uB9B0\uB2E4."
+  description: "\uB208\uB369\uC774\uB97C \uAD74\uB824 \uD0A4\uC6B4 \uB4A4 \uAC00\uC7A5 \uCEE4\uC84C\uC744 \uB54C \uB358\uC838 \uD130\uB728\uB9B0\uB2E4."
   type: 6
   category: 0
   power: 95

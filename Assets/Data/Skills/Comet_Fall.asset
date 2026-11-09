@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Comet_Fall
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uD61C\uC131 \uB099\uD558"
-  description: "\uC6B4\uC11D\uC744 \uC5F0\uB2EC\uC544 \uB5A8\uC5B4\uB728\uB824 \uCDA9\uACA9\uD30C\uB97C \uC77C\uC73C\uD0A8\uB2E4."
+  description: "\uC6B4\uC11D \uC14B\uC744 \uC5F0\uB2EC\uC544 \uB5A8\uC5B4\uB728\uB824 \uC0C1\uB300 \uC790\uB9AC\uB97C \uAC70\uB4ED \uB0B4\uB9AC\uCC0D\uB294\uB2E4."
   type: 7
   category: 0
   power: 100

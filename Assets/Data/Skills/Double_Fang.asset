@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Double_Fang
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uB354\uBE14 \uD33D"
-  description: "\uC7AC\uBE60\uB974\uAC8C \uB2EC\uB824\uB4E4\uC5B4 \uB450 \uBC88 \uC5F0\uB2EC\uC544 \uBB3C\uC5B4\uB72F\uB294\uB2E4."
+  description: "\uC7AC\uBE60\uB974\uAC8C \uB2EC\uB824\uB4E4\uC5B4 \uC704\uC544\uB798 \uC1A1\uACF3\uB2C8\uB85C \uB450 \uBC88 \uC5F0\uB2EC\uC544 \uBB3C\uC5B4\uB72F\uB294\uB2E4."
   type: 0
   category: 0
   power: 40

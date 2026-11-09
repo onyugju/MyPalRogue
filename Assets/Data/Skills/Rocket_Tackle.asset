@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Rocket_Tackle
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uB85C\uCF13 \uD0DC\uD074"
-  description: "\uD798\uC744 \uBAA8\uC558\uB2E4\uAC00 \uC55E\uC73C\uB85C \uB3CC\uC9C4\uD55C\uB2E4."
+  description: "\uAE30\uC6B4\uC744 \uBAA8\uC558\uB2E4\uAC00 \uB4A4\uB85C \uD3ED\uBC1C\uC744 \uC77C\uC73C\uD0A4\uBA70 \uB85C\uCF13\uCC98\uB7FC \uB4E4\uC774\uBC1B\uB294\uB2E4."
   type: 7
   category: 0
   power: 55

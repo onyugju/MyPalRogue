@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Dark_Wisp
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uB2E4\uD06C \uC704\uC2A4\uD504"
-  description: "\uC0C1\uB300\uB97C \uCAD3\uC544\uAC00\uB294 \uC5B4\uB460 \uAD6C\uCCB4\uB97C \uC5EC\uB7FF \uC3DC\uB2E4."
+  description: "\uC5B4\uB460 \uAD6C\uCCB4 \uC5EC\uB35F \uAC1C\uB97C \uC18C\uC6A9\uB3CC\uC774\uCE58\uAC8C \uD480\uC5B4 \uC0C1\uB300\uB97C \uCAD3\uC544\uAC00 \uD130\uC9C0\uAC8C \uD55C\uB2E4."
   type: 8
   category: 0
   power: 115

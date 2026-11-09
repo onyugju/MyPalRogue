@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Meteor_Rain
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uBA54\uD14C\uC624 \uB808\uC778"
-  description: "\uC6B4\uC11D\uC744 \uC140 \uC218 \uC5C6\uC774 \uB5A8\uC5B4\uB728\uB824 \uCDA9\uACA9\uD30C\uB97C \uC77C\uC73C\uD0A8\uB2E4."
+  description: "\uC6B4\uC11D\uC744 \uBE44\uCC98\uB7FC \uC3DF\uC544\uBD93\uACE0 \uB9C8\uC9C0\uB9C9 \uAC70\uB300 \uC6B4\uC11D\uC73C\uB85C \uC9D3\uB204\uB978\uB2E4."
   type: 7
   category: 0
   power: 125

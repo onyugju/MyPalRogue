@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Psycho_Gravity
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uC0AC\uC774\uCF54 \uADF8\uB798\uBE44\uD2F0"
-  description: "\uC911\uB825\uC73C\uB85C \uC0C1\uB300\uB97C \uB744\uC6CC \uB545\uC73C\uB85C \uB0B4\uB358\uC9C4\uB2E4."
+  description: "\uC5FC\uB3D9\uB825\uC73C\uB85C \uC0C1\uB300\uB97C \uD5C8\uACF5\uC5D0 \uB744\uC6E0\uB2E4\uAC00 \uB545\uBC14\uB2E5\uC5D0 \uB0B4\uB9AC\uAF42\uB294\uB2E4."
   type: 8
   category: 0
   power: 125

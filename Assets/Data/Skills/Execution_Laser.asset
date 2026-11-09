@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Execution_Laser
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uC775\uC2A4\uD050\uC158 \uB808\uC774\uC800"
-  description: "\uBC88\uAC1C \uB808\uC774\uC800\uB97C \uC5EC\uB7EC \uBC88 \uB0B4\uB9AC\uC3DC\uB2E4."
+  description: "\uC870\uC900\uC744 \uACE0\uC815\uD558\uACE0 \uD558\uB298\uC5D0\uC11C \uBC88\uAC1C \uB808\uC774\uC800\uB97C \uC5F0\uB2EC\uC544 \uB0B4\uB9AC\uAF42\uB294\uB2E4."
   type: 4
   category: 0
   power: 115

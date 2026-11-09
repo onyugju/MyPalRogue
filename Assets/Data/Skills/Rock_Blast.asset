@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Rock_Blast
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uC554\uC11D \uD3ED\uBC1C"
-  description: "\uB545\uC744 \uB4A4\uD754\uB4E4\uC5B4 \uB458\uB808\uC5D0 \uC554\uC11D \uB369\uC5B4\uB9AC\uB97C \uD769\uBFCC\uB9B0\uB2E4."
+  description: "\uBC1C\uC744 \uAD74\uB7EC \uB545\uC744 \uB4A4\uD754\uB4E4\uACE0 \uB458\uB808\uC758 \uC554\uC11D \uB369\uC5B4\uB9AC\uB97C \uC0AC\uBC29\uC73C\uB85C \uD280\uAE34\uB2E4."
   type: 5
   category: 0
   power: 85

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Thunder_Rail
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uC36C\uB354 \uB808\uC77C"
-  description: "\uC218\uB9CE\uC740 \uC804\uACA9\uC744 \uD55C\uAEBC\uBC88\uC5D0 \uC3DC\uB2E4."
+  description: "\uC804\uAE30 \uB808\uC77C\uC744 \uC5EC\uB7EC \uC904 \uAE54\uACE0 \uADF8 \uC704\uB85C \uC804\uACA9\uC744 \uD55C\uAEBC\uBC88\uC5D0 \uC3D8\uC544 \uBCF4\uB0B8\uB2E4."
   type: 4
   category: 0
   power: 115

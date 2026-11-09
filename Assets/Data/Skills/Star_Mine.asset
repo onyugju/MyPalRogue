@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Star_Mine
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uC2A4\uD0C0 \uB9C8\uC778"
-  description: "\uC0C1\uB300 \uC8FC\uC704\uC5D0 \uBCC4\uC744 \uD769\uBFCC\uB824 \uCC28\uB840\uB85C \uD130\uB728\uB9B0\uB2E4."
+  description: "\uC0C1\uB300 \uC8FC\uC704\uC5D0 \uBCC4\uC744 \uD769\uBFCC\uB9B0 \uB4A4 \uC810\uC810 \uB2EC\uC544\uC624\uB974\uAC8C \uD574 \uC5F0\uC1C4\uB85C \uD130\uB728\uB9B0\uB2E4."
   type: 0
   category: 0
   power: 95

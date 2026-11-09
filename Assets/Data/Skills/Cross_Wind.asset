@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Cross_Wind
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uD06C\uB85C\uC2A4 \uC708\uB4DC"
-  description: "\uC0C1\uB300 \uC55E\uC5D0 \uB9CC\uB4E0 \uBC14\uB78C \uCE7C\uB0A0 \uB450 \uAC1C\uB97C \uC5C7\uAC08\uB824 \uBCA4\uB2E4."
+  description: "\uC0C1\uB300 \uC55E\uC5D0 \uB744\uC6B4 \uCEE4\uB2E4\uB780 \uCE7C\uBC14\uB78C \uB458\uC744 X\uC790\uB85C \uC5C7\uAC08\uB824 \uBCA4\uB2E4."
   type: 3
   category: 0
   power: 105

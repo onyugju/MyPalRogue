@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Flame_Charge
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uD654\uC5FC \uB3CC\uACA9"
-  description: "\uBD88\uAE38\uC744 \uB450\uB974\uACE0 \uB3CC\uC9C4\uD574 \uC9C0\uB098\uAC04 \uC790\uB9AC\uB97C \uD0DC\uC6B4\uB2E4."
+  description: "\uBD88\uC758 \uACE0\uB9AC\uB97C \uB450\uB974\uACE0 \uB3CC\uC9C4\uD574 \uC9C0\uB098\uAC04 \uC790\uB9AC\uB97C \uBD88\uD0DC\uC6B0\uBA70 \uB4E4\uC774\uBC1B\uB294\uB2E4."
   type: 1
   category: 0
   power: 85

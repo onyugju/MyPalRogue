@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Water_Bomb
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uBB3C\uD3ED\uD0C4"
-  description: "\uAC70\uB300\uD55C \uBB3C\uAD6C\uC2AC\uC744 \uBD88\uB7EC\uB0B4 \uB0B4\uB358\uC9C4\uB2E4."
+  description: "\uBA38\uB9AC \uC704\uC5D0 \uCEE4\uB2E4\uB780 \uBB3C\uAD6C\uC2AC\uC744 \uBE5A\uC5B4 \uB0B4\uB358\uC838 \uD070 \uBB3C\uBCF4\uB77C\uB97C \uC77C\uC73C\uD0A8\uB2E4."
   type: 2
   category: 0
   power: 75

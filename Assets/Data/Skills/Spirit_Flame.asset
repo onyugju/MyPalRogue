@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Spirit_Flame
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uC720\uB839\uC758 \uBD88\uAF43"
-  description: "\uC0C1\uB300\uB97C \uCAD3\uC544\uAC00\uB294 \uC6D0\uB150 \uC14B\uC744 \uC3DC\uB2E4."
+  description: "\uC6D0\uB150 \uC11C\uB9B0 \uB3C4\uAE68\uBE44\uBD88 \uC14B\uC774 \uC0C1\uB300\uB97C \uCAD3\uC544\uAC00 \uBE59\uAE00 \uB3C8 \uB4A4 \uB36E\uCE5C\uB2E4."
   type: 8
   category: 0
   power: 75

@@ -201,7 +201,7 @@ namespace PalRogue
             Vector3 from = user.Center, d = aim - from;
             var las = Ast(Pw + "e_laser", from, 0f, Al(Color.white, Am), 7, Ang(d), new Vector2(0f, 0.5f));
             float len = d.magnitude + 1.5f * u;
-            ScreenFlash(EWhite, 0.25f, 0.01f, 0.03f, 0.2f);
+            ScreenFlash(EWhite, 0.14f, 0.01f, 0.03f, 0.2f);
             Anim(las, 0.3f, (s, k) => SizeWH(s, len, 0.7f * u * (1f - k) * (1f + 0.3f * Random.value)));
             Destroy(lk.gameObject);
             Shock(aim, u);
@@ -302,7 +302,7 @@ namespace PalRogue
             Run(DimTo(0.5f, 0.2f));
             var ug = new Vector3(user.Center.x, user.Feet.y, 0f);
             GameAudio.Se("hit_strong", 0.8f);
-            ScreenFlash(EWhite, 0.4f, 0.01f, 0.03f, 0.15f);
+            ScreenFlash(EWhite, 0.22f, 0.01f, 0.03f, 0.15f);
             ThunderAt(ug, u, 1.4f);
             Run(user.Flash(EYellow, 3, 0.05f));
             for (float t = 0f; t < 0.35f; t += BattleTime.FxDt) { if (Random.value < 0.6f) BoltLine(user.Center, user.Center + Dir(Rnd(0, 360)) * 1f * u, 0.3f * u, 0.06f); yield return null; }
@@ -373,7 +373,7 @@ namespace PalRogue
                 yield return null;
             }
             GameAudio.Se("hit_strong");
-            ScreenFlash(EWhite, 0.6f, 0.01f, 0.05f, 0.3f);
+            ScreenFlash(EWhite, 0.33f, 0.01f, 0.05f, 0.3f);
             BoltLine(c, aim, 1.6f * u, 0.5f, 8);
             BoltLine(c, aim, 0.9f * u, 0.5f, 9);
             Anim(ball, 0.3f, (s, k) => s.color = Al(Color.white, Am * (1f - k)));
@@ -410,7 +410,7 @@ namespace PalRogue
                 GameAudio.Se("hit", 0.35f);
                 yield return BattleTime.FxWait(0.035f);
             }
-            ScreenFlash(EWhite, 0.4f, 0.01f, 0.03f, 0.2f);
+            ScreenFlash(EWhite, 0.22f, 0.01f, 0.03f, 0.2f);
             for (int i = 1; i < 8; i++) Spray(Pw + "e_spark", tips[i], 3, 0.6f * u, 0.3f * u, Color.white, Color.white, 0.25f);
             BoltLine(GroundAt(aim, u), aim + Vector3.up * u, 0.9f * u, 0.3f);
             Shock(aim, u, 1.4f);
@@ -445,7 +445,7 @@ namespace PalRogue
             }
             yield return BattleTime.FxWait(0.1f);
             GameAudio.Se("hit_strong");
-            ScreenFlash(EWhite, 0.45f, 0.01f, 0.04f, 0.25f);
+            ScreenFlash(EWhite, 0.25f, 0.01f, 0.04f, 0.25f);
             Shock(aim, u, 1.8f);
             Ring(aim, 0.4f * u, 3.4f * u, Al(Color.white, Am), 0.4f, Pw + "e_ring");
             Run(Squash(astTarget, 0.28f));
@@ -478,7 +478,7 @@ namespace PalRogue
                 yield return null;
             }
             GameAudio.Se("hit_strong");
-            ScreenFlash(EWhite, 0.45f, 0.01f, 0.04f, 0.25f);
+            ScreenFlash(EWhite, 0.25f, 0.01f, 0.04f, 0.25f);
             ThunderAt(g, u, 1.6f);
             Anim(v, 0.35f, (s, k) => { SizeWH(s, 2.2f * u * (1f + k), 4.4f * u); s.color = Al(Color.white, Am * (1f - k)); });
             Run(Squash(astTarget, 0.24f));
@@ -579,7 +579,7 @@ namespace PalRogue
                 yield return null;
             }
             GameAudio.Se("hit_strong");
-            ScreenFlash(EWhite, 0.55f, 0.01f, 0.05f, 0.3f);
+            ScreenFlash(EWhite, 0.3f, 0.01f, 0.05f, 0.3f);
             Run(Recoil(user, dir, 0.4f, 0.3f));
             BoltLine(muzzle, aim, 1.4f * u, 0.45f, 9);
             var las = Ast(Pw + "e_laser", muzzle, 0f, Al(Color.white, Am), 8, Ang(aim - muzzle), new Vector2(0f, 0.5f));
@@ -602,7 +602,7 @@ namespace PalRogue
             var g = GroundAt(aim, u);
             var mid = Vector3.Lerp(ug, g, 0.3f);
             GameAudio.Se("hit", 0.8f);
-            ScreenFlash(EWhite, 0.2f, 0.01f, 0.02f, 0.12f);
+            ScreenFlash(EWhite, 0.11f, 0.01f, 0.02f, 0.12f);
             ThunderAt(mid, u, 0.9f);
             yield return BattleTime.FxWait(0.12f);
             GameAudio.Se("hit", 0.8f);

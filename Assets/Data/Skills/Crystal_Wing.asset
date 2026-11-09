@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Crystal_Wing
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uD06C\uB9AC\uC2A4\uD0C8 \uC719"
-  description: "\uC5BC\uC74C \uB0A0\uAC1C\uB85C \uC9C8\uC8FC\uD558\uBA70 \uC0C1\uB300\uB97C \uBCA4\uB2E4."
+  description: "\uC5BC\uC74C \uACB0\uC815 \uB0A0\uAC1C\uB97C \uD3BC\uCE58\uACE0 \uC9C8\uC8FC\uD574 \uB0A0\uAC1C\uB85C \uBCA0\uC5B4 \uAC00\uB978\uB2E4."
   type: 6
   category: 0
   power: 125

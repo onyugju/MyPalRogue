@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Poison_Fog
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uB3C5 \uC548\uAC1C"
-  description: "\uC55E\uCABD\uC5D0 \uB3C5 \uC548\uAC1C\uB97C \uD37C\uB728\uB824 \uC0C1\uB300\uB97C \uB3C5\uC5D0 \uBE60\uB728\uB9B0\uB2E4."
+  description: "\uC55E\uCABD\uC5D0 \uC9D9\uC740 \uB3C5\uC548\uAC1C\uB97C \uD37C\uB728\uB824 \uC0C1\uB300\uB97C \uB3C5\uC5D0 \uBE60\uB728\uB9B0\uB2E4."
   type: 8
   category: 2
   power: 0

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Thunder_Tank
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uB1CC\uACA9\uC758 \uC911\uC804\uCC28"
-  description: "\uBBF8\uB2C8\uAC74\uC744 \uB09C\uC0AC\uD55C \uB4A4 \uCDA9\uC804\uD55C \uD55C \uBC1C\uB85C \uB9C8\uBB34\uB9AC\uD55C\uB2E4."
+  description: "\uBBF8\uB2C8\uAC74\uC744 \uB09C\uC0AC\uD55C \uB4A4 \uCD1D\uAD6C\uC5D0 \uBAA8\uC740 \uC804\uAE30\uB97C \uD55C \uBC1C\uC758 \uAC70\uB300 \uC804\uACA9\uC73C\uB85C \uC3DC\uB2E4."
   type: 4
   category: 0
   power: 110

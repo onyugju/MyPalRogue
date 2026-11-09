@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Radiant_Barrage
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uB808\uC774\uB514\uC5B8\uD2B8 \uBC30\uB9AC\uC9C0"
-  description: "\uBE5B\uC758 \uAD6C\uCCB4\uB97C \uB744\uC6CC \uAC08\uB77C\uC9C0\uB294 \uBE5B\uD0C4\uC744 \uD37C\uBD93\uB294\uB2E4."
+  description: "\uBE5B\uC758 \uAD6C\uCCB4\uB97C \uB744\uC6CC \uC5EC\uB7EC \uAC08\uB798\uB85C \uAC08\uB77C\uC9C0\uB294 \uBE5B\uD0C4\uC744 \uD37C\uBD93\uB294\uB2E4."
   type: 0
   category: 0
   power: 125

@@ -140,6 +140,8 @@ namespace PalRogue
         }
 
         /// <summary>산성비: 상대 머리 위에 탁한 먹구름이 몰려와, 연둣빛 산성 빗줄기를 퍼붓고 쉬익 녹아내린다</summary>
+        static readonly Color AcidCloud = new Color(0.5f, 0.56f, 0.5f);
+
         IEnumerator AcidRain(PalView user, Vector3 aim)
         {
             float u = U;
@@ -153,8 +155,8 @@ namespace PalRogue
             for (float t = 0f; t < 0.4f; t += BattleTime.FxDt)
             {
                 float k = Out(t / 0.4f);
-                SizeWH(cloud, 3.2f * u * k, 1.6f * u * k); SizeWH(cloud2, 2.6f * u * k, 1.3f * u * k);
-                cloud.color = Al(Color.white, 0.95f * Am * k); cloud2.color = Al(Color.white, 0.8f * Am * k);
+                SizeWH(cloud, 2.5f * u * k, 1.15f * u * k); SizeWH(cloud2, 2f * u * k, 0.95f * u * k);
+                cloud.color = Al(AcidCloud, 0.9f * Am * k); cloud2.color = Al(AcidCloud * 0.85f, 0.8f * Am * k);
                 yield return null;
             }
             var ground = GroundAt(aim, u);
@@ -167,6 +169,7 @@ namespace PalRogue
                 {
                     drip -= 0.018f;
                     var s0 = top + new Vector3(Rnd(-1.4f, 1.4f) * u, Rnd(-0.3f, 0f) * u, 0f);
+                    s0.x = top.x + Mathf.Clamp(s0.x - top.x, -1.1f * u, 1.1f * u);
                     var r = Ast(Pw + "w_rain", s0, 0.12f * u, Al(Color.white, 0.9f * Am), 6, 100f);
                     SizeWH(r, 0.12f * u, 0.7f * u);
                     var land = new Vector3(s0.x - 0.25f * u, ground.y + Rnd(-0.2f, 0.4f) * u, 0f);

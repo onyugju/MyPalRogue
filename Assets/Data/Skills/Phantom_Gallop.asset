@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Phantom_Gallop
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uC720\uB839\uC758 \uC9C8\uC8FC"
-  description: "\uCC9C\uCC9C\uD788 \uB2EC\uB9AC\uBA70 \uD754\uB4E4\uB9AC\uB294 \uD654\uC5FC\uAD6C\uB97C \uACC4\uC18D \uB0A0\uB9B0\uB2E4."
+  description: "\uC720\uB839 \uB9D0\uCC98\uB7FC \uB2EC\uB824 \uB098\uAC00\uBA70 \uD754\uB4E4\uB9AC\uB294 \uD654\uC5FC\uAD6C\uB97C \uC787\uB2EC\uC544 \uB0A0\uB9B0\uB2E4."
   type: 8
   category: 0
   power: 85

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Thunder_Strike
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uBC88\uAC1C \uC77C\uACA9"
-  description: "\uC790\uAE30 \uBAB8\uC5D0 \uBCBC\uB77D\uC744 \uB5A8\uC5B4\uB728\uB824 \uBC29\uC804 \uD3ED\uBC1C\uC744 \uC77C\uC73C\uD0A8\uB2E4."
+  description: "\uC790\uAE30 \uBAB8\uC5D0 \uBCBC\uB77D\uC744 \uB5A8\uC5B4\uB728\uB824 \uBAA8\uC740 \uC804\uAE30\uB85C \uC0AC\uBC29\uC5D0 \uBC29\uC804 \uD3ED\uBC1C\uC744 \uC77C\uC73C\uD0A8\uB2E4."
   type: 4
   category: 0
   power: 85

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Meow_Punch
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uB0E5\uB0E5 \uD380\uCE58"
-  description: "\uC0C1\uB300\uB97C \uCAD3\uC544\uAC00\uBA70 \uC591\uD314\uB85C \uB9C8\uAD6C \uB450\uB4DC\uB9B0\uB2E4."
+  description: "\uC0C1\uB300\uB97C \uCAD3\uC544\uAC00\uBA70 \uC591\uD314\uB85C \uB0E5\uB0E5 \uB9C8\uAD6C \uB450\uB4DC\uB9B0\uB2E4."
   type: 0
   category: 0
   power: 40

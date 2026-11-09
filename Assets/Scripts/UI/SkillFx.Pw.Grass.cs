@@ -136,7 +136,7 @@ namespace PalRogue
             GameAudio.Se("hit_strong", 0.8f);
             var p = bud.transform.position;
             Destroy(bud.gameObject); Destroy(sprout.gameObject);
-            ScreenFlash(GLight, 0.25f, 0.02f, 0.03f, 0.25f);
+            ScreenFlash(GLight, 0.14f, 0.02f, 0.03f, 0.25f);
             var burst = Ast(Pw + "g_sun", p, 0f, Al(GLight, Am), 7);
             Anim(burst, 0.3f, (s, k) => { Size(s, 2.4f * u * Out(k * 2f)); s.color = Al(GLight, Am * (1f - k)); });
             Spray(Pw + "g_leaf", p, 10, 1.4f * u, 0.3f * u, Color.white, Color.white, 0.5f);
@@ -338,7 +338,7 @@ namespace PalRogue
             var dir = aim - sunAt;
             var beam = Ast(Pw + "g_beam", sunAt, 0f, Al(Color.white, Am), 7, Ang(dir), new Vector2(0f, 0.5f));
             float len = dir.magnitude + 1f * u;
-            ScreenFlash(GSun, 0.35f, 0.02f, 0.04f, 0.3f);
+            ScreenFlash(GSun, 0.22f, 0.02f, 0.04f, 0.3f);
             for (float t = 0f; t < 0.6f; t += BattleTime.FxDt)
             {
                 float f = t > 0.45f ? 1f - (t - 0.45f) / 0.15f : 1f;
@@ -372,7 +372,7 @@ namespace PalRogue
             yield return BattleTime.FxWait(0.07f);
             LeafSlash(aim, 45f, 3.4f * u, u);
             LeafSlash(aim, -45f, 3.4f * u, u);
-            ScreenFlash(GLight, 0.3f, 0.02f, 0.03f, 0.25f);
+            ScreenFlash(GLight, 0.16f, 0.02f, 0.03f, 0.25f);
             LeafFly(aim, u, 10, 1.5f);
             Run(Squash(astTarget, 0.26f));
             AstHit(0.18f);
@@ -409,7 +409,7 @@ namespace PalRogue
                 Dust(tw.transform.position, u * 0.5f, 1, 0.8f);
                 yield return null;
             }
-            ScreenFlash(GLight, 0.35f, 0.02f, 0.04f, 0.3f);
+            ScreenFlash(GLight, 0.18f, 0.02f, 0.04f, 0.3f);
             LeafFly(aim, u, 16, 2f);
             Run(Squash(astTarget, 0.28f));
             Run(CameraShake(0.22f, 0.4f));

@@ -205,7 +205,7 @@ namespace PalRogue
             GameAudio.Se("hit_strong");
             Run(Recoil(user, dir, 0.35f, 0.3f));
             yield return Throw(o, mouth, aim, 0.18f, 0f, 600f);
-            ScreenFlash(GDragonPink, 0.45f, 0.02f, 0.04f, 0.3f);
+            ScreenFlash(GDragonPink, 0.25f, 0.02f, 0.04f, 0.3f);
             DragonBurst(aim, 3.4f * u, u);
             Ring(aim, 0.5f * u, 4.6f * u, Al(Color.white, Am), 0.5f, Pw + "dr_shock");
             Ring(aim, 0.5f * u, 3.2f * u, Al(GDragonPink, Am), 0.45f, Pw + "dr_shock", 1f, 0.08f);
@@ -274,7 +274,7 @@ namespace PalRogue
             GameAudio.Se(last ? "hit_strong" : "hit", 0.5f);
             DragonBurst(b, (last ? 2.8f : 1.2f) * u, u);
             Run(Squash(astTarget, last ? 0.26f : 0.07f));
-            if (last) { ScreenFlash(GDragonPink, 0.4f, 0.02f, 0.04f, 0.3f); Run(CameraShake(0.2f, 0.3f)); AstHit(0.2f); }
+            if (last) { ScreenFlash(GDragonPink, 0.22f, 0.02f, 0.04f, 0.3f); Run(CameraShake(0.2f, 0.3f)); AstHit(0.2f); }
         }
 
         /// <summary>메테오 레인: 하늘이 어두워지고 셀 수 없는 운석이 비처럼 쏟아지며, 마지막 거대 운석이 상대를 짓누른다</summary>
@@ -296,7 +296,7 @@ namespace PalRogue
             yield return BattleTime.FxWait(0.2f);
             GameAudio.Se("select", 0.9f);
             yield return MeteorDrop(new Vector3(aim.x - 3f * u, cam.yMax + 2f, 0f), aim, 3.2f * u, 0.4f, u, true, true);
-            ScreenFlash(GDragonPink, 0.6f, 0.02f, 0.05f, 0.4f);
+            ScreenFlash(GDragonPink, 0.33f, 0.02f, 0.05f, 0.4f);
             yield return BattleTime.FxWait(0.65f);
             yield return DimTo(0f, 0.35f);
         }
@@ -397,7 +397,7 @@ namespace PalRogue
                 {
                     DragonBurst(to, (last ? 3.6f : 1f) * u, u);
                     Run(Squash(astTarget, last ? 0.3f : 0.05f));
-                    if (last) { ScreenFlash(GDragonPink, 0.55f, 0.02f, 0.05f, 0.35f); Run(CameraShake(0.28f, 0.45f)); AstHit(0.26f); }
+                    if (last) { ScreenFlash(GDragonPink, 0.3f, 0.02f, 0.05f, 0.35f); Run(CameraShake(0.28f, 0.45f)); AstHit(0.26f); }
                     else if (!astHit) AstHit(0.04f);
                 })));
                 yield return BattleTime.FxWait(last ? 0.1f : 0.05f);

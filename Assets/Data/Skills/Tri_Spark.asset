@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Tri_Spark
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uD2B8\uB77C\uC774 \uC2A4\uD30C\uD06C"
-  description: "\uBE60\uB978 \uBC88\uAC1C\uC640 \uCAD3\uC544\uAC00\uB294 \uBC88\uAC1C\uB97C \uD568\uAED8 \uC3DC\uB2E4."
+  description: "\uACE7\uAC8C \uAF42\uD788\uB294 \uBC88\uAC1C\uC640 \uD718\uC5B4 \uCAD3\uC544\uAC00\uB294 \uBC88\uAC1C \uAD6C\uC2AC \uB458\uC744 \uD568\uAED8 \uC3DC\uB2E4."
   type: 4
   category: 0
   power: 80

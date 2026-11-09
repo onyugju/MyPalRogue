@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Sand_Twister
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uC0CC\uB4DC \uD2B8\uC704\uC2A4\uD130"
-  description: "\uBAA8\uB798 \uD68C\uC624\uB9AC \uC5EC\uB7EC \uAC1C\uB97C \uBE59\uAE00\uBE59\uAE00 \uD718\uBAB0\uC544\uCE5C\uB2E4."
+  description: "\uBAA8\uB798 \uD68C\uC624\uB9AC \uC14B\uC774 \uC0C1\uB300 \uB458\uB808\uB97C \uD718\uBAB0\uC544 \uB3CC\uB2E4\uAC00 \uD55C\uAC00\uC6B4\uB370\uB85C \uBAA8\uC5EC \uD130\uC9C4\uB2E4."
   type: 5
   category: 0
   power: 105

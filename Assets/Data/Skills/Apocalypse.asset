@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Apocalypse
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uC544\uD3EC\uCE7C\uB9BD\uC2A4"
-  description: "\uC0C1\uB300 \uB458\uB808\uC5D0 \uC5B4\uB460\uC758 \uD68C\uC624\uB9AC \uC5EC\uB7FF\uC744 \uC77C\uC73C\uD0A8\uB2E4."
+  description: "\uC0C1\uB300 \uBC1C\uBC11\uC5D0 \uB9C8\uBC95\uC9C4\uC744 \uC0C8\uAE30\uACE0 \uB458\uB808\uC5D0 \uC5B4\uB460\uC758 \uD68C\uC624\uB9AC\uB97C \uC77C\uC73C\uD0A8\uB2E4."
   type: 8
   category: 0
   power: 95

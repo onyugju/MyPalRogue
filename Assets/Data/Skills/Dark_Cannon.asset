@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Dark_Cannon
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uC5B4\uB460 \uB300\uD3EC"
-  description: "\uC5B4\uB460 \uC5D0\uB108\uC9C0 \uD0C4\uD658\uC744 \uBE60\uB974\uAC8C \uC3DC\uB2E4."
+  description: "\uC5B4\uB460\uC744 \uD55C \uC810\uC5D0 \uAFB9 \uB20C\uB7EC \uB2F4\uC544 \uB300\uD3EC\uCC98\uB7FC \uC3DC\uB2E4."
   type: 8
   category: 0
   power: 55

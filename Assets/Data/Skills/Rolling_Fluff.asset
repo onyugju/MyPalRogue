@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Rolling_Fluff
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uB370\uAD74\uB370\uAD74 \uC19C\uC0AC\uD0D5"
-  description: "\uC19C\uD138 \uBAB8\uC73C\uB85C \uB370\uAD74\uB370\uAD74 \uAD74\uB7EC \uBD80\uB52A\uCE5C\uB2E4."
+  description: "\uC19C\uD138 \uBAB8\uC744 \uACF5\uCC98\uB7FC \uB9D0\uC544 \uB370\uAD74\uB370\uAD74 \uAD74\uB7EC \uBD80\uB52A\uCE5C\uB2E4."
   type: 0
   category: 0
   power: 40

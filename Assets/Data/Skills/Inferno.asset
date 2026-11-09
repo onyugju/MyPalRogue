@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Inferno
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uC778\uD398\uB974\uB178"
-  description: "\uC0C1\uB300 \uC8FC\uBCC0\uC758 \uB545\uC744 \uB2EC\uAD88 \uC787\uB2EC\uC544 \uD3ED\uBC1C\uC2DC\uD0A8\uB2E4."
+  description: "\uC0C1\uB300 \uB458\uB808\uC758 \uB545\uC744 \uB2EC\uAD88 \uBD88\uAE30\uB465\uC744 \uC5F0\uC1C4\uB85C \uD130\uB728\uB9AC\uACE0 \uD06C\uAC8C \uD3ED\uBC1C\uC2DC\uD0A8\uB2E4."
   type: 1
   category: 0
   power: 105

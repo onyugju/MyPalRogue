@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Sand_Tornado
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uBAA8\uB798 \uD3ED\uD48D"
-  description: "\uC591\uC606\uC5D0 \uBAA8\uB798 \uD68C\uC624\uB9AC\uB97C \uC77C\uC73C\uCF1C \uB0A0\uB9B0\uB2E4."
+  description: "\uBAA8\uB798 \uD68C\uC624\uB9AC \uB458\uC744 \uC77C\uC73C\uCF1C \uC0C1\uB300\uB97C \uAC10\uC2F8 \uBE59\uBE59 \uB3CC\uBA70 \uD560\uD038\uB2E4."
   type: 5
   category: 0
   power: 75

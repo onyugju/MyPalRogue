@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Fire_Arrow
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uBD88\uD654\uC0B4"
-  description: "\uC0C1\uB300\uB97C \uCAD3\uC544\uAC00\uB294 \uBD88\uD654\uC0B4 \uC138 \uBC1C\uC744 \uC3DC\uB2E4."
+  description: "\uD558\uB298\uB85C \uC3DC \uBD88\uD654\uC0B4 \uC14B\uC774 \uD718\uC5B4 \uB0B4\uB824\uC640 \uAF42\uD788\uBA70 \uBD88\uAE30\uB465\uC744 \uC77C\uC73C\uD0A8\uB2E4."
   type: 1
   category: 0
   power: 65

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Thorn_Vine
   m_EditorClassIdentifier: Assembly-CSharp::PalRogue.SkillData
   skillName: "\uAC00\uC2DC\uB369\uAD74"
-  description: "\uB545\uC18D \uBFCC\uB9AC\uAC00 \uC0C1\uB300\uB97C \uCAD3\uC544\uAC00 \uBC1C\uBC11\uC5D0\uC11C \uCC0C\uB978\uB2E4."
+  description: "\uB545\uC18D \uBFCC\uB9AC\uAC00 \uC0C1\uB300\uB97C \uCAD3\uC544\uAC00 \uBC1C\uBC11\uC5D0\uC11C \uAC00\uC2DC\uB369\uAD74\uB85C \uC19F\uAD6C\uCCD0 \uCC0C\uB978\uB2E4."
   type: 3
   category: 0
   power: 80
