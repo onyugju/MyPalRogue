@@ -25,6 +25,13 @@ namespace PalRogue.EditorTools
         const float FrontBox = 3f, BackBox = 4f;     // PalDataBuilder와 같은 값
         public const float Fps = 15f;
 
+        /// <summary>애니메이션마다 따로 정한 FPS (이름에 들어 있으면 적용). 나머지는 15 FPS</summary>
+        static readonly (string name, float fps)[] FpsOverride = { ("Astralym_Phase2", 12f) };
+        public static float FpsFor(string name) { foreach (var o in FpsOverride) if (name != null && name.Contains(o.name)) return o.fps; return Fps; }
+
+        /// <summary>팰 모습(앞/뒤)으로 연결하지 않는 애니메이션 (제로버스 2페이즈처럼 전투 중에 따로 트는 것)</summary>
+        static bool IsExtraForm(string path) => Path.GetFileNameWithoutExtension(path).Contains("Phase2");
+
         [InitializeOnLoadMethod]
         static void Auto() => EditorApplication.delayCall += () => Run(false);
 
@@ -55,8 +62,8 @@ namespace PalRogue.EditorTools
                     foreach (var clip in ctrl.animationClips.Distinct())
                         if (Retime(clip)) retimed++;
 
-                var front = controllers.FirstOrDefault(c => !IsBack(c.path)).ctrl;
-                var back = controllers.FirstOrDefault(c => IsBack(c.path)).ctrl;
+                var front = controllers.FirstOrDefault(c => !IsBack(c.path) && !IsExtraForm(c.path)).ctrl;
+                var back = controllers.FirstOrDefault(c => IsBack(c.path) && !IsExtraForm(c.path)).ctrl;
                 bool changed = false;
                 bool Same(RuntimeAnimatorController a, RuntimeAnimatorController b) =>
                     a != null && AssetDatabase.GetAssetPath(a) == AssetDatabase.GetAssetPath(b);
@@ -147,12 +154,13 @@ namespace PalRogue.EditorTools
                 if (sprites.Length < 2) continue;
 
                 string name = Path.GetFileName(owner);
-                var clip = new AnimationClip { name = name + "_Idle", frameRate = Fps };
-                var keys = sprites.Select((sp, i) => new ObjectReferenceKeyframe { time = i / Fps, value = sp }).ToArray();
+                float fps = FpsFor(name);
+                var clip = new AnimationClip { name = name + "_Idle", frameRate = fps };
+                var keys = sprites.Select((sp, i) => new ObjectReferenceKeyframe { time = i / fps, value = sp }).ToArray();
                 AnimationUtility.SetObjectReferenceCurve(clip, SpriteBinding, keys);
                 var settings = AnimationUtility.GetAnimationClipSettings(clip);
                 settings.loopTime = true;
-                settings.stopTime = sprites.Length / Fps;                         // 마지막 프레임도 1/15초 보여 줘서 끊김 없이 반복
+                settings.stopTime = sprites.Length / fps;                         // 마지막 프레임도 한 칸 보여 줘서 끊김 없이 반복
                 AnimationUtility.SetAnimationClipSettings(clip, settings);
                 AssetDatabase.CreateAsset(clip, $"{owner}/{name}_Idle.anim");
                 if (MakeSeamless(clip, out string how)) log.Add($"{name} 반복 이음새: {how}");   // AI 영상에서 뽑은 프레임은 끝과 처음이 안 맞는 경우가 많다
@@ -205,6 +213,7 @@ namespace PalRogue.EditorTools
             var keys = AnimationUtility.GetObjectReferenceCurve(clip, SpriteBinding);
             if (keys == null || keys.Length < 2) return false;
             keys = keys.OrderBy(k => k.time).ToArray();
+            float Fps = FpsFor(clip.name);
             bool already = Mathf.Approximately(clip.frameRate, Fps)
                            && keys.Select((k, i) => Mathf.Abs(k.time - i / Fps) < 0.001f).All(ok => ok);
             if (already) return false;
