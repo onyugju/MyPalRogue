@@ -1637,29 +1637,51 @@ namespace PalRogue
             }
         }
 
-        /// <summary>(테스트용, 메뉴 PalRogue/31) 지금 전투 화면에서 기술 연출을 차례로 보여준다. 내 팰 → 상대, 상대 → 내 팰 번갈아</summary>
-        public void PreviewSkillFx(IList<SkillData> skills, bool enemyOnly = false, bool record = false)
+        /// <summary>(테스트용, 메뉴 PalRogue/53·54) 지금 전투 화면에서 기술 연출을 차례로 보여준다. 내 팰 → 상대, 상대 → 내 팰 번갈아</summary>
+        public void PreviewSkillFx(IList<SkillData> skills, bool enemyOnly = false, bool record = false) =>
+            PreviewSkillFx(skills, enemyOnly ? 2 : 0, false, false, record, 1f);
+
+        /// <summary>(테스트) 기술 연출 미리보기. side 0 = 내 팰·상대 번갈아, 1 = 내 팰이 쓴다, 2 = 상대가 쓴다</summary>
+        public void PreviewSkillFx(IList<SkillData> skills, int side, bool critical, bool missed, bool record, float effectiveness)
         {
-            StopCoroutine(nameof(PreviewRoutine));
-            StartCoroutine(PreviewRoutine(skills, enemyOnly, record));
+            if (IsPreviewingFx) return;                                   // 하나씩: 이전 미리보기가 끝난 뒤에
+            previewStop = false;
+            previewCo = StartCoroutine(PreviewRoutine(skills, side, critical, missed, record, effectiveness));
         }
 
-        IEnumerator PreviewRoutine(IList<SkillData> skills, bool enemyOnly, bool record)
+        Coroutine previewCo;
+        bool previewRecording;
+
+        bool previewStop;
+
+        /// <summary>지금 나오는 연출까지만 보여 주고 멈춘다 (연출 도중에 끊으면 어둡게 한 화면 등이 남을 수 있어서)</summary>
+        public void StopSkillFxPreview() => previewStop = true;
+
+        /// <summary>(테스트) 지금 기술 연출 미리보기 중인지, 몇 번째인지</summary>
+        public bool IsPreviewingFx { get; private set; }
+        public string PreviewingFxName { get; private set; }
+
+        IEnumerator PreviewRoutine(IList<SkillData> skills, int side, bool critical, bool missed, bool record, float effectiveness)
         {
-            bool recording = record;
+            IsPreviewingFx = true;
+            previewRecording = record;
 #if UNITY_EDITOR
-            if (record) StartCoroutine(ShiftRecorder.Record(() => recording, 0.06f));
+            if (record) StartCoroutine(ShiftRecorder.Record(() => previewRecording, 0.06f));
 #endif
-            for (int i = 0; i < skills.Count; i++)
+            for (int i = 0; i < skills.Count && !previewStop; i++)
             {
-                bool mine = !enemyOnly && i % 2 == 0;
+                bool mine = side == 1 || (side == 0 && i % 2 == 0);
+                PreviewingFxName = skills[i].skillName;
                 messageText.maxVisibleCharacters = 9999;
                 messageText.text = $"[연출 미리보기 {i + 1}/{skills.Count}]\n{skills[i].skillName} ({skills[i].name})";
-                yield return Fx.Play(skills[i], mine ? playerView : enemyView, mine ? enemyView : playerView, false, !enemyOnly && i % 5 == 4, 1f);
-                yield return new WaitForSecondsRealtime(enemyOnly ? 0.6f : 0.35f);
+                yield return Fx.Play(skills[i], mine ? playerView : enemyView, mine ? enemyView : playerView, missed, critical, effectiveness);
+                yield return new WaitForSecondsRealtime(side == 2 ? 0.6f : 0.35f);
             }
-            recording = false;
-            messageText.text = "연출 미리보기 끝!";
+            previewRecording = false;
+            IsPreviewingFx = false;
+            PreviewingFxName = null;
+            previewCo = null;
+            messageText.text = previewStop ? "연출 미리보기 멈춤" : "연출 미리보기 끝!";
         }
 
         // ───────── 능력치 화면 ─────────

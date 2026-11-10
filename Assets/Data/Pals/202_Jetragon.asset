@@ -15,13 +15,13 @@ MonoBehaviour:
   palId: 202
   palName: "\uC81C\uD2B8\uB798\uACE4"
   englishName: Jetragon
-  frontSprite: {fileID: 4244386610091730031, guid: 105a65158b2442047837a258cc9d4cd5, type: 3}
+  frontSprite: {fileID: 21300000, guid: 43f4e2813a78d584b8e2655123cab7ef, type: 3}
   backSprite: {fileID: 21300000, guid: 3aeda64356de60b4984197c37522a27e, type: 3}
-  frontScale: 0.9616517
+  frontScale: 0.5397099
   backScale: 0.8322136
   sizeTune: 1
   frontYOffset: 0
-  frontAnimator: {fileID: 0}
+  frontAnimator: {fileID: 9100000, guid: 9acfc1172f17cd44eb7ca4a3e398b3cb, type: 2}
   backAnimator: {fileID: 9100000, guid: 9904b2345129d4c458ffd6f925af0508, type: 2}
   primaryType: 7
   hasSecondaryType: 0
