@@ -1,7 +1,7 @@
-[정리] 안 쓰는 파일 12개, 2.3MB (남기는 파일 1681개, 314.3MB)
+[정리] 안 쓰는 파일 120개, 39.2MB (남기는 파일 1805개, 315.1MB)
 
 ── 폴더별 (안 쓰는 용량 큰 순) ──
-     1.5MB      8개  Assets/Resources/1.팰/1.Pal/000 제로버스
+    38.4MB    116개  Assets/Resources/1.팰/1.Pal/000 제로버스
      0.8MB      4개  Assets/Resources/1.팰/1.Pal/029 파이호
 
 ── 남기는 파일 폴더별 ──
@@ -12,13 +12,14 @@
     25.3MB    154개  Assets/Resources/1.팰/1.Pal/004 큐룰리스   (참조됨)
     20.7MB     90개  Assets/Resources/3.VFX/PixelFx   (코드에서 이름으로 부름, 라이선스)
     18.5MB     78개  Assets/Resources/1.팰/1.Pal/202 제트래곤   (참조됨)
-    15.4MB     71개  Assets/Resources/1.팰/1.Pal/000 제로버스   (참조됨, 코드에서 이름으로 부름)
+    15.0MB     71개  Assets/Resources/1.팰/1.Pal/000 제로버스   (참조됨, 코드에서 이름으로 부름)
     12.2MB     28개  Assets/Resources/1.팰/2.Elements/enemy_type   (통째로 두는 폴더, 참조됨)
     11.7MB     27개  Assets/Resources/1.팰/2.Elements/player_type   (통째로 두는 폴더, 참조됨)
-     7.1MB      7개  Assets/palrogue_assets_core/fonts   (참조됨)
+     5.0MB      7개  Assets/palrogue_assets_core/fonts   (참조됨)
      3.8MB     10개  Assets/Resources/1.팰/2.Elements/ui_type   (통째로 두는 폴더)
      3.5MB      5개  Assets/Resources/1.팰/3.Pal Spheres   (통째로 두는 폴더)
      3.0MB    154개  Assets/Resources/1.팰/1.Pal/000 벨라루주   (참조됨)
+     3.0MB    116개  Assets/Resources/UI/PwFx   (통째로 두는 폴더)
      2.6MB     17개  Assets/Resources/Audio/se   (코드에서 이름으로 부름)
      2.6MB     17개  Assets/palrogue_assets_core/audio/se   (코드에서 이름으로 부름)
      1.8MB      2개  Assets/Resources/1.팰/1.Pal/200 빙천마   (참조됨)
@@ -62,10 +63,10 @@
      0.8MB      2개  Assets/Resources/1.팰/1.Pal/103 베비뇽   (참조됨)
      0.7MB      2개  Assets/Resources/1.팰/1.Pal/139 아누비스   (참조됨)
      0.5MB      2개  Assets/Resources/1.팰/1.Pal/017 펭키   (참조됨)
+     0.5MB     20개  Assets/Resources/UI/AstralymFx   (통째로 두는 폴더)
      0.5MB      5개  Assets/Resources/statuses   (통째로 두는 폴더)
      0.5MB      9개  Assets/Resources/UI/MegaShift   (통째로 두는 폴더)
      0.2MB      2개  Assets/Resources   (코드에서 이름으로 부름)
-     0.2MB     12개  Assets/Resources/UI/AstralymFx   (통째로 두는 폴더)
      0.1MB      3개  Assets/Resources/Audio/ui   (코드에서 이름으로 부름)
      0.1MB      3개  Assets/palrogue_assets_core/audio/ui   (코드에서 이름으로 부름)
      0.1MB     89개  Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets   (코드에서 이름으로 부름)
@@ -85,7 +86,115 @@ Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Idle/Astralym1_Idle_005.p
 Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Idle/Astralym1_Idle_006.png
 Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Idle/Astralym1_Idle_007.png
 Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Idle/Astralym1_Idle_075.png
-Assets/Resources/1.팰/1.Pal/000 제로버스/Editor/Astralym1IdleSetup.cs
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Idle/Editor/Astralym1IdleSetup.cs
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_000.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_001.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_002.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_003.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_004.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_005.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_006.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_007.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_008.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_009.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_010.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_011.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_012.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_013.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_014.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_015.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_016.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_017.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_018.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_019.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_020.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_021.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_022.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_023.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_024.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_025.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_026.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_027.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_028.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_029.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_030.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_031.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_032.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_033.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_034.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_035.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_036.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_037.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_038.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_039.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_040.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_041.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_042.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_043.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_044.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_045.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_046.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_047.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_048.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_049.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_050.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_051.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_052.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_053.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_054.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_055.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_056.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_057.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_058.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_059.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_060.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_061.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_062.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_063.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_064.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_065.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_066.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_067.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_068.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_069.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_070.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_071.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_072.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_073.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_074.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_075.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_076.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_077.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_078.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_079.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_080.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_081.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_082.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_083.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_084.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_085.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_086.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_087.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_088.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_089.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_090.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_091.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_092.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_093.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_094.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_095.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_096.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_097.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_098.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_099.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_100.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_101.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_102.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_103.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_104.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_105.png
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_Idle.anim
+Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Editor/Astralym_Phase2_Setup.cs
 Assets/Resources/1.팰/1.Pal/029 파이호/029_Foxparks_back/Frames_back/029_Foxparks_back_072.png
 Assets/Resources/1.팰/1.Pal/029 파이호/029_Foxparks_back/Frames_back/029_Foxparks_back_073.png
 Assets/Resources/1.팰/1.Pal/029 파이호/029_Foxparks_back/Frames_back/029_Foxparks_back_074.png

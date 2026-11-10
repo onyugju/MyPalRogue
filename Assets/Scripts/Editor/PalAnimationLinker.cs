@@ -26,7 +26,7 @@ namespace PalRogue.EditorTools
         public const float Fps = 15f;
 
         /// <summary>애니메이션마다 따로 정한 FPS (이름에 들어 있으면 적용). 나머지는 15 FPS</summary>
-        static readonly (string name, float fps)[] FpsOverride = { ("Astralym_Phase2", 12f) };
+        static readonly (string name, float fps)[] FpsOverride = { ("Astralym_Phase2", 15f) };
         public static float FpsFor(string name) { foreach (var o in FpsOverride) if (name != null && name.Contains(o.name)) return o.fps; return Fps; }
 
         /// <summary>팰 모습(앞/뒤)으로 연결하지 않는 애니메이션 (제로버스 2페이즈처럼 전투 중에 따로 트는 것)</summary>
