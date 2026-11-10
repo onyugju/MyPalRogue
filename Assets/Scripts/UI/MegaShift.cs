@@ -390,12 +390,20 @@ namespace PalRogue
     /// </summary>
     public static class ShiftRecorder
     {
+        /// <summary>녹화를 시작한 시각 (Time.unscaledTime) — 다른 곳에서 "몇 초에 무엇이 나왔는지" 적을 때 쓴다</summary>
+        public static float StartedAt;
         public static string Folder => System.IO.Path.GetFullPath(System.IO.Path.Combine(Application.dataPath, "../Temp/PhaseShiftFrames"));
 
-        public static IEnumerator Record(System.Func<bool> keepGoing, float interval = 0.1f)
+        public static IEnumerator Record(System.Func<bool> keepGoing, float interval = 0.1f, float maxSeconds = 150f)
         {
             string dir = Folder;
-            if (System.IO.Directory.Exists(dir)) System.IO.Directory.Delete(dir, true);
+            if (System.IO.Directory.Exists(dir))
+            {
+                // 이전 녹화(수천 장)를 지우느라 몇 초 멈추지 않게: 이름만 바꿔 두고 뒤에서 지운다
+                string old = dir + "_old_" + System.DateTime.Now.Ticks;
+                try { System.IO.Directory.Move(dir, old); System.Threading.Tasks.Task.Run(() => { try { System.IO.Directory.Delete(old, true); } catch { } }); }
+                catch { System.IO.Directory.Delete(dir, true); }
+            }
             System.IO.Directory.CreateDirectory(dir);
             const int W = 480, H = 270;
             var rt = new RenderTexture(W, H, 0);
@@ -410,7 +418,8 @@ namespace PalRogue
             ClearSheet();
             int i = 0;
             float started = Time.unscaledTime;
-            while (keepGoing() && Time.unscaledTime - started < 150f)
+            StartedAt = started;
+            while (keepGoing() && Time.unscaledTime - started < maxSeconds)
             {
                 yield return new WaitForEndOfFrame();
                 var shot = ScreenCapture.CaptureScreenshotAsTexture();

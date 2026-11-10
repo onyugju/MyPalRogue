@@ -1665,8 +1665,17 @@ namespace PalRogue
         {
             IsPreviewingFx = true;
             previewRecording = record;
+            // 미리보기 동안에는 명령 상자·기술 목록·예/아니오 상자를 잠깐 숨긴다 (연출을 가리지 않게, 도중에 눌리지 않게) → 끝나면 그대로 되돌린다
+            var hidden = new List<GameObject>();
+            foreach (var go in new[] { commandBox, skillPanel, skillInfoPanel, choiceMenu != null ? choiceMenu.gameObject : null })
+                if (go != null && go.activeSelf) { go.SetActive(false); hidden.Add(go); }
+            var prevSelected = EventSystem.current != null ? EventSystem.current.currentSelectedGameObject : null;
+            string prevText = messageText.text;
+            int prevVisible = messageText.maxVisibleCharacters;
 #if UNITY_EDITOR
-            if (record) StartCoroutine(ShiftRecorder.Record(() => previewRecording, 0.06f));
+            if (record) StartCoroutine(ShiftRecorder.Record(() => previewRecording, 0.06f, 1800f));
+            var index = record ? new System.Text.StringBuilder() : null;
+            yield return null;                                            // 녹화 폴더가 먼저 만들어지게
 #endif
             for (int i = 0; i < skills.Count && !previewStop; i++)
             {
@@ -1674,14 +1683,28 @@ namespace PalRogue
                 PreviewingFxName = skills[i].skillName;
                 messageText.maxVisibleCharacters = 9999;
                 messageText.text = $"[연출 미리보기 {i + 1}/{skills.Count}]\n{skills[i].skillName} ({skills[i].name})";
+#if UNITY_EDITOR
+                if (index != null) index.AppendLine($"{Time.unscaledTime - ShiftRecorder.StartedAt:000.00}\t{i + 1}\t{skills[i].skillName}\t{skills[i].name}\t{(mine ? "내팰" : "상대")}");
+                if (index != null) System.IO.File.WriteAllText(System.IO.Path.Combine(ShiftRecorder.Folder, "index.txt"), index.ToString());
+#endif
                 yield return Fx.Play(skills[i], mine ? playerView : enemyView, mine ? enemyView : playerView, missed, critical, effectiveness);
                 yield return new WaitForSecondsRealtime(side == 2 ? 0.6f : 0.35f);
             }
+#if UNITY_EDITOR
+            if (index != null) System.IO.File.WriteAllText(System.IO.Path.Combine(ShiftRecorder.Folder, "index.txt"), index.ToString());
+#endif
             previewRecording = false;
+            PreviewingFxName = previewStop ? "멈춤" : "끝!";
+            messageText.text = previewStop ? "연출 미리보기 멈춤" : "연출 미리보기 끝!";
+            yield return new WaitForSecondsRealtime(0.8f);
+            foreach (var go in hidden) if (go != null) go.SetActive(true);   // 숨겼던 상자를 되돌리고
+            messageText.text = prevText;                                    // 원래 하던 말(예: "무엇을 할까?")로
+            messageText.maxVisibleCharacters = prevVisible;
+            if (prevSelected != null && prevSelected.activeInHierarchy && EventSystem.current != null)
+                EventSystem.current.SetSelectedGameObject(prevSelected);      // 키보드 커서도 원래 자리로
             IsPreviewingFx = false;
             PreviewingFxName = null;
             previewCo = null;
-            messageText.text = previewStop ? "연출 미리보기 멈춤" : "연출 미리보기 끝!";
         }
 
         // ───────── 능력치 화면 ─────────

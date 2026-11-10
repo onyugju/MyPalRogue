@@ -18,7 +18,8 @@ namespace PalRogue.EditorTools
         static void Open()
         {
             var w = GetWindow<SkillFxPreviewWindow>("기술 연출 모아 보기");
-            w.minSize = new Vector2(420, 360);
+            w.minSize = new Vector2(420, 220);
+            if (!w.docked) w.position = new Rect(10, 95, 770, 285);   // 떠 있는 창이면 왼쪽 위(씬 창 자리)에 — 아래 게임 화면을 가리지 않게
             w.Show();
         }
 
@@ -115,7 +116,7 @@ namespace PalRogue.EditorTools
             }
             if (!open) return;
 
-            const int cols = 2;
+            int cols = Mathf.Clamp((int)(position.width / 190f), 1, 4);
             for (int i = 0; i < list.Count; i += cols)
             {
                 using (new EditorGUILayout.HorizontalScope())
