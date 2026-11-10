@@ -167,7 +167,7 @@ namespace PalRogue
             });
 
 #if UNITY_EDITOR
-            if (TryStartAstralymTest()) return;       // 메뉴 37(F6): 강한 테스트 파티로 바로 제로버스전
+            if (TryStartAstralymTest()) return;       // 메뉴 61(F6): 강한 테스트 파티로 바로 제로버스전
 #endif
             // 타이틀 → 팰 선택·저장 슬롯을 거쳐 들어온 경우 (씬 이동). 아니면(에디터에서 이 씬을 바로 플레이) 이 씬 안에서 팰 선택
             if (GameSession.Loaded != null)
@@ -238,7 +238,7 @@ namespace PalRogue
         // ───────── 저장 / 불러오기 ─────────
         /// <summary>타이틀을 거쳐 들어왔는지 (끝나면 타이틀로 돌아간다)</summary>
         bool fromSession;
-        /// <summary>테스트 판 (메뉴 37: 저장·이력·업적을 남기지 않는다)</summary>
+        /// <summary>테스트 판 (메뉴 61: 저장·이력·업적을 남기지 않는다)</summary>
         bool debugRun;
         double playSeconds;
         int runNumber;
@@ -759,7 +759,7 @@ namespace PalRogue
         }
 
         /// <summary>
-        /// 테스트 메뉴(37)용: 마지막 웨이브(제로버스)로 건너뛴다. 제로버스는 마지막 실드까지 깎인 채로 나와서
+        /// 테스트 메뉴(61)용: 마지막 웨이브(제로버스)로 건너뛴다. 제로버스는 마지막 실드까지 깎인 채로 나와서
         /// 아무 기술이나 한 번 쓰면 바로 2페이즈 연출을 볼 수 있다.
         /// </summary>
         public void DebugAstralymPhase()
@@ -768,11 +768,11 @@ namespace PalRogue
             StartCoroutine(DebugAstralymRoutine());
         }
 
-        /// <summary>에디터 메뉴 37이 켜 두면, 게임 씬이 시작될 때 바로 제로버스 테스트 판을 연다</summary>
+        /// <summary>에디터 메뉴 61이 켜 두면, 게임 씬이 시작될 때 바로 제로버스 테스트 판을 연다</summary>
         public const string AstralymTestKey = "PalRogue.AstralymTest";
 
         /// <summary>
-        /// 메뉴 37(F6)로 플레이를 시작했을 때: 전설 팰 6마리(최대 레벨)로 바로 마지막 웨이브 제로버스전.
+        /// 메뉴 61(F6)로 플레이를 시작했을 때: 전설 팰 6마리(최대 레벨)로 바로 마지막 웨이브 제로버스전.
         /// 제로버스는 마지막 실드까지 깎인 채라 아무 기술이나 한 번 쓰면 2페이즈 연출이 나온다. 저장·기록은 하지 않는다.
         /// </summary>
         bool TryStartAstralymTest()
@@ -1031,7 +1031,7 @@ namespace PalRogue
         RunResultScreen resultScreen;
 
 #if UNITY_EDITOR
-        /// <summary>(테스트) 아이템 줄 확인용: 파티 전체 아이템·몇 웨이브짜리·지닌 아이템을 나와 상대에게 잔뜩 준다 (메뉴 PalRogue/39)</summary>
+        /// <summary>(테스트) 아이템 줄 확인용: 파티 전체 아이템·몇 웨이브짜리·지닌 아이템을 나와 상대에게 잔뜩 준다 (메뉴 PalRogue/57)</summary>
         public void DebugFillItems(int heldPerPal)
         {
             if (run == null || battle == null) return;
@@ -1045,7 +1045,7 @@ namespace PalRogue
             Debug.Log($"[아이템 줄] 파티 전체 아이템 {run.RunItems.Count}종, 팰마다 지닌 아이템 {heldPerPal}개씩 (상대 포함)");
         }
 
-        /// <summary>(테스트) 결과 화면만 미리 본다 — 기록·저장은 건드리지 않는다 (메뉴 PalRogue/35)</summary>
+        /// <summary>(테스트) 결과 화면만 미리 본다 — 기록·저장은 건드리지 않는다 (메뉴 PalRogue/56)</summary>
         public void DebugShowResult()
         {
             if (run == null || mode != Mode.Command) { Debug.LogWarning("[결과 화면] 명령을 고르는 화면에서 실행해 주세요."); return; }
@@ -1807,7 +1807,7 @@ namespace PalRogue
         // 기술을 고르는 동안엔 상대 정보창 옆에 고른 기술의 상성 배율(0.5x · 2x …)이 나온다.
         int currentSkill = -1;
         TMP_Text skillDescText;
-        public static bool DebugPeek;                 // (테스트) 메뉴 PalRogue/38: C를 누르고 있는 것처럼
+        public static bool DebugPeek;                 // (테스트) 메뉴 PalRogue/54: C를 누르고 있는 것처럼
         float peekFade;
 
         void UpdateSkillPeek()

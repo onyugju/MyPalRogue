@@ -9,7 +9,7 @@ namespace PalRogue
     /// <summary>
     /// 메시지창 위 오른쪽에 뜨는 작은 선택 창 (예: 능력치를 본다 / 팰 도감 / 예 / 아니오).
     /// 사용법:  yield return choiceMenu.Choose(new[] { "예", "아니오" }, 0);   int i = choiceMenu.Result;  // Esc면 -1
-    /// 창은 아래쪽 기준이라 줄 수에 맞춰 위로 늘어난다. 참조 칸들은 메뉴 PalRogue/17 이 연결한다.
+    /// 창은 아래쪽 기준이라 줄 수에 맞춰 위로 늘어난다. 참조 칸들은 메뉴 PalRogue/37 이 연결한다.
     /// </summary>
     public class ChoiceMenu : MonoBehaviour
     {

@@ -22,8 +22,9 @@ namespace PalRogue.EditorTools
     ///     - 기술 연출 그림(SkillFx 표), 아이템 그림(ItemCatalog), 지역 배경(GameConfig.AreaBiomes)
     ///     - 소리·UI·상태 그림: 코드 안의 글자("select", "UI/star" …)와 이름이 같은 파일
     ///     - 속성 아이콘(1.팰/2.Elements), 스피어 그림(1.팰/3.Pal Spheres), 상태 아이콘(statuses), UI 폴더는 통째로 둔다
-    ///  ③ palrogue_assets_core: 에디터 도구가 쓰는 UI 그림(images/ui)·폰트(fonts)는 통째로,
-    ///     아이템·배경·소리 원본은 게임에서 쓰는 것만 남긴다
+    ///  ③ palrogue_assets_core: UI 그림(images/ui)·폰트(fonts)는 통째로 두고, 아이템·배경·소리 원본은
+    ///     씬·데이터가 직접 참조하는 것만 남긴다 (게임은 Resources 쪽 복사본을 불러온다)
+    ///  ④ 이름으로 부르는 애니메이션 컨트롤러가 쓰는 프레임·클립
     /// </summary>
     public static class ProjectCleanup
     {
@@ -95,10 +96,10 @@ namespace PalRogue.EditorTools
             {
                 foreach (var menu in new[]
                 {
-                    "PalRogue/12. 기술 연출 자동 테스트", "PalRogue/13. 아이템 자동 테스트", "PalRogue/17. 지역 배경 자동 테스트",
-                    "PalRogue/18. 속성 뱃지 자동 테스트", "PalRogue/19. 스타팅 팰 자동 테스트", "PalRogue/14. 성장 시스템 자동 테스트",
-                    "PalRogue/15. 상대 AI 자동 테스트", "PalRogue/16. 버프·디버프·보스 패턴 자동 테스트",
-                    "PalRogue/11. 자동 플레이 점검 (모험 40번, 버그 찾기)",
+                    "PalRogue/32. 기술 연출 자동 테스트", "PalRogue/33. 아이템 자동 테스트", "PalRogue/37. 지역 배경 자동 테스트",
+                    "PalRogue/38. 속성 뱃지 자동 테스트", "PalRogue/39. 스타팅 팰 자동 테스트", "PalRogue/34. 성장 시스템 자동 테스트",
+                    "PalRogue/35. 상대 AI 자동 테스트", "PalRogue/36. 버프·디버프·보스 패턴 자동 테스트",
+                    "PalRogue/31. 자동 플레이 점검 (모험 40번, 버그 찾기)",
                 })
                 {
                     log.AppendLine($"── {menu}");
@@ -207,6 +208,9 @@ namespace PalRogue.EditorTools
                 if (IsUsed(path, used, literals, sounds, biomes, fxPaths, itemPaths, itemNames)) { kept.Add(path); Reasons[path] = lastReason; }
                 else unused.Add(path);
             }
+            // 이름으로 부르는 애니메이션(컨트롤러 등)이 쓰는 프레임·클립도 남긴다 (예: 제로버스 2페이즈)
+            var deps = new HashSet<string>(AssetDatabase.GetDependencies(kept.Where(p => !p.EndsWith(".png") && !p.EndsWith(".cs")).ToArray(), true), StringComparer.OrdinalIgnoreCase);
+            foreach (var p in unused.Where(deps.Contains).ToList()) { unused.Remove(p); kept.Add(p); Reasons[p] = "이름으로 부르는 애니메이션이 씀"; }
             return unused;
         }
 
@@ -248,9 +252,7 @@ namespace PalRogue.EditorTools
             }
             if (path.StartsWith("Assets/palrogue_assets_core/", StringComparison.OrdinalIgnoreCase))
             {
-                if (dir.Contains("/images/items/")) return itemNames.Contains(name) || literals.Contains(name);
-                if (dir.Contains("/images/arenas/")) return biomes.Any(b => name.StartsWith(b + "_", StringComparison.OrdinalIgnoreCase));
-                if (dir.Contains("/audio/")) return sounds.Contains(name);
+                // 원본 팩: 게임은 Resources 쪽 복사본만 불러온다 (아이템·배경·소리 원본은 참조된 것 말고는 필요 없다)
                 return false;
             }
             return false;                                                                      // Welcome

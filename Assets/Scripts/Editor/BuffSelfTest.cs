@@ -8,7 +8,7 @@ using UnityEngine;
 namespace PalRogue.EditorTools
 {
     /// <summary>
-    /// 메뉴 PalRogue/16. 버프·디버프·보스 패턴 자동 테스트 (변화 기술은 메뉴 01이 함께 만든다)
+    /// 메뉴 PalRogue/36. 버프·디버프·보스 패턴 자동 테스트 (변화 기술은 메뉴 11이 함께 만든다)
     ///  ① 능력치 변화 메시지 (올라갔다 / 크게 / 더 이상 …)
     ///  ② 변화 기술 10종을 실제 전투에서 써 보기 (능력치·회복이 맞게 바뀌는지)
     ///  ③ 공격 기술의 능력치 변화 추가 효과
@@ -21,7 +21,7 @@ namespace PalRogue.EditorTools
     {
         const string SkillDir = "Assets/Data/Skills";
 
-        [MenuItem("PalRogue/16. 버프·디버프·보스 패턴 자동 테스트", false, 206)]
+        [MenuItem("PalRogue/36. 버프·디버프·보스 패턴 자동 테스트", false, 306)]
         static void RunAll()
         {
             var pals = AssetDatabase.FindAssets("t:PalData")
@@ -29,7 +29,7 @@ namespace PalRogue.EditorTools
                 .Where(p => p != null && p.learnset.Any(e => e.skill != null)).OrderBy(p => p.name).ToList();
             var supports = SupportSkillBuilder.Supports
                 .Select(s => AssetDatabase.LoadAssetAtPath<SkillData>($"{SkillDir}/{s.eng}.asset")).ToList();
-            if (supports.Any(s => s == null)) { Debug.LogError("[버프 테스트] 변화 기술이 없습니다. 메뉴 01을 먼저 실행하세요."); return; }
+            if (supports.Any(s => s == null)) { Debug.LogError("[버프 테스트] 변화 기술이 없습니다. 메뉴 11을 먼저 실행하세요."); return; }
             var weak = Skill("Air_Cannon") ?? pals.SelectMany(p => p.learnset).Select(e => e.skill)
                 .First(s => s != null && s.category == SkillCategory.Attack);
 
@@ -147,7 +147,7 @@ namespace PalRogue.EditorTools
             {
                 var sk = Skill(eng);
                 if (sk == null) { notes.Add($"{eng} 없음(건너뜀)"); continue; }
-                Check(sk.HasStatChanges && sk.statChangeChance == chance, $"{sk.skillName}: 추가 효과가 안 붙음 (메뉴 01)");
+                Check(sk.HasStatChanges && sk.statChangeChance == chance, $"{sk.skillName}: 추가 효과가 안 붙음 (메뉴 11)");
                 int hits = 0, n = 0;
                 for (int i = 0; i < 300; i++)
                 {

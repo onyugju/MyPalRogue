@@ -8,7 +8,7 @@ using UnityEngine;
 namespace PalRogue.EditorTools
 {
     /// <summary>
-    /// 메뉴 PalRogue/15. 상대 AI 자동 테스트
+    /// 메뉴 PalRogue/35. 상대 AI 자동 테스트
     ///  ① 무작위 상황 2000개: 가장 똑똑할 때 항상 점수 1등 기술을 고르는지, 효과 없는 기술·걸 수 없는 상태이상을 안 쓰는지
     ///  ② 똑똑함별로 "효과가 굉장한 기술"과 "쓰러뜨릴 수 있는 기술"을 얼마나 고르는지 (무작위와 비교)
     ///  ③ 같은 팰끼리 싸움 400판: AI 상대 vs 무작위 상대의 승률
@@ -16,7 +16,7 @@ namespace PalRogue.EditorTools
     /// </summary>
     public static class EnemyAISelfTest
     {
-        [MenuItem("PalRogue/15. 상대 AI 자동 테스트", false, 205)]
+        [MenuItem("PalRogue/35. 상대 AI 자동 테스트", false, 305)]
         static void RunAll()
         {
             var pals = AssetDatabase.FindAssets("t:PalData")

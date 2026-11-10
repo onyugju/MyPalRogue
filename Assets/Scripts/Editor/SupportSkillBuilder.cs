@@ -132,7 +132,7 @@ namespace PalRogue.EditorTools
 
             AssetDatabase.SaveAssets();
             Debug.Log($"[버프 기술] 변화 기술 새로 {created}개 / 갱신 {updated}개, 학습 목록 {palsChanged}마리에 {entries}개 추가, " +
-                      $"공격 기술 {secondary}개에 능력치 변화 추가 효과. (메뉴 16으로 테스트)");
+                      $"공격 기술 {secondary}개에 능력치 변화 추가 효과. (메뉴 36으로 테스트)");
         }
     }
 }

@@ -8,7 +8,7 @@ using UnityEngine;
 namespace PalRogue.EditorTools
 {
     /// <summary>
-    /// 메뉴 PalRogue/14. 성장 시스템 자동 테스트
+    /// 메뉴 PalRogue/34. 성장 시스템 자동 테스트
     /// 진화·메가진화·다이맥스 대신 넣은 성장 시스템 4가지를 실제로 돌려 본다.
     ///  ① 강화 효과(퍽): 모든 퍽의 모든 Lv를 붙이고 전투를 돌림, 카드 뽑기 규칙(중복 없음, 전설은 Lv.40부터, 최소 등급)
     ///  ② 각성: 모든 각성이 HP 절반 이하에서 깨어나고 능력치가 오르는지, 전투가 끝나면 잠드는지
@@ -18,7 +18,7 @@ namespace PalRogue.EditorTools
     /// </summary>
     public static class GrowthSelfTest
     {
-        [MenuItem("PalRogue/14. 성장 시스템 자동 테스트", false, 204)]
+        [MenuItem("PalRogue/34. 성장 시스템 자동 테스트", false, 304)]
         static void RunAll()
         {
             var pals = AssetDatabase.FindAssets("t:PalData")

@@ -13,7 +13,7 @@ namespace PalRogue
     ///  - 마지막으로 고른 스피어에 다음에도 커서가 간다
     ///  - 개수가 0인 스피어는 골라도 반응하지 않는다
     /// 사용법:  yield return sphereMenu.Choose(보유개수배열);   int t = sphereMenu.Result;  // -1이면 취소
-    /// 창·줄 배치는 메뉴 PalRogue/16 으로 만든 오브젝트를 코드가 처음 열 때 작게 다시 맞춘다.
+    /// 창·줄 배치는 메뉴 PalRogue/36 으로 만든 오브젝트를 코드가 처음 열 때 작게 다시 맞춘다.
     /// </summary>
     public class SphereMenu : MonoBehaviour
     {

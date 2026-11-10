@@ -10,7 +10,7 @@ using UnityEngine;
 namespace PalRogue.EditorTools
 {
     /// <summary>
-    /// 메뉴 PalRogue/02. 팰 애니메이션 자동 연결
+    /// 메뉴 PalRogue/12. 팰 애니메이션 자동 연결
     /// 팰 폴더(Resources/1.팰/1.Pal/"번호 이름")에 새로 만든 애니메이션(Animator Controller)을 찾아서 PalData에 연결한다.
     ///  - 이름이 _back 으로 끝나면 뒷모습(내 팰), 아니면 앞모습(상대 팰). 폴더 안 어디에 있어도(Animations 하위 폴더 등) 찾는다.
     ///  - 애니메이션의 첫 프레임을 대표 그림으로, 그 크기로 화면 배율을 다시 맞춘다 (메뉴 2와 같은 기준).
@@ -35,7 +35,7 @@ namespace PalRogue.EditorTools
         [InitializeOnLoadMethod]
         static void Auto() => EditorApplication.delayCall += () => Run(false);
 
-        [MenuItem("PalRogue/02. 팰 애니메이션 자동 연결", false, 102)]
+        [MenuItem("PalRogue/12. 팰 애니메이션 자동 연결", false, 102)]
         static void FromMenu() => Run(true);
 
         public static void Run(bool report)
@@ -230,7 +230,7 @@ namespace PalRogue.EditorTools
         }
 
         // ═════════════════ 반복 이음새 맞추기 ═════════════════
-        [MenuItem("PalRogue/05. 애니메이션 반복 이음새 자동 맞춤", false, 105)]
+        [MenuItem("PalRogue/15. 애니메이션 반복 이음새 자동 맞춤", false, 105)]
         static void SeamlessMenu()
         {
             var log = new List<string>();
@@ -450,7 +450,7 @@ namespace PalRogue.EditorTools
             return seq.GetRange(0, u);
         }
 
-        [MenuItem("PalRogue/06. 왕복(역재생) 반복 애니메이션을 앞으로만 도는 반복으로", false, 106)]
+        [MenuItem("PalRogue/16. 왕복(역재생) 반복 애니메이션을 앞으로만 도는 반복으로", false, 106)]
         public static void FixPingPongMenu()
         {
             var log = new List<string>();
@@ -496,7 +496,7 @@ namespace PalRogue.EditorTools
             Debug.Log($"[팰 애니메이션] 왕복 반복을 고친 애니메이션 {log.Count}개{(log.Count > 0 ? "\n" + string.Join("\n", log) : "")}");
         }
 
-        /// <summary>메뉴 06이 고칠 애니메이션 이름 (null이면 전부)</summary>
+        /// <summary>메뉴 16이 고칠 애니메이션 이름 (null이면 전부)</summary>
         public static string PingPongFilter = "Astralym";
 
         /// <summary>스프라이트 그림을 SeamGrid×SeamGrid 칸으로 줄인 RGBA 값 (파일에서 직접 읽는다)</summary>
@@ -538,26 +538,20 @@ namespace PalRogue.EditorTools
         ///  - 2×2 화소를 투명도까지 고려해 평균 내서 줄인다 (가장자리가 검게 번지지 않게)
         ///  - 원본은 프로젝트 폴더 옆 PalRogue_FrameBackup 에 같은 경로로 복사해 둔다 (되돌리려면 그 파일을 다시 덮어쓰면 된다)
         ///  - 그림 하나짜리(Single) 스프라이트만, 긴 변이 600px 이상인 것만 줄인다
-        ///  - 끝나면 03(크기 자동 맞춤)을 실행해 화면에 보이는 크기를 원래대로 맞춘다
+        ///  - 1유닛당 픽셀(PPU)도 절반으로 바꿔서 화면에 보이는 크기는 그대로 둔다
         /// </summary>
-        [MenuItem("PalRogue/04. 애니메이션 프레임 절반으로 줄이기", false, 104)]
+        [MenuItem("PalRogue/14. 애니메이션 프레임 절반으로 줄이기", false, 104)]
         public static void HalveFrames()
         {
             var frames = new SortedSet<string>(StringComparer.Ordinal);
-            foreach (var guid in AssetDatabase.FindAssets("t:PalData", new[] { "Assets/Data/Pals" }))
-            {
-                var pal = AssetDatabase.LoadAssetAtPath<PalData>(AssetDatabase.GUIDToAssetPath(guid));
-                if (pal == null) continue;
-                foreach (var ctrl in new[] { pal.frontAnimator, pal.backAnimator })
-                {
-                    if (ctrl == null) continue;
-                    foreach (var dep in AssetDatabase.GetDependencies(AssetDatabase.GetAssetPath(ctrl), true))
-                        if (dep.EndsWith(".png", StringComparison.OrdinalIgnoreCase)) frames.Add(dep);
-                }
-            }
+            // 팰 폴더 안의 모든 애니메이션 (팰 앞/뒷모습 + 제로버스 2페이즈처럼 따로 트는 것)
+            foreach (var guid in AssetDatabase.FindAssets("t:AnimatorController", new[] { PalRoot }))
+                foreach (var dep in AssetDatabase.GetDependencies(AssetDatabase.GUIDToAssetPath(guid), true))
+                    if (dep.EndsWith(".png", StringComparison.OrdinalIgnoreCase)) frames.Add(dep);
 
             int done = 0, skipped = 0;
             long before = 0, after = 0;
+            var halved = new List<string>();
             try
             {
                 AssetDatabase.StartAssetEditing();
@@ -583,6 +577,7 @@ namespace PalRogue.EditorTools
                     File.WriteAllBytes(path, png);
                     before += bytes.Length;
                     after += png.Length;
+                    halved.Add(path);
                     done++;
                 }
             }
@@ -592,8 +587,17 @@ namespace PalRogue.EditorTools
                 EditorUtility.ClearProgressBar();
             }
             AssetDatabase.Refresh();
+            // 그림이 절반이 됐으니 1유닛당 픽셀도 절반으로 → 화면에 보이는 크기는 그대로 (배율을 다시 맞출 필요 없음)
+            try
+            {
+                AssetDatabase.StartAssetEditing();
+                foreach (var path in halved)
+                    if (AssetImporter.GetAtPath(path) is TextureImporter imp) { imp.spritePixelsPerUnit *= 0.5f; imp.SaveAndReimport(); }
+            }
+            finally { AssetDatabase.StopAssetEditing(); }
+            AssetDatabase.Refresh();
             Debug.Log($"[프레임 줄이기] {done}장 절반으로 줄임 ({before / 1048576f:0.0}MB → {after / 1048576f:0.0}MB), 건너뜀 {skipped}장. " +
-                      $"원본: 프로젝트 폴더 옆 PalRogue_FrameBackup. 이제 03(크기 자동 맞춤)을 실행하세요.");
+                      $"화면 크기는 그대로. 원본: 프로젝트 폴더 옆 PalRogue_FrameBackup");
         }
 
         /// <summary>2×2 화소를 투명도 가중 평균으로 합쳐 가로·세로 절반 크기의 그림을 만든다</summary>

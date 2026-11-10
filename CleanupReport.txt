@@ -1,27 +1,32 @@
-[정리] 안 쓰는 파일 120개, 39.2MB (남기는 파일 1805개, 315.1MB)
+[정리] 안 쓰는 파일 385개, 77.2MB (남기는 파일 1540개, 279.2MB)
 
 ── 폴더별 (안 쓰는 용량 큰 순) ──
-    38.4MB    116개  Assets/Resources/1.팰/1.Pal/000 제로버스
+    37.9MB     17개  Assets/palrogue_assets_core/audio/bgm
+    21.7MB     67개  Assets/Resources/1.팰/1.Pal/000 제로버스
+    13.9MB     60개  Assets/Resources/3.VFX/PixelFx
+     2.6MB     17개  Assets/palrogue_assets_core/audio/se
      0.8MB      4개  Assets/Resources/1.팰/1.Pal/029 파이호
+     0.1MB      3개  Assets/palrogue_assets_core/audio/ui
+     0.1MB     58개  Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets
+     0.0MB     53개  Assets/palrogue_assets_core/images/arenas
+     0.0MB    106개  Assets/palrogue_assets_core/images/items
 
 ── 남기는 파일 폴더별 ──
     38.1MB    154개  Assets/Resources/1.팰/1.Pal/198 팔라디우스   (참조됨)
-    37.9MB     17개  Assets/palrogue_assets_core/audio/bgm   (코드에서 이름으로 부름)
     36.1MB     16개  Assets/Resources/Audio/bgm   (코드에서 이름으로 부름)
+    31.7MB    120개  Assets/Resources/1.팰/1.Pal/000 제로버스   (참조됨, 코드에서 이름으로 부름, 이름으로 부르는 애니메이션이 씀)
     28.1MB    150개  Assets/Resources/1.팰/1.Pal/029 파이호   (참조됨)
     25.3MB    154개  Assets/Resources/1.팰/1.Pal/004 큐룰리스   (참조됨)
-    20.7MB     90개  Assets/Resources/3.VFX/PixelFx   (코드에서 이름으로 부름, 라이선스)
     18.5MB     78개  Assets/Resources/1.팰/1.Pal/202 제트래곤   (참조됨)
-    15.0MB     71개  Assets/Resources/1.팰/1.Pal/000 제로버스   (참조됨, 코드에서 이름으로 부름)
     12.2MB     28개  Assets/Resources/1.팰/2.Elements/enemy_type   (통째로 두는 폴더, 참조됨)
     11.7MB     27개  Assets/Resources/1.팰/2.Elements/player_type   (통째로 두는 폴더, 참조됨)
-     5.0MB      7개  Assets/palrogue_assets_core/fonts   (참조됨)
+     7.1MB      7개  Assets/palrogue_assets_core/fonts   (참조됨)
+     6.7MB     30개  Assets/Resources/3.VFX/PixelFx   (코드에서 이름으로 부름, 라이선스)
      3.8MB     10개  Assets/Resources/1.팰/2.Elements/ui_type   (통째로 두는 폴더)
      3.5MB      5개  Assets/Resources/1.팰/3.Pal Spheres   (통째로 두는 폴더)
      3.0MB    154개  Assets/Resources/1.팰/1.Pal/000 벨라루주   (참조됨)
      3.0MB    116개  Assets/Resources/UI/PwFx   (통째로 두는 폴더)
      2.6MB     17개  Assets/Resources/Audio/se   (코드에서 이름으로 부름)
-     2.6MB     17개  Assets/palrogue_assets_core/audio/se   (코드에서 이름으로 부름)
      1.8MB      2개  Assets/Resources/1.팰/1.Pal/200 빙천마   (참조됨)
      1.6MB      2개  Assets/Resources/1.팰/1.Pal/076 로빈몽   (참조됨)
      1.5MB      2개  Assets/Resources/1.팰/1.Pal/184 셸가드라   (참조됨)
@@ -68,15 +73,13 @@
      0.5MB      9개  Assets/Resources/UI/MegaShift   (통째로 두는 폴더)
      0.2MB      2개  Assets/Resources   (코드에서 이름으로 부름)
      0.1MB      3개  Assets/Resources/Audio/ui   (코드에서 이름으로 부름)
-     0.1MB      3개  Assets/palrogue_assets_core/audio/ui   (코드에서 이름으로 부름)
-     0.1MB     89개  Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets   (코드에서 이름으로 부름)
      0.0MB     57개  Assets/Resources/Arenas   (코드에서 이름으로 부름)
-     0.0MB     56개  Assets/palrogue_assets_core/images/arenas   (코드에서 이름으로 부름, 참조됨)
+     0.0MB     31개  Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets   (코드에서 이름으로 부름)
      0.0MB    105개  Assets/palrogue_assets_core/images/ui   (통째로 두는 폴더, 참조됨)
-     0.0MB    106개  Assets/palrogue_assets_core/images/items   (코드에서 이름으로 부름)
      0.0MB    104개  Assets/Resources/2.아이템   (코드에서 이름으로 부름)
      0.0MB     23개  Assets/Resources/UI/Summary   (통째로 두는 폴더)
      0.0MB     15개  Assets/palrogue_assets_core/images/ui/windows   (참조됨, 통째로 두는 폴더)
+     0.0MB      3개  Assets/palrogue_assets_core/images/arenas   (참조됨)
 
 ── 안 쓰는 파일 전체 목록 ──
 Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Idle/Astralym1_Idle_002.png
@@ -143,59 +146,324 @@ Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_05
 Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_053.png
 Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_054.png
 Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_055.png
-Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_056.png
-Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_057.png
-Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_058.png
-Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_059.png
-Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_060.png
-Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_061.png
-Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_062.png
-Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_063.png
-Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_064.png
-Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_065.png
-Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_066.png
-Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_067.png
-Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_068.png
-Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_069.png
-Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_070.png
-Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_071.png
-Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_072.png
-Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_073.png
-Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_074.png
-Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_075.png
-Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_076.png
-Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_077.png
-Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_078.png
-Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_079.png
-Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_080.png
-Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_081.png
-Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_082.png
-Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_083.png
-Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_084.png
-Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_085.png
-Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_086.png
-Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_087.png
-Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_088.png
-Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_089.png
-Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_090.png
-Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_091.png
-Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_092.png
-Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_093.png
-Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_094.png
-Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_095.png
-Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_096.png
-Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_097.png
-Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_098.png
-Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_099.png
-Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_100.png
-Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_101.png
-Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_102.png
-Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_103.png
 Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_104.png
 Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_105.png
-Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Astralym_Phase2_Idle.anim
 Assets/Resources/1.팰/1.Pal/000 제로버스/Astralym_Phase2/Editor/Astralym_Phase2_Setup.cs
 Assets/Resources/1.팰/1.Pal/029 파이호/029_Foxparks_back/Frames_back/029_Foxparks_back_072.png
 Assets/Resources/1.팰/1.Pal/029 파이호/029_Foxparks_back/Frames_back/029_Foxparks_back_073.png
 Assets/Resources/1.팰/1.Pal/029 파이호/029_Foxparks_back/Frames_back/029_Foxparks_back_074.png
 Assets/Resources/1.팰/1.Pal/029 파이호/029_Foxparks_back/Frames_back/029_Foxparks_back_075.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Explosions/Big Boom.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Explosions/Fireball Burst.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Explosions/Ice Shatter.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Explosions/Plasma Blast.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Explosions/Rock Burst.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Explosions/Small Pop.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Explosions/Smoke Burst.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Fire/Burning Ground.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Fire/Ember Rise.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Fire/Fire Orb.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Fire/Fire Ring.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Fire/Phoenix Flare.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Hit Sparks/Fire Hit.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Hit Sparks/Heavy Hit.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Hit Sparks/Hit Spark.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Hit Sparks/Ice Hit.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Hit Sparks/Multi Hit.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Hit Sparks/Poison Hit.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Hit Sparks/Shock Hit.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Hit Sparks/Slash Hit.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Hit Sparks/Weak Hit.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Lightning/Bolt Strike.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Lightning/EMP.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Lightning/Electric Shock.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Lightning/Spark Burst.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Lightning/Static Loop.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Lightning/Storm Flash.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Lightning/Tesla Arc.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Lightning/Thunder Impact.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Lightning/Zap Ring.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Magic/Cast Circle.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Magic/Poison Cloud.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Magic/Shield Bubble.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Magic/Water Splash.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Magic/Wind Gust.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Pickups and UI/Heal Cross.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Projectiles/Energy Bolt.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Projectiles/Fireball Shot.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Projectiles/Homing Orb.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Projectiles/Ice Shard Shot.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Projectiles/Magic Missile.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Projectiles/Plasma Shot.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Projectiles/Poison Dart.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Projectiles/Rock Throw.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Slashes/Cross Slash.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Slashes/Dark Slash.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Slashes/Double Slash.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Slashes/Fire Slash.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Slashes/Ice Slash.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Slashes/Slash Down.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Slashes/Spin Slash.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Slashes/Triple Claw.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Slashes/Wide Cleave.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Smoke and Dust/Dirt Kick.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Smoke and Dust/Dust Cloud.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Smoke and Dust/Fog Drift.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Smoke and Dust/Sand Burst.png
+Assets/Resources/3.VFX/Pixel VFX Essentials/Spritesheets/Smoke and Dust/Smoke Puff.png
+Assets/Resources/3.VFX/PixelFx/arrow.png
+Assets/Resources/3.VFX/PixelFx/beam_b.png
+Assets/Resources/3.VFX/PixelFx/beam_d.png
+Assets/Resources/3.VFX/PixelFx/beam_p.png
+Assets/Resources/3.VFX/PixelFx/beam_w.png
+Assets/Resources/3.VFX/PixelFx/beam_y.png
+Assets/Resources/3.VFX/PixelFx/blizzard.png
+Assets/Resources/3.VFX/PixelFx/bloom.png
+Assets/Resources/3.VFX/PixelFx/blunt.png
+Assets/Resources/3.VFX/PixelFx/boom.png
+Assets/Resources/3.VFX/PixelFx/burst.png
+Assets/Resources/3.VFX/PixelFx/burst_b.png
+Assets/Resources/3.VFX/PixelFx/charge_w.png
+Assets/Resources/3.VFX/PixelFx/charge_y.png
+Assets/Resources/3.VFX/PixelFx/claw.png
+Assets/Resources/3.VFX/PixelFx/claw_y.png
+Assets/Resources/3.VFX/PixelFx/cleave.png
+Assets/Resources/3.VFX/PixelFx/disc_w.png
+Assets/Resources/3.VFX/PixelFx/feather.png
+Assets/Resources/3.VFX/PixelFx/fire_breath_p.png
+Assets/Resources/3.VFX/PixelFx/fire_ring.png
+Assets/Resources/3.VFX/PixelFx/flame_pillar.png
+Assets/Resources/3.VFX/PixelFx/geyser.png
+Assets/Resources/3.VFX/PixelFx/hammer.png
+Assets/Resources/3.VFX/PixelFx/hands.png
+Assets/Resources/3.VFX/PixelFx/hex.png
+Assets/Resources/3.VFX/PixelFx/ice_spikes.png
+Assets/Resources/3.VFX/PixelFx/icicle.png
+Assets/Resources/3.VFX/PixelFx/lance_y.png
+Assets/Resources/3.VFX/PixelFx/landing.png
+Assets/Resources/3.VFX/PixelFx/leaf_storm.png
+Assets/Resources/3.VFX/PixelFx/mana_w.png
+Assets/Resources/3.VFX/PixelFx/meteor.png
+Assets/Resources/3.VFX/PixelFx/meteor_p.png
+Assets/Resources/3.VFX/PixelFx/pillar.png
+Assets/Resources/3.VFX/PixelFx/plasma_g.png
+Assets/Resources/3.VFX/PixelFx/plasma_v.png
+Assets/Resources/3.VFX/PixelFx/plasma_w.png
+Assets/Resources/3.VFX/PixelFx/quake.png
+Assets/Resources/3.VFX/PixelFx/rocket.png
+Assets/Resources/3.VFX/PixelFx/scythe.png
+Assets/Resources/3.VFX/PixelFx/shield.png
+Assets/Resources/3.VFX/PixelFx/shield_b.png
+Assets/Resources/3.VFX/PixelFx/slam.png
+Assets/Resources/3.VFX/PixelFx/slash.png
+Assets/Resources/3.VFX/PixelFx/smite.png
+Assets/Resources/3.VFX/PixelFx/spell.png
+Assets/Resources/3.VFX/PixelFx/spike.png
+Assets/Resources/3.VFX/PixelFx/spin.png
+Assets/Resources/3.VFX/PixelFx/star_fall.png
+Assets/Resources/3.VFX/PixelFx/tendrils.png
+Assets/Resources/3.VFX/PixelFx/thorns.png
+Assets/Resources/3.VFX/PixelFx/thrust.png
+Assets/Resources/3.VFX/PixelFx/thunderclap.png
+Assets/Resources/3.VFX/PixelFx/tornado.png
+Assets/Resources/3.VFX/PixelFx/tornado_p.png
+Assets/Resources/3.VFX/PixelFx/uppercut.png
+Assets/Resources/3.VFX/PixelFx/vine.png
+Assets/Resources/3.VFX/PixelFx/xslash.png
+Assets/Resources/3.VFX/PixelFx/xslash_g.png
+Assets/palrogue_assets_core/audio/bgm/abyss.mp3
+Assets/palrogue_assets_core/audio/bgm/battle_final.mp3
+Assets/palrogue_assets_core/audio/bgm/battle_wild_strong.mp3
+Assets/palrogue_assets_core/audio/bgm/desert.mp3
+Assets/palrogue_assets_core/audio/bgm/end.mp3
+Assets/palrogue_assets_core/audio/bgm/forest.mp3
+Assets/palrogue_assets_core/audio/bgm/grass.mp3
+Assets/palrogue_assets_core/audio/bgm/heal.mp3
+Assets/palrogue_assets_core/audio/bgm/menu.mp3
+Assets/palrogue_assets_core/audio/bgm/mountain.mp3
+Assets/palrogue_assets_core/audio/bgm/plains.mp3
+Assets/palrogue_assets_core/audio/bgm/sea.mp3
+Assets/palrogue_assets_core/audio/bgm/snowy_forest.mp3
+Assets/palrogue_assets_core/audio/bgm/space.mp3
+Assets/palrogue_assets_core/audio/bgm/title.mp3
+Assets/palrogue_assets_core/audio/bgm/volcano.mp3
+Assets/palrogue_assets_core/audio/bgm/wasteland.mp3
+Assets/palrogue_assets_core/audio/se/achv.wav
+Assets/palrogue_assets_core/audio/se/buy.wav
+Assets/palrogue_assets_core/audio/se/exp.wav
+Assets/palrogue_assets_core/audio/se/faint.wav
+Assets/palrogue_assets_core/audio/se/flee.wav
+Assets/palrogue_assets_core/audio/se/hit.wav
+Assets/palrogue_assets_core/audio/se/hit_strong.wav
+Assets/palrogue_assets_core/audio/se/hit_weak.wav
+Assets/palrogue_assets_core/audio/se/level_up.wav
+Assets/palrogue_assets_core/audio/se/pb_bounce_1.wav
+Assets/palrogue_assets_core/audio/se/pb_catch.wav
+Assets/palrogue_assets_core/audio/se/pb_rel.wav
+Assets/palrogue_assets_core/audio/se/pb_throw.wav
+Assets/palrogue_assets_core/audio/se/save.wav
+Assets/palrogue_assets_core/audio/se/shine.wav
+Assets/palrogue_assets_core/audio/se/stat_down.wav
+Assets/palrogue_assets_core/audio/se/stat_up.wav
+Assets/palrogue_assets_core/audio/ui/error.wav
+Assets/palrogue_assets_core/audio/ui/menu_open.wav
+Assets/palrogue_assets_core/audio/ui/select.wav
+Assets/palrogue_assets_core/images/arenas/abyss_a.png
+Assets/palrogue_assets_core/images/arenas/abyss_b.png
+Assets/palrogue_assets_core/images/arenas/abyss_b_1.png
+Assets/palrogue_assets_core/images/arenas/abyss_b_2.png
+Assets/palrogue_assets_core/images/arenas/abyss_b_3.png
+Assets/palrogue_assets_core/images/arenas/abyss_bg.png
+Assets/palrogue_assets_core/images/arenas/desert_a.png
+Assets/palrogue_assets_core/images/arenas/desert_b.png
+Assets/palrogue_assets_core/images/arenas/desert_b_1.png
+Assets/palrogue_assets_core/images/arenas/desert_b_2.png
+Assets/palrogue_assets_core/images/arenas/desert_b_3.png
+Assets/palrogue_assets_core/images/arenas/desert_bg.png
+Assets/palrogue_assets_core/images/arenas/end_b.png
+Assets/palrogue_assets_core/images/arenas/end_b_1.png
+Assets/palrogue_assets_core/images/arenas/end_b_2.png
+Assets/palrogue_assets_core/images/arenas/end_b_3.png
+Assets/palrogue_assets_core/images/arenas/end_bg.png
+Assets/palrogue_assets_core/images/arenas/forest_a.png
+Assets/palrogue_assets_core/images/arenas/forest_b.png
+Assets/palrogue_assets_core/images/arenas/forest_bg.png
+Assets/palrogue_assets_core/images/arenas/mountain_a.png
+Assets/palrogue_assets_core/images/arenas/mountain_b.png
+Assets/palrogue_assets_core/images/arenas/mountain_b_1.png
+Assets/palrogue_assets_core/images/arenas/mountain_b_2.png
+Assets/palrogue_assets_core/images/arenas/mountain_b_3.png
+Assets/palrogue_assets_core/images/arenas/mountain_bg.png
+Assets/palrogue_assets_core/images/arenas/plains_b_1.png
+Assets/palrogue_assets_core/images/arenas/plains_b_2.png
+Assets/palrogue_assets_core/images/arenas/plains_b_3.png
+Assets/palrogue_assets_core/images/arenas/sea_a.png
+Assets/palrogue_assets_core/images/arenas/sea_b.png
+Assets/palrogue_assets_core/images/arenas/sea_bg.png
+Assets/palrogue_assets_core/images/arenas/snowy_forest_a.png
+Assets/palrogue_assets_core/images/arenas/snowy_forest_b.png
+Assets/palrogue_assets_core/images/arenas/snowy_forest_b_1.png
+Assets/palrogue_assets_core/images/arenas/snowy_forest_b_2.png
+Assets/palrogue_assets_core/images/arenas/snowy_forest_b_3.png
+Assets/palrogue_assets_core/images/arenas/snowy_forest_bg.png
+Assets/palrogue_assets_core/images/arenas/space_a.png
+Assets/palrogue_assets_core/images/arenas/space_b.png
+Assets/palrogue_assets_core/images/arenas/space_bg.png
+Assets/palrogue_assets_core/images/arenas/volcano_a.png
+Assets/palrogue_assets_core/images/arenas/volcano_b.png
+Assets/palrogue_assets_core/images/arenas/volcano_b_1.png
+Assets/palrogue_assets_core/images/arenas/volcano_b_2.png
+Assets/palrogue_assets_core/images/arenas/volcano_b_3.png
+Assets/palrogue_assets_core/images/arenas/volcano_bg.png
+Assets/palrogue_assets_core/images/arenas/wasteland_a.png
+Assets/palrogue_assets_core/images/arenas/wasteland_b.png
+Assets/palrogue_assets_core/images/arenas/wasteland_b_1.png
+Assets/palrogue_assets_core/images/arenas/wasteland_b_2.png
+Assets/palrogue_assets_core/images/arenas/wasteland_b_3.png
+Assets/palrogue_assets_core/images/arenas/wasteland_bg.png
+Assets/palrogue_assets_core/images/items/aggronite.png
+Assets/palrogue_assets_core/images/items/amulet_coin.png
+Assets/palrogue_assets_core/images/items/berry_pouch.png
+Assets/palrogue_assets_core/images/items/big_nugget.png
+Assets/palrogue_assets_core/images/items/black_glasses.png
+Assets/palrogue_assets_core/images/items/blastoisinite.png
+Assets/palrogue_assets_core/images/items/calcium.png
+Assets/palrogue_assets_core/images/items/candy_jar.png
+Assets/palrogue_assets_core/images/items/carbos.png
+Assets/palrogue_assets_core/images/items/charcoal.png
+Assets/palrogue_assets_core/images/items/charizardite_x.png
+Assets/palrogue_assets_core/images/items/dark_gem.png
+Assets/palrogue_assets_core/images/items/dawn_stone.png
+Assets/palrogue_assets_core/images/items/dire_hit.png
+Assets/palrogue_assets_core/images/items/dragon_fang.png
+Assets/palrogue_assets_core/images/items/dragon_gem.png
+Assets/palrogue_assets_core/images/items/dusk_stone.png
+Assets/palrogue_assets_core/images/items/electric_gem.png
+Assets/palrogue_assets_core/images/items/elixir.png
+Assets/palrogue_assets_core/images/items/enigma_berry.png
+Assets/palrogue_assets_core/images/items/ether.png
+Assets/palrogue_assets_core/images/items/exp_charm.png
+Assets/palrogue_assets_core/images/items/exp_share.png
+Assets/palrogue_assets_core/images/items/fire_gem.png
+Assets/palrogue_assets_core/images/items/fire_tera_shard.png
+Assets/palrogue_assets_core/images/items/focus_band.png
+Assets/palrogue_assets_core/images/items/full_heal.png
+Assets/palrogue_assets_core/images/items/full_restore.png
+Assets/palrogue_assets_core/images/items/ganlon_berry.png
+Assets/palrogue_assets_core/images/items/garchompite.png
+Assets/palrogue_assets_core/images/items/gengarite.png
+Assets/palrogue_assets_core/images/items/golden_exp_charm.png
+Assets/palrogue_assets_core/images/items/grass_gem.png
+Assets/palrogue_assets_core/images/items/grass_tera_shard.png
+Assets/palrogue_assets_core/images/items/grip_claw.png
+Assets/palrogue_assets_core/images/items/ground_gem.png
+Assets/palrogue_assets_core/images/items/gyaradosite.png
+Assets/palrogue_assets_core/images/items/hp_up.png
+Assets/palrogue_assets_core/images/items/hyper_potion.png
+Assets/palrogue_assets_core/images/items/ice_gem.png
+Assets/palrogue_assets_core/images/items/iron.png
+Assets/palrogue_assets_core/images/items/leftovers.png
+Assets/palrogue_assets_core/images/items/leppa_berry.png
+Assets/palrogue_assets_core/images/items/liechi_berry.png
+Assets/palrogue_assets_core/images/items/lucky_egg.png
+Assets/palrogue_assets_core/images/items/lum_berry.png
+Assets/palrogue_assets_core/images/items/magnet.png
+Assets/palrogue_assets_core/images/items/manectite.png
+Assets/palrogue_assets_core/images/items/max_elixir.png
+Assets/palrogue_assets_core/images/items/max_ether.png
+Assets/palrogue_assets_core/images/items/max_potion.png
+Assets/palrogue_assets_core/images/items/max_revive.png
+Assets/palrogue_assets_core/images/items/medichamite.png
+Assets/palrogue_assets_core/images/items/metagrossite.png
+Assets/palrogue_assets_core/images/items/mewtwonite_x.png
+Assets/palrogue_assets_core/images/items/mini_black_hole.png
+Assets/palrogue_assets_core/images/items/mint_atk.png
+Assets/palrogue_assets_core/images/items/mint_spd.png
+Assets/palrogue_assets_core/images/items/mint_spdef.png
+Assets/palrogue_assets_core/images/items/miracle_seed.png
+Assets/palrogue_assets_core/images/items/multi_lens.png
+Assets/palrogue_assets_core/images/items/mystic_water.png
+Assets/palrogue_assets_core/images/items/never_melt_ice.png
+Assets/palrogue_assets_core/images/items/normal_gem.png
+Assets/palrogue_assets_core/images/items/nugget.png
+Assets/palrogue_assets_core/images/items/pb_gold.png
+Assets/palrogue_assets_core/images/items/potion.png
+Assets/palrogue_assets_core/images/items/pp_max.png
+Assets/palrogue_assets_core/images/items/pp_up.png
+Assets/palrogue_assets_core/images/items/protein.png
+Assets/palrogue_assets_core/images/items/rare_candy.png
+Assets/palrogue_assets_core/images/items/relic_gold.png
+Assets/palrogue_assets_core/images/items/revive.png
+Assets/palrogue_assets_core/images/items/reviver_seed.png
+Assets/palrogue_assets_core/images/items/rock_tera_shard.png
+Assets/palrogue_assets_core/images/items/sacred_ash.png
+Assets/palrogue_assets_core/images/items/salac_berry.png
+Assets/palrogue_assets_core/images/items/salamencite.png
+Assets/palrogue_assets_core/images/items/scope_lens.png
+Assets/palrogue_assets_core/images/items/scroll_of_darkness.png
+Assets/palrogue_assets_core/images/items/scroll_of_waters.png
+Assets/palrogue_assets_core/images/items/shell_bell.png
+Assets/palrogue_assets_core/images/items/shiny_stone.png
+Assets/palrogue_assets_core/images/items/silk_scarf.png
+Assets/palrogue_assets_core/images/items/sitrus_berry.png
+Assets/palrogue_assets_core/images/items/soft_sand.png
+Assets/palrogue_assets_core/images/items/sun_stone.png
+Assets/palrogue_assets_core/images/items/super_exp_charm.png
+Assets/palrogue_assets_core/images/items/super_potion.png
+Assets/palrogue_assets_core/images/items/tera_orb.png
+Assets/palrogue_assets_core/images/items/tm_dark.png
+Assets/palrogue_assets_core/images/items/tm_dragon.png
+Assets/palrogue_assets_core/images/items/tm_electric.png
+Assets/palrogue_assets_core/images/items/tm_fire.png
+Assets/palrogue_assets_core/images/items/tm_ghost.png
+Assets/palrogue_assets_core/images/items/tm_grass.png
+Assets/palrogue_assets_core/images/items/tm_ground.png
+Assets/palrogue_assets_core/images/items/tm_ice.png
+Assets/palrogue_assets_core/images/items/tm_normal.png
+Assets/palrogue_assets_core/images/items/tm_water.png
+Assets/palrogue_assets_core/images/items/venusaurite.png
+Assets/palrogue_assets_core/images/items/water_gem.png
+Assets/palrogue_assets_core/images/items/x_attack.png
+Assets/palrogue_assets_core/images/items/x_defense.png
+Assets/palrogue_assets_core/images/items/x_speed.png
+Assets/palrogue_assets_core/images/items/zinc.png

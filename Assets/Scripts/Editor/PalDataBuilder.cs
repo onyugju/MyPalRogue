@@ -216,7 +216,7 @@ namespace PalRogue.EditorTools
         // ───────── 2-1. 새 팰 한 번에 추가 ─────────
         // 그림을 넣은 새 팰을: PalData 만들기(2) → 학습 기술(5) → 변화 기술(26) → 애니메이션 연결(7-1) → 야생 목록에 넣기
         // 에디터가 켜지거나 스크립트가 바뀔 때도 새로 만들 팰이 있으면 자동으로 실행된다.
-        [MenuItem("PalRogue/01. 새 팰 한 번에 추가 (그림 넣은 팰)", false, 101)]
+        [MenuItem("PalRogue/11. 새 팰 한 번에 추가 (그림 넣은 팰)", false, 101)]
         static void AddNewPalsMenu() => AddNewPals(true);
 
         [InitializeOnLoadMethod]

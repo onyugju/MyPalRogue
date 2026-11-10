@@ -8,7 +8,7 @@ using UnityEngine;
 namespace PalRogue.EditorTools
 {
     /// <summary>
-    /// 메뉴 PalRogue/13. 아이템 자동 테스트
+    /// 메뉴 PalRogue/33. 아이템 자동 테스트
     /// 모든 아이템을 하나씩 실제로 써 보고(대상 팰·기술 고르기 포함), 그 파티로 전투를 몇 턴 돌려서
     /// 지니는 아이템·기간 효과가 오류 없이 동작하는지 확인한다. 아이템 그림이 있는지도 본다.
     /// 결과는 Console에 "[아이템 테스트]"로 나온다. 플레이 모드가 아닐 때 실행.
@@ -18,7 +18,7 @@ namespace PalRogue.EditorTools
         const int TestLevel = 25;
         const int BattleTurns = 25;
 
-        [MenuItem("PalRogue/13. 아이템 자동 테스트", false, 203)]
+        [MenuItem("PalRogue/33. 아이템 자동 테스트", false, 303)]
         static void RunAll()
         {
             var pals = AssetDatabase.FindAssets("t:PalData")
@@ -210,6 +210,8 @@ namespace PalRogue.EditorTools
             if (stolen == 0) throw new Exception("미니 블랙홀이 아이템을 빼앗지 못함");
             if (foe.Effects.Any(e => e.HeldItemId != null) && stolen >= 3) throw new Exception("빼앗은 아이템이 상대에게 남아 있음");
             if (me.Effects.Count(e => e.HeldItemId != null) != 2 + stolen) throw new Exception("빼앗은 아이템이 내 팰에게 오지 않음");
+            if (!msgs.Any(m => m.Contains("지니고 있다"))) throw new Exception("상대가 지닌 아이템을 알리지 않음");
+            battle.Detach();
             for (int tryN = 0; lens == 0 && tryN < 6; tryN++)                              // 확률이라 안 나왔으면 새 전투로 몇 번 더 본다
             {
                 var lmsgs = new List<string>();
@@ -227,8 +229,6 @@ namespace PalRogue.EditorTools
                 lens = lmsgs.Count(m => m.Contains("멀티렌즈"));
             }
             if (lens == 0) throw new Exception("멀티렌즈 추가 공격이 없음");
-            if (!msgs.Any(m => m.Contains("지니고 있다"))) throw new Exception("상대가 지닌 아이템을 알리지 않음");
-            battle.Detach();
 
             // 열매 주머니 3개(90%): 자뭉열매가 20번 중 대부분 남아야 한다
             int kept = 0;

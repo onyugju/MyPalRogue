@@ -110,7 +110,7 @@ namespace PalRogue
         };
         /// <summary>
         /// 지역마다 쓰는 포켓로그 배경(arenas 폴더의 이름). {이름}_bg = 배경, _a = 내 발판, _b = 상대 발판, _b_1~3 = 상대 발판 장식.
-        /// 그림은 Assets/Resources/Arenas 에 있다 (메뉴 17로 확인).
+        /// 그림은 Assets/Resources/Arenas 에 있다 (메뉴 37로 확인).
         /// </summary>
         public static readonly string[] AreaBiomes =
             { "plains", "volcano", "forest", "sea", "snowy_forest", "desert", "mountain", "wasteland", "abyss", "space" };

@@ -23,7 +23,7 @@ namespace PalRogue
     /// 보스 패턴(힘 모으기·분노·정화 등)은 PlayBossFx.
     /// 줄기(Beam)는 pixelfx 시트면 쓰는 팰에서 상대까지 한 장으로 늘려 뻗는다.
     /// 맞으면 상대가 깜빡이며 흔들리고, 급소·효과 굉장·위력 100 이상이면 화면도 흔들린다.
-    /// 기술별 연출은 아래 표(BySkill, 키 = 기술 에셋 이름)에, 표에 없으면 속성 기본 연출(ByType)을 쓴다.
+    /// 기술마다 전용 연출(SkillFx.Pw.속성.cs, SkillFx.Astralym.cs)이 있고, 없는 기술만 속성 기본 연출(ByType)을 쓴다.
     /// </summary>
     public partial class SkillFx : MonoBehaviour
     {
@@ -104,142 +104,48 @@ namespace PalRogue
         static readonly Color Purple = C(0xb07cff), DarkPurple = C(0x8a4dd6), Blue = C(0x6cc4ff), Green = C(0x9cff7a),
                               Yellow = C(0xfff27a), Brown = C(0xc9a070), Ice = C(0xbfeaff), VoidCol = C(0x9a6bff);
 
-        static Def Proj(string travel, string impact, Color? tint = null, int count = 1, float scale = 1.6f, bool arc = false,
-                        string impact2 = null, string cast = null, float impactScale = 2.2f, float time = 0.32f) =>
-            new Def { kind = Kind.Projectile, travel = travel, impact = impact, impact2 = impact2, cast = cast, tint = tint ?? Color.white,
-                      count = count, travelScale = scale, arc = arc, impactScale = impactScale, travelTime = time };
-        static Def Beam(string travel, string impact, Color? tint = null, float scale = 1.6f, string impact2 = null) =>
-            new Def { kind = Kind.Beam, travel = travel, impact = impact, impact2 = impact2, tint = tint ?? Color.white, travelScale = scale };
-        static Def Strike(string impact, string impact2 = null, Color? tint = null, float scale = 2.4f, string cast = null) =>
-            new Def { kind = Kind.Strike, impact = impact, impact2 = impact2, cast = cast, tint = tint ?? Color.white, impactScale = scale };
-        static Def Melee(string impact, string impact2 = null, Color? tint = null, float scale = 2.2f) =>
-            new Def { kind = Kind.Melee, impact = impact, impact2 = impact2, tint = tint ?? Color.white, impactScale = scale };
-        static Def Aura(string impact, string impact2 = null, Color? tint = null, float scale = 2.4f, string cast = null) =>
-            new Def { kind = Kind.Aura, impact = impact, impact2 = impact2, cast = cast, tint = tint ?? Color.white, impactScale = scale };
-        static Def Rain(string travel, string impact, Color? tint = null, int count = 3, float scale = 1.8f, float impactScale = 2.2f) =>
-            new Def { kind = Kind.Rain, travel = travel, impact = impact, tint = tint ?? Color.white, count = count, travelScale = scale, impactScale = impactScale };
-
         // 시트 이름 줄임
-        const string HitSpark = "Hit Sparks/Hit Spark", HeavyHit = "Hit Sparks/Heavy Hit", Punch = "Hit Sparks/Punch Impact",
-                     FireHit = "Hit Sparks/Fire Hit", IceHit = "Hit Sparks/Ice Hit", ShockHit = "Hit Sparks/Shock Hit",
-                     PoisonHit = "Hit Sparks/Poison Hit", SlashHit = "Hit Sparks/Slash Hit", Thud = "Hit Sparks/Blunt Thud",
-                     MultiHit = "Hit Sparks/Multi Hit", WeakHit = "Hit Sparks/Weak Hit", Pierce = "Hit Sparks/Pierce Spark",
+        const string Punch = "Hit Sparks/Punch Impact", Thud = "Hit Sparks/Blunt Thud", Pierce = "Hit Sparks/Pierce Spark",
                      CritStar = "Hit Sparks/Critical Star";
-        const string BigBoom = "Explosions/Big Boom", Blast = "Explosions/Blast", IceShatter = "Explosions/Ice Shatter",
-                     RockBurst = "Explosions/Rock Burst", Shockwave = "Explosions/Shockwave", SmallPop = "Explosions/Small Pop",
-                     FireBurst = "Explosions/Fireball Burst", SmokeBurst = "Explosions/Smoke Burst", PlasmaBlast = "Explosions/Plasma Blast",
+        const string Blast = "Explosions/Blast", Shockwave = "Explosions/Shockwave",
                      Nuke = "Explosions/Nuke Mini";
-        const string FireOrb = "Fire/Fire Orb", Flamethrower = "Fire/Flamethrower", Ignite = "Fire/Ignite", FireRing = "Fire/Fire Ring",
-                     BurningGround = "Fire/Burning Ground", PhoenixFlare = "Fire/Phoenix Flare";
-        const string BoltStrike = "Lightning/Bolt Strike", ThunderImpact = "Lightning/Thunder Impact", ElectricShock = "Lightning/Electric Shock",
-                     SparkBurst = "Lightning/Spark Burst", StormFlash = "Lightning/Storm Flash", ZapRing = "Lightning/Zap Ring",
-                     TeslaArc = "Lightning/Tesla Arc", Emp = "Lightning/EMP", Overload = "Lightning/Overload";
-        const string WaterSplash = "Magic/Water Splash", FrostNova = "Magic/Frost Nova", PoisonCloud = "Magic/Poison Cloud",
-                     DarkCurse = "Magic/Dark Curse", WindGust = "Magic/Wind Gust", HolyLight = "Magic/Holy Light", Portal = "Magic/Portal";
-        const string FireballShot = "Projectiles/Fireball Shot", IceShard = "Projectiles/Ice Shard Shot", EnergyBolt = "Projectiles/Energy Bolt",
-                     RockThrow = "Projectiles/Rock Throw", PoisonDart = "Projectiles/Poison Dart", MagicMissile = "Projectiles/Magic Missile",
-                     PlasmaShot = "Projectiles/Plasma Shot", HomingOrb = "Projectiles/Homing Orb", Laser = "Projectiles/Laser Beam",
+        const string Flamethrower = "Fire/Flamethrower", Ignite = "Fire/Ignite";
+        const string Overload = "Lightning/Overload";
+        const string FrostNova = "Magic/Frost Nova",
+                     DarkCurse = "Magic/Dark Curse", HolyLight = "Magic/Holy Light", Portal = "Magic/Portal";
+        const string Laser = "Projectiles/Laser Beam",
                      Cannonball = "Projectiles/Cannonball", Spear = "Projectiles/Spear Throw", Arrow = "Projectiles/Arrow Trail";
-        const string CrossSlash = "Slashes/Cross Slash", DarkSlash = "Slashes/Dark Slash", TripleClaw = "Slashes/Triple Claw",
-                     WideCleave = "Slashes/Wide Cleave", SlashDown = "Slashes/Slash Down", IceSlash = "Slashes/Ice Slash",
-                     FireSlash = "Slashes/Fire Slash", SpinSlash = "Slashes/Spin Slash", DoubleSlash = "Slashes/Double Slash", Thrust = "Slashes/Thrust";
-        const string SandBurst = "Smoke and Dust/Sand Burst", DustCloud = "Smoke and Dust/Dust Cloud", DirtKick = "Smoke and Dust/Dirt Kick",
-                     Steam = "Smoke and Dust/Steam", Leaves = "Ambient/Falling Leaves", Bubbles = "Ambient/Bubbles", StarBurst = "Pickups and UI/Star Burst";
+        const string Thrust = "Slashes/Thrust";
+        const string Steam = "Smoke and Dust/Steam", Leaves = "Ambient/Falling Leaves", Bubbles = "Ambient/Bubbles", StarBurst = "Pickups and UI/Star Burst";
         // 변화 기술·능력치 변화·보스 패턴
-        const string BuffUp = "Magic/Buff Up", DebuffDown = "Magic/Debuff Down", HealFx = "Magic/Heal", HealCross = "Pickups and UI/Heal Cross",
-                     ShieldBubble = "Magic/Shield Bubble", CastCircle = "Magic/Cast Circle", ChargeUp = "Lightning/Charge Up",
-                     StaticLoop = "Lightning/Static Loop", ShockAura = "Lightning/Shock Aura", FireShield = "Fire/Fire Shield",
-                     EmberRise = "Fire/Ember Rise", FogDrift = "Smoke and Dust/Fog Drift", SmokePuff = "Smoke and Dust/Smoke Puff",
+        const string BuffUp = "Magic/Buff Up", DebuffDown = "Magic/Debuff Down", HealFx = "Magic/Heal", ChargeUp = "Lightning/Charge Up", ShockAura = "Lightning/Shock Aura", FireShield = "Fire/Fire Shield",
                      Dissipate = "Smoke and Dust/Dissipate", RankUp = "Pickups and UI/Rank Up";
 
         const string PSpark = PxPrefix + "spark";
         const string PSpiritUp = PxPrefix + "spirit_up";
-        const string PBlunt = PxPrefix + "blunt";
         const string PCrit = PxPrefix + "crit";
-        const string PSlash = PxPrefix + "slash";
         const string PSlashG = PxPrefix + "slash_g";
-        const string PClaw = PxPrefix + "claw";
-        const string PClawY = PxPrefix + "claw_y";
-        const string PXslash = PxPrefix + "xslash";
-        const string PXslashG = PxPrefix + "xslash_g";
-        const string PSpin = PxPrefix + "spin";
-        const string PThrust = PxPrefix + "thrust";
-        const string PUppercut = PxPrefix + "uppercut";
-        const string PCleave = PxPrefix + "cleave";
-        const string PScythe = PxPrefix + "scythe";
-        const string PHammer = PxPrefix + "hammer";
-        const string PBoom = PxPrefix + "boom";
-        const string PBurst = PxPrefix + "burst";
         const string PBurstF = PxPrefix + "burst_f";
-        const string PBurstB = PxPrefix + "burst_b";
         const string PBurstD = PxPrefix + "burst_d";
         const string PMana = PxPrefix + "mana";
-        const string PManaW = PxPrefix + "mana_w";
         const string PImplosion = PxPrefix + "implosion";
         const string PDarkBoom = PxPrefix + "dark_boom";
         const string PDirt = PxPrefix + "dirt";
-        const string PSlam = PxPrefix + "slam";
-        const string PLanding = PxPrefix + "landing";
-        const string PSpike = PxPrefix + "spike";
-        const string PQuake = PxPrefix + "quake";
         const string PFireball = PxPrefix + "fireball";
-        const string PFireBreath = PxPrefix + "fire_breath";
-        const string PFireBreathP = PxPrefix + "fire_breath_p";
-        const string PFireRing = PxPrefix + "fire_ring";
-        const string PFlamePillar = PxPrefix + "flame_pillar";
         const string PFireTornado = PxPrefix + "fire_tornado";
         const string PShadowFlames = PxPrefix + "shadow_flames";
-        const string PMeteor = PxPrefix + "meteor";
-        const string PMeteorP = PxPrefix + "meteor_p";
         const string PWaterJet = PxPrefix + "water_jet";
-        const string PBeamB = PxPrefix + "beam_b";
         const string PSplash = PxPrefix + "splash";
-        const string PGeyser = PxPrefix + "geyser";
-        const string PWave = PxPrefix + "wave";
         const string PDiscG = PxPrefix + "disc_g";
-        const string PPlasmaG = PxPrefix + "plasma_g";
-        const string PLeafStorm = PxPrefix + "leaf_storm";
-        const string PVine = PxPrefix + "vine";
-        const string PTornado = PxPrefix + "tornado";
-        const string PTornadoP = PxPrefix + "tornado_p";
-        const string PThorns = PxPrefix + "thorns";
         const string PAcid = PxPrefix + "acid";
-        const string PBloom = PxPrefix + "bloom";
         const string PZap = PxPrefix + "zap";
         const string PBolt = PxPrefix + "bolt";
-        const string PThunderclap = PxPrefix + "thunderclap";
-        const string PChargeY = PxPrefix + "charge_y";
-        const string PChargeW = PxPrefix + "charge_w";
-        const string PLanceY = PxPrefix + "lance_y";
-        const string PBeamY = PxPrefix + "beam_y";
         const string PLance = PxPrefix + "lance";
-        const string PFrostBreath = PxPrefix + "frost_breath";
         const string PFrostNova = PxPrefix + "frost_nova";
-        const string PIceSpikes = PxPrefix + "ice_spikes";
-        const string PIcicle = PxPrefix + "icicle";
         const string PSnow = PxPrefix + "snow";
-        const string PBlizzard = PxPrefix + "blizzard";
-        const string PBeamP = PxPrefix + "beam_p";
-        const string PBeamW = PxPrefix + "beam_w";
-        const string PBeamD = PxPrefix + "beam_d";
         const string PPlasmaP = PxPrefix + "plasma_p";
         const string PPlasmaD = PxPrefix + "plasma_d";
-        const string PPlasmaV = PxPrefix + "plasma_v";
-        const string PPlasmaW = PxPrefix + "plasma_w";
-        const string PDiscW = PxPrefix + "disc_w";
-        const string PStarFall = PxPrefix + "star_fall";
-        const string PSpell = PxPrefix + "spell";
-        const string PHands = PxPrefix + "hands";
-        const string PTendrils = PxPrefix + "tendrils";
-        const string PHex = PxPrefix + "hex";
         const string PVoidOrb = PxPrefix + "void_orb";
-        const string PPillar = PxPrefix + "pillar";
-        const string PSmite = PxPrefix + "smite";
-        const string PFeather = PxPrefix + "feather";
-        const string PShield = PxPrefix + "shield";
-        const string PShieldB = PxPrefix + "shield_b";
-        const string PArrow = PxPrefix + "arrow";
-        const string PRocket = PxPrefix + "rocket";
 
         // pixelfx 연출 표 쓰기용. 맞는 그림은 시트 자체가 기술 전체를 담고 있어서 한두 장이면 된다.
         static Def XProj(string travel, string hit, string hit2 = null, string cast = null, int count = 1, float time = 0.34f,
@@ -252,123 +158,10 @@ namespace PalRogue
             new Def { kind = Kind.Strike, impact = hit, impact2 = hit2, cast = cast, count = count };
         static Def XMelee(string hit, string hit2 = null) =>
             new Def { kind = Kind.Melee, impact = hit, impact2 = hit2 };
-        static Def XAura(string fx, string fx2 = null) =>
-            new Def { kind = Kind.Aura, impact = fx, impact2 = fx2 };
 
-        static readonly Dictionary<string, Def> BySkill = new Dictionary<string, Def>
-        {
-            // ── 무 ──
-            ["Air_Cannon"]     = XProj(PDiscW, PSpark),
-            ["Power_Shot"]     = XProj(PPlasmaW, PManaW, cast: PChargeW),
-            ["Power_Bomb"]     = XProj(Cannonball, PBoom, arc: true, time: 0.45f, scale: 2f),
-            ["Pal_Blast"]      = XCone(PBeamW, PManaW, PBurst, PChargeW),
-            ["Holy_Burst"]     = XStrike(PPillar, PSmite, PChargeW),
-            ["Rolling_Fluff"]  = XMelee(PBlunt, PFeather),
-            ["Meow_Punch"]     = XMelee(PUppercut, PSpark),
-            ["Quick_Strike"]   = XMelee(PThrust, PSpark),
-            ["Lancer_Charge"]  = XMelee(PThrust, PCrit),
-            ["Struggle"]       = XMelee(PBlunt),
-            // ── 불 ──
-            ["Fire_Shot"]      = XProj(PFireball, PBurstF),
-            ["Spirit_Fire"]    = XProj(PFireball, PBurstF, count: 3),
-            ["Fire_Breath"]    = XCone(PFireBreath, PBurstF),
-            ["Flame_Panel"]    = XStrike(PFireRing, PFlamePillar),
-            ["Fireball"]       = XStrike(PMeteor, PFireRing),
-            ["Burning_Horn"]   = XMelee(PThrust, PBurstF),
-            ["Blazing_Missile"]= XProj(PRocket, PBoom, count: 3, arc: true, time: 0.42f),
-            ["Flame_Waltz"]    = XStrike(PFireTornado, PShadowFlames),
-            // ── 물 ──
-            ["Water_Jet"]      = XCone(PWaterJet, PSplash),
-            ["Bubble_Shot"]    = XProj(Bubbles, PSplash, count: 3, scale: 1.2f),
-            ["Line_Splash"]    = XStrike(PWave, PSplash),
-            ["Hydro_Stream"]   = XCone(PBeamB, PSplash, PBurstB),
-            ["Water_Geyser"]   = XStrike(PGeyser, PSplash),
-            ["Tarasonic_Laser"]= XCone(PBeamB, PBurstB, PGeyser, PSpell),
-            // ── 풀 ──
-            ["Wind_Blade"]     = XProj(PDiscG, PSlashG),
-            ["Seed_Machine_Gun"] = XProj(PPlasmaG, PSpark, count: 5, time: 0.22f),
-            ["Multi_Cutter"]   = XStrike(PXslashG, PSlashG),
-            ["Reflect_Leaf"]   = XStrike(PLeafStorm, PSlashG),
-            ["Wind_Blast"]     = XStrike(PTornado, PLeafStorm),
-            // ── 번개 ──
-            ["Lightning_Spear"]= XProj(PLanceY, PZap),
-            ["Electric_Wave"]  = XStrike(PThunderclap, PZap),
-            ["Line_Thunder"]   = XCone(PBeamY, PZap),
-            ["Thunder_Strike"] = XStrike(PBolt, PThunderclap),
-            ["Thunderstorm"]   = XStrike(PBolt, PThunderclap, PChargeY, 3),
-            ["Electric_Claw"]  = XMelee(PClawY, PZap),
-            ["Thunder_Tank"]   = XMelee(PCrit, PThunderclap),
-            // ── 땅 ──
-            ["Mud_Shot"]       = XProj(RockThrow, PDirt, tint: Brown),
-            ["Rock_Burst"]     = XStrike(PDirt, PSpike),
-            ["Rock_Cannon"]    = XProj(RockThrow, PSlam, arc: true, time: 0.42f, scale: 2.2f),
-            ["Rock_Spear"]     = XStrike(PSpike),
-            ["Stone_Beat"]     = XStrike(PQuake, PSpike, count: 3),
-            ["Fighting_Slash"] = XMelee(PSlash, PSpark),
-            ["Spin_Leg_Slash"] = XMelee(PSpin, PSpark),
-            ["Force_Drive"]    = XMelee(PHammer, PCrit),
-            ["Ground_Smasher"] = XMelee(PSlam, PQuake),
-            ["Somersault_Scratch"] = XMelee(PClaw, PSpark),
-            ["Rolling_Scratch"]    = XMelee(PSpin, PClaw),
-            // ── 얼음 ──
-            ["Ice_Missile"]    = XProj(PLance, PSnow, count: 3),
-            ["Ice_Blade"]      = XStrike(PSlash, PSnow),
-            ["Frost_Breath"]   = XCone(PFrostBreath, PSnow),
-            ["Icicle_Line"]    = XProj(PLance, PIceSpikes, count: 4, time: 0.24f),
-            ["Diamond_Fall"]   = XStrike(PIcicle, PSnow, count: 3),
-            ["Crystal_Wing"]   = XStrike(PFrostNova, PSnow),
-            // ── 용 ──
-            ["Dragon_Cannon"]  = XProj(PPlasmaP, PMana),
-            ["Dragon_Wave"]    = XStrike(PBurstD, PMana),
-            ["Dragon_Breath"]  = XCone(PFireBreathP, PMana),
-            ["Beam_Slicer"]    = XCone(PBeamP, PXslash),
-            ["Dragon_Meteor"]  = XStrike(PMeteorP, PMana, count: 2),
-            ["Mystic_Hurricane"] = XStrike(PTornadoP, PMana),
-            ["Rocket_Tackle"]  = XMelee(PCrit, PLanding),
-            ["Meteor_Beam"]    = XCone(PBeamP, PBoom, PStarFall, PSpell),
-            // ── 어둠 ──
-            ["Dark_Shot"]      = XProj(PPlasmaD, PBurstD),
-            ["Shadow_Burst"]   = XStrike(PDarkBoom),
-            ["Dark_Arrow"]     = XProj(Arrow, PBurstD, tint: DarkPurple),
-            ["Dark_Laser"]     = XCone(PBeamD, PBurstD),
-            ["Dark_Wisp"]      = XProj(PPlasmaD, PBurstD, count: 3),
-            ["Nightmare_Ray"]  = XCone(PBeamD, PTendrils, PBurstD, PHex),
-            // ── 공허 (제로버스) ──
-            // 제로버스(공허 기술 넷 + 2페이즈 기술 넷)는 SkillFx.Astralym.cs에 따로 그린 전용 연출
-
-            // ── 새 팰 20종 전용 기술 ──
-            ["Gloomy_Sting"]   = XProj(PoisonDart, PAcid, tint: DarkPurple),         // 뚱코알라: 독침 → 독 웅덩이
-            ["Penguin_Rocket"] = XMelee(PCrit, PSplash),                             // 펭키: 몸통 로켓
-            ["Vine_Barrage"]   = XStrike(PVine, PThorns),                            // 몽지: 덩굴 연타
-            ["Ember_Dash"]     = XMelee(PBlunt, PBurstF),                            // 불꽃밤비: 불꽃 돌진
-            ["Boar_Rush"]      = XMelee(PBlunt, PLanding),                           // 돌진돼지: 흙먼지 박치기
-            ["Fang_Raid"]      = XMelee(PXslash, PCrit),                             // 다크울프: 송곳니
-            ["Static_Scratch"] = XMelee(PClawY, PZap),                               // 번개냥: 전기 발톱
-            ["Surf_Slash"]     = XMelee(PSlash, PWave),                              // 씨무기: 파도 베기
-            ["Hawkeye_Arrow"]  = XProj(PArrow, PSpark, PCrit, count: 3, time: 0.22f),// 로빈몽: 화살 3연발
-            ["Hell_Dive"]      = XStrike(PScythe, PDarkBoom),                        // 헬가루다: 급강하
-            ["Petal_Storm"]    = XStrike(PLeafStorm, PThorns),                       // 플로라디노: 꽃잎 폭풍
-            ["Blaze_Gallop"]   = XMelee(PCrit, PFireRing),                           // 파이린: 불꽃 질주
-            ["Frost_Tail"]     = XMelee(PSlash, PSnow),                              // 빙호: 얼음 꼬리
-            ["Jumping_Claw"]   = XStrike(PClawY, PThunderclap),                      // 썬도그: 번개 발톱 내려찍기
-            ["Panda_Lariat"]   = XMelee(PCleave, PSpark),                            // 풀바오: 라리아트
-            ["Inferno_Claw"]   = XMelee(PClaw, PFlamePillar),                        // 만티파이어: 지옥불 발톱
-            ["Phantom_Scythe"] = XStrike(PScythe, PHands),                           // 고스호스: 망령의 낫
-            ["Tidal_Wave"]     = XStrike(PWave, PGeyser),                            // 레비드라: 대해일
-            ["Dragon_Dive"]    = XMelee(PCrit, PMana),                               // 페스키: 용의 급강하
-            ["Iceberg_Drop"]   = XStrike(PIcicle, PFrostNova),                       // 움포: 빙산 낙하
-
-            // ── 변화 기술 (버프·디버프·회복) ──
-            ["Focus_Up"]       = XAura(PChargeW),
-            ["Burning_Spirit"] = XAura(PSpiritUp, EmberRise),         // 투지 연소: 불꽃 기둥과 고리가 솟는 강화 연출
-            ["Aqua_Veil"]      = XAura(PShieldB, PSplash),
-            ["Photosynthesis"] = XAura(PBloom),
-            ["Charge_Up"]      = XAura(PChargeY),
-            ["Rock_Armor"]     = XAura(PShield, PLanding),
-            ["Frost_Mist"]     = XAura(PBlizzard),
-            ["Dragon_Dance"]   = XAura(PSpell, PTornadoP),
-            ["Fear_Gaze"]      = XAura(PHex),
-        };
+        // 기술별 연출 표: 지금은 모든 기술이 전용 연출(SkillFx.Pw.*, SkillFx.Astralym)을 써서 비어 있다.
+        // 전용 연출이 없는 새 기술은 속성 기본 연출(ByType)을 쓴다.
+        static readonly Dictionary<string, Def> BySkill = new Dictionary<string, Def>();
 
         /// <summary>표에 없는 기술 (새로 추가한 기술 등)은 속성별 기본 연출</summary>
         static Def ByType(PalType t) => t switch
@@ -394,7 +187,6 @@ namespace PalRogue
             StatusCondition.Freeze => (PFrostNova, Color.white),
             _ => (null, Color.white),
         };
-
 
         /// <summary>표에 있는 시트 이름 전부 (테스트에서 그림이 있는지 확인)</summary>
         public static IEnumerable<string> AllSheets()

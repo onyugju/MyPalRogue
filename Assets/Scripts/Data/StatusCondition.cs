@@ -31,7 +31,7 @@ namespace PalRogue
             _ => null,
         };
 
-        /// <summary>속성별 공격 스킬의 기본 추가 효과 (메뉴 13에서 사용)</summary>
+        /// <summary>속성별 공격 스킬의 기본 추가 효과 (메뉴 33에서 사용)</summary>
         public static StatusCondition DefaultForSkillType(PalType t) => t switch
         {
             PalType.Fire => StatusCondition.Burn,

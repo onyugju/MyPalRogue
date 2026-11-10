@@ -7,7 +7,7 @@ namespace PalRogue
     /// <summary>
     /// 파티 화면의 칸 하나 (팰 아이콘·이름·레벨·HP바·상태 뱃지).
     /// 칸 배경은 포켓로그 party_slot(_main) 시트에서 상태에 맞는 그림을 잘라 보여준다.
-    /// 참조 칸들은 메뉴 PalRogue/14 가 자동으로 연결한다.
+    /// 참조 칸들은 메뉴 PalRogue/34 가 자동으로 연결한다.
     /// </summary>
     public class PartySlotView : MonoBehaviour
     {

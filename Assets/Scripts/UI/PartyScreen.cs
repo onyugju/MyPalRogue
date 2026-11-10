@@ -13,7 +13,7 @@ namespace PalRogue
     /// 사용법:  yield return partyScreen.Choose(파티, 취소가능?, "안내 문구", 검사함수);
     ///          int i = partyScreen.Result;   // -1이면 취소
     /// 검사함수는 고를 수 없는 칸이면 이유 문장을, 괜찮으면 null을 돌려준다.
-    /// 입력: 마우스 클릭, 방향키 + Enter/Space, Esc(취소). 참조 칸들은 메뉴 PalRogue/14 가 연결한다.
+    /// 입력: 마우스 클릭, 방향키 + Enter/Space, Esc(취소). 참조 칸들은 메뉴 PalRogue/34 가 연결한다.
     /// </summary>
     public class PartyScreen : MonoBehaviour
     {
@@ -28,7 +28,7 @@ namespace PalRogue
         public Button[] optionButtons;     // OptionLabels와 같은 순서
         public Image optionCursor;
 
-        /// <summary>메뉴 창 항목 (순서 = 번호). 메뉴 14가 이 글자로 창을 만든다</summary>
+        /// <summary>메뉴 창 항목 (순서 = 번호). 메뉴 34가 이 글자로 창을 만든다</summary>
         public static readonly string[] OptionLabels = { "교체한다", "능력치를 본다", "그만둔다" };
         public const int OptionSwitch = 0, OptionSummary = 1;
         int OptionCancel => optionButtons != null && optionButtons.Length > 0 ? optionButtons.Length - 1 : 2;   // 마지막 줄 = 그만둔다

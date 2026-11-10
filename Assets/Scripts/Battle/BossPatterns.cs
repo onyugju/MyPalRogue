@@ -462,7 +462,7 @@ namespace PalRogue
             "와라. 이번에야말로 이 순환을 끊을 수 있는지 보자.",
         };
 
-        /// <summary>테스트 메뉴(37): 다음에 나오는 제로버스를 마지막 실드까지 깎아 둔다 (한 번 쓰면 꺼짐)</summary>
+        /// <summary>테스트 메뉴(61): 다음에 나오는 제로버스를 마지막 실드까지 깎아 둔다 (한 번 쓰면 꺼짐)</summary>
         public static bool DebugNearShift;
 
         public static bool ShouldShift(Pal p) =>

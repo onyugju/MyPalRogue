@@ -97,7 +97,7 @@ namespace PalRogue
     }
 
     /// <summary>
-    /// 배경음악 · 효과음 (포켓로그 audio 에셋, Resources/Audio 에 복사해서 쓴다 - 메뉴 PalRogue/36).
+    /// 배경음악 · 효과음 (포켓로그 audio 에셋, Resources/Audio 에 복사해서 쓴다 - 메뉴 PalRogue/57).
     ///  GameAudio.Bgm("plains")   배경음악 (같은 곡이면 그대로, 다른 곡이면 부드럽게 바꿈, 반복 재생)
     ///  GameAudio.Se("hit")       효과음 한 번 (se 폴더 → ui 폴더 → bgm 폴더 순서로 찾는다)
     /// 씬이 바뀌어도 이어지도록 처음 쓸 때 한 번 만들어 둔다.

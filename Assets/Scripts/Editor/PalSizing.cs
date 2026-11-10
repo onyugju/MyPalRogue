@@ -9,7 +9,7 @@ using UnityEngine;
 namespace PalRogue.EditorTools
 {
     /// <summary>
-    /// 팰 크기 자동 맞춤 (메뉴 PalRogue/03)
+    /// 팰 크기 자동 맞춤 (메뉴 PalRogue/13)
     ///
     /// 예전 방식은 그림의 "긴 쪽"을 같은 길이에 맞춰서, 씨무기·레비드라처럼 가로로 긴 팰은 가늘고 작게,
     /// 덩치 큰 팰과 작은 팰이 모두 같은 크기로 보였다. 이제는:
@@ -175,7 +175,7 @@ namespace PalRogue.EditorTools
             return trimmed;
         }
 
-        [MenuItem("PalRogue/03. 팰 크기 자동 맞춤 (전체)", false, 103)]
+        [MenuItem("PalRogue/13. 팰 크기 자동 맞춤 (전체)", false, 103)]
         public static void ApplyAll()
         {
             var lines = new List<string>();

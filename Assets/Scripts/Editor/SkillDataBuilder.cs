@@ -115,7 +115,7 @@ namespace PalRogue.EditorTools
             }
             AssetDatabase.SaveAssets();
             Debug.Log($"[전용 기술] 기술 {effects}개에 설명·추가 효과, 학습 목록에 {added}개 추가" +
-                      (names.Count > 0 ? $" ({string.Join(", ", names)})" : "") + ". (메뉴 12로 연출 확인)");
+                      (names.Count > 0 ? $" ({string.Join(", ", names)})" : "") + ". (메뉴 32로 연출 확인)");
         }
 
         // ───────── 6. 초기화 ─────────
@@ -236,7 +236,7 @@ namespace PalRogue.EditorTools
                 foreach (var kv in learn.OrderBy(k => k.Value).ThenBy(k => k.Key))
                 {
                     var sk = Get(kv.Key);
-                    if (sk == null) { Debug.LogWarning($"[PalRogue] 스킬 없음: {kv.Key} (메뉴 01을 먼저 실행하세요)"); continue; }
+                    if (sk == null) { Debug.LogWarning($"[PalRogue] 스킬 없음: {kv.Key} (메뉴 11을 먼저 실행하세요)"); continue; }
                     list.Add(new LearnsetEntry { level = kv.Value, skill = sk });
                 }
                 pal.learnset = list;
@@ -261,7 +261,7 @@ namespace PalRogue.EditorTools
         /// 모든 팰의 학습 목록을 새 규칙으로 다시 만든다 (변화 기술 SupportSkillBuilder 포함). 여러 번 실행해도 같은 결과.
         /// 저장된 모험에 지운 기술이 있으면 불러올 때 자동으로 다시 배운다.
         /// </summary>
-        [MenuItem("PalRogue/43. 팰월드 기술로 전면 교체", false, 230)]
+        [MenuItem("PalRogue/21. 팰월드 기술로 전면 교체", false, 201)]
         public static void RebuildPalworld()
         {
             EnsureFolder("Assets/Data");

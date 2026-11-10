@@ -20,7 +20,7 @@ namespace PalRogue.EditorTools
     {
         const int Runs = 40, DeepRuns = 15, MaxWaves = 200, MaxTurns = 300;
 
-        [MenuItem("PalRogue/11. 자동 플레이 점검 (모험 40번, 버그 찾기)", false, 201)]
+        [MenuItem("PalRogue/31. 자동 플레이 점검 (모험 40번, 버그 찾기)", false, 301)]
         static void RunAll()
         {
             var pals = AssetDatabase.FindAssets("t:PalData").Select(g => AssetDatabase.LoadAssetAtPath<PalData>(AssetDatabase.GUIDToAssetPath(g)))

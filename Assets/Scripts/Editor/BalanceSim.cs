@@ -31,7 +31,7 @@ namespace PalRogue.EditorTools
             }
         }
 
-        [MenuItem("PalRogue/21. 밸런스 비교 (지금 설정 vs 다른 설정)", false, 301)]
+        [MenuItem("PalRogue/41. 밸런스 비교 (지금 설정 vs 다른 설정)", false, 401)]
         static void Compare()
         {
             var pals = AssetDatabase.FindAssets("t:PalData").Select(g => AssetDatabase.LoadAssetAtPath<PalData>(AssetDatabase.GUIDToAssetPath(g)))
