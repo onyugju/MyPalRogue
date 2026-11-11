@@ -403,7 +403,7 @@ namespace PalRogue.EditorTools
         }
 
         /// <summary>메뉴 16이 고칠 애니메이션 이름 (null이면 전부)</summary>
-        public static string[] PingPongFilter = { "Jetragon" };
+        public static string[] PingPongFilter = { "Frostallion" };
 
         /// <summary>스프라이트 그림을 SeamGrid×SeamGrid 칸으로 줄인 RGBA 값 (파일에서 직접 읽는다)</summary>
         static float[] Thumb(Sprite sp)
