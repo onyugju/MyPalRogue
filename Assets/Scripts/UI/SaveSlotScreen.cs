@@ -12,7 +12,8 @@ namespace PalRogue
     /// 슬롯마다: 모험 번호, 지역 - 웨이브, 저장한 날짜·시각, 플레이 시간, 파티 팰 아이콘과 레벨.
     ///  - 저장 모드(새 게임): 고른 슬롯에 새 모험을 저장한다. 이미 모험이 있으면 지울지 묻는다
     ///  - 불러오기 모드: 모험이 있는 슬롯만 고를 수 있다
-    /// 조작: ↑↓ 이동, Enter 선택, Esc 뒤로. 결과: Result (슬롯 번호, 뒤로 가면 -1)
+    ///  - 어느 모드에서든 Delete(또는 D) 키나 오른쪽 위 "지우기"로 고른 슬롯의 모험을 지울 수 있다 (한 번 더 묻는다)
+    /// 조작: ↑↓ 이동, Enter 선택, Delete 지우기, Esc 뒤로. 결과: Result (슬롯 번호, 뒤로 가면 -1)
     /// </summary>
     public class SaveSlotScreen : MonoBehaviour
     {
@@ -64,7 +65,10 @@ namespace PalRogue
         void Build()
         {
             root = UiKit.Canvas(gameObject, SortingOrder, Teal);
-            header = UiKit.Label(root, font, "Header", 10, 2, 300, 14, 10, TextAlignmentOptions.MidlineLeft, UiKit.White);
+            header = UiKit.Label(root, font, "Header", 10, 2, 250, 14, 10, TextAlignmentOptions.MidlineLeft, UiKit.White);
+            var del = UiKit.Label(root, font, "Delete", 262, 2, 52, 14, 10, TextAlignmentOptions.MidlineRight, UiKit.Gold);
+            del.text = "지우기";
+            UiKit.Clickable(del.gameObject, null, () => { if (CanInput) StartCoroutine(DeleteSelected()); });
 
             for (int i = 0; i < Visible; i++)
             {
@@ -141,7 +145,7 @@ namespace PalRogue
             this.forSave = forSave;
             palLookup = pals.Where(p => p != null).GroupBy(p => p.name).ToDictionary(g => g.Key, g => g.First());
             for (int i = 0; i < saves.Length; i++) saves[i] = SaveSlots.Load(i);
-            headerDefault = forSave ? "새 모험을 저장할 슬롯을 고르세요.   Esc: 뒤로" : "불러올 모험을 고르세요.   Esc: 뒤로";
+            headerDefault = forSave ? "새 모험을 저장할 슬롯을 고르세요.  Del: 지우기  Esc: 뒤로" : "불러올 모험을 고르세요.  Del: 지우기  Esc: 뒤로";
             header.text = headerDefault;
             header.color = UiKit.White;
             headerUntil = 0;
@@ -176,6 +180,7 @@ namespace PalRogue
             int v = MenuKeys.Vertical;
             if (v != 0) { cursor = (cursor + v + saves.Length) % saves.Length; GameAudio.Se("select"); Refresh(); }
             if (MenuKeys.Confirm) StartCoroutine(Pick());
+            else if (MenuKeys.Delete) StartCoroutine(DeleteSelected());
             else if (MenuKeys.Cancel) { Result = -1; done = true; }
         }
 
@@ -198,6 +203,24 @@ namespace PalRogue
             }
             Result = cursor;
             done = true;
+        }
+
+        /// <summary>고른 슬롯의 모험을 지운다 (예/아니오로 한 번 더 묻는다)</summary>
+        IEnumerator DeleteSelected()
+        {
+            if (done) yield break;
+            var save = saves[cursor];
+            if (save == null) { Flash("이 슬롯은 이미 비어 있어요."); yield break; }
+            GameAudio.Se("select");
+            yield return Ask($"슬롯 {cursor + 1}의 모험(웨이브 {save.wave})을 지울까요?\n지우면 되돌릴 수 없어요.");
+            if (dialogAnswer != 0) yield break;
+            SaveSlots.Delete(cursor);
+            saves[cursor] = null;
+            Refresh();
+            GameAudio.Se("select");
+            header.text = $"슬롯 {cursor + 1}을 지웠어요.";
+            header.color = UiKit.Gold;
+            headerUntil = Time.unscaledTime + 2f;
         }
 
         void Flash(string text)

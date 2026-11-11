@@ -40,6 +40,8 @@ namespace PalRogue.EditorTools
 
         // 프로젝트 폴더에 CleanupRequest.txt ("report" 또는 "clean")를 넣으면 메뉴를 누르지 않아도 한 번 실행한다 (원격 작업용)
         const string RequestFile = "CleanupRequest.txt";
+        /// <summary>지금 CleanupRequest.txt 요청으로 메뉴를 실행하는 중인지 (확인 창 건너뛰기용)</summary>
+        public static bool FromRequest;
         static double nextCheck;
 
         [InitializeOnLoadMethod]
@@ -59,7 +61,13 @@ namespace PalRogue.EditorTools
             File.Delete(RequestFile);
             // "menu:" 다음 줄들 = 실행할 메뉴 경로, "trash:" 다음 줄들 = 휴지통으로 보낼 에셋 경로
             var lines = raw.Split('\n').Select(l => l.Trim()).Where(l => l.Length > 0).Skip(1).ToArray();
-            if (what.StartsWith("menu:")) { foreach (var m in lines) if (!EditorApplication.ExecuteMenuItem(m)) Debug.LogWarning($"[요청] 메뉴 없음: {m}"); return; }
+            if (what.StartsWith("menu:"))
+            {
+                FromRequest = true;     // 요청으로 실행하는 메뉴는 확인 창을 띄우지 않는다 (아무도 누를 사람이 없으니)
+                try { foreach (var m in lines) if (!EditorApplication.ExecuteMenuItem(m)) Debug.LogWarning($"[요청] 메뉴 없음: {m}"); }
+                finally { FromRequest = false; }
+                return;
+            }
             if (what.StartsWith("move:"))   // 줄마다 "원래경로|새경로" (메타·참조 유지한 채 이름 바꾸기)
             {
                 foreach (var l in lines)

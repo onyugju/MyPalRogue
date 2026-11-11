@@ -156,7 +156,11 @@ namespace PalRogue
                     if (File.Exists(p)) File.Delete(p);
             }
             catch (Exception e) { Debug.LogWarning($"[저장] 슬롯 {slot + 1}을 지우지 못했습니다: {e.Message}"); }
+            if (PlayerSave.LastSlot == slot) PlayerSave.LastSlot = -1;   // 지운 슬롯이면 타이틀의 "계속하기"도 없앤다
         }
+
+        /// <summary>모든 저장 슬롯을 지운다</summary>
+        public static void DeleteAll() { for (int i = 0; i < Count; i++) Delete(i); }
 
         // ───── 런 → 저장 데이터 ─────
         public static RunSave Capture(Run run, double playSeconds, int runNumber)

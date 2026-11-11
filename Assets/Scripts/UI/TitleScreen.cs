@@ -29,9 +29,9 @@ namespace PalRogue
         const float MenuX = 244f, MenuW = 72f;
         float RowH = 17f;          // 메뉴가 많으면 줄 간격을 좁혀서 로고를 가리지 않게
 
-        enum Item { Continue, NewGame, Load, Records, Settings }
+        enum Item { Continue, NewGame, Load, Records, Settings, Quit }
         readonly System.Collections.Generic.List<Item> items = new System.Collections.Generic.List<Item>();
-        static string Label(Item i) => i switch { Item.Continue => "계속하기", Item.NewGame => "새 게임", Item.Load => "불러오기", Item.Records => "기록", _ => "설정" };
+        static string Label(Item i) => i switch { Item.Continue => "계속하기", Item.NewGame => "새 게임", Item.Load => "불러오기", Item.Records => "기록", Item.Quit => "게임 종료", _ => "설정" };
         SettingsPanel settings;
         RecordsScreen records;
 
@@ -105,7 +105,8 @@ namespace PalRogue
             items.Add(Item.Load);
             items.Add(Item.Records);
             items.Add(Item.Settings);
-            RowH = items.Count > 4 ? 14f : 17f;
+            items.Add(Item.Quit);
+            RowH = items.Count > 5 ? 13f : items.Count > 4 ? 14f : 17f;   // 6줄이면 더 좁게 (로고를 가리지 않게)
             float menuH = 10 + RowH * items.Count;
             menu = UiKit.Frame(root, "Menu", MenuX, 176 - menuH, MenuW, menuH, UiKit.FrameRed, UiKit.FrameFill, out var menuInner);
             itemTexts = new TMP_Text[items.Count];
@@ -218,6 +219,7 @@ namespace PalRogue
                         .Select(g => UnityEditor.AssetDatabase.LoadAssetAtPath<PalData>(UnityEditor.AssetDatabase.GUIDToAssetPath(g)))
                         .Where(p => p != null).ToList();
 #endif
+                if (allPals.Count == 0) allPals = PalRegistry.All;           // 빌드에서는 빌드할 때 저장한 팰 목록
                 if (records == null) records = RecordsScreen.Create(font, allPals);
                 StartCoroutine(records.Open());
                 return;
@@ -226,6 +228,12 @@ namespace PalRogue
             {
                 if (settings == null) settings = SettingsPanel.Create(font, 150);
                 StartCoroutine(settings.Open());
+                return;
+            }
+            if (item == Item.Quit)
+            {
+                leaving = true;
+                StartCoroutine(QuitGame());
                 return;
             }
             if (item == Item.Continue)
@@ -260,6 +268,18 @@ namespace PalRogue
             leaving = true;
             GameSession.OpenForLoad = item == Item.Load;
             GameSession.Go(GameSession.StarterScene, font);
+        }
+
+        /// <summary>게임 종료: 음악을 줄이고 잠깐 뒤에 끈다 (에디터에서는 플레이만 멈춘다)</summary>
+        IEnumerator QuitGame()
+        {
+            GameAudio.StopBgm(0.3f);
+            yield return new WaitForSecondsRealtime(0.35f);
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+            Application.Quit();
+#endif
         }
 
         static float Smooth(float x) { x = Mathf.Clamp01(x); return x * x * (3f - 2f * x); }

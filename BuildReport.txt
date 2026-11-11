@@ -1,0 +1,7 @@
+결과: Succeeded
+시각: 2026-11-11 10:03:57  걸린 시간: 27초
+위치: C:\Users\lyj04\Desktop\수업\유니티\PalRogue_Build\PalRogue.exe
+크기: 1851.8 MB   오류 0개, 경고 0개
+씬: Assets/Scenes/TitleScene.unity, Assets/Scenes/StarterScene.unity, Assets/Scenes/GameScene.unity
+빌드 폴더 전체: 1851.8 MB
+

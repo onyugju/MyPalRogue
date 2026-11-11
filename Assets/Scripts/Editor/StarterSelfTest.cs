@@ -67,6 +67,15 @@ namespace PalRogue.EditorTools
             PlayerSave.ResetAll();
             Debug.Log("[스타팅 팰] 해금 기록을 초기화했습니다.");
         }
+
+        [MenuItem("PalRogue/73. 저장된 모험(슬롯) 모두 지우기", false, 703)]
+        static void DeleteAllSlots()
+        {
+            if (!ProjectCleanup.FromRequest &&
+                !EditorUtility.DisplayDialog("저장된 모험 지우기", $"저장 슬롯 {SaveSlots.Count}개의 모험을 모두 지울까요?\n(타이틀의 계속하기·불러오기도 비워집니다. 해금·기록은 그대로)", "지우기", "취소")) return;
+            SaveSlots.DeleteAll();
+            Debug.Log($"[저장] 저장 슬롯을 모두 지웠습니다. ({Application.persistentDataPath})");
+        }
     }
 }
 #endif

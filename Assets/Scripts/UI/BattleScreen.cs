@@ -117,6 +117,8 @@ namespace PalRogue
             AchievementToast.Font = messageText != null ? messageText.font : null;
 #if UNITY_EDITOR
             FillWildPals();                          // 에디터에서는 새로 추가한 팰까지 항상 야생 목록에 넣는다
+#else
+            { var reg = PalRegistry.All; if (reg.Count > 0) wildPals = reg; }   // 빌드에서는 빌드할 때 저장한 팰 목록
 #endif
             bool hasPlayer = playerPal != null || playerParty.Any(m => m != null && m.pal != null);
             if ((!hasPlayer && !useStarterSelect) || WildPool().Count == 0)

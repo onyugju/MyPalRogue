@@ -27,6 +27,8 @@ namespace PalRogue
             allPals = UnityEditor.AssetDatabase.FindAssets("t:PalData")
                 .Select(g => UnityEditor.AssetDatabase.LoadAssetAtPath<PalData>(UnityEditor.AssetDatabase.GUIDToAssetPath(g)))
                 .Where(p => p != null).OrderBy(p => p.name).ToList();
+#else
+            { var reg = PalRegistry.All; if (reg.Count > 0) allPals = reg; }   // 빌드에서는 빌드할 때 저장한 팰 목록
 #endif
             GameAudio.Bgm("menu");
             var starter = StarterSelectScreen.Create(font);

@@ -180,6 +180,8 @@ namespace PalRogue
         public static int Vertical => Kb == null ? 0 : (Kb.downArrowKey.wasPressedThisFrame ? 1 : 0) - (Kb.upArrowKey.wasPressedThisFrame ? 1 : 0);
         public static int Horizontal => Kb == null ? 0 : (Kb.rightArrowKey.wasPressedThisFrame ? 1 : 0) - (Kb.leftArrowKey.wasPressedThisFrame ? 1 : 0);
         public static bool AnyClick => UnityEngine.InputSystem.Mouse.current != null && UnityEngine.InputSystem.Mouse.current.leftButton.wasPressedThisFrame;
+        /// <summary>지우기 (Delete 또는 D) — 저장 슬롯 지우기 등</summary>
+        public static bool Delete => Kb != null && (Kb.deleteKey.wasPressedThisFrame || Kb.dKey.wasPressedThisFrame);
 #else
         public static bool Confirm => Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Space);
         public static bool Cancel => Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Backspace);
@@ -187,6 +189,7 @@ namespace PalRogue
         public static int Vertical => (Input.GetKeyDown(KeyCode.DownArrow) ? 1 : 0) - (Input.GetKeyDown(KeyCode.UpArrow) ? 1 : 0);
         public static int Horizontal => (Input.GetKeyDown(KeyCode.RightArrow) ? 1 : 0) - (Input.GetKeyDown(KeyCode.LeftArrow) ? 1 : 0);
         public static bool AnyClick => Input.GetMouseButtonDown(0);
+        public static bool Delete => Input.GetKeyDown(KeyCode.Delete) || Input.GetKeyDown(KeyCode.D);
 #endif
     }
 
